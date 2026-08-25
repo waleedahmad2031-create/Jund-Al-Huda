@@ -1,7 +1,16 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport"
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>دخول المدرس | جنود الهدى</title><style>
+<title>دخول المدرس | جنود الهدى</title>
+
+<style>
 
 *{
     box-sizing:border-box;
@@ -13,11 +22,15 @@ content="width=device-width, initial-scale=1.0">
 body{
     background:#f4f7f5;
     color:#222;
-    min-height:100vh;
 }
 
 header{
-    background:linear-gradient(135deg,#075e54,#0b806f);
+    background:linear-gradient(
+        135deg,
+        #075e54,
+        #0b806f
+    );
+
     color:white;
     text-align:center;
     padding:30px 15px;
@@ -35,7 +48,6 @@ header h1{
 header p{
     margin-top:6px;
     font-size:14px;
-    opacity:.9;
 }
 
 .container{
@@ -48,7 +60,9 @@ header p{
     background:white;
     border-radius:18px;
     padding:25px 20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,.08);
 }
 
 h2{
@@ -60,19 +74,19 @@ h2{
 .description{
     text-align:center;
     color:#777;
-    line-height:1.9;
+    line-height:1.8;
     margin-bottom:22px;
 }
 
-.input-group{
+.field{
     margin-bottom:15px;
 }
 
 label{
     display:block;
+    margin-bottom:7px;
     color:#075e54;
     font-weight:bold;
-    margin-bottom:7px;
 }
 
 input{
@@ -90,11 +104,11 @@ input:focus{
     border-color:#075e54;
 }
 
-.login-btn{
+.login-button{
     width:100%;
-    padding:15px;
     border:0;
     border-radius:11px;
+    padding:15px;
     background:#075e54;
     color:white;
     font-size:18px;
@@ -103,31 +117,28 @@ input:focus{
     margin-top:5px;
 }
 
-.login-btn:disabled{
+.login-button:disabled{
     opacity:.6;
     cursor:not-allowed;
 }
 
-.error{
+.message{
     display:none;
     margin-top:15px;
     padding:13px;
     border-radius:10px;
-    background:#ffe8e8;
-    color:#a00000;
     text-align:center;
     line-height:1.8;
 }
 
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
 .success{
-    display:none;
-    margin-top:15px;
-    padding:13px;
-    border-radius:10px;
     background:#e8f7f2;
     color:#075e54;
-    text-align:center;
-    line-height:1.8;
 }
 
 .back{
@@ -138,83 +149,163 @@ input:focus{
     text-decoration:none;
 }
 
-.note{
+.info{
     margin-top:18px;
-    background:#f8faf9;
-    color:#666;
     padding:13px;
     border-radius:10px;
-    text-align:center;
-    line-height:1.8;
+    background:#f8faf9;
+    color:#777;
     font-size:13px;
+    line-height:1.8;
+    text-align:center;
 }
 
 footer{
-    margin-top:30px;
+    margin-top:25px;
     background:#075e54;
     color:white;
     text-align:center;
     padding:20px;
     font-size:13px;
-    line-height:2;
 }
 
-</style></head><body><header><div class="logo">
-🕌
-</div><h1>
-جنود الهدى
-</h1><p>
-لوحة المدرس
-</p></header><div class="container"><div class="card"><h2>
-👨‍🏫 دخول المدرس
-</h2><p class="description">سجل الدخول للوصول إلى حصصك
-وإدارة دروس الطلاب.
+</style>
 
-</p><form id="loginForm"><div class="input-group"><label for="email">
-📧 البريد الإلكتروني
-</label><input
-id="email"
-type="email"
-placeholder="example@email.com"
-autocomplete="email"
-required>
+</head>
 
-</div><div class="input-group"><label for="password">
-🔐 كلمة المرور
-</label><input
-id="password"
-type="password"
-placeholder="أدخل كلمة المرور"
-autocomplete="current-password"
-required>
 
-</div><button
-id="loginButton"
-class="login-btn"
-type="submit">
+<body>
 
-دخول المدرس
 
-</button></form><div
-id="errorBox"
-class="error">
-</div><div
-id="successBox"
-class="success">✅ تم تسجيل الدخول، جاري فتح لوحة المدرس...
+<header>
 
-</div><div class="note">🔒 الدخول مخصص للمدرسين المسجلين في النظام.
+    <div class="logo">
+        🕌
+    </div>
 
-</div><a
-href="index.html"
-class="back">
+    <h1>
+        جنود الهدى
+    </h1>
 
-← العودة للرئيسية
+    <p>
+        لوحة المدرس
+    </p>
 
-</a></div></div><footer>جنود الهدى © 2026
+</header>
 
-<br>أكاديمية القرآن الكريم
 
-</footer><script type="module">
+<div class="container">
+
+
+<div class="card">
+
+    <h2>
+        👨‍🏫 دخول المدرس
+    </h2>
+
+
+    <p class="description">
+
+        أدخل البريد الإلكتروني وكلمة المرور
+        للدخول إلى لوحة المدرس.
+
+    </p>
+
+
+    <form id="loginForm">
+
+
+        <div class="field">
+
+            <label>
+                📧 البريد الإلكتروني
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="example@email.com"
+                autocomplete="email"
+                required>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                🔐 كلمة المرور
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="كلمة المرور"
+                autocomplete="current-password"
+                required>
+
+        </div>
+
+
+        <button
+            type="submit"
+            id="loginButton"
+            class="login-button">
+
+            🔐 تسجيل الدخول
+
+        </button>
+
+
+    </form>
+
+
+    <div
+        id="message"
+        class="message">
+
+    </div>
+
+
+    <div class="info">
+
+        🔒 تسجيل الدخول محمي بواسطة Firebase.
+
+        <br>
+
+        إذا لم يكن الحساب مسجلاً في Firebase
+        فلن يتم الدخول.
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        ← العودة للرئيسية
+
+    </a>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+    جنود الهدى © 2026
+
+    <br>
+
+    أكاديمية القرآن الكريم
+
+</footer>
+
+
+
+<script type="module">
 
 
 /* =========================================
@@ -222,29 +313,23 @@ class="back">
 ========================================= */
 
 import {
-
     auth
-
 }
 from "./firebase.js";
 
 
 import {
-
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-
+    signInWithEmailAndPassword
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
 
 /* =========================================
    العناصر
 ========================================= */
 
-const loginForm =
+const form =
 document.getElementById(
     "loginForm"
 );
@@ -268,56 +353,24 @@ document.getElementById(
 );
 
 
-const errorBox =
+const message =
 document.getElementById(
-    "errorBox"
+    "message"
 );
-
-
-const successBox =
-document.getElementById(
-    "successBox"
-);
-
-
-
-/* =========================================
-   إذا كان المدرس مسجلًا بالفعل
-========================================= */
-
-onAuthStateChanged(
-    auth,
-    function(user){
-
-        if(user){
-
-            /*
-            إذا فتح المدرس صفحة الدخول
-            وهو مسجل بالفعل، نرسله للوحة المدرس.
-            */
-
-            window.location.href =
-            "teacher.html";
-
-        }
-
-    }
-);
-
 
 
 /* =========================================
    تسجيل الدخول
 ========================================= */
 
-loginForm.addEventListener(
+form.addEventListener(
     "submit",
     async function(event){
 
         event.preventDefault();
 
 
-        hideMessages();
+        hideMessage();
 
 
         const email =
@@ -330,8 +383,9 @@ loginForm.addEventListener(
 
         if(!email){
 
-            showError(
-                "⚠️ اكتب البريد الإلكتروني."
+            showMessage(
+                "⚠️ اكتب البريد الإلكتروني.",
+                false
             );
 
             return;
@@ -341,8 +395,9 @@ loginForm.addEventListener(
 
         if(!password){
 
-            showError(
-                "⚠️ اكتب كلمة المرور."
+            showMessage(
+                "⚠️ اكتب كلمة المرور.",
+                false
             );
 
             return;
@@ -360,29 +415,18 @@ loginForm.addEventListener(
 
         try{
 
-
             await signInWithEmailAndPassword(
-
                 auth,
-
                 email,
-
                 password
-
             );
 
 
-            successBox.style.display =
-            "block";
+            showMessage(
+                "✅ تم تسجيل الدخول بنجاح. جاري فتح لوحة المدرس...",
+                true
+            );
 
-
-            loginButton.textContent =
-            "✅ تم الدخول";
-
-
-            /*
-            الانتقال إلى لوحة المدرس
-            */
 
             setTimeout(
                 function(){
@@ -403,7 +447,7 @@ loginForm.addEventListener(
             );
 
 
-            let message =
+            let text =
             "❌ تعذر تسجيل الدخول.";
 
 
@@ -412,7 +456,7 @@ loginForm.addEventListener(
                 "auth/invalid-credential"
             ){
 
-                message =
+                text =
                 "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
 
             }
@@ -422,8 +466,8 @@ loginForm.addEventListener(
                 "auth/user-not-found"
             ){
 
-                message =
-                "❌ هذا الحساب غير موجود.";
+                text =
+                "❌ لا يوجد حساب بهذا البريد الإلكتروني.";
 
             }
 
@@ -432,7 +476,7 @@ loginForm.addEventListener(
                 "auth/wrong-password"
             ){
 
-                message =
+                text =
                 "❌ كلمة المرور غير صحيحة.";
 
             }
@@ -442,8 +486,8 @@ loginForm.addEventListener(
                 "auth/invalid-email"
             ){
 
-                message =
-                "⚠️ البريد الإلكتروني غير صحيح.";
+                text =
+                "❌ البريد الإلكتروني غير صحيح.";
 
             }
 
@@ -452,8 +496,8 @@ loginForm.addEventListener(
                 "auth/too-many-requests"
             ){
 
-                message =
-                "⏳ تم إجراء محاولات كثيرة. حاول لاحقًا.";
+                text =
+                "⚠️ تم إجراء محاولات كثيرة. حاول لاحقًا.";
 
             }
 
@@ -462,14 +506,15 @@ loginForm.addEventListener(
                 "auth/network-request-failed"
             ){
 
-                message =
-                "🌐 تحقق من اتصال الإنترنت.";
+                text =
+                "⚠️ تأكد من اتصال الإنترنت.";
 
             }
 
 
-            showError(
-                message
+            showMessage(
+                text,
+                false
             );
 
 
@@ -478,7 +523,7 @@ loginForm.addEventListener(
 
 
             loginButton.textContent =
-            "دخول المدرس";
+            "🔐 تسجيل الدخول";
 
         }
 
@@ -486,35 +531,47 @@ loginForm.addEventListener(
 );
 
 
-
 /* =========================================
-   إظهار الخطأ
+   الرسائل
 ========================================= */
 
-function showError(text){
+function showMessage(
+    text,
+    success
+){
 
-    errorBox.textContent =
+    message.textContent =
     text;
 
-    errorBox.style.display =
+
+    message.className =
+    "message "
+    +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+
+    message.style.display =
     "block";
 
 }
 
 
+function hideMessage(){
 
-/* =========================================
-   إخفاء الرسائل
-========================================= */
-
-function hideMessages(){
-
-    errorBox.style.display =
-    "none";
-
-    successBox.style.display =
+    message.style.display =
     "none";
 
 }
 
-</script></body></html>
+</script>
+
+
+</body>
+
+</html>
