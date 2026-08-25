@@ -235,24 +235,65 @@ button:hover{
 
 <script type="module">
 
-/*
-==================================================
-  سنضع إعدادات Firebase هنا في الخطوة القادمة.
-==================================================
-*/
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
+
+    authDomain:
+    "jundalhuda.firebaseapp.com",
+
+    projectId:
+    "jundalhuda",
+
+    storageBucket:
+    "jundalhuda.firebasestorage.app",
+
+    messagingSenderId:
+    "275883570506",
+
+    appId:
+    "1:275883570506:web:fb5e72953a3d5a66ef3db3",
+
+    measurementId:
+    "G-ZZNZKN73BQ"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+
+const auth =
+getAuth(app);
 
 
 const form =
-    document.getElementById("loginForm");
+document.getElementById("loginForm");
 
 const loading =
-    document.getElementById("loading");
+document.getElementById("loading");
 
 const error =
-    document.getElementById("error");
+document.getElementById("error");
 
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
@@ -261,22 +302,43 @@ form.addEventListener("submit", function(e){
     loading.style.display = "block";
 
 
-    /*
-      مؤقتًا فقط:
-      Firebase Authentication سيتم ربطه
-      في الخطوة القادمة.
-    */
+    const email =
+        document
+        .getElementById("email")
+        .value
+        .trim();
 
-    setTimeout(function(){
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        window.location.href =
+            "admin.html";
+
+
+    } catch(err) {
+
+        console.error(err);
 
         loading.style.display = "none";
 
         error.textContent =
-            "⚠️ لم يتم ربط نظام الدخول بقاعدة البيانات بعد.";
+            "⚠️ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
 
         error.style.display = "block";
 
-    }, 700);
+    }
 
 });
 
