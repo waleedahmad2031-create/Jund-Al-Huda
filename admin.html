@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>الإدارة | جنود الهدى</title>
+<title>التعلم أونلاين | جنود الهدى</title>
 
 <style>
 
@@ -27,192 +27,303 @@ body{
 header{
     background:#0f5132;
     color:white;
-    padding:20px 15px;
+    padding:18px 15px;
     text-align:center;
     box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 .logo{
-    font-size:27px;
+    font-size:28px;
     font-weight:bold;
 }
 
 .subtitle{
     margin-top:6px;
-    font-size:13px;
+    font-size:14px;
     opacity:.9;
 }
 
+.back{
+    display:block;
+    width:90%;
+    max-width:500px;
+    margin:15px auto;
+    padding:12px;
+    background:white;
+    color:#0f5132;
+    text-decoration:none;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+
+.hero{
+    background:linear-gradient(135deg,#0f5132,#198754);
+    color:white;
+    padding:35px 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:14px;
+    line-height:1.9;
+}
+
 .container{
-    max-width:1000px;
+    max-width:900px;
     margin:auto;
     padding:25px 15px;
 }
 
+.section-title{
+    color:#0f5132;
+    text-align:center;
+    font-size:22px;
+    margin-bottom:18px;
+}
 
-/* تسجيل الدخول */
-
-.login-box{
-    max-width:400px;
-    margin:50px auto;
+.status{
     background:white;
-    padding:25px 20px;
-    border-radius:16px;
-    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
     text-align:center;
 }
 
-.login-box h2{
+.status-dot{
+    display:inline-block;
+    width:11px;
+    height:11px;
+    background:#20c997;
+    border-radius:50%;
+    margin-left:6px;
+}
+
+.status-text{
     color:#0f5132;
+    font-weight:bold;
+}
+
+.live-card{
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 3px 14px rgba(0,0,0,.08);
+    margin-bottom:30px;
+    border-right:5px solid #198754;
+}
+
+.live-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.live-badge{
+    background:#e9f5ee;
+    color:#0f5132;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.live-card h2{
+    color:#0f5132;
+    font-size:21px;
     margin-bottom:10px;
 }
 
-.login-box p{
+.live-info{
+    color:#666;
+    font-size:14px;
+    line-height:2;
+}
+
+.join{
+    display:block;
+    width:100%;
+    border:0;
+    margin-top:18px;
+    padding:14px;
+    border-radius:10px;
+    background:#198754;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.join:disabled{
+    background:#ddd;
+    color:#777;
+    cursor:not-allowed;
+}
+
+.schedule{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+    margin-bottom:30px;
+}
+
+.schedule-card{
+    background:white;
+    border-radius:13px;
+    padding:18px 13px;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+}
+
+.schedule-icon{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.schedule-card h3{
+    color:#0f5132;
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.schedule-card p{
+    color:#666;
+    font-size:12px;
+    line-height:1.8;
+}
+
+.time{
+    display:inline-block;
+    background:#f4f0e4;
+    color:#705719;
+    padding:5px 9px;
+    border-radius:7px;
+    margin-top:7px;
+    font-size:11px;
+}
+
+.teachers{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+    margin-bottom:30px;
+}
+
+.teacher{
+    background:white;
+    border-radius:13px;
+    padding:20px 12px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+}
+
+.teacher-icon{
+    width:65px;
+    height:65px;
+    margin:auto;
+    border-radius:50%;
+    background:#e9f5ee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.teacher h3{
+    color:#0f5132;
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.teacher p{
+    color:#777;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.offers{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.offer{
+    background:white;
+    border-radius:16px;
+    padding:22px 15px;
+    text-align:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    border-top:4px solid #198754;
+}
+
+.offer-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.offer h3{
+    color:#0f5132;
+    margin-bottom:8px;
+    font-size:18px;
+}
+
+.offer p{
+    color:#666;
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:15px;
+}
+
+.offer button{
+    width:100%;
+    border:0;
+    background:#198754;
+    color:white;
+    padding:12px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.booking{
+    display:none;
+    background:white;
+    border-radius:16px;
+    padding:22px 16px;
+    margin-bottom:30px;
+    box-shadow:0 3px 14px rgba(0,0,0,.08);
+    border-top:4px solid #198754;
+}
+
+.booking h2{
+    color:#0f5132;
+    text-align:center;
+    margin-bottom:8px;
+    font-size:21px;
+}
+
+.booking-subtitle{
+    text-align:center;
     color:#777;
     font-size:13px;
     line-height:1.8;
     margin-bottom:20px;
 }
 
-.login-box input{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    outline:none;
-    text-align:center;
-    font-size:16px;
-    margin-bottom:12px;
-}
-
-.login-box button{
-    width:100%;
-    padding:13px;
-    border:0;
-    border-radius:9px;
-    background:#198754;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.login-error{
-    display:none;
-    color:#a00;
-    background:#fff0f0;
-    padding:10px;
-    border-radius:8px;
-    margin-top:12px;
-    font-size:12px;
-}
-
-
-/* لوحة الإدارة */
-
-#dashboard{
-    display:none;
-}
-
-
-/* شريط الإدارة */
-
-.admin-bar{
-    background:white;
-    border-radius:14px;
-    padding:16px;
-    margin-bottom:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,.07);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.admin-title{
-    color:#0f5132;
-    font-size:20px;
-    font-weight:bold;
-}
-
-.logout{
-    border:0;
-    background:#222;
-    color:white;
-    padding:9px 15px;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-
-/* الإحصائيات */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:25px;
-}
-
-.stat{
-    background:white;
-    border-radius:13px;
-    padding:18px 10px;
-    text-align:center;
-    box-shadow:0 2px 9px rgba(0,0,0,.06);
-}
-
-.stat-icon{
-    font-size:28px;
-    margin-bottom:7px;
-}
-
-.stat-number{
-    color:#0f5132;
-    font-size:23px;
-    font-weight:bold;
-}
-
-.stat-title{
-    color:#777;
-    font-size:11px;
-    margin-top:5px;
-}
-
-
-/* =========================
-   إدارة الحلقة
-========================= */
-
-.live-admin{
-    background:white;
-    border-radius:16px;
-    padding:22px 18px;
-    margin-bottom:30px;
-    box-shadow:0 3px 14px rgba(0,0,0,.08);
-    border-right:5px solid #198754;
-}
-
-.live-admin h2{
-    color:#0f5132;
-    text-align:center;
-    font-size:21px;
-    margin-bottom:8px;
-}
-
-.live-admin-subtitle{
-    color:#777;
-    font-size:12px;
-    line-height:1.8;
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.live-form-group{
+.form-group{
     margin-bottom:14px;
 }
 
-.live-form-group label{
+.form-group label{
     display:block;
     color:#0f5132;
     font-size:13px;
@@ -220,29 +331,38 @@ header{
     margin-bottom:7px;
 }
 
-.live-form-group input{
+.form-group input,
+.form-group select,
+.form-group textarea{
     width:100%;
-    padding:12px;
     border:1px solid #ddd;
     border-radius:9px;
+    padding:12px;
+    font-size:14px;
     outline:none;
     background:#fafafa;
-    font-size:14px;
 }
 
-.live-form-group input:focus{
+.form-group textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
     border-color:#198754;
     background:white;
 }
 
-.live-buttons{
+.form-buttons{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
     margin-top:18px;
 }
 
-.save-live{
+.submit-btn{
     border:0;
     background:#198754;
     color:white;
@@ -252,191 +372,38 @@ header{
     font-weight:bold;
 }
 
-.hide-live{
+.cancel-btn{
     border:0;
     background:#eee;
     color:#555;
     padding:13px;
     border-radius:9px;
     cursor:pointer;
-    font-weight:bold;
 }
 
-.live-current{
-    background:#f8f9f9;
-    border-radius:10px;
-    padding:14px;
-    margin-top:18px;
-    color:#666;
-    font-size:12px;
-    line-height:2;
-    text-align:center;
-}
-
-.live-current strong{
-    color:#0f5132;
-}
-
-
-/* عنوان الطلبات */
-
-.section-title{
-    color:#0f5132;
-    font-size:21px;
-    text-align:center;
-    margin-bottom:17px;
-}
-
-
-/* الطلب */
-
-.request{
-    background:white;
-    border-radius:15px;
-    padding:18px;
-    margin-bottom:15px;
-    box-shadow:0 2px 11px rgba(0,0,0,.07);
-    border-right:5px solid #198754;
-}
-
-.request-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:13px;
-}
-
-.request-name{
-    color:#0f5132;
-    font-size:18px;
-    font-weight:bold;
-}
-
-.badge{
-    display:inline-block;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:11px;
+.success{
+    display:none;
     background:#e9f5ee;
-    color:#0f5132;
-}
-
-.badge.discount{
-    background:#fff4d6;
-    color:#705719;
-}
-
-.request-info{
-    color:#555;
-    font-size:13px;
-    line-height:2;
-    background:#f8f9f9;
-    padding:12px;
-    border-radius:9px;
-    margin-bottom:12px;
-}
-
-.request-info strong{
-    color:#0f5132;
-}
-
-.request-notes{
-    color:#777;
-    font-size:12px;
-    line-height:1.8;
-    margin-bottom:13px;
-}
-
-.request-date{
-    color:#999;
-    font-size:10px;
-    margin-bottom:12px;
-}
-
-
-/* الأزرار */
-
-.actions{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:8px;
-}
-
-.actions button{
-    border:0;
-    padding:10px 5px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.accept{
-    background:#198754;
-    color:white;
-}
-
-.reject{
-    background:#fff0f0;
-    color:#a00;
-}
-
-.delete{
-    background:#222;
-    color:white;
-}
-
-.whatsapp{
-    background:#25D366;
-    color:white;
-}
-
-
-/* حالة الطلب */
-
-.status-accepted{
-    border-right-color:#198754;
-}
-
-.status-rejected{
-    border-right-color:#dc3545;
-    opacity:.75;
-}
-
-.status-text{
-    font-size:11px;
-    font-weight:bold;
-    margin-top:10px;
-}
-
-.accepted-text{
-    color:#198754;
-}
-
-.rejected-text{
-    color:#dc3545;
-}
-
-
-/* لا يوجد طلبات */
-
-.empty{
-    background:white;
-    border-radius:14px;
-    padding:35px 20px;
+    border-right:5px solid #198754;
+    padding:20px;
+    border-radius:12px;
     text-align:center;
-    color:#777;
-    box-shadow:0 2px 10px rgba(0,0,0,.06);
+    color:#0f5132;
+    line-height:2;
+    margin-bottom:25px;
 }
 
-.empty-icon{
-    font-size:45px;
-    margin-bottom:10px;
+.note{
+    background:#fff8e5;
+    border-right:5px solid #d4a72c;
+    padding:18px;
+    border-radius:11px;
+    color:#66521e;
+    font-size:13px;
+    line-height:1.9;
+    text-align:center;
+    margin-bottom:25px;
 }
-
-
-/* الفوتر */
 
 footer{
     margin-top:30px;
@@ -444,32 +411,29 @@ footer{
     color:white;
     text-align:center;
     padding:20px;
-    font-size:12px;
+    font-size:13px;
 }
-
-
-/* الجوال */
 
 @media(max-width:500px){
 
-    .stats{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .stat{
-        padding:15px 5px;
-    }
-
-    .stat-number{
-        font-size:20px;
-    }
-
-    .actions{
+    .schedule{
         grid-template-columns:1fr 1fr;
     }
 
-    .live-buttons{
-        grid-template-columns:1fr;
+    .teachers{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .offers{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .offer{
+        padding:20px 10px;
     }
 
 }
@@ -489,272 +453,582 @@ footer{
 </div>
 
 <div class="subtitle">
-لوحة إدارة أكاديمية القرآن الكريم
+أكاديمية القرآن الكريم
 </div>
 
 </header>
 
 
-<!-- تسجيل الدخول -->
+<a
+href="index.html"
+class="back">
 
-<div
-id="loginBox"
-class="login-box">
+⬅️ العودة إلى الرئيسية
 
-<h2>
-🔐 دخول الإدارة
-</h2>
+</a>
+
+
+<section class="hero">
+
+<h1>
+🎥 التعلم أونلاين
+</h1>
 
 <p>
 
-هذه الصفحة خاصة بإدارة
-أكاديمية جنود الهدى.
+تعلم القرآن الكريم
+مع المدرسين عن بُعد
 
 <br>
 
-أدخل البريد الإلكتروني وكلمة المرور.
+من أي مكان وفي الوقت المحدد للحلقة
 
 </p>
 
+</section>
 
-<input
-type="email"
-id="adminEmail"
-placeholder="البريد الإلكتروني"
-autocomplete="username">
 
+<div class="container">
 
-<input
-type="password"
-id="adminPassword"
-placeholder="كلمة المرور"
-autocomplete="current-password">
 
+<div class="status">
 
-<button onclick="login()">
+<span class="status-dot"></span>
 
-دخول الإدارة
+<span class="status-text">
+الحلقات المباشرة
+</span>
 
-</button>
+<br>
 
+<span style="
+font-size:12px;
+color:#777;
+line-height:2;
+">
 
-<div
-id="loginError"
-class="login-error">
+يمكنك الدخول إلى الحلقة
+عندما يبدأ المدرس البث.
 
-بيانات الدخول غير صحيحة.
-
-</div>
-
-</div>
-
-
-<!-- لوحة الإدارة -->
-
-<div
-id="dashboard"
-class="container">
-
-
-<div class="admin-bar">
-
-<div class="admin-title">
-
-📊 لوحة الإدارة
-
-</div>
-
-
-<button
-class="logout"
-onclick="logout()">
-
-خروج 🔒
-
-</button>
-
-</div>
-
-
-<!-- الإحصائيات -->
-
-<div class="stats">
-
-
-<div class="stat">
-
-<div class="stat-icon">
-📩
-</div>
-
-<div
-id="totalCount"
-class="stat-number">
-0
-</div>
-
-<div class="stat-title">
-إجمالي الطلبات
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
-✅
-</div>
-
-<div
-id="acceptedCount"
-class="stat-number">
-0
-</div>
-
-<div class="stat-title">
-طلبات مقبولة
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div class="stat-icon">
-⏳
-</div>
-
-<div
-id="pendingCount"
-class="stat-number">
-0
-</div>
-
-<div class="stat-title">
-طلبات جديدة
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- =========================
-     إدارة الحلقة القادمة
-========================= -->
-
-<div class="live-admin">
-
-<h2>
-🎥 إدارة الحلقة القادمة
-</h2>
-
-<div class="live-admin-subtitle">
-
-ضع بيانات الحلقة هنا، وستظهر تلقائيًا
-في صفحة التعلم أونلاين.
-
-</div>
-
-
-<div class="live-form-group">
-
-<label>
-📖 اسم الحلقة
-</label>
-
-<input
-type="text"
-id="liveTitle"
-placeholder="مثال: حلقة حفظ سورة البقرة">
-
-</div>
-
-
-<div class="live-form-group">
-
-<label>
-👨‍🏫 اسم المدرس
-</label>
-
-<input
-type="text"
-id="liveTeacher"
-placeholder="مثال: الشيخ أحمد">
-
-</div>
-
-
-<div class="live-form-group">
-
-<label>
-🕐 وقت البداية
-</label>
-
-<input
-type="datetime-local"
-id="liveStartTime">
-
-</div>
-
-
-<div class="live-form-group">
-
-<label>
-🔗 رابط الحلقة
-</label>
-
-<input
-type="url"
-id="liveLink"
-placeholder="https://...">
-
-</div>
-
-
-<div class="live-buttons">
-
-<button
-class="save-live"
-onclick="saveLiveSession()">
-
-💾 حفظ الحلقة
-
-</button>
-
-
-<button
-class="hide-live"
-onclick="hideLiveSession()">
-
-🙈 إخفاء الحلقة
-
-</button>
-
-</div>
-
-
-<div
-id="liveCurrent"
-class="live-current">
-
-جاري تحميل بيانات الحلقة...
-
-</div>
+</span>
 
 </div>
 
 
 <h2 class="section-title">
-
-📩 طلبات الطلاب
-
+🔴 الحلقة المباشرة الآن
 </h2>
 
 
-<div id="requests">
+<div class="live-card">
+
+<div class="live-top">
+
+<span
+id="liveBadge"
+class="live-badge">
+
+⏳ جاري التحقق...
+
+</span>
+
+<span style="
+font-size:12px;
+color:#777;
+">
+حلقة قرآن
+</span>
+
+</div>
+
+
+<h2 id="liveTitle">
+جاري تحميل الحلقة...
+</h2>
+
+
+<div class="live-info">
+
+👨‍🏫 المدرس:
+
+<span id="liveTeacher">
+جاري التحميل...
+</span>
+
+<br>
+
+📖 المادة:
+قراءة وحفظ القرآن الكريم
+
+<br>
+
+🎓 المستوى:
+عام
+
+<br>
+
+🕐 الموعد:
+
+<span id="liveTime">
+جاري التحميل...
+</span>
+
+</div>
+
+
+<button
+id="joinButton"
+class="join"
+onclick="joinLive()"
+disabled>
+
+⏳ جاري التحقق من موعد الحلقة...
+
+</button>
+
+</div>
+
+
+<h2 class="section-title">
+📅 الحلقات القادمة
+</h2>
+
+
+<div class="schedule">
+
+
+<div class="schedule-card">
+
+<div class="schedule-icon">
+📖
+</div>
+
+<h3>
+حلقة الحفظ
+</h3>
+
+<p>
+حفظ ومراجعة القرآن الكريم
+</p>
+
+<span class="time">
+🕐 سيتم تحديد الموعد
+</span>
+
+</div>
+
+
+<div class="schedule-card">
+
+<div class="schedule-icon">
+📚
+</div>
+
+<h3>
+درس التجويد
+</h3>
+
+<p>
+تعلم أحكام التجويد
+</p>
+
+<span class="time">
+🕐 سيتم تحديد الموعد
+</span>
+
+</div>
+
+
+<div class="schedule-card">
+
+<div class="schedule-icon">
+🧠
+</div>
+
+<h3>
+المراجعة
+</h3>
+
+<p>
+مراجعة المحفوظ وتصحيح الأخطاء
+</p>
+
+<span class="time">
+🕐 سيتم تحديد الموعد
+</span>
+
+</div>
+
+
+<div class="schedule-card">
+
+<div class="schedule-icon">
+🌙
+</div>
+
+<h3>
+حلقة مسائية
+</h3>
+
+<p>
+قراءة وحفظ القرآن
+</p>
+
+<span class="time">
+🕐 سيتم تحديد الموعد
+</span>
+
+</div>
+
+
+</div>
+
+
+<h2 class="section-title">
+👨‍🏫 المدرسون
+</h2>
+
+
+<div class="teachers">
+
+
+<div class="teacher">
+
+<div class="teacher-icon">
+👨‍🏫
+</div>
+
+<h3>
+مدرس القرآن
+</h3>
+
+<p>
+معلم القرآن الكريم
+والحفظ والتجويد
+</p>
+
+</div>
+
+
+<div class="teacher">
+
+<div class="teacher-icon">
+👨‍🏫
+</div>
+
+<h3>
+مدرس التجويد
+</h3>
+
+<p>
+تعليم أحكام التجويد
+وتصحيح القراءة
+</p>
+
+</div>
+
+
+</div>
+
+
+<h2 class="section-title">
+🎁 عروض جنود الهدى
+</h2>
+
+
+<div class="offers">
+
+
+<div class="offer">
+
+<div class="offer-icon">
+🥇
+</div>
+
+<h3>
+أول حصة مجانًا
+</h3>
+
+<p>
+جرّب التعلم معنا
+في أول حصة بدون رسوم.
+</p>
+
+<button
+onclick="openBooking('حصة مجانية')">
+
+📩 احجز حصتك المجانية
+
+</button>
+
+</div>
+
+
+<div class="offer">
+
+<div class="offer-icon">
+👨‍👩‍👧‍👦
+</div>
+
+<h3>
+خصم خاص للأخوة
+</h3>
+
+<p>
+خصم خاص عند اشتراك
+أكثر من أخ من نفس الأسرة.
+</p>
+
+<button
+onclick="openBooking('خصم الأخوة')">
+
+📩 استفسر عن الخصم
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<div
+id="booking"
+class="booking">
+
+<h2 id="bookingTitle">
+📩 طلب التسجيل
+</h2>
+
+<div class="booking-subtitle">
+
+أدخل بيانات الطالب وسنتواصل معك
+لتأكيد الموعد والتفاصيل.
+
+</div>
+
+
+<form onsubmit="submitBooking(event)">
+
+
+<div class="form-group">
+
+<label>
+👤 اسم الطالب
+</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="اكتب اسم الطالب"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+🎂 العمر
+</label>
+
+<input
+type="number"
+id="studentAge"
+placeholder="العمر"
+min="4"
+max="100"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+📖 مستوى الطالب في القرآن
+</label>
+
+<select
+id="level"
+required>
+
+<option value="">
+اختر المستوى
+</option>
+
+<option>
+مبتدئ
+</option>
+
+<option>
+يقرأ القرآن
+</option>
+
+<option>
+يحفظ أجزاء
+</option>
+
+<option>
+حافظ ويريد المراجعة
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+📱 رقم التواصل
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="رقم الواتساب أو الهاتف"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+🕐 الوقت المناسب للحصة
+</label>
+
+<select
+id="preferredTime"
+required>
+
+<option value="">
+اختر الوقت المناسب
+</option>
+
+<option>
+صباحًا
+</option>
+
+<option>
+ظهرًا
+</option>
+
+<option>
+عصرًا
+</option>
+
+<option>
+مساءً
+</option>
+
+<option>
+أي وقت مناسب
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+👨‍👩‍👧‍👦 هل يوجد إخوة يريدون التعلم؟
+</label>
+
+<select id="brothers">
+
+<option>
+لا
+</option>
+
+<option>
+نعم
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+📝 ملاحظات إضافية
+</label>
+
+<textarea
+id="notes"
+placeholder="اكتب أي ملاحظة تريد إرسالها للإدارة"></textarea>
+
+</div>
+
+
+<div class="form-buttons">
+
+<button
+type="submit"
+class="submit-btn">
+
+📩 إرسال الطلب
+
+</button>
+
+
+<button
+type="button"
+class="cancel-btn"
+onclick="closeBooking()">
+
+إلغاء
+
+</button>
+
+</div>
+
+
+</form>
+
+</div>
+
+
+<div
+id="success"
+class="success">
+
+<strong>
+✅ تم إرسال طلبك بنجاح
+</strong>
+
+<br>
+
+تم إرسال بياناتك إلى إدارة أكاديمية جنود الهدى.
+
+<br>
+
+سيتم التواصل معك لتأكيد الموعد والتفاصيل.
+
+</div>
+
+
+<div class="note">
+
+<strong>
+💡 تنبيه
+</strong>
+
+<br>
+
+يمكن للجميع مشاهدة الأكاديمية
+والتعلم بدون إنشاء حساب.
+
+<br>
+
+أما طلب الحصة المجانية أو خصم الأخوة
+فيحتاج إلى إرسال بيانات التواصل
+حتى يتم تأكيد الموعد.
 
 </div>
 
@@ -777,11 +1051,11 @@ class="live-current">
 <script type="module">
 
 
-/* =========================
-   Firebase
-========================= */
+import {
 
-import { initializeApp }
+    initializeApp
+
+}
 
 from
 
@@ -790,40 +1064,17 @@ from
 
 import {
 
-    getAuth,
-
-    signInWithEmailAndPassword,
-
-    onAuthStateChanged,
-
-    signOut
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-import {
-
     getFirestore,
 
     collection,
 
-    query,
+    addDoc,
 
-    orderBy,
-
-    onSnapshot,
+    serverTimestamp,
 
     doc,
 
-    updateDoc,
-
-    deleteDoc,
-
-    setDoc
+    onSnapshot
 
 }
 
@@ -831,11 +1082,6 @@ from
 
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-
-/* =========================
-   إعداد Firebase
-========================= */
 
 const firebaseConfig = {
 
@@ -864,174 +1110,38 @@ const firebaseConfig = {
 
 
 const app =
-    initializeApp(firebaseConfig);
-
-
-const auth =
-    getAuth(app);
+    initializeApp(
+        firebaseConfig
+    );
 
 
 const db =
     getFirestore(app);
 
 
+let bookingType = "";
 
-/* =========================
-   رقم واتساب الإدارة
-========================= */
 
 const ADMIN_WHATSAPP =
     "967711959183";
 
 
+/*
+=========================
+بيانات الحلقة
+=========================
+*/
 
-/* =========================
-   تسجيل الدخول
-========================= */
+let liveLink = "";
 
-window.login = async function(){
+let liveStartTime = null;
 
-    const email =
-        document.getElementById(
-            "adminEmail"
-        ).value.trim();
 
-
-    const password =
-        document.getElementById(
-            "adminPassword"
-        ).value;
-
-
-    const errorBox =
-        document.getElementById(
-            "loginError"
-        );
-
-
-    errorBox.style.display =
-        "none";
-
-
-    if(!email || !password){
-
-        errorBox.textContent =
-            "اكتب البريد الإلكتروني وكلمة المرور.";
-
-        errorBox.style.display =
-            "block";
-
-        return;
-
-    }
-
-
-    try{
-
-        await signInWithEmailAndPassword(
-
-            auth,
-
-            email,
-
-            password
-
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        errorBox.textContent =
-            "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
-
-
-        errorBox.style.display =
-            "block";
-
-    }
-
-};
-
-
-
-/* =========================
-   تسجيل الخروج
-========================= */
-
-window.logout = async function(){
-
-    try{
-
-        await signOut(auth);
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-};
-
-
-
-/* =========================
-   مراقبة تسجيل الدخول
-========================= */
-
-onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-
-        if(user){
-
-            document.getElementById(
-                "loginBox"
-            ).style.display =
-                "none";
-
-
-            document.getElementById(
-                "dashboard"
-            ).style.display =
-                "block";
-
-
-            loadRequests();
-
-            loadLiveSession();
-
-
-        }else{
-
-
-            document.getElementById(
-                "loginBox"
-            ).style.display =
-                "block";
-
-
-            document.getElementById(
-                "dashboard"
-            ).style.display =
-                "none";
-
-        }
-
-    }
-
-);
-
-
-
-/* =========================
-   قراءة بيانات الحلقة
-========================= */
+/*
+=========================
+قراءة الحلقة
+=========================
+*/
 
 function loadLiveSession(){
 
@@ -1049,14 +1159,9 @@ function loadLiveSession(){
 
         snapshot => {
 
-
             if(!snapshot.exists()){
 
-                document.getElementById(
-                    "liveCurrent"
-                ).innerHTML =
-
-                    "لا توجد حلقة محفوظة حاليًا.";
+                showNoLiveSession();
 
                 return;
 
@@ -1067,57 +1172,45 @@ function loadLiveSession(){
                 snapshot.data();
 
 
-            document.getElementById(
-                "liveTitle"
-            ).value =
-                data.title || "";
+            if(
+                data.showLive === false
+            ){
 
+                showNoLiveSession();
 
-            document.getElementById(
-                "liveTeacher"
-            ).value =
-                data.teacher || "";
-
-
-            document.getElementById(
-                "liveLink"
-            ).value =
-                data.link || "";
-
-
-            if(data.startTime){
-
-                const date =
-                    new Date(
-                        data.startTime
-                    );
-
-
-                if(
-                    !isNaN(
-                        date.getTime()
-                    )
-                ){
-
-                    const localValue =
-                        formatDateTimeLocal(
-                            date
-                        );
-
-
-                    document.getElementById(
-                        "liveStartTime"
-                    ).value =
-                        localValue;
-
-                }
+                return;
 
             }
 
 
-            updateCurrentLiveInfo(
-                data
-            );
+            document.getElementById(
+                "liveTitle"
+            ).textContent =
+                data.title ||
+                "حلقة القرآن الكريم";
+
+
+            document.getElementById(
+                "liveTeacher"
+            ).textContent =
+                data.teacher ||
+                "سيتم تحديد المدرس";
+
+
+            /*
+            الرابط يبقى داخل المتغير فقط
+            ولا يتم عرضه في الصفحة
+            */
+
+            liveLink =
+                data.link || "";
+
+
+            liveStartTime =
+                data.startTime || "";
+
+
+            updateLiveStatus();
 
         },
 
@@ -1127,10 +1220,35 @@ function loadLiveSession(){
 
 
             document.getElementById(
-                "liveCurrent"
-            ).innerHTML =
+                "liveTitle"
+            ).textContent =
+                "تعذر تحميل الحلقة";
 
-                "⚠️ تعذر تحميل بيانات الحلقة.";
+
+            document.getElementById(
+                "liveTeacher"
+            ).textContent =
+                "تحقق من اتصال الإنترنت";
+
+
+            document.getElementById(
+                "liveTime"
+            ).textContent =
+                "-";
+
+
+            const button =
+                document.getElementById(
+                    "joinButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "⚠️ تعذر تحميل الحلقة";
 
         }
 
@@ -1139,1006 +1257,580 @@ function loadLiveSession(){
 }
 
 
+/*
+=========================
+حالة الحلقة
+=========================
+*/
 
-/* =========================
-   حفظ الحلقة
-========================= */
+function updateLiveStatus(){
 
-window.saveLiveSession =
-async function(){
-
-    const title =
+    const badge =
         document.getElementById(
-            "liveTitle"
-        ).value.trim();
-
-
-    const teacher =
-        document.getElementById(
-            "liveTeacher"
-        ).value.trim();
-
-
-    const startTime =
-        document.getElementById(
-            "liveStartTime"
-        ).value;
-
-
-    const link =
-        document.getElementById(
-            "liveLink"
-        ).value.trim();
-
-
-    if(!title){
-
-        alert(
-            "⚠️ اكتب اسم الحلقة."
+            "liveBadge"
         );
+
+
+    const button =
+        document.getElementById(
+            "joinButton"
+        );
+
+
+    const timeText =
+        document.getElementById(
+            "liveTime"
+        );
+
+
+    if(!liveStartTime){
+
+        badge.textContent =
+            "⏳ لم يتم تحديد الموعد";
+
+
+        timeText.textContent =
+            "سيتم تحديد الموعد";
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "⏳ لم تبدأ الحلقة بعد";
+
 
         return;
 
     }
 
 
-    if(!teacher){
-
-        alert(
-            "⚠️ اكتب اسم المدرس."
-        );
-
-        return;
-
-    }
-
-
-    if(!startTime){
-
-        alert(
-            "⚠️ حدد وقت بداية الحلقة."
-        );
-
-        return;
-
-    }
-
-
-    if(!link){
-
-        alert(
-            "⚠️ اكتب رابط الحلقة."
-        );
-
-        return;
-
-    }
-
-
-    const startDate =
+    const start =
         new Date(
-            startTime
+            liveStartTime
         );
 
 
     if(
         isNaN(
-            startDate.getTime()
+            start.getTime()
         )
     ){
 
-        alert(
-            "⚠️ وقت البداية غير صحيح."
-        );
+        badge.textContent =
+            "⚠️ موعد غير صحيح";
+
+
+        timeText.textContent =
+            "غير محدد";
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "⏳ لم تبدأ الحلقة بعد";
+
 
         return;
 
     }
 
 
-    try{
-
-        await setDoc(
-
-            doc(
-                db,
-                "liveSessions",
-                "current"
-            ),
-
+    timeText.textContent =
+        start.toLocaleString(
+            "ar-SA",
             {
-
-                title:
-                    title,
-
-                teacher:
-                    teacher,
-
-                startTime:
-                    startDate.toISOString(),
-
-                link:
-                    link,
-
-                showLive:
-                    true
-
+                dateStyle:"medium",
+                timeStyle:"short"
             }
-
         );
 
 
-        alert(
-            "✅ تم حفظ الحلقة بنجاح."
-        );
+    const now =
+        new Date();
 
 
-    }catch(error){
+    /*
+    قبل وقت الحلقة
+    */
 
-        console.error(error);
+    if(
+        now.getTime() <
+        start.getTime()
+    ){
 
-
-        alert(
-
-            "❌ تعذر حفظ الحلقة.\n\n" +
-
-            "تأكد من Firestore Rules."
-
-        );
-
-    }
-
-};
+        badge.textContent =
+            "⏳ الحلقة لم تبدأ بعد";
 
 
-
-/* =========================
-   إخفاء الحلقة
-========================= */
-
-window.hideLiveSession =
-async function(){
-
-    const answer =
-        confirm(
-
-            "هل تريد إخفاء الحلقة من صفحة التعلم؟"
-
-        );
+        button.disabled =
+            true;
 
 
-    if(!answer){
+        button.textContent =
+            "⏳ لم تبدأ الحلقة بعد";
+
 
         return;
 
     }
 
 
-    try{
+    /*
+    عند وصول وقت الحلقة
+    */
 
-        await setDoc(
+    if(
+        liveLink
+    ){
 
-            doc(
-                db,
-                "liveSessions",
-                "current"
-            ),
-
-            {
-
-                showLive:
-                    false
-
-            },
-
-            {
-
-                merge:
-                    true
-
-            }
-
-        );
+        badge.textContent =
+            "🟢 الحلقة بدأت";
 
 
-        alert(
-            "🙈 تم إخفاء الحلقة."
-        );
+        button.disabled =
+            false;
 
 
-    }catch(error){
+        button.textContent =
+            "🎥 دخول الحلقة";
 
-        console.error(error);
+    }else{
+
+        badge.textContent =
+            "🟢 الحلقة بدأت";
 
 
-        alert(
-            "❌ تعذر إخفاء الحلقة."
-        );
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "⚠️ رابط الحلقة غير متوفر";
 
     }
 
-};
+}
 
 
+/*
+=========================
+تحديث كل ثانية
+=========================
+*/
 
-/* =========================
-   عرض الحالة الحالية
-========================= */
+setInterval(
 
-function updateCurrentLiveInfo(
-    data
-){
+    function(){
 
-    const box =
+        if(
+            liveStartTime
+        ){
+
+            updateLiveStatus();
+
+        }
+
+    },
+
+    1000
+
+);
+
+
+/*
+=========================
+عدم وجود حلقة
+=========================
+*/
+
+function showNoLiveSession(){
+
+    document.getElementById(
+        "liveBadge"
+    ).textContent =
+        "⏳ لا توجد حلقة";
+
+
+    document.getElementById(
+        "liveTitle"
+    ).textContent =
+        "لا توجد حلقة محددة حاليًا";
+
+
+    document.getElementById(
+        "liveTeacher"
+    ).textContent =
+        "سيتم تحديد المدرس";
+
+
+    document.getElementById(
+        "liveTime"
+    ).textContent =
+        "سيتم تحديد الموعد";
+
+
+    const button =
         document.getElementById(
-            "liveCurrent"
+            "joinButton"
         );
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ لا توجد حلقة متاحة";
+
+
+    liveLink = "";
+
+    liveStartTime = null;
+
+}
+
+
+/*
+=========================
+دخول الحلقة
+=========================
+*/
+
+window.joinLive =
+function(){
+
+    if(!liveLink){
+
+        alert(
+            "⚠️ رابط الحلقة غير متوفر حاليًا."
+        );
+
+        return;
+
+    }
 
 
     if(
-        data.showLive === false
+        liveStartTime
     ){
-
-        box.innerHTML =
-
-            "🙈 <strong>الحلقة مخفية حاليًا.</strong>";
-
-        return;
-
-    }
-
-
-    let status =
-        "⏳ لم تبدأ بعد";
-
-
-    if(data.startTime){
 
         const start =
             new Date(
-                data.startTime
+                liveStartTime
             );
 
 
         if(
-            !isNaN(
-                start.getTime()
-            )
+            new Date().getTime() <
+            start.getTime()
         ){
 
-            if(
-                new Date().getTime() >=
-                start.getTime()
-            ){
+            alert(
+                "⏳ الحلقة لم تبدأ بعد."
+            );
 
-                status =
-                    "🟢 وقت الحلقة بدأ";
-
-            }
+            return;
 
         }
 
     }
 
 
-    box.innerHTML =
-
-        "📌 الحلقة الحالية: <strong>" +
-
-        escapeHTML(
-            data.title ||
-            "بدون اسم"
-        ) +
-
-        "</strong><br>" +
-
-        "👨‍🏫 المدرس: " +
-
-        escapeHTML(
-            data.teacher ||
-            "-"
-        ) +
-
-        "<br>" +
-
-        "📊 الحالة: <strong>" +
-
-        status +
-
-        "</strong>";
-
-}
-
-
-
-/* =========================
-   تحويل الوقت إلى input
-========================= */
-
-function formatDateTimeLocal(
-    date
-){
-
-    const year =
-        date.getFullYear();
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const hours =
-        String(
-            date.getHours()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    const minutes =
-        String(
-            date.getMinutes()
-        ).padStart(
-            2,
-            "0"
-        );
-
-
-    return (
-
-        year +
-        "-" +
-        month +
-        "-" +
-        day +
-        "T" +
-        hours +
-        ":" +
-        minutes
-
-    );
-
-}
-
-
-
-/* =========================
-   قراءة الطلبات
-========================= */
-
-function loadRequests(){
-
-
-    const container =
-        document.getElementById(
-            "requests"
-        );
-
-
-    container.innerHTML = `
-
-        <div class="empty">
-
-            <div class="empty-icon">
-                ⏳
-            </div>
-
-            جاري تحميل الطلبات...
-
-        </div>
-
-    `;
-
-
-    const q = query(
-
-        collection(
-            db,
-            "bookingRequests"
-        ),
-
-        orderBy(
-            "createdAt",
-            "desc"
-        )
-
-    );
-
-
-    onSnapshot(
-
-        q,
-
-        snapshot => {
-
-
-            const requests =
-                snapshot.docs.map(
-
-                    item => ({
-
-                        id:
-                        item.id,
-
-                        ...item.data()
-
-                    })
-
-                );
-
-
-            updateStats(
-                requests
-            );
-
-
-            displayRequests(
-                requests
-            );
-
-
-        },
-
-
-        error => {
-
-
-            console.error(
-                error
-            );
-
-
-            container.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        ⚠️
-                    </div>
-
-                    تعذر تحميل الطلبات.
-
-                    <br>
-
-                    تأكد من إعدادات
-                    Firestore Rules.
-
-                </div>
-
-            `;
-
-        }
-
-    );
-
-}
-
-
-
-/* =========================
-   عرض الطلبات
-========================= */
-
-function displayRequests(
-    requests
-){
-
-
-    const container =
-        document.getElementById(
-            "requests"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if(
-        requests.length === 0
-    ){
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    📭
-                </div>
-
-                لا توجد طلبات حتى الآن.
-
-                <br>
-
-                عندما يرسل طالب طلبًا
-                سيظهر هنا.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    requests.forEach(
-
-        request => {
-
-            createRequestCard(
-
-                request,
-
-                container
-
-            );
-
-        }
-
-    );
-
-}
-
-
-
-/* =========================
-   بطاقة الطلب
-========================= */
-
-function createRequestCard(
-
-    request,
-
-    container
-
-){
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    let statusClass = "";
-
-    let statusHTML = "";
-
-
-    if(
-        request.status ===
-        "accepted"
-    ){
-
-        statusClass =
-            "status-accepted";
-
-
-        statusHTML = `
-
-            <div class="
-                status-text
-                accepted-text">
-
-                ✅ تم قبول الطلب
-
-            </div>
-
-        `;
-
-    }
-
-
-    if(
-        request.status ===
-        "rejected"
-    ){
-
-        statusClass =
-            "status-rejected";
-
-
-        statusHTML = `
-
-            <div class="
-                status-text
-                rejected-text">
-
-                ❌ تم رفض الطلب
-
-            </div>
-
-        `;
-
-    }
-
-
-
-    let badgeClass = "";
-
-
-    if(
-        request.type ===
-        "خصم الأخوة"
-    ){
-
-        badgeClass =
-            "discount";
-
-    }
-
-
-
-    div.className =
-        "request " +
-        statusClass;
-
-
-
-    let requestDate = "-";
-
-
-    if(
-        request.createdAt &&
-        typeof request.createdAt.toDate
-        === "function"
-    ){
-
-        requestDate =
-            request.createdAt
-            .toDate()
-            .toLocaleString(
-                "ar-SA"
-            );
-
-    }
-
-
-
-    div.innerHTML = `
-
-        <div class="request-top">
-
-            <div class="request-name">
-
-                👤 ${
-                    escapeHTML(
-                        request.studentName ||
-                        "بدون اسم"
-                    )
-                }
-
-            </div>
-
-
-            <span class="
-                badge ${badgeClass}">
-
-                ${
-                    escapeHTML(
-                        request.type ||
-                        "طلب تسجيل"
-                    )
-                }
-
-            </span>
-
-        </div>
-
-
-
-        <div class="request-info">
-
-            🎂 <strong>العمر:</strong>
-
-            ${
-                escapeHTML(
-                    request.age || "-"
-                )
-            }
-
-
-            <br>
-
-
-            📖 <strong>المستوى:</strong>
-
-            ${
-                escapeHTML(
-                    request.level || "-"
-                )
-            }
-
-
-            <br>
-
-
-            📱 <strong>التواصل:</strong>
-
-            ${
-                escapeHTML(
-                    request.phone || "-"
-                )
-            }
-
-
-            <br>
-
-
-            🕐 <strong>الوقت المناسب:</strong>
-
-            ${
-                escapeHTML(
-                    request.preferredTime || "-"
-                )
-            }
-
-
-            <br>
-
-
-            👨‍👩‍👧‍👦 <strong>إخوة:</strong>
-
-            ${
-                escapeHTML(
-                    request.brothers || "-"
-                )
-            }
-
-        </div>
-
-
-
-        ${
-            request.notes
-
-            ?
-
-            `
-
-            <div class="request-notes">
-
-                📝 <strong>ملاحظات:</strong>
-
-                ${
-                    escapeHTML(
-                        request.notes
-                    )
-                }
-
-            </div>
-
-            `
-
-            :
-
-            ""
-
-        }
-
-
-
-        <div class="request-date">
-
-            📅 ${escapeHTML(
-                requestDate
-            )}
-
-        </div>
-
-
-
-        <div class="actions">
-
-
-            <button
-
-                class="accept"
-
-                onclick="
-                acceptRequest(
-                '${request.id}'
-                )">
-
-                ✅ قبول
-
-            </button>
-
-
-
-            <button
-
-                class="reject"
-
-                onclick="
-                rejectRequest(
-                '${request.id}'
-                )">
-
-                ❌ رفض
-
-            </button>
-
-
-
-            <button
-
-                class="whatsapp"
-
-                onclick="
-                contactWhatsApp(
-                '${request.phone || ""}',
-                '${request.studentName || ""}',
-                '${request.type || "طلب تسجيل"}'
-                )">
-
-                📱 واتساب
-
-            </button>
-
-
-
-            <button
-
-                class="delete"
-
-                onclick="
-                deleteRequest(
-                '${request.id}'
-                )">
-
-                🗑️ حذف
-
-            </button>
-
-
-        </div>
-
-
-
-        ${statusHTML}
-
-    `;
-
-
-    container.appendChild(
-        div
-    );
-
-}
-
-
-
-/* =========================
-   فتح واتساب
-========================= */
-
-window.contactWhatsApp =
-function(
-    studentPhone,
-    studentName,
-    requestType
-){
-
-    let phone =
-        String(studentPhone || "")
-        .replace(
-            /[^0-9+]/g,
-            ""
-        );
-
-
-    if(!phone){
-
-        phone =
-            ADMIN_WHATSAPP;
-
-    }
-
-
-    phone =
-        phone.replace(
-            /^\+/,
-            ""
-        );
-
-
-    const message =
-
-        "السلام عليكم ورحمة الله وبركاته\n\n" +
-
-        "معك إدارة أكاديمية جنود الهدى 🕌\n\n" +
-
-        "بخصوص طلب التسجيل المقدم من الطالب: " +
-
-        studentName +
-
-        "\n\n" +
-
-        "نوع الطلب: " +
-
-        requestType +
-
-        "\n\n" +
-
-        "نتواصل معك لتأكيد الموعد والتفاصيل.\n\n" +
-
-        "جزاكم الله خيرًا.";
-
-
-    const url =
-
-        "https://wa.me/" +
-
-        phone +
-
-        "?text=" +
-
-        encodeURIComponent(
-            message
-        );
-
+    /*
+    فتح الرابط فقط عند الضغط
+    */
 
     window.open(
-        url,
+        liveLink,
         "_blank"
     );
 
 };
 
 
+/*
+=========================
+فتح الحجز
+=========================
+*/
 
-/* =========================
-   قبول الطلب
-========================= */
+window.openBooking =
+function(type){
 
-window.acceptRequest =
-async function(id){
+    bookingType =
+        type;
+
+
+    const booking =
+        document.getElementById(
+            "booking"
+        );
+
+
+    const title =
+        document.getElementById(
+            "bookingTitle"
+        );
+
+
+    if(
+        type ===
+        "حصة مجانية"
+    ){
+
+        title.textContent =
+            "🥇 حجز أول حصة مجانًا";
+
+    }else{
+
+        title.textContent =
+            "👨‍👩‍👧‍👦 طلب خصم الأخوة";
+
+    }
+
+
+    booking.style.display =
+        "block";
+
+
+    booking.scrollIntoView({
+
+        behavior:
+        "smooth"
+
+    });
+
+};
+
+
+/*
+=========================
+إغلاق الحجز
+=========================
+*/
+
+window.closeBooking =
+function(){
+
+    document.getElementById(
+        "booking"
+    ).style.display =
+        "none";
+
+};
+
+
+/*
+=========================
+إرسال الطلب
+=========================
+*/
+
+window.submitBooking =
+async function(event){
+
+    event.preventDefault();
+
+
+    const submitButton =
+        document.querySelector(
+            ".submit-btn"
+        );
+
+
+    submitButton.disabled =
+        true;
+
+
+    submitButton.textContent =
+        "⏳ جاري إرسال الطلب...";
+
+
+    const studentName =
+        document.getElementById(
+            "studentName"
+        ).value.trim();
+
+
+    const age =
+        document.getElementById(
+            "studentAge"
+        ).value;
+
+
+    const level =
+        document.getElementById(
+            "level"
+        ).value;
+
+
+    const phone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
+
+
+    const preferredTime =
+        document.getElementById(
+            "preferredTime"
+        ).value;
+
+
+    const brothers =
+        document.getElementById(
+            "brothers"
+        ).value;
+
+
+    const notes =
+        document.getElementById(
+            "notes"
+        ).value.trim();
+
+
+    const request = {
+
+        type:
+            bookingType,
+
+        studentName:
+            studentName,
+
+        age:
+            age,
+
+        level:
+            level,
+
+        phone:
+            phone,
+
+        preferredTime:
+            preferredTime,
+
+        brothers:
+            brothers,
+
+        notes:
+            notes,
+
+        status:
+            "pending",
+
+        createdAt:
+            serverTimestamp()
+
+    };
 
 
     try{
 
+        await addDoc(
 
-        await updateDoc(
-
-            doc(
-
+            collection(
                 db,
-
-                "bookingRequests",
-
-                id
-
+                "bookingRequests"
             ),
 
-            {
-
-                status:
-                "accepted"
-
-            }
+            request
 
         );
 
 
-        alert(
-            "✅ تم قبول الطلب."
+        document.getElementById(
+            "booking"
+        ).style.display =
+            "none";
+
+
+        const success =
+            document.getElementById(
+                "success"
+            );
+
+
+        success.style.display =
+            "block";
+
+
+        success.scrollIntoView({
+
+            behavior:
+            "smooth"
+
+        });
+
+
+        const message =
+
+`🕌 طلب جديد - أكاديمية جنود الهدى
+
+📌 نوع الطلب:
+${bookingType}
+
+👤 اسم الطالب:
+${studentName}
+
+🎂 العمر:
+${age}
+
+📖 المستوى:
+${level}
+
+📱 رقم التواصل:
+${phone}
+
+🕐 الوقت المناسب:
+${preferredTime}
+
+👨‍👩‍👧‍👦 يوجد إخوة:
+${brothers}
+
+📝 ملاحظات:
+${notes || "لا توجد"}
+
+أرجو التواصل معي لتأكيد الموعد والتفاصيل.`;
+
+
+        const whatsappURL =
+
+            "https://wa.me/" +
+
+            ADMIN_WHATSAPP +
+
+            "?text=" +
+
+            encodeURIComponent(
+                message
+            );
+
+
+        setTimeout(
+
+            function(){
+
+                window.open(
+                    whatsappURL,
+                    "_blank"
+                );
+
+            },
+
+            700
+
         );
+
+
+        document.querySelector(
+            "form"
+        ).reset();
+
+
+        bookingType = "";
 
 
     }catch(error){
@@ -2149,226 +1841,41 @@ async function(id){
 
 
         alert(
-            "❌ تعذر قبول الطلب."
+
+            "❌ لم يتم إرسال الطلب.\n\n" +
+
+            "تأكد من اتصال الإنترنت " +
+
+            "وإعدادات Firestore Rules."
+
         );
+
+    }finally{
+
+        submitButton.disabled =
+            false;
+
+
+        submitButton.textContent =
+            "📩 إرسال الطلب";
 
     }
 
 };
 
 
+/*
+=========================
+تشغيل الحلقة
+=========================
+*/
 
-/* =========================
-   رفض الطلب
-========================= */
+loadLiveSession();
 
-window.rejectRequest =
-async function(id){
-
-
-    try{
-
-
-        await updateDoc(
-
-            doc(
-
-                db,
-
-                "bookingRequests",
-
-                id
-
-            ),
-
-            {
-
-                status:
-                "rejected"
-
-            }
-
-        );
-
-
-        alert(
-            "❌ تم رفض الطلب."
-        );
-
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-
-        alert(
-            "❌ تعذر رفض الطلب."
-        );
-
-    }
-
-};
-
-
-
-/* =========================
-   حذف الطلب
-========================= */
-
-window.deleteRequest =
-async function(id){
-
-
-    const answer =
-        confirm(
-
-            "هل تريد حذف هذا الطلب نهائيًا؟"
-
-        );
-
-
-    if(!answer){
-
-        return;
-
-    }
-
-
-    try{
-
-
-        await deleteDoc(
-
-            doc(
-
-                db,
-
-                "bookingRequests",
-
-                id
-
-            )
-
-        );
-
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-
-        alert(
-            "❌ تعذر حذف الطلب."
-        );
-
-    }
-
-};
-
-
-
-/* =========================
-   الإحصائيات
-========================= */
-
-function updateStats(
-    requests
-){
-
-
-    const total =
-        requests.length;
-
-
-    const accepted =
-        requests.filter(
-
-            r =>
-            r.status ===
-            "accepted"
-
-        ).length;
-
-
-    const pending =
-        requests.filter(
-
-            r =>
-            !r.status ||
-            r.status ===
-            "pending"
-
-        ).length;
-
-
-
-    document.getElementById(
-        "totalCount"
-    ).textContent =
-        total;
-
-
-
-    document.getElementById(
-        "acceptedCount"
-    ).textContent =
-        accepted;
-
-
-
-    document.getElementById(
-        "pendingCount"
-    ).textContent =
-        pending;
-
-}
-
-
-
-/* =========================
-   حماية النص
-========================= */
-
-function escapeHTML(
-    value
-){
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
 
 </script>
 
 
 </body>
 
-  </html>
+    </html>
