@@ -338,6 +338,12 @@ header{
     color:#a00000;
 }
 
+.logout{
+    margin-top:10px;
+    background:#dc3545;
+    color:white;
+}
+
 footer{
     margin-top:30px;
     background:#0f5132;
@@ -353,17 +359,15 @@ footer{
         grid-template-columns:1fr;
     }
 
-    .tabs{
-        grid-template-columns:1fr 1fr;
-    }
-
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -380,6 +384,7 @@ footer{
 
 <div class="container">
 
+
 <div class="admin-top">
 
 <h1>
@@ -389,6 +394,14 @@ footer{
 <p>
 من هنا تستطيع إدارة الطلاب والأكواد والمواعيد والحصص.
 </p>
+
+<button
+id="logoutButton"
+class="button logout">
+
+🚪 تسجيل الخروج
+
+</button>
 
 </div>
 
@@ -408,6 +421,7 @@ onclick="showSection('studentsSection',this)">
 👨‍🎓 الطلاب
 
 </button>
+
 
 <button
 class="tab"
@@ -622,15 +636,13 @@ id="studentEnd">
 <input
 type="url"
 id="studentLink"
-value="https://meet.google.com/rdy-yyak-cey"
-placeholder="رابط Google Meet">
+placeholder="https://meet.google.com/...">
 
 </div>
 
 
 <button
 class="button save"
-id="saveButton"
 onclick="saveStudent()">
 
 💾 حفظ الطالب
@@ -647,6 +659,7 @@ style="display:none">
 إلغاء التعديل
 
 </button>
+
 
 </div>
 
@@ -669,6 +682,7 @@ class="students">
 
 </div>
 
+
 </div>
 
 
@@ -679,6 +693,7 @@ class="students">
 <div
 id="requestsSection"
 class="section">
+
 
 <div class="card">
 
@@ -700,6 +715,7 @@ class="requests">
 
 </div>
 
+
 </div>
 
 
@@ -716,1477 +732,1582 @@ class="requests">
 
 <script type="module">
 
+
+/* =====================================
+   Firebase App
+===================================== */
+
 import {
-initializeApp
+    initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
+/* =====================================
+   Firestore
+===================================== */
+
 import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-doc,
-updateDoc,
-deleteDoc,
-query,
-where,
-limit
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    deleteDoc,
+    query,
+    orderBy
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+/* =====================================
+   Authentication
+===================================== */
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* =====================================
+   Firebase Config
+===================================== */
+
 const firebaseConfig = {
 
-apiKey:
-"AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
+    apiKey:
+    "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
 
-authDomain:
-"jundalhuda.firebaseapp.com",
+    authDomain:
+    "jundalhuda.firebaseapp.com",
 
-projectId:
-"jundalhuda",
+    projectId:
+    "jundalhuda",
 
-storageBucket:
-"jundalhuda.firebasestorage.app",
+    storageBucket:
+    "jundalhuda.firebasestorage.app",
 
-messagingSenderId:
-"275883570506",
+    messagingSenderId:
+    "275883570506",
 
-appId:
-"1:275883570506:web:fb5e72953a3d5a66ef3db3",
+    appId:
+    "1:275883570506:web:fb5e72953a3d5a66ef3db3",
 
-measurementId:
-"G-ZZNZKN73BQ"
+    measurementId:
+    "G-ZZNZKN73BQ"
 
 };
 
 
+/* =====================================
+   تشغيل Firebase
+===================================== */
+
 const app =
-initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
+
 
 const db =
-getFirestore(app);
+    getFirestore(app);
+
+
+const auth =
+    getAuth(app);
 
 
 let editId = null;
 
 
-/* =========================
+/* =====================================
+   التحقق من تسجيل الدخول
+===================================== */
+
+onAuthStateChanged(
+    auth,
+    function(user){
+
+        if(!user){
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "الإدارة مسجلة دخول:",
+            user.email
+        );
+
+
+        loadStudents();
+
+        loadRequests();
+
+    }
+);
+
+
+/* =====================================
+   تسجيل الخروج
+===================================== */
+
+document
+.getElementById("logoutButton")
+.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            await signOut(auth);
+
+            window.location.href =
+                "login.html";
+
+        }catch(error){
+
+            console.error(error);
+
+            showMessage(
+                "❌ تعذر تسجيل الخروج.",
+                false
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================
    الأقسام
-========================= */
+===================================== */
 
 window.showSection =
 function(id,button){
 
-document
-.querySelectorAll(".section")
-.forEach(section => {
+    document
+    .querySelectorAll(".section")
+    .forEach(function(section){
 
-section.classList.remove("active");
+        section.classList.remove(
+            "active"
+        );
 
-});
+    });
 
-document
-.querySelectorAll(".tab")
-.forEach(tab => {
 
-tab.classList.remove("active");
+    document
+    .querySelectorAll(".tab")
+    .forEach(function(tab){
 
-});
+        tab.classList.remove(
+            "active"
+        );
 
-document
-.getElementById(id)
-.classList.add("active");
+    });
 
-button.classList.add("active");
+
+    document
+    .getElementById(id)
+    .classList.add("active");
+
+
+    button.classList.add("active");
 
 };
 
 
-/* =========================
+/* =====================================
    إنشاء كود الطالب
-========================= */
+===================================== */
 
 async function generateCode(){
 
-while(true){
+    let code = "";
 
-let code = "";
 
-for(let i=0;i<6;i++){
+    for(let i=0;i<6;i++){
 
-code +=
-Math.floor(
-Math.random()*10
-);
+        code +=
+            Math.floor(
+                Math.random()*10
+            );
+
+    }
+
+
+    const result =
+        await getDocs(
+            collection(
+                db,
+                "students"
+            )
+        );
+
+
+    let exists = true;
+
+
+    while(exists){
+
+        exists = false;
+
+
+        result.forEach(function(item){
+
+            if(
+                item.data().code === code
+            ){
+
+                exists = true;
+
+            }
+
+        });
+
+
+        if(exists){
+
+            code = "";
+
+
+            for(let i=0;i<6;i++){
+
+                code +=
+                    Math.floor(
+                        Math.random()*10
+                    );
+
+            }
+
+        }
+
+    }
+
+
+    return code;
 
 }
 
 
-const q =
-query(
-collection(db,"students"),
-where("code","==",code),
-limit(1)
-);
-
-
-const result =
-await getDocs(q);
-
-
-if(result.empty){
-
-return code;
-
-}
-
-}
-
-}
-
-
-/* =========================
+/* =====================================
    حفظ الطالب
-========================= */
+===================================== */
 
 window.saveStudent =
 async function(){
 
-const saveButton =
-document.getElementById("saveButton");
+    const name =
+        document
+        .getElementById(
+            "studentName"
+        )
+        .value
+        .trim();
 
 
-const name =
-document
-.getElementById("studentName")
-.value
-.trim();
+    const age =
+        document
+        .getElementById(
+            "studentAge"
+        )
+        .value;
 
 
-const age =
-document
-.getElementById("studentAge")
-.value;
+    const phone =
+        document
+        .getElementById(
+            "studentPhone"
+        )
+        .value
+        .trim();
 
 
-const phone =
-document
-.getElementById("studentPhone")
-.value
-.trim();
+    const level =
+        document
+        .getElementById(
+            "studentLevel"
+        )
+        .value;
 
 
-const level =
-document
-.getElementById("studentLevel")
-.value;
+    const teacher =
+        document
+        .getElementById(
+            "studentTeacher"
+        )
+        .value
+        .trim();
 
 
-const teacher =
-document
-.getElementById("studentTeacher")
-.value
-.trim();
+    const lesson =
+        document
+        .getElementById(
+            "studentLesson"
+        )
+        .value
+        .trim();
 
 
-const lesson =
-document
-.getElementById("studentLesson")
-.value
-.trim();
+    const date =
+        document
+        .getElementById(
+            "studentDate"
+        )
+        .value;
 
 
-const date =
-document
-.getElementById("studentDate")
-.value;
+    const start =
+        document
+        .getElementById(
+            "studentStart"
+        )
+        .value;
 
 
-const start =
-document
-.getElementById("studentStart")
-.value;
+    const end =
+        document
+        .getElementById(
+            "studentEnd"
+        )
+        .value;
 
 
-const end =
-document
-.getElementById("studentEnd")
-.value;
+    const link =
+        document
+        .getElementById(
+            "studentLink"
+        )
+        .value
+        .trim();
 
 
-const link =
-document
-.getElementById("studentLink")
-.value
-.trim();
+    if(!name){
 
+        showMessage(
+            "⚠️ اكتب اسم الطالب.",
+            false
+        );
 
-if(!name){
+        return;
 
-showMessage(
-"⚠️ اكتب اسم الطالب.",
-false
-);
+    }
 
-return;
 
-}
+    if(!phone){
 
+        showMessage(
+            "⚠️ اكتب رقم التواصل.",
+            false
+        );
 
-if(!phone){
+        return;
 
-showMessage(
-"⚠️ اكتب رقم التواصل.",
-false
-);
+    }
 
-return;
 
-}
+    if(!date){
 
+        showMessage(
+            "⚠️ اختر تاريخ الحصة.",
+            false
+        );
 
-if(!date){
+        return;
 
-showMessage(
-"⚠️ اختر تاريخ الحصة.",
-false
-);
+    }
 
-return;
 
-}
+    if(!start){
 
+        showMessage(
+            "⚠️ اختر وقت بداية الحصة.",
+            false
+        );
 
-if(!start){
+        return;
 
-showMessage(
-"⚠️ اختر وقت بداية الحصة.",
-false
-);
+    }
 
-return;
 
-}
+    if(!link){
 
+        showMessage(
+            "⚠️ ضع رابط الحصة.",
+            false
+        );
 
-if(!link){
+        return;
 
-showMessage(
-"⚠️ ضع رابط الحصة.",
-false
-);
+    }
 
-return;
 
-}
+    const startTime =
+        new Date(
+            date + "T" + start
+        );
 
 
-const startTime =
-new Date(
-date + "T" + start
-);
+    let endTime = null;
 
 
-let endTime = null;
+    if(end){
 
+        endTime =
+            new Date(
+                date + "T" + end
+            );
 
-if(end){
+    }
 
-endTime =
-new Date(
-date + "T" + end
-);
 
-}
+    try{
 
 
-saveButton.disabled = true;
+        if(editId){
 
-saveButton.textContent =
-"⏳ جاري الحفظ...";
+            await updateDoc(
 
+                doc(
+                    db,
+                    "students",
+                    editId
+                ),
 
-try{
+                {
 
+                    name:name,
 
-/* =========================
-   تعديل طالب
-========================= */
+                    age:age,
 
-if(editId){
+                    phone:phone,
 
-await updateDoc(
+                    level:level,
 
-doc(
-db,
-"students",
-editId
-),
+                    teacher:teacher,
 
-{
+                    lesson:
+                        lesson ||
+                        "قراءة وحفظ القرآن الكريم",
 
-name:name,
-age:age,
-phone:phone,
-level:level,
-teacher:teacher,
+                    startTime:
+                        startTime.toISOString(),
 
-lesson:
-lesson ||
-"قراءة وحفظ القرآن الكريم",
+                    endTime:
+                        endTime
+                        ?
+                        endTime.toISOString()
+                        :
+                        "",
 
-startTime:
-startTime.toISOString(),
+                    link:link
 
-endTime:
-endTime
-?
-endTime.toISOString()
-:
-"",
+                }
 
-link:link
+            );
 
-}
 
-);
+            showMessage(
+                "✅ تم تعديل بيانات الطالب.",
+                true
+            );
 
 
-/* تحديث studentAccess */
+        }else{
 
-const accessQuery =
-query(
-collection(db,"studentAccess"),
-where("studentId","==",editId),
-limit(1)
-);
 
+            const code =
+                await generateCode();
 
-const accessResult =
-await getDocs(accessQuery);
 
+            await addDoc(
 
-if(!accessResult.empty){
+                collection(
+                    db,
+                    "students"
+                ),
 
-const accessDoc =
-accessResult.docs[0];
+                {
 
+                    code:code,
 
-await updateDoc(
+                    name:name,
 
-doc(
-db,
-"studentAccess",
-accessDoc.id
-),
+                    age:age,
 
-{
+                    phone:phone,
 
-name:name,
+                    level:level,
 
-teacher:teacher,
+                    teacher:teacher,
 
-lesson:
-lesson ||
-"قراءة وحفظ القرآن الكريم",
+                    lesson:
+                        lesson ||
+                        "قراءة وحفظ القرآن الكريم",
 
-lessonDate:date,
+                    startTime:
+                        startTime.toISOString(),
 
-lessonStart:start,
+                    endTime:
+                        endTime
+                        ?
+                        endTime.toISOString()
+                        :
+                        "",
 
-lessonEnd:end || "",
+                    link:link,
 
-lessonUrl:link,
+                    active:true,
 
-active:true
+                    createdAt:
+                        new Date().toISOString()
 
-}
+                }
 
-);
+            );
 
-}
 
+            showMessage(
+                "✅ تم إضافة الطالب بنجاح.",
+                true
+            );
 
-showMessage(
-"✅ تم تعديل بيانات الطالب.",
-true
-);
+        }
 
-}
 
+        clearForm();
 
-/* =========================
-   إضافة طالب جديد
-========================= */
+        loadStudents();
 
-else{
 
-const code =
-await generateCode();
+    }catch(error){
 
+        console.error(
+            "Save Student Error:",
+            error
+        );
 
-const studentRef =
-await addDoc(
 
-collection(db,"students"),
+        showMessage(
+            "❌ تعذر حفظ الطالب. تأكد من تسجيل الدخول وقواعد Firestore.",
+            false
+        );
 
-{
-
-code:code,
-
-name:name,
-
-age:age,
-
-phone:phone,
-
-level:level,
-
-teacher:teacher,
-
-lesson:
-lesson ||
-"قراءة وحفظ القرآن الكريم",
-
-startTime:
-startTime.toISOString(),
-
-endTime:
-endTime
-?
-endTime.toISOString()
-:
-"",
-
-link:link,
-
-active:true,
-
-createdAt:
-new Date().toISOString()
-
-}
-
-);
-
-
-/*
-================================
-بيانات دخول الطالب
-================================
-*/
-
-await addDoc(
-
-collection(db,"studentAccess"),
-
-{
-
-studentId:
-studentRef.id,
-
-code:code,
-
-name:name,
-
-teacher:teacher,
-
-lesson:
-lesson ||
-"قراءة وحفظ القرآن الكريم",
-
-lessonDate:date,
-
-lessonStart:start,
-
-lessonEnd:end || "",
-
-lessonUrl:link,
-
-active:true,
-
-createdAt:
-new Date().toISOString()
-
-}
-
-);
-
-
-document.getElementById(
-"newCode"
-).textContent =
-code;
-
-
-showMessage(
-"✅ تم إضافة الطالب بنجاح.\nكود الطالب: " + code,
-true
-);
-
-}
-
-
-clearForm();
-
-await loadStudents();
-
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-"❌ تعذر حفظ الطالب.\nتأكد أنك داخل حساب الإدارة وأن قواعد Firestore صحيحة.",
-false
-);
-
-}
-
-
-saveButton.disabled = false;
-
-saveButton.textContent =
-"💾 حفظ الطالب";
+    }
 
 };
 
 
-/* =========================
+/* =====================================
    تحميل الطلاب
-========================= */
+===================================== */
 
 async function loadStudents(){
 
-const container =
-document.getElementById("students");
+    const container =
+        document.getElementById(
+            "students"
+        );
 
 
-container.innerHTML = `
-<div class="empty">
-⏳ جاري تحميل الطلاب...
-</div>
-`;
+    container.innerHTML = `
+        <div class="empty">
+            ⏳ جاري تحميل الطلاب...
+        </div>
+    `;
 
 
-try{
-
-const result =
-await getDocs(
-collection(db,"students")
-);
+    try{
 
 
-if(result.empty){
+        const result =
+            await getDocs(
+                collection(
+                    db,
+                    "students"
+                )
+            );
 
-container.innerHTML = `
-<div class="empty">
-لا يوجد طلاب حتى الآن.
-</div>
-`;
 
-return;
+        if(result.empty){
+
+            container.innerHTML = `
+                <div class="empty">
+                    لا يوجد طلاب حتى الآن.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        result.forEach(function(item){
+
+            const data =
+                item.data();
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "student";
+
+
+            if(data.active === false){
+
+                div.classList.add(
+                    "disabled"
+                );
+
+            }
+
+
+            let timeText = "-";
+
+
+            if(data.startTime){
+
+                const d =
+                    new Date(
+                        data.startTime
+                    );
+
+
+                if(
+                    !isNaN(
+                        d.getTime()
+                    )
+                ){
+
+                    timeText =
+                        d.toLocaleString(
+                            "ar-SA"
+                        );
+
+                }
+
+            }
+
+
+            const active =
+                data.active !== false;
+
+
+            div.innerHTML = `
+
+                <div class="student-head">
+
+                    <div class="student-name">
+
+                        👤 ${
+                            escapeHTML(
+                                data.name ||
+                                "بدون اسم"
+                            )
+                        }
+
+                    </div>
+
+                    <span class="badge ${
+                        active
+                        ?
+                        "active-badge"
+                        :
+                        "disabled-badge"
+                    }">
+
+                        ${
+                            active
+                            ?
+                            "🟢 مفعل"
+                            :
+                            "⚪ متوقف"
+                        }
+
+                    </span>
+
+                </div>
+
+
+                <div class="student-info">
+
+                    🔢 الكود:
+
+                    <span class="student-code">
+
+                        ${
+                            escapeHTML(
+                                data.code ||
+                                "-"
+                            )
+                        }
+
+                    </span>
+
+                    <br>
+
+                    🎂 العمر:
+                    ${
+                        escapeHTML(
+                            data.age ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    📱 التواصل:
+                    ${
+                        escapeHTML(
+                            data.phone ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    👨‍🏫 المدرس:
+                    ${
+                        escapeHTML(
+                            data.teacher ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    📖 المستوى:
+                    ${
+                        escapeHTML(
+                            data.level ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    🕐 الموعد:
+                    ${
+                        escapeHTML(
+                            timeText
+                        )
+                    }
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        class="action edit"
+                        onclick="editStudent('${item.id}')">
+
+                        ✏️ تعديل
+
+                    </button>
+
+
+                    <button
+                        class="action disable"
+                        onclick="toggleStudent('${item.id}',${active})">
+
+                        ${
+                            active
+                            ?
+                            "⏸️ تعطيل"
+                            :
+                            "▶️ تفعيل"
+                        }
+
+                    </button>
+
+
+                    <button
+                        class="action delete"
+                        onclick="deleteStudent('${item.id}')">
+
+                        🗑️ حذف
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        });
+
+
+    }catch(error){
+
+        console.error(
+            "Load Students Error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <div class="empty">
+                ❌ تعذر تحميل الطلاب.
+                <br>
+                تأكد من تسجيل الدخول.
+            </div>
+        `;
+
+    }
 
 }
 
 
-container.innerHTML = "";
-
-
-result.forEach(item => {
-
-const data =
-item.data();
-
-
-const div =
-document.createElement("div");
-
-
-div.className =
-"student";
-
-
-if(data.active === false){
-
-div.classList.add("disabled");
-
-}
-
-
-let timeText = "-";
-
-
-if(data.startTime){
-
-const d =
-new Date(data.startTime);
-
-
-if(!isNaN(d.getTime())){
-
-timeText =
-d.toLocaleString("ar-SA");
-
-}
-
-}
-
-
-const active =
-data.active !== false;
-
-
-div.innerHTML = `
-
-<div class="student-head">
-
-<div class="student-name">
-
-👤 ${escapeHTML(
-data.name || "بدون اسم"
-)}
-
-</div>
-
-<span class="badge ${
-active
-?
-"active-badge"
-:
-"disabled-badge"
-}">
-
-${
-active
-?
-"🟢 مفعل"
-:
-"⚪ متوقف"
-}
-
-</span>
-
-</div>
-
-
-<div class="student-info">
-
-🔢 الكود:
-
-<span class="student-code">
-
-${escapeHTML(
-data.code || "-"
-)}
-
-</span>
-
-<br>
-
-🎂 العمر:
-${escapeHTML(
-data.age || "-"
-)}
-
-<br>
-
-📱 التواصل:
-${escapeHTML(
-data.phone || "-"
-)}
-
-<br>
-
-👨‍🏫 المدرس:
-${escapeHTML(
-data.teacher || "-"
-)}
-
-<br>
-
-📖 المستوى:
-${escapeHTML(
-data.level || "-"
-)}
-
-<br>
-
-🕐 الموعد:
-${escapeHTML(
-timeText
-)}
-
-<br>
-
-🎥 رابط الحصة:
-Google Meet
-
-</div>
-
-
-<div class="actions">
-
-<button
-class="action edit"
-onclick="editStudent('${item.id}')">
-
-✏️ تعديل
-
-</button>
-
-
-<button
-class="action disable"
-onclick="toggleStudent('${item.id}',${active})">
-
-${
-active
-?
-"⏸️ تعطيل"
-:
-"▶️ تفعيل"
-}
-
-</button>
-
-
-<button
-class="action delete"
-onclick="deleteStudent('${item.id}')">
-
-🗑️ حذف
-
-</button>
-
-</div>
-
-`;
-
-
-container.appendChild(div);
-
-});
-
-
-}catch(error){
-
-console.error(error);
-
-container.innerHTML = `
-<div class="empty">
-❌ تعذر تحميل الطلاب.
-<br>
-تأكد من تسجيل دخول الإدارة.
-</div>
-`;
-
-}
-
-}
-
-
-/* =========================
+/* =====================================
    تعديل الطالب
-========================= */
+===================================== */
 
 window.editStudent =
 async function(id){
 
-try{
+    try{
 
-const result =
-await getDocs(
-collection(db,"students")
-);
-
-
-let data = null;
-
-
-result.forEach(item => {
-
-if(item.id === id){
-
-data = item.data();
-
-}
-
-});
+        const result =
+            await getDocs(
+                collection(
+                    db,
+                    "students"
+                )
+            );
 
 
-if(!data){
-
-showMessage(
-"❌ الطالب غير موجود.",
-false
-);
-
-return;
-
-}
+        let data = null;
 
 
-editId = id;
+        result.forEach(function(item){
+
+            if(item.id === id){
+
+                data =
+                    item.data();
+
+            }
+
+        });
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"✏️ تعديل بيانات الطالب";
+        if(!data){
+
+            return;
+
+        }
 
 
-document.getElementById(
-"newCode"
-).textContent =
-data.code || "------";
+        editId = id;
 
 
-document.getElementById(
-"studentName"
-).value =
-data.name || "";
+        document.getElementById(
+            "formTitle"
+        ).textContent =
+            "✏️ تعديل بيانات الطالب";
 
 
-document.getElementById(
-"studentAge"
-).value =
-data.age || "";
+        document.getElementById(
+            "newCode"
+        ).textContent =
+            data.code || "------";
 
 
-document.getElementById(
-"studentPhone"
-).value =
-data.phone || "";
+        document.getElementById(
+            "studentName"
+        ).value =
+            data.name || "";
 
 
-document.getElementById(
-"studentLevel"
-).value =
-data.level || "";
+        document.getElementById(
+            "studentAge"
+        ).value =
+            data.age || "";
 
 
-document.getElementById(
-"studentTeacher"
-).value =
-data.teacher || "";
+        document.getElementById(
+            "studentPhone"
+        ).value =
+            data.phone || "";
 
 
-document.getElementById(
-"studentLesson"
-).value =
-data.lesson ||
-"قراءة وحفظ القرآن الكريم";
+        document.getElementById(
+            "studentLevel"
+        ).value =
+            data.level || "";
 
 
-if(data.startTime){
-
-const start =
-new Date(data.startTime);
-
-
-document.getElementById(
-"studentDate"
-).value =
-formatDateInput(start);
+        document.getElementById(
+            "studentTeacher"
+        ).value =
+            data.teacher || "";
 
 
-document.getElementById(
-"studentStart"
-).value =
-formatTime(start);
-
-}
-
-
-if(data.endTime){
-
-const end =
-new Date(data.endTime);
+        document.getElementById(
+            "studentLesson"
+        ).value =
+            data.lesson ||
+            "قراءة وحفظ القرآن الكريم";
 
 
-document.getElementById(
-"studentEnd"
-).value =
-formatTime(end);
+        if(data.startTime){
 
-}else{
-
-document.getElementById(
-"studentEnd"
-).value =
-"";
-
-}
+            const start =
+                new Date(
+                    data.startTime
+                );
 
 
-document.getElementById(
-"studentLink"
-).value =
-data.link ||
-"https://meet.google.com/rdy-yyak-cey";
+            document.getElementById(
+                "studentDate"
+            ).value =
+                formatDateInput(
+                    start
+                );
 
 
-document.getElementById(
-"cancelEdit"
-).style.display =
-"block";
+            document.getElementById(
+                "studentStart"
+            ).value =
+                formatTime(
+                    start
+                );
+
+        }
 
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+        if(data.endTime){
+
+            const end =
+                new Date(
+                    data.endTime
+                );
 
 
-}catch(error){
+            document.getElementById(
+                "studentEnd"
+            ).value =
+                formatTime(
+                    end
+                );
 
-console.error(error);
+        }else{
 
-showMessage(
-"❌ تعذر تحميل بيانات الطالب.",
-false
-);
+            document.getElementById(
+                "studentEnd"
+            ).value =
+                "";
 
-}
+        }
+
+
+        document.getElementById(
+            "studentLink"
+        ).value =
+            data.link || "";
+
+
+        document.getElementById(
+            "cancelEdit"
+        ).style.display =
+            "block";
+
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showMessage(
+            "❌ تعذر تحميل بيانات الطالب.",
+            false
+        );
+
+    }
 
 };
 
 
-/* =========================
+/* =====================================
    تعطيل / تفعيل
-========================= */
+===================================== */
 
 window.toggleStudent =
 async function(id,active){
 
-try{
+    try{
 
-await updateDoc(
+        await updateDoc(
 
-doc(
-db,
-"students",
-id
-),
+            doc(
+                db,
+                "students",
+                id
+            ),
 
-{
+            {
 
-active:!active
+                active:
+                    !active
 
-}
+            }
 
-);
-
-
-/* تحديث دخول الطالب */
-
-const q =
-query(
-collection(db,"studentAccess"),
-where("studentId","==",id),
-limit(1)
-);
+        );
 
 
-const result =
-await getDocs(q);
+        showMessage(
+            active
+            ?
+            "⏸️ تم تعطيل الطالب."
+            :
+            "▶️ تم تفعيل الطالب.",
+            true
+        );
 
 
-if(!result.empty){
-
-await updateDoc(
-
-doc(
-db,
-"studentAccess",
-result.docs[0].id
-),
-
-{
-
-active:!active
-
-}
-
-);
-
-}
+        loadStudents();
 
 
-showMessage(
-active
-?
-"⏸️ تم تعطيل الطالب."
-:
-"▶️ تم تفعيل الطالب.",
-true
-);
+    }catch(error){
+
+        console.error(error);
 
 
-loadStudents();
+        showMessage(
+            "❌ تعذر تعديل حالة الطالب.",
+            false
+        );
 
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-"❌ تعذر تعديل حالة الطالب.",
-false
-);
-
-}
+    }
 
 };
 
 
-/* =========================
+/* =====================================
    حذف الطالب
-========================= */
+===================================== */
 
 window.deleteStudent =
 async function(id){
 
-const confirmDelete =
-confirm(
-"⚠️ هل أنت متأكد من حذف هذا الطالب؟"
-);
+    const confirmDelete =
+        confirm(
+            "⚠️ هل أنت متأكد من حذف هذا الطالب؟"
+        );
 
 
-if(!confirmDelete){
+    if(!confirmDelete){
 
-return;
+        return;
 
-}
-
-
-try{
-
-await deleteDoc(
-
-doc(
-db,
-"students",
-id
-)
-
-);
+    }
 
 
-/* حذف بيانات الدخول */
+    try{
 
-const q =
-query(
-collection(db,"studentAccess"),
-where("studentId","==",id),
-limit(1)
-);
+        await deleteDoc(
 
+            doc(
+                db,
+                "students",
+                id
+            )
 
-const result =
-await getDocs(q);
-
-
-if(!result.empty){
-
-await deleteDoc(
-
-doc(
-db,
-"studentAccess",
-result.docs[0].id
-)
-
-);
-
-}
+        );
 
 
-showMessage(
-"🗑️ تم حذف الطالب وبيانات دخوله.",
-true
-);
+        showMessage(
+            "🗑️ تم حذف الطالب.",
+            true
+        );
 
 
-loadStudents();
+        loadStudents();
 
 
-}catch(error){
+    }catch(error){
 
-console.error(error);
+        console.error(error);
 
-showMessage(
-"❌ تعذر حذف الطالب.",
-false
-);
 
-}
+        showMessage(
+            "❌ تعذر حذف الطالب.",
+            false
+        );
+
+    }
 
 };
 
 
-/* =========================
+/* =====================================
    إلغاء التعديل
-========================= */
+===================================== */
 
 window.cancelEdit =
 function(){
 
-clearForm();
+    clearForm();
 
 };
 
 
-/* =========================
+/* =====================================
    تنظيف النموذج
-========================= */
+===================================== */
 
 function clearForm(){
 
-editId = null;
+    editId = null;
 
 
-document.getElementById(
-"formTitle"
-).textContent =
-"➕ إضافة طالب جديد";
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "➕ إضافة طالب جديد";
 
 
-document.getElementById(
-"newCode"
-).textContent =
-"------";
+    document.getElementById(
+        "newCode"
+    ).textContent =
+        "------";
 
 
-document.getElementById(
-"studentName"
-).value =
-"";
+    document.getElementById(
+        "studentName"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentAge"
-).value =
-"";
+    document.getElementById(
+        "studentAge"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentPhone"
-).value =
-"";
+    document.getElementById(
+        "studentPhone"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentLevel"
-).value =
-"";
+    document.getElementById(
+        "studentLevel"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentTeacher"
-).value =
-"";
+    document.getElementById(
+        "studentTeacher"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentLesson"
-).value =
-"قراءة وحفظ القرآن الكريم";
+    document.getElementById(
+        "studentLesson"
+    ).value =
+        "قراءة وحفظ القرآن الكريم";
 
 
-document.getElementById(
-"studentDate"
-).value =
-"";
+    document.getElementById(
+        "studentDate"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentStart"
-).value =
-"";
+    document.getElementById(
+        "studentStart"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentEnd"
-).value =
-"";
+    document.getElementById(
+        "studentEnd"
+    ).value =
+        "";
 
 
-document.getElementById(
-"studentLink"
-).value =
-"https://meet.google.com/rdy-yyak-cey";
+    document.getElementById(
+        "studentLink"
+    ).value =
+        "";
 
 
-document.getElementById(
-"cancelEdit"
-).style.display =
-"none";
+    document.getElementById(
+        "cancelEdit"
+    ).style.display =
+        "none";
 
 }
 
 
-/* =========================
-   الطلبات
-========================= */
+/* =====================================
+   تحميل الطلبات
+===================================== */
 
 async function loadRequests(){
 
-const container =
-document.getElementById("requests");
+    const container =
+        document.getElementById(
+            "requests"
+        );
 
 
-try{
+    container.innerHTML = `
+        <div class="empty">
+            ⏳ جاري تحميل الطلبات...
+        </div>
+    `;
 
-const result =
-await getDocs(
-collection(db,"bookingRequests")
-);
+
+    try{
 
 
-if(result.empty){
+        /*
+        =================================
+        المستخدم مسجل دخول بالفعل
+        لأن هذه الدالة لا تعمل إلا
+        داخل onAuthStateChanged
+        =================================
+        */
 
-container.innerHTML = `
-<div class="empty">
-لا توجد طلبات حاليًا.
-</div>
-`;
 
-return;
+        const result =
+            await getDocs(
+                collection(
+                    db,
+                    "bookingRequests"
+                )
+            );
+
+
+        if(result.empty){
+
+            container.innerHTML = `
+                <div class="empty">
+                    لا توجد طلبات حاليًا.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        result.forEach(function(item){
+
+            const data =
+                item.data();
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "request";
+
+
+            div.innerHTML = `
+
+                <h3>
+
+                    📩 ${
+                        escapeHTML(
+                            data.type ||
+                            "طلب تسجيل"
+                        )
+                    }
+
+                </h3>
+
+
+                <p>
+
+                    👤 الطالب:
+
+                    ${
+                        escapeHTML(
+                            data.studentName ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    🎂 العمر:
+
+                    ${
+                        escapeHTML(
+                            data.age ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    📖 المستوى:
+
+                    ${
+                        escapeHTML(
+                            data.level ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    📱 التواصل:
+
+                    ${
+                        escapeHTML(
+                            data.phone ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    🕐 الوقت المناسب:
+
+                    ${
+                        escapeHTML(
+                            data.preferredTime ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    👨‍👩‍👧‍👦 إخوة:
+
+                    ${
+                        escapeHTML(
+                            data.brothers ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+
+                    📝 الملاحظات:
+
+                    ${
+                        escapeHTML(
+                            data.notes ||
+                            "لا توجد"
+                        )
+                    }
+
+                </p>
+
+            `;
+
+
+            container.appendChild(
+                div
+            );
+
+        });
+
+
+    }catch(error){
+
+        console.error(
+            "Load Requests Error:",
+            error
+        );
+
+
+        container.innerHTML = `
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلبات.
+
+                <br><br>
+
+                تأكد من تسجيل الدخول إلى الإدارة.
+
+            </div>
+        `;
+
+    }
 
 }
 
 
-container.innerHTML = "";
-
-
-result.forEach(item => {
-
-const data =
-item.data();
-
-
-const div =
-document.createElement("div");
-
-
-div.className =
-"request";
-
-
-div.innerHTML = `
-
-<h3>
-📩 ${
-escapeHTML(
-data.type ||
-"طلب تسجيل"
-)
-}
-</h3>
-
-<p>
-
-👤 الطالب:
-${escapeHTML(
-data.studentName || "-"
-)}
-
-<br>
-
-🎂 العمر:
-${escapeHTML(
-data.age || "-"
-)}
-
-<br>
-
-📖 المستوى:
-${escapeHTML(
-data.level || "-"
-)}
-
-<br>
-
-📱 التواصل:
-${escapeHTML(
-data.phone || "-"
-)}
-
-<br>
-
-🕐 الوقت المناسب:
-${escapeHTML(
-data.preferredTime || "-"
-)}
-
-<br>
-
-👨‍👩‍👧‍👦 إخوة:
-${escapeHTML(
-data.brothers || "-"
-)}
-
-<br>
-
-📝 الملاحظات:
-${escapeHTML(
-data.notes || "لا توجد"
-)}
-
-</p>
-
-`;
-
-
-container.appendChild(div);
-
-});
-
-
-}catch(error){
-
-console.error(error);
-
-container.innerHTML = `
-<div class="empty">
-❌ تعذر تحميل الطلبات.
-<br>
-تأكد من تسجيل دخول الإدارة.
-</div>
-`;
-
-}
-
-}
-
-
-/* =========================
+/* =====================================
    الرسائل
-========================= */
+===================================== */
 
-function showMessage(text,success){
+function showMessage(
+    text,
+    success
+){
 
-const message =
-document.getElementById("message");
-
-
-message.textContent =
-text;
-
-
-message.className =
-"message " +
-(
-success
-?
-"success-message"
-:
-"error-message"
-);
+    const message =
+        document.getElementById(
+            "message"
+        );
 
 
-message.style.display =
-"block";
+    message.textContent =
+        text;
 
 
-setTimeout(
-function(){
+    message.className =
+        "message " +
+        (
+            success
+            ?
+            "success-message"
+            :
+            "error-message"
+        );
 
-message.style.display =
-"none";
 
-},
-5000
-);
+    message.style.display =
+        "block";
+
+
+    setTimeout(
+        function(){
+
+            message.style.display =
+                "none";
+
+        },
+        4000
+    );
 
 }
 
 
-/* =========================
-   التاريخ للـ input
-========================= */
+/* =====================================
+   التاريخ للحقل
+===================================== */
 
 function formatDateInput(date){
 
-const year =
-date.getFullYear();
+    const year =
+        date.getFullYear();
 
 
-const month =
-String(
-date.getMonth()+1
-).padStart(2,"0");
+    const month =
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0");
 
 
-const day =
-String(
-date.getDate()
-).padStart(2,"0");
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
 
 
-return (
-year +
-"-" +
-month +
-"-" +
-day
-);
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
 
 }
 
 
-/* =========================
+/* =====================================
    الوقت
-========================= */
+===================================== */
 
 function formatTime(date){
 
-return String(
-date.getHours()
-).padStart(2,"0")
-+
-":"
-+
-String(
-date.getMinutes()
-).padStart(2,"0"
-);
+    return String(
+        date.getHours()
+    ).padStart(2,"0")
+    +
+    ":"
+    +
+    String(
+        date.getMinutes()
+    ).padStart(2,"0");
 
 }
 
 
-/* =========================
+/* =====================================
    حماية النص
-========================= */
+===================================== */
 
 function escapeHTML(value){
 
-return String(value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
-
-/* =========================
-   تشغيل
-========================= */
-
-loadStudents();
-
-loadRequests();
-
 </script>
+
 
 </body>
 
