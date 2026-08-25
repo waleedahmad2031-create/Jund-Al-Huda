@@ -2,8 +2,11 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>دخول الإدارة | جنود الهدى</title>
 
@@ -91,8 +94,9 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    background:#064f48;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
 .error{
@@ -101,6 +105,17 @@ button:hover{
     padding:13px;
     background:#ffe8e8;
     color:#b00020;
+    border-radius:10px;
+    text-align:center;
+    line-height:1.7;
+}
+
+.success{
+    display:none;
+    margin-top:15px;
+    padding:13px;
+    background:#e8f7f2;
+    color:#075e54;
     border-radius:10px;
     text-align:center;
     line-height:1.7;
@@ -135,15 +150,21 @@ button:hover{
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
     <div class="card">
 
-        <div class="logo">🕌</div>
+        <div class="logo">
+            🕌
+        </div>
 
-        <h1>جنود الهدى</h1>
+        <h1>
+            جنود الهدى
+        </h1>
 
         <div class="subtitle">
             🔐 دخول الإدارة
@@ -151,6 +172,7 @@ button:hover{
 
 
         <form id="loginForm">
+
 
             <div class="form-group">
 
@@ -184,7 +206,9 @@ button:hover{
             </div>
 
 
-            <button type="submit">
+            <button
+                type="submit"
+                id="loginButton">
 
                 🔐 دخول الإدارة
 
@@ -206,7 +230,12 @@ button:hover{
             id="error"
             class="error">
 
-            ⚠️ البريد الإلكتروني أو كلمة المرور غير صحيحة.
+        </div>
+
+
+        <div
+            id="success"
+            class="success">
 
         </div>
 
@@ -214,7 +243,9 @@ button:hover{
         <div class="security">
 
             🔒 هذه الصفحة مخصصة لإدارة الأكاديمية فقط.
+
             <br>
+
             لا تشارك بيانات الدخول مع أي شخص.
 
         </div>
@@ -233,7 +264,13 @@ button:hover{
 </div>
 
 
+
 <script type="module">
+
+
+/* ========================================
+   Firebase
+======================================== */
 
 import {
     initializeApp
@@ -241,13 +278,19 @@ import {
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
+
 import {
     getAuth,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    onAuthStateChanged
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+/* ========================================
+   إعدادات Firebase
+======================================== */
 
 const firebaseConfig = {
 
@@ -275,74 +318,307 @@ const firebaseConfig = {
 };
 
 
+/* ========================================
+   تشغيل Firebase
+======================================== */
+
 const app =
-initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
 
 
 const auth =
-getAuth(app);
+    getAuth(app);
 
+
+/* ========================================
+   عناصر الصفحة
+======================================== */
 
 const form =
-document.getElementById("loginForm");
+    document.getElementById(
+        "loginForm"
+    );
+
+
+const emailInput =
+    document.getElementById(
+        "email"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
 
 const loading =
-document.getElementById("loading");
-
-const error =
-document.getElementById("error");
-
-
-form.addEventListener("submit", async function(e){
-
-    e.preventDefault();
-
-    error.style.display = "none";
-
-    loading.style.display = "block";
+    document.getElementById(
+        "loading"
+    );
 
 
-    const email =
-        document
-        .getElementById("email")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("password")
-        .value;
+const errorBox =
+    document.getElementById(
+        "error"
+    );
 
 
-    try {
-
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+const successBox =
+    document.getElementById(
+        "success"
+    );
 
 
-        window.location.href =
-            "admin.html";
+/* ========================================
+   إذا كان مسجل دخول بالفعل
+======================================== */
 
+onAuthStateChanged(
+    auth,
+    function(user){
 
-    } catch(err) {
+        if(user){
 
-        console.error(err);
+            window.location.href =
+                "admin.html";
 
-        loading.style.display = "none";
-
-        error.textContent =
-            "⚠️ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
-
-        error.style.display = "block";
+        }
 
     }
+);
 
-});
+
+/* ========================================
+   تسجيل الدخول
+======================================== */
+
+form.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        hideMessages();
+
+
+        const email =
+            emailInput.value.trim();
+
+
+        const password =
+            passwordInput.value;
+
+
+        if(!email){
+
+            showError(
+                "⚠️ اكتب البريد الإلكتروني."
+            );
+
+            return;
+
+        }
+
+
+        if(!password){
+
+            showError(
+                "⚠️ اكتب كلمة المرور."
+            );
+
+            return;
+
+        }
+
+
+        loginButton.disabled =
+            true;
+
+
+        loginButton.textContent =
+            "⏳ جاري الدخول...";
+
+
+        loading.style.display =
+            "block";
+
+
+        try{
+
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            loading.style.display =
+                "none";
+
+
+            successBox.textContent =
+                "✅ تم تسجيل الدخول بنجاح...";
+
+
+            successBox.style.display =
+                "block";
+
+
+            /*
+            =================================
+            الانتقال إلى لوحة الإدارة
+            =================================
+            */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "admin.html";
+
+                },
+                500
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "Firebase Login Error:",
+                error
+            );
+
+
+            loading.style.display =
+                "none";
+
+
+            let message =
+                "❌ تعذر تسجيل الدخول.";
+
+
+            if(
+                error.code ===
+                "auth/invalid-credential"
+            ){
+
+                message =
+                    "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/invalid-email"
+            ){
+
+                message =
+                    "⚠️ البريد الإلكتروني غير صحيح.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/user-disabled"
+            ){
+
+                message =
+                    "⛔ تم تعطيل هذا الحساب.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/too-many-requests"
+            ){
+
+                message =
+                    "⚠️ محاولات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/network-request-failed"
+            ){
+
+                message =
+                    "🌐 تحقق من اتصال الإنترنت.";
+
+            }
+
+
+            else{
+
+                message =
+                    "❌ حدث خطأ أثناء تسجيل الدخول: "
+                    +
+                    error.message;
+
+            }
+
+
+            showError(message);
+
+
+            loginButton.disabled =
+                false;
+
+
+            loginButton.textContent =
+                "🔐 دخول الإدارة";
+
+        }
+
+    }
+);
+
+
+/* ========================================
+   إظهار الخطأ
+======================================== */
+
+function showError(message){
+
+    errorBox.textContent =
+        message;
+
+    errorBox.style.display =
+        "block";
+
+}
+
+
+/* ========================================
+   إخفاء الرسائل
+======================================== */
+
+function hideMessages(){
+
+    errorBox.style.display =
+        "none";
+
+    successBox.style.display =
+        "none";
+
+}
+
 
 </script>
+
 
 </body>
 
