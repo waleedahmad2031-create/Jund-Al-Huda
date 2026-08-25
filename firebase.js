@@ -1,51 +1,80 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+// ==========================================
+// Firebase - جنود الهدى
+// ==========================================
+
 import {
-    getAuth
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
     getFirestore
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+// ==========================================
+// إعداد Firebase
+// ==========================================
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
+    apiKey:
+    "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
 
-    authDomain: "jundalhuda.firebaseapp.com",
+    authDomain:
+    "jundalhuda.firebaseapp.com",
 
-    projectId: "jundalhuda",
+    projectId:
+    "jundalhuda",
 
-    storageBucket: "jundalhuda.firebasestorage.app",
+    storageBucket:
+    "jundalhuda.firebasestorage.app",
 
-    messagingSenderId: "275883570506",
+    messagingSenderId:
+    "275883570506",
 
-    appId: "1:275883570506:web:fb5e72953a3d5a66ef3db3",
+    appId:
+    "1:275883570506:web:fb5e72953a3d5a66ef3db3",
 
-    measurementId: "G-ZZNZKN73BQ"
+    measurementId:
+    "G-ZZNZKN73BQ"
 
 };
 
 
+// ==========================================
 // تشغيل Firebase
+// ==========================================
 
-const app = initializeApp(firebaseConfig);
-
-
-// تسجيل دخول الإدارة
-
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
 
+// ==========================================
 // قاعدة البيانات
+// ==========================================
 
-const db = getFirestore(app);
+const db =
+    getFirestore(app);
 
 
-// تصديرها للملفات الأخرى
+// ==========================================
+// تسجيل الدخول
+// ==========================================
+
+const auth =
+    getAuth(app);
+
+
+// ==========================================
+// التصدير للملفات الأخرى
+// ==========================================
 
 export {
     app,
-    auth,
-    db
+    db,
+    auth
 };
