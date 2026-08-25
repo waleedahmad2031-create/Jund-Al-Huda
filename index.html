@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>جنود الهدى | أكاديمية القرآن الكريم</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7f6;
+    color:#222;
+}
+
+/* =========================
+   الهيدر
+========================= */
+
+header{
+    background:#0f5132;
+    color:white;
+    padding:18px 15px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.subtitle{
+    margin-top:6px;
+    font-size:14px;
+    opacity:.9;
+}
+
+/* =========================
+   الترحيب
+========================= */
+
+.hero{
+    background:linear-gradient(135deg,#0f5132,#198754);
+    color:white;
+    padding:42px 20px;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:12px;
+}
+
+.hero p{
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* =========================
+   الحاوية
+========================= */
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:20px;
+    color:#0f5132;
+    font-size:22px;
+}
+
+
+/* =========================
+   اختيار طريقة التعلم
+========================= */
+
+.learning-title{
+
+    text-align:center;
+
+    color:#0f5132;
+
+    font-size:23px;
+
+    margin-top:5px;
+
+    margin-bottom:15px;
+}
+
+
+.learning-subtitle{
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+}
+
+
+.learning-cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+
+.learning-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    border:2px solid
+        transparent;
+}
+
+
+.learning-card:active{
+
+    transform:scale(.97);
+}
+
+
+.learning-card.online{
+
+    border-color:#198754;
+}
+
+
+.learning-card.normal{
+
+    border-color:#d7c58b;
+}
+
+
+.learning-icon{
+
+    font-size:43px;
+
+    margin-bottom:10px;
+}
+
+
+.learning-card h3{
+
+    color:#0f5132;
+
+    margin-bottom:8px;
+
+    font-size:18px;
+}
+
+
+.learning-card p{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+.online-badge{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    background:#e9f5ee;
+
+    color:#0f5132;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   الأقسام
+========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+}
+
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+
+.card:active{
+
+    transform:scale(.97);
+}
+
+
+.icon{
+
+    font-size:38px;
+
+    margin-bottom:10px;
+}
+
+
+.card h3{
+
+    color:#0f5132;
+
+    margin-bottom:8px;
+}
+
+
+.card p{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   رسالة
+========================= */
+
+.message{
+
+    margin-top:25px;
+
+    background:#e9f5ee;
+
+    border-right:
+        5px solid #198754;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    line-height:1.9;
+}
+
+
+.message strong{
+
+    color:#0f5132;
+}
+
+
+/* =========================
+   الإدارة
+========================= */
+
+.admin{
+
+    display:block;
+
+    width:90%;
+
+    max-width:350px;
+
+    margin:25px auto;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    background:#222;
+
+    color:white;
+
+    text-align:center;
+
+    text-decoration:none;
+}
+
+
+/* =========================
+   الفوتر
+========================= */
+
+footer{
+
+    margin-top:30px;
+
+    background:#0f5132;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   الجوال
+========================= */
+
+@media(max-width:500px){
+
+    .learning-cards{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+
+    .cards{
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+
+    .learning-card{
+
+        padding:
+            22px
+            10px;
+
+    }
+
+
+    .learning-icon{
+
+        font-size:36px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     الهيدر
+========================= -->
+
+<header>
+
+<div class="logo">
+🕌 جنود الهدى
+</div>
+
+<div class="subtitle">
+أكاديمية القرآن الكريم
+</div>
+
+</header>
+
+
+<!-- =========================
+     الترحيب
+========================= -->
+
+<section class="hero">
+
+<h1>
+مرحبًا بك في جنود الهدى
+</h1>
+
+<p>
+
+تعلم كتاب الله، واحفظه، وتدبره
+
+<br>
+
+خطوة بخطوة وبطريقة سهلة
+
+</p>
+
+</section>
+
+
+<div class="container">
+
+
+<!-- =========================
+     اختيار التعلم
+========================= -->
+
+<h2 class="learning-title">
+
+🎓 كيف تريد التعلم؟
+
+</h2>
+
+
+<p class="learning-subtitle">
+
+اختر الطريقة التي تناسبك
+
+</p>
+
+
+<div class="learning-cards">
+
+
+<!-- =========================
+     أونلاين
+========================= -->
+
+<div
+class="learning-card online"
+onclick="startOnline()">
+
+
+<div class="learning-icon">
+🎥
+</div>
+
+
+<h3>
+
+التعلم أونلاين
+
+</h3>
+
+
+<p>
+
+تعلم القرآن مع المدرس
+مباشرة عن بُعد
+
+</p>
+
+
+<span class="online-badge">
+
+🟢 تعليم مباشر
+
+</span>
+
+
+</div>
+
+
+
+<!-- =========================
+     عادي
+========================= -->
+
+<div
+class="learning-card normal"
+onclick="startNormal()">
+
+
+<div class="learning-icon">
+📖
+</div>
+
+
+<h3>
+
+التعلم العادي
+
+</h3>
+
+
+<p>
+
+تعلم بنفسك في أي وقت
+ومن أي مكان
+
+</p>
+
+
+<span class="online-badge">
+
+📚 تعلم ذاتي
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     الأقسام
+========================= -->
+
+<h2 class="section-title">
+
+محتوى الأكاديمية
+
+</h2>
+
+
+<div class="cards">
+
+
+<!-- القرآن -->
+
+<div
+class="card"
+onclick="openSection('quran')">
+
+
+<div class="icon">
+📖
+</div>
+
+
+<h3>
+القرآن الكريم
+</h3>
+
+
+<p>
+
+قراءة القرآن والاستماع
+إلى التلاوات
+
+</p>
+
+
+</div>
+
+
+
+<!-- الدروس -->
+
+<div
+class="card"
+onclick="openSection('lessons')">
+
+
+<div class="icon">
+📚
+</div>
+
+
+<h3>
+الدروس التعليمية
+</h3>
+
+
+<p>
+
+تعلم القرآن والتجويد
+خطوة بخطوة
+
+</p>
+
+
+</div>
+
+
+
+<!-- الاختبارات -->
+
+<div
+class="card"
+onclick="openSection('tests')">
+
+
+<div class="icon">
+📝
+</div>
+
+
+<h3>
+الاختبارات
+</h3>
+
+
+<p>
+
+اختبر معلوماتك
+وتابع مستواك
+
+</p>
+
+
+</div>
+
+
+
+<!-- التلاوات -->
+
+<div
+class="card"
+onclick="openSection('recitations')">
+
+
+<div class="icon">
+🎧
+</div>
+
+
+<h3>
+التلاوات
+</h3>
+
+
+<p>
+
+استمع إلى تلاوات
+القرآن الكريم
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     الرسالة
+========================= -->
+
+<div class="message">
+
+
+<strong>
+
+التعلم متاح للجميع
+
+</strong>
+
+
+<br>
+
+
+لا تحتاج إلى إنشاء حساب
+للبدء بالتعلم.
+
+
+<br>
+
+
+يمكنك الدخول مباشرة
+والاستفادة من محتوى الأكاديمية.
+
+
+</div>
+
+
+<!-- =========================
+     الإدارة
+========================= -->
+
+<a
+href="#"
+class="admin"
+onclick="adminLogin(); return false;">
+
+🔐 دخول الإدارة
+
+</a>
+
+
+</div>
+
+
+<!-- =========================
+     الفوتر
+========================= -->
+
+<footer>
+
+جنود الهدى © 2026
+
+<br>
+
+أكاديمية القرآن الكريم
+
+</footer>
+
+
+<script>
+
+
+/* =========================
+   التعلم أونلاين
+========================= */
+
+function startOnline(){
+
+    window.location.href =
+        "online.html";
+
+}
+
+
+/* =========================
+   التعلم العادي
+========================= */
+
+function startNormal(){
+
+    window.location.href =
+        "quran.html";
+
+}
+
+
+/* =========================
+   الأقسام
+========================= */
+
+function openSection(section){
+
+
+    if(section === "quran"){
+
+        window.location.href =
+            "quran.html";
+
+        return;
+
+    }
+
+
+    if(section === "lessons"){
+
+        alert(
+
+            "📚 قسم الدروس\n\n" +
+
+            "سيتم تجهيز الدروس " +
+
+            "التعليمية قريبًا."
+
+        );
+
+        return;
+
+    }
+
+
+    if(section === "tests"){
+
+        alert(
+
+            "📝 قسم الاختبارات\n\n" +
+
+            "سيتم تجهيز الاختبارات " +
+
+            "قريبًا."
+
+        );
+
+        return;
+
+    }
+
+
+    if(section === "recitations"){
+
+        alert(
+
+            "🎧 قسم التلاوات\n\n" +
+
+            "سيتم تجهيز التلاوات " +
+
+            "قريبًا."
+
+        );
+
+        return;
+
+    }
+
+}
+
+
+/* =========================
+   الإدارة
+========================= */
+
+function adminLogin(){
+
+    alert(
+
+        "🔐 لوحة الإدارة\n\n" +
+
+        "سيتم تجهيز نظام الإدارة " +
+
+        "وحمايته لاحقًا."
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
