@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>التسجيل | جنود الهدى</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7f6;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+.logo{
+    font-size:40px;
+    margin-bottom:8px;
+}
+
+header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+header p{
+    font-size:16px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:20px 15px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:25px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.card h2{
+    color:#075e54;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.description{
+    text-align:center;
+    color:#666;
+    line-height:1.9;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+    background:white;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#075e54;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.submit{
+    width:100%;
+    border:none;
+    background:#075e54;
+    color:white;
+    padding:15px;
+    border-radius:11px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.submit:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    border-radius:12px;
+    line-height:2;
+    text-align:center;
+}
+
+.success{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#b00020;
+}
+
+.note{
+    margin-top:20px;
+    padding:15px;
+    background:#fff8e1;
+    border-radius:12px;
+    line-height:1.9;
+    font-size:14px;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    color:#075e54;
+    text-decoration:none;
+}
+
+footer{
+    margin-top:30px;
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px;
+    line-height:2;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">🕌</div>
+
+    <h1>جنود الهدى</h1>
+
+    <p>التسجيل في أكاديمية تحفيظ القرآن أونلاين</p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>📝 تسجيل الطالب</h2>
+
+        <p class="description">
+            أرسل بيانات الطالب وسيقوم فريق الإدارة
+            بمراجعة الطلب والتواصل معكم.
+        </p>
+
+
+        <form id="registerForm">
+
+
+            <div class="form-group">
+
+                <label for="studentName">
+                    اسم الطالب
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="اكتب اسم الطالب"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="age">
+                    العمر
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="العمر"
+                    min="3"
+                    max="100"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="memorizationLevel">
+                    مستوى الحفظ
+                </label>
+
+                <select
+                    id="memorizationLevel"
+                    required>
+
+                    <option value="">
+                        اختر مستوى الحفظ
+                    </option>
+
+                    <option value="مبتدئ">
+                        مبتدئ
+                    </option>
+
+                    <option value="جزء أو أقل">
+                        جزء أو أقل
+                    </option>
+
+                    <option value="عدة أجزاء">
+                        عدة أجزاء
+                    </option>
+
+                    <option value="نصف القرآن">
+                        نصف القرآن
+                    </option>
+
+                    <option value="القرآن كامل">
+                        القرآن كامل
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phone">
+                    رقم التواصل
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="رقم الواتساب أو التواصل"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="preferredTime">
+                    الوقت المناسب للحصة
+                </label>
+
+                <input
+                    type="text"
+                    id="preferredTime"
+                    placeholder="مثال: 7 مساءً"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="notes">
+                    ملاحظات إضافية
+                </label>
+
+                <textarea
+                    id="notes"
+                    placeholder="أي ملاحظات للإدارة"></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit"
+                id="submitButton">
+
+                📝 إرسال طلب التسجيل
+
+            </button>
+
+        </form>
+
+
+        <div
+            id="successMessage"
+            class="message success">
+
+            ✅ تم إرسال طلب التسجيل بنجاح.
+
+            <br>
+
+            ستراجع الإدارة الطلب وتتواصل معكم
+            لإكمال إجراءات الاشتراك والدفع.
+
+        </div>
+
+
+        <div
+            id="errorMessage"
+            class="message error">
+
+            ⚠️ حدث خطأ أثناء إرسال الطلب.
+            يرجى المحاولة مرة أخرى.
+
+        </div>
+
+
+        <div class="note">
+
+            ℹ️ <strong>مهم:</strong>
+
+            بعد الموافقة وإتمام الدفع،
+            تقوم الإدارة بتفعيل الاشتراك لمدة شهر
+            وإنشاء كود رقمي خاص بالطالب.
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back">
+
+            ← العودة إلى الصفحة الرئيسية
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    🕌 جنود الهدى
+
+    <br>
+
+    تحفيظ القرآن أونلاين
+
+</footer>
+
+
+<script type="module">
+
+import {
+    db
+} from "./firebase.js";
+
+import {
+    collection,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const form =
+    document.getElementById("registerForm");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const successMessage =
+    document.getElementById("successMessage");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+
+form.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+
+    errorMessage.style.display = "none";
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "⏳ جاري إرسال الطلب...";
+
+
+    const studentName =
+        document
+        .getElementById("studentName")
+        .value.trim();
+
+
+    const age =
+        document
+        .getElementById("age")
+        .value;
+
+
+    const memorizationLevel =
+        document
+        .getElementById("memorizationLevel")
+        .value;
+
+
+    const phone =
+        document
+        .getElementById("phone")
+        .value.trim();
+
+
+    const preferredTime =
+        document
+        .getElementById("preferredTime")
+        .value.trim();
+
+
+    const notes =
+        document
+        .getElementById("notes")
+        .value.trim();
+
+
+    try{
+
+        await addDoc(
+            collection(db,"bookingRequests"),
+            {
+
+                studentName:studentName,
+
+                age:Number(age),
+
+                memorizationLevel:
+                    memorizationLevel,
+
+                phone:phone,
+
+                preferredTime:
+                    preferredTime,
+
+                notes:notes,
+
+                status:"pending",
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        form.style.display = "none";
+
+        successMessage.style.display = "block";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        errorMessage.textContent =
+            "⚠️ لم يتم إرسال الطلب. تأكد من اتصال الإنترنت وحاول مرة أخرى.";
+
+        errorMessage.style.display = "block";
+
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+            "📝 إرسال طلب التسجيل";
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>
