@@ -1,0 +1,2374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>الإدارة | جنود الهدى</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7f6;
+    color:#222;
+}
+
+header{
+    background:#0f5132;
+    color:white;
+    padding:20px 15px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.logo{
+    font-size:27px;
+    font-weight:bold;
+}
+
+.subtitle{
+    margin-top:6px;
+    font-size:13px;
+    opacity:.9;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+
+/* تسجيل الدخول */
+
+.login-box{
+    max-width:400px;
+    margin:50px auto;
+    background:white;
+    padding:25px 20px;
+    border-radius:16px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.login-box h2{
+    color:#0f5132;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#777;
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.login-box input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    outline:none;
+    text-align:center;
+    font-size:16px;
+    margin-bottom:12px;
+}
+
+.login-box button{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:9px;
+    background:#198754;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-error{
+    display:none;
+    color:#a00;
+    background:#fff0f0;
+    padding:10px;
+    border-radius:8px;
+    margin-top:12px;
+    font-size:12px;
+}
+
+
+/* لوحة الإدارة */
+
+#dashboard{
+    display:none;
+}
+
+
+/* شريط الإدارة */
+
+.admin-bar{
+    background:white;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.07);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.admin-title{
+    color:#0f5132;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.logout{
+    border:0;
+    background:#222;
+    color:white;
+    padding:9px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+
+/* الإحصائيات */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    border-radius:13px;
+    padding:18px 10px;
+    text-align:center;
+    box-shadow:0 2px 9px rgba(0,0,0,.06);
+}
+
+.stat-icon{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.stat-number{
+    color:#0f5132;
+    font-size:23px;
+    font-weight:bold;
+}
+
+.stat-title{
+    color:#777;
+    font-size:11px;
+    margin-top:5px;
+}
+
+
+/* =========================
+   إدارة الحلقة
+========================= */
+
+.live-admin{
+    background:white;
+    border-radius:16px;
+    padding:22px 18px;
+    margin-bottom:30px;
+    box-shadow:0 3px 14px rgba(0,0,0,.08);
+    border-right:5px solid #198754;
+}
+
+.live-admin h2{
+    color:#0f5132;
+    text-align:center;
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.live-admin-subtitle{
+    color:#777;
+    font-size:12px;
+    line-height:1.8;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.live-form-group{
+    margin-bottom:14px;
+}
+
+.live-form-group label{
+    display:block;
+    color:#0f5132;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.live-form-group input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    outline:none;
+    background:#fafafa;
+    font-size:14px;
+}
+
+.live-form-group input:focus{
+    border-color:#198754;
+    background:white;
+}
+
+.live-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:18px;
+}
+
+.save-live{
+    border:0;
+    background:#198754;
+    color:white;
+    padding:13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.hide-live{
+    border:0;
+    background:#eee;
+    color:#555;
+    padding:13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.live-current{
+    background:#f8f9f9;
+    border-radius:10px;
+    padding:14px;
+    margin-top:18px;
+    color:#666;
+    font-size:12px;
+    line-height:2;
+    text-align:center;
+}
+
+.live-current strong{
+    color:#0f5132;
+}
+
+
+/* عنوان الطلبات */
+
+.section-title{
+    color:#0f5132;
+    font-size:21px;
+    text-align:center;
+    margin-bottom:17px;
+}
+
+
+/* الطلب */
+
+.request{
+    background:white;
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 2px 11px rgba(0,0,0,.07);
+    border-right:5px solid #198754;
+}
+
+.request-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:13px;
+}
+
+.request-name{
+    color:#0f5132;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    background:#e9f5ee;
+    color:#0f5132;
+}
+
+.badge.discount{
+    background:#fff4d6;
+    color:#705719;
+}
+
+.request-info{
+    color:#555;
+    font-size:13px;
+    line-height:2;
+    background:#f8f9f9;
+    padding:12px;
+    border-radius:9px;
+    margin-bottom:12px;
+}
+
+.request-info strong{
+    color:#0f5132;
+}
+
+.request-notes{
+    color:#777;
+    font-size:12px;
+    line-height:1.8;
+    margin-bottom:13px;
+}
+
+.request-date{
+    color:#999;
+    font-size:10px;
+    margin-bottom:12px;
+}
+
+
+/* الأزرار */
+
+.actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.actions button{
+    border:0;
+    padding:10px 5px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.accept{
+    background:#198754;
+    color:white;
+}
+
+.reject{
+    background:#fff0f0;
+    color:#a00;
+}
+
+.delete{
+    background:#222;
+    color:white;
+}
+
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+
+
+/* حالة الطلب */
+
+.status-accepted{
+    border-right-color:#198754;
+}
+
+.status-rejected{
+    border-right-color:#dc3545;
+    opacity:.75;
+}
+
+.status-text{
+    font-size:11px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.accepted-text{
+    color:#198754;
+}
+
+.rejected-text{
+    color:#dc3545;
+}
+
+
+/* لا يوجد طلبات */
+
+.empty{
+    background:white;
+    border-radius:14px;
+    padding:35px 20px;
+    text-align:center;
+    color:#777;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+
+/* الفوتر */
+
+footer{
+    margin-top:30px;
+    background:#0f5132;
+    color:white;
+    text-align:center;
+    padding:20px;
+    font-size:12px;
+}
+
+
+/* الجوال */
+
+@media(max-width:500px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .stat{
+        padding:15px 5px;
+    }
+
+    .stat-number{
+        font-size:20px;
+    }
+
+    .actions{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .live-buttons{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+🕌 جنود الهدى
+</div>
+
+<div class="subtitle">
+لوحة إدارة أكاديمية القرآن الكريم
+</div>
+
+</header>
+
+
+<!-- تسجيل الدخول -->
+
+<div
+id="loginBox"
+class="login-box">
+
+<h2>
+🔐 دخول الإدارة
+</h2>
+
+<p>
+
+هذه الصفحة خاصة بإدارة
+أكاديمية جنود الهدى.
+
+<br>
+
+أدخل البريد الإلكتروني وكلمة المرور.
+
+</p>
+
+
+<input
+type="email"
+id="adminEmail"
+placeholder="البريد الإلكتروني"
+autocomplete="username">
+
+
+<input
+type="password"
+id="adminPassword"
+placeholder="كلمة المرور"
+autocomplete="current-password">
+
+
+<button onclick="login()">
+
+دخول الإدارة
+
+</button>
+
+
+<div
+id="loginError"
+class="login-error">
+
+بيانات الدخول غير صحيحة.
+
+</div>
+
+</div>
+
+
+<!-- لوحة الإدارة -->
+
+<div
+id="dashboard"
+class="container">
+
+
+<div class="admin-bar">
+
+<div class="admin-title">
+
+📊 لوحة الإدارة
+
+</div>
+
+
+<button
+class="logout"
+onclick="logout()">
+
+خروج 🔒
+
+</button>
+
+</div>
+
+
+<!-- الإحصائيات -->
+
+<div class="stats">
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📩
+</div>
+
+<div
+id="totalCount"
+class="stat-number">
+0
+</div>
+
+<div class="stat-title">
+إجمالي الطلبات
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+✅
+</div>
+
+<div
+id="acceptedCount"
+class="stat-number">
+0
+</div>
+
+<div class="stat-title">
+طلبات مقبولة
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+⏳
+</div>
+
+<div
+id="pendingCount"
+class="stat-number">
+0
+</div>
+
+<div class="stat-title">
+طلبات جديدة
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     إدارة الحلقة القادمة
+========================= -->
+
+<div class="live-admin">
+
+<h2>
+🎥 إدارة الحلقة القادمة
+</h2>
+
+<div class="live-admin-subtitle">
+
+ضع بيانات الحلقة هنا، وستظهر تلقائيًا
+في صفحة التعلم أونلاين.
+
+</div>
+
+
+<div class="live-form-group">
+
+<label>
+📖 اسم الحلقة
+</label>
+
+<input
+type="text"
+id="liveTitle"
+placeholder="مثال: حلقة حفظ سورة البقرة">
+
+</div>
+
+
+<div class="live-form-group">
+
+<label>
+👨‍🏫 اسم المدرس
+</label>
+
+<input
+type="text"
+id="liveTeacher"
+placeholder="مثال: الشيخ أحمد">
+
+</div>
+
+
+<div class="live-form-group">
+
+<label>
+🕐 وقت البداية
+</label>
+
+<input
+type="datetime-local"
+id="liveStartTime">
+
+</div>
+
+
+<div class="live-form-group">
+
+<label>
+🔗 رابط الحلقة
+</label>
+
+<input
+type="url"
+id="liveLink"
+placeholder="https://...">
+
+</div>
+
+
+<div class="live-buttons">
+
+<button
+class="save-live"
+onclick="saveLiveSession()">
+
+💾 حفظ الحلقة
+
+</button>
+
+
+<button
+class="hide-live"
+onclick="hideLiveSession()">
+
+🙈 إخفاء الحلقة
+
+</button>
+
+</div>
+
+
+<div
+id="liveCurrent"
+class="live-current">
+
+جاري تحميل بيانات الحلقة...
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+
+📩 طلبات الطلاب
+
+</h2>
+
+
+<div id="requests">
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+جنود الهدى © 2026
+
+<br>
+
+أكاديمية القرآن الكريم
+
+</footer>
+
+
+
+<script type="module">
+
+
+/* =========================
+   Firebase
+========================= */
+
+import { initializeApp }
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+
+    getAuth,
+
+    signInWithEmailAndPassword,
+
+    onAuthStateChanged,
+
+    signOut
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+
+    collection,
+
+    query,
+
+    orderBy,
+
+    onSnapshot,
+
+    doc,
+
+    updateDoc,
+
+    deleteDoc,
+
+    setDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+/* =========================
+   إعداد Firebase
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
+
+    authDomain:
+    "jundalhuda.firebaseapp.com",
+
+    projectId:
+    "jundalhuda",
+
+    storageBucket:
+    "jundalhuda.firebasestorage.app",
+
+    messagingSenderId:
+    "275883570506",
+
+    appId:
+    "1:275883570506:web:fb5e72953a3d5a66ef3db3",
+
+    measurementId:
+    "G-ZZNZKN73BQ"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* =========================
+   رقم واتساب الإدارة
+========================= */
+
+const ADMIN_WHATSAPP =
+    "967711959183";
+
+
+
+/* =========================
+   تسجيل الدخول
+========================= */
+
+window.login = async function(){
+
+    const email =
+        document.getElementById(
+            "adminEmail"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
+
+
+    const errorBox =
+        document.getElementById(
+            "loginError"
+        );
+
+
+    errorBox.style.display =
+        "none";
+
+
+    if(!email || !password){
+
+        errorBox.textContent =
+            "اكتب البريد الإلكتروني وكلمة المرور.";
+
+        errorBox.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    try{
+
+        await signInWithEmailAndPassword(
+
+            auth,
+
+            email,
+
+            password
+
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        errorBox.textContent =
+            "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+};
+
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+window.logout = async function(){
+
+    try{
+
+        await signOut(auth);
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+};
+
+
+
+/* =========================
+   مراقبة تسجيل الدخول
+========================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    user => {
+
+
+        if(user){
+
+            document.getElementById(
+                "loginBox"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "dashboard"
+            ).style.display =
+                "block";
+
+
+            loadRequests();
+
+            loadLiveSession();
+
+
+        }else{
+
+
+            document.getElementById(
+                "loginBox"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "dashboard"
+            ).style.display =
+                "none";
+
+        }
+
+    }
+
+);
+
+
+
+/* =========================
+   قراءة بيانات الحلقة
+========================= */
+
+function loadLiveSession(){
+
+    const liveRef =
+        doc(
+            db,
+            "liveSessions",
+            "current"
+        );
+
+
+    onSnapshot(
+
+        liveRef,
+
+        snapshot => {
+
+
+            if(!snapshot.exists()){
+
+                document.getElementById(
+                    "liveCurrent"
+                ).innerHTML =
+
+                    "لا توجد حلقة محفوظة حاليًا.";
+
+                return;
+
+            }
+
+
+            const data =
+                snapshot.data();
+
+
+            document.getElementById(
+                "liveTitle"
+            ).value =
+                data.title || "";
+
+
+            document.getElementById(
+                "liveTeacher"
+            ).value =
+                data.teacher || "";
+
+
+            document.getElementById(
+                "liveLink"
+            ).value =
+                data.link || "";
+
+
+            if(data.startTime){
+
+                const date =
+                    new Date(
+                        data.startTime
+                    );
+
+
+                if(
+                    !isNaN(
+                        date.getTime()
+                    )
+                ){
+
+                    const localValue =
+                        formatDateTimeLocal(
+                            date
+                        );
+
+
+                    document.getElementById(
+                        "liveStartTime"
+                    ).value =
+                        localValue;
+
+                }
+
+            }
+
+
+            updateCurrentLiveInfo(
+                data
+            );
+
+        },
+
+        error => {
+
+            console.error(error);
+
+
+            document.getElementById(
+                "liveCurrent"
+            ).innerHTML =
+
+                "⚠️ تعذر تحميل بيانات الحلقة.";
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================
+   حفظ الحلقة
+========================= */
+
+window.saveLiveSession =
+async function(){
+
+    const title =
+        document.getElementById(
+            "liveTitle"
+        ).value.trim();
+
+
+    const teacher =
+        document.getElementById(
+            "liveTeacher"
+        ).value.trim();
+
+
+    const startTime =
+        document.getElementById(
+            "liveStartTime"
+        ).value;
+
+
+    const link =
+        document.getElementById(
+            "liveLink"
+        ).value.trim();
+
+
+    if(!title){
+
+        alert(
+            "⚠️ اكتب اسم الحلقة."
+        );
+
+        return;
+
+    }
+
+
+    if(!teacher){
+
+        alert(
+            "⚠️ اكتب اسم المدرس."
+        );
+
+        return;
+
+    }
+
+
+    if(!startTime){
+
+        alert(
+            "⚠️ حدد وقت بداية الحلقة."
+        );
+
+        return;
+
+    }
+
+
+    if(!link){
+
+        alert(
+            "⚠️ اكتب رابط الحلقة."
+        );
+
+        return;
+
+    }
+
+
+    const startDate =
+        new Date(
+            startTime
+        );
+
+
+    if(
+        isNaN(
+            startDate.getTime()
+        )
+    ){
+
+        alert(
+            "⚠️ وقت البداية غير صحيح."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await setDoc(
+
+            doc(
+                db,
+                "liveSessions",
+                "current"
+            ),
+
+            {
+
+                title:
+                    title,
+
+                teacher:
+                    teacher,
+
+                startTime:
+                    startDate.toISOString(),
+
+                link:
+                    link,
+
+                showLive:
+                    true
+
+            }
+
+        );
+
+
+        alert(
+            "✅ تم حفظ الحلقة بنجاح."
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        alert(
+
+            "❌ تعذر حفظ الحلقة.\n\n" +
+
+            "تأكد من Firestore Rules."
+
+        );
+
+    }
+
+};
+
+
+
+/* =========================
+   إخفاء الحلقة
+========================= */
+
+window.hideLiveSession =
+async function(){
+
+    const answer =
+        confirm(
+
+            "هل تريد إخفاء الحلقة من صفحة التعلم؟"
+
+        );
+
+
+    if(!answer){
+
+        return;
+
+    }
+
+
+    try{
+
+        await setDoc(
+
+            doc(
+                db,
+                "liveSessions",
+                "current"
+            ),
+
+            {
+
+                showLive:
+                    false
+
+            },
+
+            {
+
+                merge:
+                    true
+
+            }
+
+        );
+
+
+        alert(
+            "🙈 تم إخفاء الحلقة."
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        alert(
+            "❌ تعذر إخفاء الحلقة."
+        );
+
+    }
+
+};
+
+
+
+/* =========================
+   عرض الحالة الحالية
+========================= */
+
+function updateCurrentLiveInfo(
+    data
+){
+
+    const box =
+        document.getElementById(
+            "liveCurrent"
+        );
+
+
+    if(
+        data.showLive === false
+    ){
+
+        box.innerHTML =
+
+            "🙈 <strong>الحلقة مخفية حاليًا.</strong>";
+
+        return;
+
+    }
+
+
+    let status =
+        "⏳ لم تبدأ بعد";
+
+
+    if(data.startTime){
+
+        const start =
+            new Date(
+                data.startTime
+            );
+
+
+        if(
+            !isNaN(
+                start.getTime()
+            )
+        ){
+
+            if(
+                new Date().getTime() >=
+                start.getTime()
+            ){
+
+                status =
+                    "🟢 وقت الحلقة بدأ";
+
+            }
+
+        }
+
+    }
+
+
+    box.innerHTML =
+
+        "📌 الحلقة الحالية: <strong>" +
+
+        escapeHTML(
+            data.title ||
+            "بدون اسم"
+        ) +
+
+        "</strong><br>" +
+
+        "👨‍🏫 المدرس: " +
+
+        escapeHTML(
+            data.teacher ||
+            "-"
+        ) +
+
+        "<br>" +
+
+        "📊 الحالة: <strong>" +
+
+        status +
+
+        "</strong>";
+
+}
+
+
+
+/* =========================
+   تحويل الوقت إلى input
+========================= */
+
+function formatDateTimeLocal(
+    date
+){
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const hours =
+        String(
+            date.getHours()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const minutes =
+        String(
+            date.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return (
+
+        year +
+        "-" +
+        month +
+        "-" +
+        day +
+        "T" +
+        hours +
+        ":" +
+        minutes
+
+    );
+
+}
+
+
+
+/* =========================
+   قراءة الطلبات
+========================= */
+
+function loadRequests(){
+
+
+    const container =
+        document.getElementById(
+            "requests"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                ⏳
+            </div>
+
+            جاري تحميل الطلبات...
+
+        </div>
+
+    `;
+
+
+    const q = query(
+
+        collection(
+            db,
+            "bookingRequests"
+        ),
+
+        orderBy(
+            "createdAt",
+            "desc"
+        )
+
+    );
+
+
+    onSnapshot(
+
+        q,
+
+        snapshot => {
+
+
+            const requests =
+                snapshot.docs.map(
+
+                    item => ({
+
+                        id:
+                        item.id,
+
+                        ...item.data()
+
+                    })
+
+                );
+
+
+            updateStats(
+                requests
+            );
+
+
+            displayRequests(
+                requests
+            );
+
+
+        },
+
+
+        error => {
+
+
+            console.error(
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    تعذر تحميل الطلبات.
+
+                    <br>
+
+                    تأكد من إعدادات
+                    Firestore Rules.
+
+                </div>
+
+            `;
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================
+   عرض الطلبات
+========================= */
+
+function displayRequests(
+    requests
+){
+
+
+    const container =
+        document.getElementById(
+            "requests"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if(
+        requests.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+                لا توجد طلبات حتى الآن.
+
+                <br>
+
+                عندما يرسل طالب طلبًا
+                سيظهر هنا.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    requests.forEach(
+
+        request => {
+
+            createRequestCard(
+
+                request,
+
+                container
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* =========================
+   بطاقة الطلب
+========================= */
+
+function createRequestCard(
+
+    request,
+
+    container
+
+){
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    let statusClass = "";
+
+    let statusHTML = "";
+
+
+    if(
+        request.status ===
+        "accepted"
+    ){
+
+        statusClass =
+            "status-accepted";
+
+
+        statusHTML = `
+
+            <div class="
+                status-text
+                accepted-text">
+
+                ✅ تم قبول الطلب
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(
+        request.status ===
+        "rejected"
+    ){
+
+        statusClass =
+            "status-rejected";
+
+
+        statusHTML = `
+
+            <div class="
+                status-text
+                rejected-text">
+
+                ❌ تم رفض الطلب
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    let badgeClass = "";
+
+
+    if(
+        request.type ===
+        "خصم الأخوة"
+    ){
+
+        badgeClass =
+            "discount";
+
+    }
+
+
+
+    div.className =
+        "request " +
+        statusClass;
+
+
+
+    let requestDate = "-";
+
+
+    if(
+        request.createdAt &&
+        typeof request.createdAt.toDate
+        === "function"
+    ){
+
+        requestDate =
+            request.createdAt
+            .toDate()
+            .toLocaleString(
+                "ar-SA"
+            );
+
+    }
+
+
+
+    div.innerHTML = `
+
+        <div class="request-top">
+
+            <div class="request-name">
+
+                👤 ${
+                    escapeHTML(
+                        request.studentName ||
+                        "بدون اسم"
+                    )
+                }
+
+            </div>
+
+
+            <span class="
+                badge ${badgeClass}">
+
+                ${
+                    escapeHTML(
+                        request.type ||
+                        "طلب تسجيل"
+                    )
+                }
+
+            </span>
+
+        </div>
+
+
+
+        <div class="request-info">
+
+            🎂 <strong>العمر:</strong>
+
+            ${
+                escapeHTML(
+                    request.age || "-"
+                )
+            }
+
+
+            <br>
+
+
+            📖 <strong>المستوى:</strong>
+
+            ${
+                escapeHTML(
+                    request.level || "-"
+                )
+            }
+
+
+            <br>
+
+
+            📱 <strong>التواصل:</strong>
+
+            ${
+                escapeHTML(
+                    request.phone || "-"
+                )
+            }
+
+
+            <br>
+
+
+            🕐 <strong>الوقت المناسب:</strong>
+
+            ${
+                escapeHTML(
+                    request.preferredTime || "-"
+                )
+            }
+
+
+            <br>
+
+
+            👨‍👩‍👧‍👦 <strong>إخوة:</strong>
+
+            ${
+                escapeHTML(
+                    request.brothers || "-"
+                )
+            }
+
+        </div>
+
+
+
+        ${
+            request.notes
+
+            ?
+
+            `
+
+            <div class="request-notes">
+
+                📝 <strong>ملاحظات:</strong>
+
+                ${
+                    escapeHTML(
+                        request.notes
+                    )
+                }
+
+            </div>
+
+            `
+
+            :
+
+            ""
+
+        }
+
+
+
+        <div class="request-date">
+
+            📅 ${escapeHTML(
+                requestDate
+            )}
+
+        </div>
+
+
+
+        <div class="actions">
+
+
+            <button
+
+                class="accept"
+
+                onclick="
+                acceptRequest(
+                '${request.id}'
+                )">
+
+                ✅ قبول
+
+            </button>
+
+
+
+            <button
+
+                class="reject"
+
+                onclick="
+                rejectRequest(
+                '${request.id}'
+                )">
+
+                ❌ رفض
+
+            </button>
+
+
+
+            <button
+
+                class="whatsapp"
+
+                onclick="
+                contactWhatsApp(
+                '${request.phone || ""}',
+                '${request.studentName || ""}',
+                '${request.type || "طلب تسجيل"}'
+                )">
+
+                📱 واتساب
+
+            </button>
+
+
+
+            <button
+
+                class="delete"
+
+                onclick="
+                deleteRequest(
+                '${request.id}'
+                )">
+
+                🗑️ حذف
+
+            </button>
+
+
+        </div>
+
+
+
+        ${statusHTML}
+
+    `;
+
+
+    container.appendChild(
+        div
+    );
+
+}
+
+
+
+/* =========================
+   فتح واتساب
+========================= */
+
+window.contactWhatsApp =
+function(
+    studentPhone,
+    studentName,
+    requestType
+){
+
+    let phone =
+        String(studentPhone || "")
+        .replace(
+            /[^0-9+]/g,
+            ""
+        );
+
+
+    if(!phone){
+
+        phone =
+            ADMIN_WHATSAPP;
+
+    }
+
+
+    phone =
+        phone.replace(
+            /^\+/,
+            ""
+        );
+
+
+    const message =
+
+        "السلام عليكم ورحمة الله وبركاته\n\n" +
+
+        "معك إدارة أكاديمية جنود الهدى 🕌\n\n" +
+
+        "بخصوص طلب التسجيل المقدم من الطالب: " +
+
+        studentName +
+
+        "\n\n" +
+
+        "نوع الطلب: " +
+
+        requestType +
+
+        "\n\n" +
+
+        "نتواصل معك لتأكيد الموعد والتفاصيل.\n\n" +
+
+        "جزاكم الله خيرًا.";
+
+
+    const url =
+
+        "https://wa.me/" +
+
+        phone +
+
+        "?text=" +
+
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+};
+
+
+
+/* =========================
+   قبول الطلب
+========================= */
+
+window.acceptRequest =
+async function(id){
+
+
+    try{
+
+
+        await updateDoc(
+
+            doc(
+
+                db,
+
+                "bookingRequests",
+
+                id
+
+            ),
+
+            {
+
+                status:
+                "accepted"
+
+            }
+
+        );
+
+
+        alert(
+            "✅ تم قبول الطلب."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "❌ تعذر قبول الطلب."
+        );
+
+    }
+
+};
+
+
+
+/* =========================
+   رفض الطلب
+========================= */
+
+window.rejectRequest =
+async function(id){
+
+
+    try{
+
+
+        await updateDoc(
+
+            doc(
+
+                db,
+
+                "bookingRequests",
+
+                id
+
+            ),
+
+            {
+
+                status:
+                "rejected"
+
+            }
+
+        );
+
+
+        alert(
+            "❌ تم رفض الطلب."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "❌ تعذر رفض الطلب."
+        );
+
+    }
+
+};
+
+
+
+/* =========================
+   حذف الطلب
+========================= */
+
+window.deleteRequest =
+async function(id){
+
+
+    const answer =
+        confirm(
+
+            "هل تريد حذف هذا الطلب نهائيًا؟"
+
+        );
+
+
+    if(!answer){
+
+        return;
+
+    }
+
+
+    try{
+
+
+        await deleteDoc(
+
+            doc(
+
+                db,
+
+                "bookingRequests",
+
+                id
+
+            )
+
+        );
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "❌ تعذر حذف الطلب."
+        );
+
+    }
+
+};
+
+
+
+/* =========================
+   الإحصائيات
+========================= */
+
+function updateStats(
+    requests
+){
+
+
+    const total =
+        requests.length;
+
+
+    const accepted =
+        requests.filter(
+
+            r =>
+            r.status ===
+            "accepted"
+
+        ).length;
+
+
+    const pending =
+        requests.filter(
+
+            r =>
+            !r.status ||
+            r.status ===
+            "pending"
+
+        ).length;
+
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        total;
+
+
+
+    document.getElementById(
+        "acceptedCount"
+    ).textContent =
+        accepted;
+
+
+
+    document.getElementById(
+        "pendingCount"
+    ).textContent =
+        pending;
+
+}
+
+
+
+/* =========================
+   حماية النص
+========================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+</script>
+
+
+</body>
+
+  </html>
