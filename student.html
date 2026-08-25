@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>دخول الطالب | جنود الهدى</title><style>
+<title>الطالب | جنود الهدى</title><style>
 
 *{
     box-sizing:border-box;
@@ -33,98 +33,112 @@ header h1{
 
 header p{
     margin-top:6px;
-    font-size:14px;
+    opacity:.9;
 }
 
 .container{
-    max-width:600px;
+    max-width:650px;
     margin:auto;
-    padding:25px 15px;
+    padding:20px 14px;
 }
 
 .card{
     background:white;
     border-radius:18px;
     padding:22px 18px;
-    box-shadow:0 4px 18px rgba(0,0,0,.08);
-}
-
-.student-card{
-    display:none;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
 h2{
     text-align:center;
     color:#075e54;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
 .description{
     text-align:center;
-    color:#777;
+    color:#666;
     line-height:1.9;
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
-.code-input{
+input,
+select{
     width:100%;
-    padding:17px;
+    padding:14px;
+    margin-bottom:12px;
     border:1px solid #ddd;
-    border-radius:12px;
-    font-size:25px;
-    text-align:center;
-    letter-spacing:7px;
+    border-radius:11px;
+    font-size:16px;
     outline:none;
+    background:white;
 }
 
-.code-input:focus{
+input:focus,
+select:focus{
     border-color:#075e54;
 }
 
-.login-btn{
+button{
     width:100%;
-    margin-top:14px;
-    padding:15px;
     border:0;
     border-radius:11px;
-    background:#075e54;
-    color:white;
-    font-size:18px;
+    padding:14px;
+    font-size:17px;
     font-weight:bold;
+    cursor:pointer;
 }
 
-.login-btn:disabled{
+.primary{
+    background:#075e54;
+    color:white;
+}
+
+.primary:disabled{
     opacity:.6;
 }
 
-.error{
+.whatsapp{
+    background:#25d366;
+    color:white;
+    margin-top:10px;
     display:none;
-    margin-top:15px;
-    padding:13px;
-    border-radius:10px;
-    background:#ffe8e8;
-    color:#a00000;
+}
+
+.message{
+    display:none;
+    padding:14px;
+    border-radius:11px;
     text-align:center;
     line-height:1.8;
+    margin-bottom:15px;
+}
+
+.success{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
 }
 
 .info{
-    background:#e8f7f2;
-    padding:15px;
+    background:#f8faf9;
     border-radius:12px;
-    margin-top:18px;
+    padding:15px;
+    line-height:2;
 }
 
 .row{
-    background:white;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:9px;
-    line-height:1.8;
+    padding:8px 0;
+    border-bottom:1px solid #eee;
 }
 
 .row:last-child{
-    margin-bottom:0;
+    border-bottom:0;
 }
 
 .row strong{
@@ -132,12 +146,12 @@ h2{
 }
 
 .status{
-    margin-top:18px;
-    padding:16px;
-    border-radius:12px;
+    margin-top:15px;
+    padding:15px;
+    border-radius:11px;
     text-align:center;
-    font-weight:bold;
     line-height:1.9;
+    font-weight:bold;
 }
 
 .waiting{
@@ -150,51 +164,27 @@ h2{
     color:#075e54;
 }
 
-.finished{
-    background:#eee;
-    color:#666;
-}
-
-.join-btn{
-    display:none;
-    width:100%;
-    margin-top:12px;
-    padding:16px;
-    border:0;
-    border-radius:11px;
+.join{
     background:#075e54;
     color:white;
-    font-size:18px;
-    font-weight:bold;
-}
-
-.logout-btn{
-    width:100%;
-    margin-top:18px;
-    padding:13px;
-    border:0;
-    border-radius:10px;
-    background:#555;
-    color:white;
-    font-weight:bold;
+    margin-top:12px;
+    display:none;
 }
 
 .back{
     display:block;
     text-align:center;
-    margin-top:18px;
     color:#075e54;
     text-decoration:none;
+    margin-top:18px;
 }
 
-.loading{
-    text-align:center;
-    padding:25px;
-    color:#777;
+.hidden{
+    display:none !important;
 }
 
 footer{
-    margin-top:30px;
+    margin-top:25px;
     background:#075e54;
     color:white;
     text-align:center;
@@ -204,95 +194,242 @@ footer{
 }
 
 </style></head><body><header><div class="logo">
-🕌
-</div><h1>
-جنود الهدى
-</h1><p>
-صفحة الطالب
-</p></header><div class="container"><!-- =========================
-     تسجيل دخول الطالب
-========================= --><div
-id="loginCard"
-class="card"><h2>
-🎓 دخول الطالب
-</h2><p class="description">أدخل الكود الخاص بك
-للدخول إلى صفحة الحصة.
+    🕌
+</div>
 
-</p><form id="loginForm"><input
-id="codeInput"
-class="code-input"
-type="text"
-inputmode="numeric"
-maxlength="6"
-placeholder="000000"
-autocomplete="off"
-required>
+<h1>
+    جنود الهدى
+</h1>
+
+<p>
+    أكاديمية القرآن الكريم
+</p>
+
+</header><div class="container"><!-- =================================
+     التسجيل
+================================= --><div
+    id="registerCard"
+    class="card"><h2>
+    🎓 تسجيل طالب جديد
+</h2>
+
+<p class="description">
+
+    أدخل بيانات الطالب لإرسال طلب التسجيل
+    إلى إدارة أكاديمية جنود الهدى.
+
+</p>
+
+
+<div
+    id="message"
+    class="message">
+</div>
+
+
+<form id="registerForm">
+
+
+    <input
+        id="studentName"
+        type="text"
+        placeholder="اسم الطالب"
+        required>
+
+
+    <input
+        id="studentAge"
+        type="number"
+        placeholder="العمر"
+        min="3"
+        max="100"
+        required>
+
+
+    <select
+        id="studentLevel"
+        required>
+
+        <option value="">
+            اختر المستوى
+        </option>
+
+        <option value="مبتدئ">
+            مبتدئ
+        </option>
+
+        <option value="متوسط">
+            متوسط
+        </option>
+
+        <option value="متقدم">
+            متقدم
+        </option>
+
+    </select>
+
+
+    <input
+        id="studentPhone"
+        type="tel"
+        placeholder="رقم الجوال"
+        inputmode="tel"
+        required>
+
+
+    <input
+        id="studentGuardian"
+        type="text"
+        placeholder="اسم ولي الأمر"
+        required>
+
+
+    <button
+        id="submitButton"
+        type="submit"
+        class="primary">
+
+        📩 إرسال طلب التسجيل
+
+    </button>
+
+
+</form>
+
 
 <button
-id="loginButton"
-class="login-btn"
-type="submit">
+    id="whatsappButton"
+    class="whatsapp">
 
-دخول
+    💬 إرسال الطلب عبر واتساب
 
-</button></form><div
-id="error"
-class="error">
-</div><a
-href="index.html"
-class="back">
+</button>
 
-← العودة للرئيسية
 
-</a></div><!-- =========================
-     بيانات الطالب
-========================= --><div
-id="studentCard"
-class="card student-card"><h2>
-🎓 أهلاً بك
-</h2><div class="info"><div class="row"><strong>
-👤 الطالب:
-</strong><span id="name">
-</span></div><div class="row"><strong>
-🎂 العمر:
-</strong><span id="age">
-</span></div><div class="row"><strong>
-👨‍🏫 المدرس:
-</strong><span id="teacher">
-</span></div><div class="row"><strong>
-📖 المستوى:
-</strong><span id="level">
-</span></div><div class="row"><strong>
-📚 الدرس:
-</strong><span id="lesson">
-</span></div><div class="row"><strong>
-📅 التاريخ:
-</strong><span id="date">
-</span></div><div class="row"><strong>
-🕐 بداية الحصة:
-</strong><span id="start">
-</span></div><div class="row"><strong>
-🕐 نهاية الحصة:
-</strong><span id="end">
-</span></div></div><div
-id="status"
-class="status waiting">⏳ جاري التحقق من موعد الحصة...
+<a
+    href="index.html"
+    class="back">
 
-</div><button
-id="joinButton"
-class="join-btn">
+    ← العودة للرئيسية
 
-🎥 دخول الحصة
+</a>
 
-</button><button
-id="logoutButton"
-class="logout-btn">
+</div><!-- =================================
+     حالة الطالب
+================================= --><div
+    id="studentCard"
+    class="card hidden"><h2>
+    🎓 بيانات الطالب
+</h2>
 
-🚪 تسجيل الخروج
 
-</button></div></div><footer>جنود الهدى © 2026
+<div class="info">
 
-<br>أكاديمية القرآن الكريم
+
+    <div class="row">
+
+        <strong>
+            👤 الاسم:
+        </strong>
+
+        <span id="viewName">
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <strong>
+            🎂 العمر:
+        </strong>
+
+        <span id="viewAge">
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <strong>
+            📖 المستوى:
+        </strong>
+
+        <span id="viewLevel">
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <strong>
+            👨‍🏫 المدرس:
+        </strong>
+
+        <span id="viewTeacher">
+            لم يتم التحديد بعد
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <strong>
+            📅 موعد الحصة:
+        </strong>
+
+        <span id="viewDate">
+            لم يتم التحديد بعد
+        </span>
+
+    </div>
+
+
+    <div class="row">
+
+        <strong>
+            🕐 وقت الحصة:
+        </strong>
+
+        <span id="viewTime">
+            لم يتم التحديد بعد
+        </span>
+
+    </div>
+
+
+</div>
+
+
+<div
+    id="statusBox"
+    class="status waiting">
+
+    ⏳ طلبك قيد المراجعة من الإدارة.
+
+</div>
+
+
+<button
+    id="joinButton"
+    class="join">
+
+    🎥 دخول الحصة الآن
+
+</button>
+
+</div></div><footer>جنود الهدى © 2026
+
+<br>
+
+أكاديمية القرآن الكريم
+
+<br>
+
+📖 القرآن الكريم مجاني للجميع
 
 </footer><script type="module">
 
@@ -303,21 +440,38 @@ class="logout-btn">
 
 import {
     db
-}
-from "./firebase.js";
+} from "./firebase.js";
 
 
 import {
-
     collection,
-    query,
-    where,
-    getDocs,
-    limit
-
-}
-from
+    addDoc,
+    doc,
+    getDoc
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* =========================================
+   رقم واتساب الإدارة
+========================================= */
+
+/*
+   غيّر الرقم هنا فقط.
+
+   اكتب الرقم بصيغة دولية
+   بدون علامة +
+   
+   مثال السعودية:
+   9665XXXXXXXX
+
+   مثال اليمن:
+   9677XXXXXXXX
+*/
+
+const ADMIN_WHATSAPP =
+"966500000000";
 
 
 
@@ -325,104 +479,130 @@ from
    العناصر
 ========================================= */
 
-const loginCard =
+const registerForm =
 document.getElementById(
-    "loginCard"
+    "registerForm"
 );
+
+
+const submitButton =
+document.getElementById(
+    "submitButton"
+);
+
+
+const message =
+document.getElementById(
+    "message"
+);
+
+
+const whatsappButton =
+document.getElementById(
+    "whatsappButton"
+);
+
+
+const registerCard =
+document.getElementById(
+    "registerCard"
+);
+
 
 const studentCard =
 document.getElementById(
     "studentCard"
 );
 
-const loginForm =
-document.getElementById(
-    "loginForm"
-);
-
-const codeInput =
-document.getElementById(
-    "codeInput"
-);
-
-const loginButton =
-document.getElementById(
-    "loginButton"
-);
-
-const errorBox =
-document.getElementById(
-    "error"
-);
 
 const joinButton =
 document.getElementById(
     "joinButton"
 );
 
-const logoutButton =
-document.getElementById(
-    "logoutButton"
-);
 
 const statusBox =
 document.getElementById(
-    "status"
-);
-
-
-let currentStudent = null;
-
-let timer = null;
-
-
-
-/* =========================================
-   أرقام فقط
-========================================= */
-
-codeInput.addEventListener(
-    "input",
-    function(){
-
-        this.value =
-        this.value
-        .replace(
-            /\D/g,
-            ""
-        )
-        .slice(
-            0,
-            6
-        );
-
-    }
+    "statusBox"
 );
 
 
 
+let createdRequest = null;
+
+
+
 /* =========================================
-   تسجيل دخول الطالب
+   إرسال الطلب
 ========================================= */
 
-loginForm.addEventListener(
+registerForm.addEventListener(
     "submit",
     async function(event){
 
         event.preventDefault();
 
 
-        hideError();
+        hideMessage();
 
 
-        const code =
-        codeInput.value.trim();
+        const name =
+        document
+        .getElementById(
+            "studentName"
+        )
+        .value
+        .trim();
 
 
-        if(!/^\d{6}$/.test(code)){
+        const age =
+        document
+        .getElementById(
+            "studentAge"
+        )
+        .value
+        .trim();
 
-            showError(
-                "⚠️ أدخل الكود المكون من 6 أرقام."
+
+        const level =
+        document
+        .getElementById(
+            "studentLevel"
+        )
+        .value
+        .trim();
+
+
+        const phone =
+        document
+        .getElementById(
+            "studentPhone"
+        )
+        .value
+        .trim();
+
+
+        const guardian =
+        document
+        .getElementById(
+            "studentGuardian"
+        )
+        .value
+        .trim();
+
+
+
+        if(
+            !name ||
+            !age ||
+            !level ||
+            !phone ||
+            !guardian
+        ){
+
+            showMessage(
+                "⚠️ أكمل جميع البيانات المطلوبة.",
+                false
             );
 
             return;
@@ -430,84 +610,105 @@ loginForm.addEventListener(
         }
 
 
-        loginButton.disabled =
+        submitButton.disabled =
         true;
 
-        loginButton.textContent =
-        "⏳ جاري التحقق...";
+
+        submitButton.textContent =
+        "⏳ جاري إرسال الطلب...";
 
 
         try{
 
 
-            const q =
-            query(
+            /*
+            ===============================
+            إنشاء طلب التسجيل
+            ===============================
+            */
 
-                collection(
-                    db,
-                    "students"
-                ),
+            const requestData = {
 
-                where(
-                    "code",
-                    "==",
-                    code
-                ),
+                name:name,
 
-                limit(1)
+                age:age,
 
-            );
+                level:level,
 
+                phone:phone,
 
-            const result =
-            await getDocs(q);
+                guardian:guardian,
 
+                status:"pending",
 
-            if(result.empty){
-
-                showError(
-                    "❌ الكود غير صحيح."
-                );
-
-                return;
-
-            }
-
-
-            const item =
-            result.docs[0];
-
-
-            const student = {
-
-                id:
-                item.id,
-
-                ...item.data()
+                createdAt:
+                new Date().toISOString()
 
             };
 
 
-            if(
-                student.active === false
-            ){
+            const result =
+            await addDoc(
 
-                showError(
-                    "⛔ حساب الطالب غير مفعل."
-                );
+                collection(
+                    db,
+                    "bookingRequests"
+                ),
 
-                return;
+                requestData
 
-            }
-
-
-            currentStudent =
-            student;
-
-
-            showStudent(
-                student
             );
+
+
+            createdRequest = {
+
+                id:result.id,
+
+                ...requestData
+
+            };
+
+
+            /*
+            ===============================
+            حفظ البيانات محليًا
+            ===============================
+            */
+
+            localStorage.setItem(
+
+                "jundAlHudaRequest",
+
+                JSON.stringify(
+                    createdRequest
+                )
+
+            );
+
+
+            /*
+            ===============================
+            إظهار نجاح
+            ===============================
+            */
+
+            showMessage(
+
+                "✅ تم إرسال طلب التسجيل بنجاح. يمكنك الآن إرساله للإدارة عبر واتساب.",
+
+                true
+
+            );
+
+
+            whatsappButton.style.display =
+            "block";
+
+
+            whatsappButton.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
 
 
         }catch(error){
@@ -515,19 +716,23 @@ loginForm.addEventListener(
             console.error(error);
 
 
-            showError(
-                "❌ تعذر الاتصال بقاعدة البيانات."
+            showMessage(
+
+                "❌ تعذر إرسال الطلب. حاول مرة أخرى.",
+
+                false
+
             );
 
-        }finally{
-
-            loginButton.disabled =
-            false;
-
-            loginButton.textContent =
-            "دخول";
-
         }
+
+
+        submitButton.disabled =
+        false;
+
+
+        submitButton.textContent =
+        "📩 إرسال طلب التسجيل";
 
     }
 );
@@ -535,442 +740,166 @@ loginForm.addEventListener(
 
 
 /* =========================================
-   عرض الطالب
+   واتساب
 ========================================= */
 
-function showStudent(student){
-
-    loginCard.style.display =
-    "none";
-
-    studentCard.style.display =
-    "block";
-
-
-    document
-    .getElementById("name")
-    .textContent =
-    student.name ||
-    "غير محدد";
-
-
-    document
-    .getElementById("age")
-    .textContent =
-    student.age ||
-    "غير محدد";
-
-
-    document
-    .getElementById("teacher")
-    .textContent =
-    student.teacher ||
-    "غير محدد";
-
-
-    document
-    .getElementById("level")
-    .textContent =
-    student.level ||
-    "غير محدد";
-
-
-    document
-    .getElementById("lesson")
-    .textContent =
-    student.lesson ||
-    "قراءة وحفظ القرآن الكريم";
-
-
-    updateDateTime(
-        student
-    );
-
-
-    checkLesson(
-        student
-    );
-
-
-    clearInterval(
-        timer
-    );
-
-
-    timer =
-    setInterval(
-        function(){
-
-            updateDateTime(
-                student
-            );
-
-            checkLesson(
-                student
-            );
-
-        },
-        15000
-    );
-
-}
-
-
-
-/* =========================================
-   التاريخ والوقت
-========================================= */
-
-function updateDateTime(student){
-
-    let start = null;
-
-    let end = null;
-
-
-    if(student.startTime){
-
-        start =
-        new Date(
-            student.startTime
-        );
-
-    }
-
-
-    if(student.endTime){
-
-        end =
-        new Date(
-            student.endTime
-        );
-
-    }
-
-
-    document
-    .getElementById("date")
-    .textContent =
-    start &&
-    !isNaN(start.getTime())
-    ?
-    formatDate(start)
-    :
-    "غير محدد";
-
-
-    document
-    .getElementById("start")
-    .textContent =
-    start &&
-    !isNaN(start.getTime())
-    ?
-    formatTime(start)
-    :
-    "غير محدد";
-
-
-    document
-    .getElementById("end")
-    .textContent =
-    end &&
-    !isNaN(end.getTime())
-    ?
-    formatTime(end)
-    :
-    "بعد 30 دقيقة";
-
-}
-
-
-
-/* =========================================
-   فحص موعد الحصة
-========================================= */
-
-function checkLesson(student){
-
-    joinButton.style.display =
-    "none";
-
-
-    if(!student.startTime){
-
-        statusBox.className =
-        "status waiting";
-
-        statusBox.textContent =
-        "📅 لم يتم تحديد موعد الحصة بعد.";
-
-        return;
-
-    }
-
-
-    const start =
-    new Date(
-        student.startTime
-    );
-
-
-    if(
-        isNaN(start.getTime())
-    ){
-
-        statusBox.className =
-        "status waiting";
-
-        statusBox.textContent =
-        "⚠️ موعد الحصة غير صحيح.";
-
-        return;
-
-    }
-
-
-    let end;
-
-
-    if(student.endTime){
-
-        end =
-        new Date(
-            student.endTime
-        );
-
-    }
-
-
-    if(
-        !end ||
-        isNaN(end.getTime())
-    ){
-
-        end =
-        new Date(
-            start.getTime()
-            +
-            30 * 60000
-        );
-
-    }
-
-
-    const now =
-    new Date();
-
-
-    /* قبل الحصة */
-
-    if(now < start){
-
-        const minutes =
-        Math.ceil(
-            (
-                start.getTime()
-                -
-                now.getTime()
-            )
-            /
-            60000
-        );
-
-
-        statusBox.className =
-        "status waiting";
-
-
-        statusBox.innerHTML =
-        "⏳ الحصة لم تبدأ بعد."
-        +
-        "<br>"
-        +
-        "باقي تقريبًا "
-        +
-        minutes
-        +
-        " دقيقة.";
-
-        return;
-
-    }
-
-
-    /* أثناء الحصة */
-
-    if(
-        now >= start &&
-        now <= end
-    ){
-
-        statusBox.className =
-        "status live";
-
-
-        statusBox.textContent =
-        "🟢 الحصة بدأت الآن";
-
-
-        joinButton.style.display =
-        "block";
-
-
-        joinButton.onclick =
-        function(){
-
-            let url =
-            student.link ||
-            "";
-
-
-            url =
-            url.trim();
-
-
-            if(!url){
-
-                alert(
-                    "⚠️ لم يتم تجهيز رابط الحصة من الإدارة."
-                );
-
-                return;
-
-            }
-
-
-            if(
-                !url.startsWith("http://")
-                &&
-                !url.startsWith("https://")
-            ){
-
-                url =
-                "https://" + url;
-
-            }
-
-
-            window.location.href =
-            url;
-
-        };
-
-
-        return;
-
-    }
-
-
-    /* بعد الحصة */
-
-    statusBox.className =
-    "status finished";
-
-
-    statusBox.innerHTML =
-    "✅ انتهت حصة اليوم."
-    +
-    "<br>"
-    +
-    "نلتقي في الموعد القادم.";
-
-}
-
-
-
-/* =========================================
-   التاريخ
-========================================= */
-
-function formatDate(date){
-
-    return date.toLocaleDateString(
-        "ar-SA",
-        {
-            year:"numeric",
-            month:"long",
-            day:"numeric"
-        }
-    );
-
-}
-
-
-
-/* =========================================
-   الوقت
-========================================= */
-
-function formatTime(date){
-
-    return date.toLocaleTimeString(
-        "ar-SA",
-        {
-            hour:"2-digit",
-            minute:"2-digit"
-        }
-    );
-
-}
-
-
-
-/* =========================================
-   الأخطاء
-========================================= */
-
-function showError(text){
-
-    errorBox.textContent =
-    text;
-
-    errorBox.style.display =
-    "block";
-
-}
-
-
-function hideError(){
-
-    errorBox.style.display =
-    "none";
-
-}
-
-
-
-/* =========================================
-   تسجيل الخروج
-========================================= */
-
-logoutButton.addEventListener(
+whatsappButton.addEventListener(
     "click",
     function(){
 
-        currentStudent =
-        null;
+        if(!createdRequest){
+
+            const saved =
+            localStorage.getItem(
+                "jundAlHudaRequest"
+            );
 
 
-        clearInterval(
-            timer
+            if(saved){
+
+                try{
+
+                    createdRequest =
+                    JSON.parse(saved);
+
+                }catch(error){
+
+                    console.error(error);
+
+                }
+
+            }
+
+        }
+
+
+        if(!createdRequest){
+
+            alert(
+                "⚠️ أرسل طلب التسجيل أولًا."
+            );
+
+            return;
+
+        }
+
+
+        const text =
+
+`السلام عليكم ورحمة الله وبركاته
+
+📚 طلب تسجيل طالب جديد
+من أكاديمية جنود الهدى
+
+👤 اسم الطالب: ${createdRequest.name}
+🎂 العمر: ${createdRequest.age}
+📖 المستوى: ${createdRequest.level}
+📱 رقم الجوال: ${createdRequest.phone}
+👨‍👩‍👦 ولي الأمر: ${createdRequest.guardian}
+
+🆔 رقم الطلب:
+${createdRequest.id}
+
+نرجو مراجعة الطلب وتحديد موعد الحصة.
+`;
+
+
+        const url =
+
+        "https://wa.me/"
+        +
+        ADMIN_WHATSAPP
+        +
+        "?text="
+        +
+        encodeURIComponent(
+            text
         );
 
 
-        studentCard.style.display =
-        "none";
-
-
-        loginCard.style.display =
-        "block";
-
-
-        codeInput.value =
-        "";
-
-
-        hideError();
+        window.open(
+            url,
+            "_blank"
+        );
 
     }
 );
+
+
+
+/* =========================================
+   رسالة
+========================================= */
+
+function showMessage(
+    text,
+    success
+){
+
+    message.textContent =
+    text;
+
+
+    message.className =
+    "message "
+    +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+
+    message.style.display =
+    "block";
+
+}
+
+
+function hideMessage(){
+
+    message.style.display =
+    "none";
+
+}
+
+
+
+/* =========================================
+   إمكانية فتح طلب محفوظ
+========================================= */
+
+loadSavedRequest();
+
+
+function loadSavedRequest(){
+
+    const saved =
+    localStorage.getItem(
+        "jundAlHudaRequest"
+    );
+
+
+    if(!saved){
+
+        return;
+
+    }
+
+
+    try{
+
+        createdRequest =
+        JSON.parse(saved);
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
 
 </script></body></html>
