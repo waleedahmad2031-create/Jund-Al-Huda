@@ -1,16 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import {
-    getAuth
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import {
-    getFirestore
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBCnQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
+    apiKey: "AIzaSyBCnNQWX_kKckwncvS9rnfi5YHsDbCWhtoU",
 
     authDomain: "jundalhuda.firebaseapp.com",
 
@@ -27,25 +26,21 @@ const firebaseConfig = {
 };
 
 
-// تشغيل Firebase
-
 const app = initializeApp(firebaseConfig);
 
 
-// تسجيل دخول الإدارة
+const analytics = getAnalytics(app);
+
 
 const auth = getAuth(app);
 
 
-// قاعدة البيانات
-
 const db = getFirestore(app);
 
 
-// تصديرها للملفات الأخرى
-
 export {
     app,
+    analytics,
     auth,
     db
 };
