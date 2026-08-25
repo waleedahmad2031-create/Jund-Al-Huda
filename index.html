@@ -1002,15 +1002,12 @@ registerButton.addEventListener(
 
             console.error(error);
 
+       showRegisterMessage(
+    "❌ الخطأ: " + error.message,
+    false
+);
 
-            showRegisterMessage(
-
-                "❌ تعذر إرسال الطلب. حاول مرة أخرى.",
-
-                false
-
-            );
-
+            
         }
 
 
