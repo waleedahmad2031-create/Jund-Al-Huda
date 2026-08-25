@@ -113,6 +113,7 @@ h2{
     background:#ffe8e8;
     color:#b00020;
     text-align:center;
+    line-height:1.7;
 }
 
 .info{
@@ -202,11 +203,17 @@ h2{
 
 <header>
 
-    <div class="logo">🕌</div>
+    <div class="logo">
+        🕌
+    </div>
 
-    <h1>جنود الهدى</h1>
+    <h1>
+        جنود الهدى
+    </h1>
 
-    <p>صفحة الطالب</p>
+    <p>
+        صفحة الطالب
+    </p>
 
 </header>
 
@@ -294,9 +301,12 @@ h2{
 
     <div class="info">
 
+
         <div class="row">
 
-            <strong>اسم الطالب:</strong>
+            <strong>
+                👤 اسم الطالب:
+            </strong>
 
             <span id="studentName">
             </span>
@@ -306,7 +316,21 @@ h2{
 
         <div class="row">
 
-            <strong>المدرس:</strong>
+            <strong>
+                🎂 العمر:
+            </strong>
+
+            <span id="studentAge">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>
+                👨‍🏫 المدرس:
+            </strong>
 
             <span id="teacherName">
             </span>
@@ -316,9 +340,11 @@ h2{
 
         <div class="row">
 
-            <strong>وقت الحصة:</strong>
+            <strong>
+                📖 المستوى:
+            </strong>
 
-            <span id="lessonTime">
+            <span id="studentLevel">
             </span>
 
         </div>
@@ -326,22 +352,65 @@ h2{
 
         <div class="row">
 
-            <strong>مدة الحصة:</strong>
+            <strong>
+                📚 الدرس:
+            </strong>
+
+            <span id="lessonName">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>
+                📅 تاريخ الحصة:
+            </strong>
+
+            <span id="lessonDate">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>
+                🕐 وقت بداية الحصة:
+            </strong>
+
+            <span id="lessonStart">
+            </span>
+
+        </div>
+
+
+        <div
+            class="row"
+            id="lessonEndRow">
+
+            <strong>
+                🕐 وقت نهاية الحصة:
+            </strong>
+
+            <span id="lessonEnd">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>
+                ⏱️ مدة الحصة:
+            </strong>
 
             <span id="lessonDuration">
             </span>
 
         </div>
 
-
-        <div class="row">
-
-            <strong>انتهاء الاشتراك:</strong>
-
-            <span id="expiryDate">
-            </span>
-
-        </div>
 
     </div>
 
@@ -381,18 +450,23 @@ h2{
 
 <script type="module">
 
+
 import {
     db
 } from "./firebase.js";
 
 
 import {
+
     collection,
     query,
     where,
     getDocs,
     limit
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
 
 
 /*
@@ -402,33 +476,58 @@ import {
 */
 
 const loginCard =
-    document.getElementById("loginCard");
+document.getElementById(
+    "loginCard"
+);
+
 
 const studentCard =
-    document.getElementById("studentCard");
+document.getElementById(
+    "studentCard"
+);
+
 
 const form =
-    document.getElementById("studentLoginForm");
+document.getElementById(
+    "studentLoginForm"
+);
+
 
 const codeInput =
-    document.getElementById("studentCode");
+document.getElementById(
+    "studentCode"
+);
+
 
 const loginButton =
-    document.getElementById("loginButton");
+document.getElementById(
+    "loginButton"
+);
+
 
 const loginError =
-    document.getElementById("loginError");
+document.getElementById(
+    "loginError"
+);
+
 
 const joinButton =
-    document.getElementById("joinButton");
+document.getElementById(
+    "joinButton"
+);
+
 
 const logoutButton =
-    document.getElementById("logoutButton");
+document.getElementById(
+    "logoutButton"
+);
+
 
 
 let currentStudent = null;
 
 let timer = null;
+
 
 
 /*
@@ -442,12 +541,13 @@ codeInput.addEventListener(
     function(){
 
         this.value =
-            this.value
-            .replace(/\D/g,"")
-            .slice(0,6);
+        this.value
+        .replace(/\D/g,"")
+        .slice(0,6);
 
     }
 );
+
 
 
 /*
@@ -467,7 +567,7 @@ form.addEventListener(
 
 
         const code =
-            codeInput.value.trim();
+        codeInput.value.trim();
 
 
         if(!/^\d{6}$/.test(code)){
@@ -481,31 +581,38 @@ form.addEventListener(
         }
 
 
-        loginButton.disabled = true;
+        loginButton.disabled =
+        true;
+
 
         loginButton.textContent =
-            "⏳ جاري التحقق...";
+        "⏳ جاري التحقق...";
 
 
         try{
 
 
-            /*
-            ====================================
-            البحث عن الطالب بالكود فقط
-            ====================================
-            */
-
             const q =
-                query(
-                    collection(db,"students"),
-                    where("code","==",code),
-                    limit(1)
-                );
+            query(
+
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "code",
+                    "==",
+                    code
+                ),
+
+                limit(1)
+
+            );
 
 
             const snapshot =
-                await getDocs(q);
+            await getDocs(q);
 
 
             if(snapshot.empty){
@@ -514,10 +621,11 @@ form.addEventListener(
                     "❌ الكود غير صحيح أو غير موجود."
                 );
 
-                loginButton.disabled = false;
+                loginButton.disabled =
+                false;
 
                 loginButton.textContent =
-                    "دخول";
+                "دخول";
 
                 return;
 
@@ -525,14 +633,16 @@ form.addEventListener(
 
 
             const doc =
-                snapshot.docs[0];
+            snapshot.docs[0];
 
 
-            const student =
-                {
-                    id:doc.id,
-                    ...doc.data()
-                };
+            const student = {
+
+                id:doc.id,
+
+                ...doc.data()
+
+            };
 
 
             /*
@@ -541,30 +651,27 @@ form.addEventListener(
             ====================================
             */
 
-            if(student.active === false){
+            if(
+                student.active === false
+            ){
 
                 showError(
                     "⛔ تم تعطيل هذا الحساب من الإدارة."
                 );
 
-                loginButton.disabled = false;
+                loginButton.disabled =
+                false;
 
                 loginButton.textContent =
-                    "دخول";
+                "دخول";
 
                 return;
 
             }
 
 
-            /*
-            ====================================
-            حفظ الطالب
-            ====================================
-            */
-
             currentStudent =
-                student;
+            student;
 
 
             showStudent(student);
@@ -575,19 +682,22 @@ form.addEventListener(
             console.error(error);
 
             showError(
-                "⚠️ حدث خطأ أثناء الاتصال. حاول مرة أخرى."
+                "⚠️ حدث خطأ أثناء الاتصال بقاعدة البيانات."
             );
 
         }
 
 
-        loginButton.disabled = false;
+        loginButton.disabled =
+        false;
+
 
         loginButton.textContent =
-            "دخول";
+        "دخول";
 
     }
 );
+
 
 
 /*
@@ -598,42 +708,224 @@ form.addEventListener(
 
 function showStudent(student){
 
-    loginCard.style.display = "none";
+    loginCard.style.display =
+    "none";
 
-    studentCard.style.display = "block";
+
+    studentCard.style.display =
+    "block";
+
+
+    /*
+    ==============================
+    اسم الطالب
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "studentName"
+    )
+    .textContent =
+    student.name ||
+    "غير محدد";
+
+
+    /*
+    ==============================
+    العمر
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "studentAge"
+    )
+    .textContent =
+    student.age ||
+    "غير محدد";
+
+
+    /*
+    ==============================
+    المدرس
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "teacherName"
+    )
+    .textContent =
+    student.teacher ||
+    "غير محدد";
+
+
+    /*
+    ==============================
+    المستوى
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "studentLevel"
+    )
+    .textContent =
+    student.level ||
+    "غير محدد";
+
+
+    /*
+    ==============================
+    الدرس
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "lessonName"
+    )
+    .textContent =
+    student.lesson ||
+    "قراءة وحفظ القرآن الكريم";
+
+
+    /*
+    ==============================
+    التاريخ والوقت
+    ==============================
+    */
+
+    let startDate = null;
+
+    let endDate = null;
+
+
+    if(student.startTime){
+
+        startDate =
+        new Date(
+            student.startTime
+        );
+
+    }
+
+
+    if(student.endTime){
+
+        endDate =
+        new Date(
+            student.endTime
+        );
+
+    }
+
+
+    /*
+    ==============================
+    تاريخ الحصة
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "lessonDate"
+    )
+    .textContent =
+    startDate &&
+    !isNaN(startDate.getTime())
+    ?
+    formatDate(startDate)
+    :
+    "غير محدد";
+
+
+    /*
+    ==============================
+    بداية الحصة
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "lessonStart"
+    )
+    .textContent =
+    startDate &&
+    !isNaN(startDate.getTime())
+    ?
+    formatTime(startDate)
+    :
+    "غير محدد";
+
+
+    /*
+    ==============================
+    نهاية الحصة
+    ==============================
+    */
+
+    document
+    .getElementById(
+        "lessonEnd"
+    )
+    .textContent =
+    endDate &&
+    !isNaN(endDate.getTime())
+    ?
+    formatTime(endDate)
+    :
+    "غير محددة";
+
+
+    /*
+    ==============================
+    مدة الحصة
+    ==============================
+    */
+
+    let duration = 0;
+
+
+    if(
+        startDate &&
+        endDate &&
+        !isNaN(startDate.getTime()) &&
+        !isNaN(endDate.getTime())
+    ){
+
+        duration =
+        Math.round(
+            (
+                endDate.getTime()
+                -
+                startDate.getTime()
+            )
+            /
+            60000
+        );
+
+    }
 
 
     document
-    .getElementById("studentName")
+    .getElementById(
+        "lessonDuration"
+    )
     .textContent =
-        student.name || "غير محدد";
+    duration > 0
+    ?
+    duration + " دقيقة"
+    :
+    "غير محددة";
 
 
-    document
-    .getElementById("teacherName")
-    .textContent =
-        student.teacherName || "غير محدد";
-
-
-    document
-    .getElementById("lessonTime")
-    .textContent =
-        student.lessonTime || "غير محدد";
-
-
-    document
-    .getElementById("lessonDuration")
-    .textContent =
-        student.lessonDuration
-        ? student.lessonDuration + " دقيقة"
-        : "غير محددة";
-
-
-    document
-    .getElementById("expiryDate")
-    .textContent =
-        formatDate(student.expiryDate);
-
+    /*
+    ==============================
+    التحقق من الحصة
+    ==============================
+    */
 
     checkLesson(student);
 
@@ -642,54 +934,77 @@ function showStudent(student){
 
 
     timer =
-        setInterval(
-            function(){
+    setInterval(
+        function(){
 
-                checkLesson(student);
+            checkLesson(student);
 
-            },
-            30000
-        );
+        },
+        15000
+    );
 
 }
 
 
+
 /*
 ========================================
- التحقق من الاشتراك والموعد
+ التحقق من وقت الحصة
 ========================================
 */
 
 function checkLesson(student){
 
     const statusBox =
-        document.getElementById("statusBox");
+    document.getElementById(
+        "statusBox"
+    );
 
 
     joinButton.style.display =
-        "none";
+    "none";
 
 
     /*
-    ====================================
-    انتهاء الاشتراك
-    ====================================
+    ==============================
+    لا يوجد موعد
+    ==============================
     */
 
-    const expiry =
-        getDateValue(student.expiryDate);
+    if(!student.startTime){
+
+        statusBox.className =
+        "status waiting";
+
+
+        statusBox.textContent =
+        "📅 لم يتم تحديد موعد الحصة بعد.";
+
+
+        return;
+
+    }
+
+
+    const start =
+    new Date(
+        student.startTime
+    );
 
 
     if(
-        expiry &&
-        new Date() > expiry
+        isNaN(
+            start.getTime()
+        )
     ){
 
         statusBox.className =
-            "status expired";
+        "status waiting";
 
-        statusBox.innerHTML =
-            "⛔ انتهى الاشتراك.<br>يرجى التواصل مع الإدارة.";
+
+        statusBox.textContent =
+        "⚠️ موعد الحصة غير صحيح.";
+
 
         return;
 
@@ -697,90 +1012,80 @@ function checkLesson(student){
 
 
     /*
-    ====================================
-    وقت الحصة
-    ====================================
+    ==============================
+    وقت النهاية
+    ==============================
     */
 
-    if(!student.lessonTime){
+    let end = null;
 
-        statusBox.className =
-            "status waiting";
 
-        statusBox.textContent =
-            "📅 لم يتم تحديد وقت الحصة بعد.";
+    if(student.endTime){
 
-        return;
+        end =
+        new Date(
+            student.endTime
+        );
 
     }
 
 
-    const lesson =
-        getTodayLessonTime(
-            student.lessonTime
+    /*
+    إذا لم يوجد وقت نهاية
+    نجعل مدة الحصة 30 دقيقة
+    */
+
+    if(
+        !end ||
+        isNaN(end.getTime())
+    ){
+
+        end =
+        new Date(
+            start.getTime()
+            +
+            30 * 60000
         );
-
-
-    if(!lesson){
-
-        statusBox.className =
-            "status waiting";
-
-        statusBox.textContent =
-            "📅 موعد الحصة اليوم: "
-            + student.lessonTime;
-
-        return;
 
     }
 
 
     const now =
-        new Date();
-
-
-    const start =
-        lesson.start;
-
-
-    const end =
-        new Date(
-            start.getTime()
-            +
-            (
-                Number(student.lessonDuration || 30)
-                *
-                60000
-            )
-        );
+    new Date();
 
 
     /*
-    ====================================
+    ==============================
     قبل الحصة
-    ====================================
+    ==============================
     */
 
     if(now < start){
 
         const minutes =
-            Math.ceil(
-                (start - now) / 60000
-            );
+        Math.ceil(
+            (
+                start.getTime()
+                -
+                now.getTime()
+            )
+            /
+            60000
+        );
 
 
         statusBox.className =
-            "status waiting";
+        "status waiting";
 
 
         statusBox.innerHTML =
-            "⏳ الحصة لم تبدأ بعد.<br>"
-            +
-            "باقي تقريبًا "
-            +
-            minutes
-            +
-            " دقيقة.";
+        "⏳ الحصة لم تبدأ بعد.<br>"
+        +
+        "باقي تقريبًا "
+        +
+        minutes
+        +
+        " دقيقة.";
 
 
         return;
@@ -789,9 +1094,9 @@ function checkLesson(student){
 
 
     /*
-    ====================================
+    ==============================
     أثناء الحصة
-    ====================================
+    ==============================
     */
 
     if(
@@ -800,43 +1105,67 @@ function checkLesson(student){
     ){
 
         statusBox.className =
-            "status live";
+        "status live";
 
 
         statusBox.innerHTML =
-            "🟢 الحصة بدأت الآن";
-
-
-        /*
-        الرابط نفسه لا يظهر في الصفحة
-        */
+        "🟢 الحصة بدأت الآن";
 
 
         joinButton.style.display =
-            "block";
+        "block";
 
 
         joinButton.onclick =
-            function(){
+        function(){
 
-                if(
-                    student.lessonUrl
-                ){
+            let url =
+            student.link ||
+            "";
 
-                    window.open(
-                        student.lessonUrl,
-                        "_blank"
-                    );
 
-                }else{
+            url =
+            url.trim();
 
-                    alert(
-                        "لم يتم إضافة رابط الحصة من الإدارة."
-                    );
 
-                }
+            if(!url){
 
-            };
+                alert(
+                    "⚠️ لم يتم إضافة رابط الحصة من الإدارة."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            إذا كتب المدير الرابط بدون https
+            نضيفه تلقائيًا
+            */
+
+            if(
+                !url.startsWith(
+                    "http://"
+                )
+                &&
+                !url.startsWith(
+                    "https://"
+                )
+            ){
+
+                url =
+                "https://" + url;
+
+            }
+
+
+            window.open(
+                url,
+                "_blank"
+            );
+
+        };
 
 
         return;
@@ -845,100 +1174,22 @@ function checkLesson(student){
 
 
     /*
-    ====================================
+    ==============================
     بعد انتهاء الحصة
-    ====================================
+    ==============================
     */
 
     statusBox.className =
-        "status waiting";
+    "status waiting";
+
 
     statusBox.innerHTML =
-        "✅ انتهت حصة اليوم.<br>"
-        +
-        "نلتقي في الموعد القادم.";
+    "✅ انتهت حصة اليوم.<br>"
+    +
+    "نلتقي في الموعد القادم.";
 
 }
 
-
-/*
-========================================
- تحويل وقت الحصة
-========================================
-*/
-
-function getTodayLessonTime(timeText){
-
-    const match =
-        timeText.match(
-            /^(\d{1,2}):(\d{2})\s*(ص|م|AM|PM)?$/i
-        );
-
-
-    if(!match){
-
-        return null;
-
-    }
-
-
-    let hour =
-        Number(match[1]);
-
-    const minute =
-        Number(match[2]);
-
-    const period =
-        match[3];
-
-
-    if(
-        period &&
-        (
-            period === "م" ||
-            period.toUpperCase() === "PM"
-        )
-    ){
-
-        if(hour < 12){
-            hour += 12;
-        }
-
-    }
-
-
-    if(
-        period &&
-        (
-            period === "ص" ||
-            period.toUpperCase() === "AM"
-        )
-    ){
-
-        if(hour === 12){
-            hour = 0;
-        }
-
-    }
-
-
-    const start =
-        new Date();
-
-
-    start.setHours(
-        hour,
-        minute,
-        0,
-        0
-    );
-
-
-    return {
-        start:start
-    };
-
-}
 
 
 /*
@@ -947,52 +1198,7 @@ function getTodayLessonTime(timeText){
 ========================================
 */
 
-function getDateValue(value){
-
-    if(!value){
-        return null;
-    }
-
-
-    if(
-        value &&
-        typeof value.toDate === "function"
-    ){
-
-        return value.toDate();
-
-    }
-
-
-    if(
-        typeof value === "string"
-    ){
-
-        const date =
-            new Date(value);
-
-        if(!isNaN(date.getTime())){
-            return date;
-        }
-
-    }
-
-
-    return null;
-
-}
-
-
-function formatDate(value){
-
-    const date =
-        getDateValue(value);
-
-
-    if(!date){
-        return "غير محدد";
-    }
-
+function formatDate(date){
 
     return date.toLocaleDateString(
         "ar-SA",
@@ -1006,6 +1212,27 @@ function formatDate(value){
 }
 
 
+
+/*
+========================================
+ الوقت
+========================================
+*/
+
+function formatTime(date){
+
+    return date.toLocaleTimeString(
+        "ar-SA",
+        {
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+
 /*
 ========================================
  الأخطاء
@@ -1015,10 +1242,11 @@ function formatDate(value){
 function showError(text){
 
     loginError.textContent =
-        text;
+    text;
+
 
     loginError.style.display =
-        "block";
+    "block";
 
 }
 
@@ -1026,9 +1254,10 @@ function showError(text){
 function hideError(){
 
     loginError.style.display =
-        "none";
+    "none";
 
 }
+
 
 
 /*
@@ -1041,24 +1270,34 @@ logoutButton.addEventListener(
     "click",
     function(){
 
-        currentStudent = null;
+        currentStudent =
+        null;
+
 
         clearInterval(timer);
 
+
         studentCard.style.display =
-            "none";
+        "none";
+
 
         loginCard.style.display =
-            "block";
+        "block";
 
-        codeInput.value = "";
+
+        codeInput.value =
+        "";
+
+
+        hideError();
 
     }
 );
+
 
 </script>
 
 
 </body>
 
-  </html>
+    </html>
