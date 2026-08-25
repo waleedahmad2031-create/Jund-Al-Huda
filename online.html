@@ -442,9 +442,7 @@ footer{
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -458,15 +456,9 @@ footer{
 
 </header>
 
-
-<a
-href="index.html"
-class="back">
-
+<a href="index.html" class="back">
 ⬅️ العودة إلى الرئيسية
-
 </a>
-
 
 <section class="hero">
 
@@ -475,21 +467,15 @@ class="back">
 </h1>
 
 <p>
-
 تعلم القرآن الكريم
 مع المدرسين عن بُعد
-
 <br>
-
 من أي مكان وفي الوقت المحدد للحلقة
-
 </p>
 
 </section>
 
-
 <div class="container">
-
 
 <div class="status">
 
@@ -514,22 +500,16 @@ line-height:2;
 
 </div>
 
-
 <h2 class="section-title">
 🔴 الحلقة المباشرة الآن
 </h2>
-
 
 <div class="live-card">
 
 <div class="live-top">
 
-<span
-id="liveBadge"
-class="live-badge">
-
+<span id="liveBadge" class="live-badge">
 ⏳ جاري التحقق...
-
 </span>
 
 <span style="
@@ -541,11 +521,9 @@ color:#777;
 
 </div>
 
-
 <h2 id="liveTitle">
 جاري تحميل الحلقة...
 </h2>
-
 
 <div class="live-info">
 
@@ -575,7 +553,6 @@ color:#777;
 
 </div>
 
-
 <button
 id="joinButton"
 class="join"
@@ -588,14 +565,11 @@ disabled>
 
 </div>
 
-
 <h2 class="section-title">
 📅 الحلقات القادمة
 </h2>
 
-
 <div class="schedule">
-
 
 <div class="schedule-card">
 
@@ -617,7 +591,6 @@ disabled>
 
 </div>
 
-
 <div class="schedule-card">
 
 <div class="schedule-icon">
@@ -637,7 +610,6 @@ disabled>
 </span>
 
 </div>
-
 
 <div class="schedule-card">
 
@@ -659,7 +631,6 @@ disabled>
 
 </div>
 
-
 <div class="schedule-card">
 
 <div class="schedule-icon">
@@ -680,17 +651,13 @@ disabled>
 
 </div>
 
-
 </div>
-
 
 <h2 class="section-title">
 👨‍🏫 المدرسون
 </h2>
 
-
 <div class="teachers">
-
 
 <div class="teacher">
 
@@ -709,7 +676,6 @@ disabled>
 
 </div>
 
-
 <div class="teacher">
 
 <div class="teacher-icon">
@@ -727,17 +693,13 @@ disabled>
 
 </div>
 
-
 </div>
-
 
 <h2 class="section-title">
 🎁 عروض جنود الهدى
 </h2>
 
-
 <div class="offers">
-
 
 <div class="offer">
 
@@ -754,15 +716,11 @@ disabled>
 في أول حصة بدون رسوم.
 </p>
 
-<button
-onclick="openBooking('حصة مجانية')">
-
+<button onclick="openBooking('حصة مجانية')">
 📩 احجز حصتك المجانية
-
 </button>
 
 </div>
-
 
 <div class="offer">
 
@@ -779,24 +737,15 @@ onclick="openBooking('حصة مجانية')">
 أكثر من أخ من نفس الأسرة.
 </p>
 
-<button
-onclick="openBooking('خصم الأخوة')">
-
+<button onclick="openBooking('خصم الأخوة')">
 📩 استفسر عن الخصم
-
 </button>
 
 </div>
 
-
 </div>
 
-
-<!-- نموذج الحجز -->
-
-<div
-id="booking"
-class="booking">
+<div id="booking" class="booking">
 
 <h2 id="bookingTitle">
 📩 طلب التسجيل
@@ -809,9 +758,7 @@ class="booking">
 
 </div>
 
-
 <form onsubmit="submitBooking(event)">
-
 
 <div class="form-group">
 
@@ -826,7 +773,6 @@ placeholder="اكتب اسم الطالب"
 required>
 
 </div>
-
 
 <div class="form-group">
 
@@ -844,16 +790,13 @@ required>
 
 </div>
 
-
 <div class="form-group">
 
 <label>
 📖 مستوى الطالب في القرآن
 </label>
 
-<select
-id="level"
-required>
+<select id="level" required>
 
 <option value="">
 اختر المستوى
@@ -879,7 +822,6 @@ required>
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -894,16 +836,13 @@ required>
 
 </div>
 
-
 <div class="form-group">
 
 <label>
 🕐 الوقت المناسب للحصة
 </label>
 
-<select
-id="preferredTime"
-required>
+<select id="preferredTime" required>
 
 <option value="">
 اختر الوقت المناسب
@@ -933,7 +872,6 @@ required>
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -954,7 +892,6 @@ required>
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -963,12 +900,9 @@ required>
 
 <textarea
 id="notes"
-placeholder="اكتب أي ملاحظة تريد إرسالها للإدارة">
-
-</textarea>
+placeholder="اكتب أي ملاحظة تريد إرسالها للإدارة"></textarea>
 
 </div>
-
 
 <div class="form-buttons">
 
@@ -979,7 +913,6 @@ class="submit-btn">
 📩 إرسال الطلب
 
 </button>
-
 
 <button
 type="button"
@@ -992,17 +925,11 @@ onclick="closeBooking()">
 
 </div>
 
-
 </form>
 
 </div>
 
-
-<!-- رسالة النجاح -->
-
-<div
-id="success"
-class="success">
+<div id="success" class="success">
 
 <strong>
 ✅ تم إرسال طلبك بنجاح
@@ -1017,7 +944,6 @@ class="success">
 سيتم التواصل معك لتأكيد الموعد والتفاصيل.
 
 </div>
-
 
 <div class="note">
 
@@ -1038,9 +964,7 @@ class="success">
 
 </div>
 
-
 </div>
-
 
 <footer>
 
@@ -1052,51 +976,25 @@ class="success">
 
 </footer>
 
-
-
 <script type="module">
 
-
-/* =========================
-   Firebase
-========================= */
-
 import {
-
     initializeApp
-
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
 import {
-
     getFirestore,
-
     collection,
-
     addDoc,
-
     serverTimestamp,
-
     doc,
-
     onSnapshot
-
 }
-
 from
-
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-
-/* =========================
-   إعداد Firebase
-========================= */
 
 const firebaseConfig = {
 
@@ -1125,45 +1023,25 @@ const firebaseConfig = {
 
 
 const app =
-    initializeApp(
-        firebaseConfig
-    );
-
+    initializeApp(firebaseConfig);
 
 const db =
     getFirestore(app);
 
 
-
-/* =========================
-   نوع الطلب
-========================= */
-
 let bookingType = "";
-
-
-
-/* =========================
-   رقم واتساب الإدارة
-========================= */
 
 const ADMIN_WHATSAPP =
     "967711959183";
 
-
-
-/* =========================
-   بيانات الحلقة
-========================= */
 
 let liveLink = "";
 
 let liveStartTime = null;
 
 
-
 /* =========================
-   قراءة الحلقة من Firebase
+   قراءة الحلقة
 ========================= */
 
 function loadLiveSession(){
@@ -1174,7 +1052,6 @@ function loadLiveSession(){
             "liveSessions",
             "current"
         );
-
 
     onSnapshot(
 
@@ -1190,14 +1067,10 @@ function loadLiveSession(){
 
             }
 
-
             const data =
                 snapshot.data();
 
-
-            if(
-                data.showLive === false
-            ){
+            if(data.showLive === false){
 
                 showNoLiveSession();
 
@@ -1205,46 +1078,39 @@ function loadLiveSession(){
 
             }
 
-
             const title =
                 data.title ||
                 "حلقة القرآن الكريم";
-
 
             const teacher =
                 data.teacher ||
                 "سيتم تحديد المدرس";
 
-
             const startTime =
                 data.startTime ||
                 "";
 
+            /*
+             * الرابط يتم حفظه داخليًا فقط.
+             * لا يتم وضعه في HTML أو عرضه للطالب.
+             */
 
-            const link =
+            liveLink =
                 data.link ||
                 "";
 
+            liveStartTime =
+                startTime;
 
             document.getElementById(
                 "liveTitle"
             ).textContent =
                 title;
 
-
             document.getElementById(
                 "liveTeacher"
             ).textContent =
                 teacher;
-
-
-            liveLink =
-                link;
-
-
-            liveStartTime =
-                startTime;
-
 
             updateLiveStatus();
 
@@ -1259,28 +1125,23 @@ function loadLiveSession(){
             ).textContent =
                 "تعذر تحميل الحلقة";
 
-
             document.getElementById(
                 "liveTeacher"
             ).textContent =
                 "تحقق من اتصال الإنترنت";
-
 
             document.getElementById(
                 "liveTime"
             ).textContent =
                 "-";
 
-
             const button =
                 document.getElementById(
                     "joinButton"
                 );
 
-
             button.disabled =
                 true;
-
 
             button.textContent =
                 "⚠️ تعذر تحميل الحلقة";
@@ -1292,9 +1153,8 @@ function loadLiveSession(){
 }
 
 
-
 /* =========================
-   تحديث حالة الحلقة
+   حالة الحلقة
 ========================= */
 
 function updateLiveStatus(){
@@ -1304,12 +1164,10 @@ function updateLiveStatus(){
             "liveBadge"
         );
 
-
     const button =
         document.getElementById(
             "joinButton"
         );
-
 
     const timeText =
         document.getElementById(
@@ -1322,18 +1180,14 @@ function updateLiveStatus(){
         badge.textContent =
             "⏳ لم يتم تحديد الموعد";
 
-
         timeText.textContent =
             "سيتم تحديد الموعد";
-
 
         button.disabled =
             true;
 
-
         button.textContent =
             "⏳ لم تبدأ الحلقة بعد";
-
 
         return;
 
@@ -1346,27 +1200,19 @@ function updateLiveStatus(){
         );
 
 
-    if(
-        isNaN(
-            start.getTime()
-        )
-    ){
+    if(isNaN(start.getTime())){
 
         badge.textContent =
             "⚠️ موعد غير صحيح";
 
-
         timeText.textContent =
-            liveStartTime;
-
+            "موعد غير صحيح";
 
         button.disabled =
             true;
 
-
         button.textContent =
             "⏳ لم تبدأ الحلقة بعد";
-
 
         return;
 
@@ -1391,10 +1237,8 @@ function updateLiveStatus(){
         badge.textContent =
             "🟢 الحلقة بدأت";
 
-
         button.disabled =
             false;
-
 
         button.textContent =
             "🎥 دخول الحلقة";
@@ -1404,10 +1248,8 @@ function updateLiveStatus(){
         badge.textContent =
             "⏳ الحلقة لم تبدأ بعد";
 
-
         button.disabled =
             true;
-
 
         button.textContent =
             "⏳ الحلقة لم تبدأ بعد";
@@ -1417,9 +1259,8 @@ function updateLiveStatus(){
 }
 
 
-
 /* =========================
-   تحديث تلقائي للوقت
+   تحديث كل ثانية
 ========================= */
 
 setInterval(
@@ -1439,9 +1280,8 @@ setInterval(
 );
 
 
-
 /* =========================
-   عدم وجود حلقة
+   لا توجد حلقة
 ========================= */
 
 function showNoLiveSession(){
@@ -1451,38 +1291,31 @@ function showNoLiveSession(){
     ).textContent =
         "⏳ لا توجد حلقة";
 
-
     document.getElementById(
         "liveTitle"
     ).textContent =
         "لا توجد حلقة محددة حاليًا";
-
 
     document.getElementById(
         "liveTeacher"
     ).textContent =
         "سيتم تحديد المدرس";
 
-
     document.getElementById(
         "liveTime"
     ).textContent =
         "سيتم تحديد الموعد";
-
 
     const button =
         document.getElementById(
             "joinButton"
         );
 
-
     button.disabled =
         true;
 
-
     button.textContent =
         "⏳ لا توجد حلقة متاحة";
-
 
 
     liveLink = "";
@@ -1490,7 +1323,6 @@ function showNoLiveSession(){
     liveStartTime = null;
 
 }
-
 
 
 /* =========================
@@ -1511,6 +1343,17 @@ function(){
     }
 
 
+    if(!liveStartTime){
+
+        alert(
+            "⚠️ لم يتم تحديد موعد الحلقة."
+        );
+
+        return;
+
+    }
+
+
     const start =
         new Date(
             liveStartTime
@@ -1518,7 +1361,7 @@ function(){
 
 
     if(
-        liveStartTime &&
+        isNaN(start.getTime()) ||
         new Date().getTime() <
         start.getTime()
     ){
@@ -1532,6 +1375,11 @@ function(){
     }
 
 
+    /*
+     * لا نعرض الرابط في الصفحة.
+     * عند الضغط على الزر فقط يتم فتحه.
+     */
+
     window.open(
         liveLink,
         "_blank"
@@ -1540,22 +1388,20 @@ function(){
 };
 
 
-
 /* =========================
-   فتح نموذج الحجز
+   الحجز
 ========================= */
 
 window.openBooking =
 function(type){
 
-    bookingType = type;
-
+    bookingType =
+        type;
 
     const booking =
         document.getElementById(
             "booking"
         );
-
 
     const title =
         document.getElementById(
@@ -1563,10 +1409,7 @@ function(type){
         );
 
 
-    if(
-        type ===
-        "حصة مجانية"
-    ){
+    if(type === "حصة مجانية"){
 
         title.textContent =
             "🥇 حجز أول حصة مجانًا";
@@ -1582,21 +1425,12 @@ function(type){
     booking.style.display =
         "block";
 
-
     booking.scrollIntoView({
-
-        behavior:
-        "smooth"
-
+        behavior:"smooth"
     });
 
 };
 
-
-
-/* =========================
-   إغلاق النموذج
-========================= */
 
 window.closeBooking =
 function(){
@@ -1607,7 +1441,6 @@ function(){
         "none";
 
 };
-
 
 
 /* =========================
@@ -1629,7 +1462,6 @@ async function(event){
     submitButton.disabled =
         true;
 
-
     submitButton.textContent =
         "⏳ جاري إرسال الطلب...";
 
@@ -1639,42 +1471,35 @@ async function(event){
             "studentName"
         ).value.trim();
 
-
     const age =
         document.getElementById(
             "studentAge"
         ).value;
-
 
     const level =
         document.getElementById(
             "level"
         ).value;
 
-
     const phone =
         document.getElementById(
             "phone"
         ).value.trim();
-
 
     const preferredTime =
         document.getElementById(
             "preferredTime"
         ).value;
 
-
     const brothers =
         document.getElementById(
             "brothers"
         ).value;
 
-
     const notes =
         document.getElementById(
             "notes"
         ).value.trim();
-
 
 
     const request = {
@@ -1712,11 +1537,7 @@ async function(event){
     };
 
 
-
     try{
-
-
-        /* حفظ الطلب في Firestore */
 
         await addDoc(
 
@@ -1730,9 +1551,6 @@ async function(event){
         );
 
 
-
-        /* إظهار النجاح */
-
         document.getElementById(
             "booking"
         ).style.display =
@@ -1744,21 +1562,13 @@ async function(event){
                 "success"
             );
 
-
         success.style.display =
             "block";
 
-
         success.scrollIntoView({
-
-            behavior:
-            "smooth"
-
+            behavior:"smooth"
         });
 
-
-
-        /* تجهيز رسالة واتساب */
 
         const message =
 
@@ -1791,17 +1601,11 @@ ${notes || "لا توجد"}
 أرجو التواصل معي لتأكيد الموعد والتفاصيل.`;
 
 
-
-        /* فتح واتساب */
-
         const whatsappURL =
 
             "https://wa.me/" +
-
             ADMIN_WHATSAPP +
-
             "?text=" +
-
             encodeURIComponent(
                 message
             );
@@ -1823,44 +1627,27 @@ ${notes || "لا توجد"}
         );
 
 
-
-        /* تنظيف النموذج */
-
         document.querySelector(
             "form"
         ).reset();
 
-
         bookingType = "";
-
 
 
     }catch(error){
 
-
-        console.error(
-            error
-        );
-
+        console.error(error);
 
         alert(
-
             "❌ لم يتم إرسال الطلب.\n\n" +
-
             "تأكد من اتصال الإنترنت " +
-
             "وإعدادات Firestore Rules."
-
         );
-
-
 
     }finally{
 
-
         submitButton.disabled =
             false;
-
 
         submitButton.textContent =
             "📩 إرسال الطلب";
@@ -1870,17 +1657,10 @@ ${notes || "لا توجد"}
 };
 
 
-
-/* =========================
-   تشغيل قراءة الحلقة
-========================= */
-
 loadLiveSession();
-
 
 </script>
 
-
 </body>
 
-  </html>
+    </html>
