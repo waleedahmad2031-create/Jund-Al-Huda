@@ -29,8 +29,6 @@ header{
     color:white;
     text-align:center;
     padding:28px 15px 35px;
-    position:relative;
-    overflow:hidden;
 }
 
 .logo{
@@ -54,7 +52,9 @@ header p{
     padding:16px 13px 30px;
 }
 
-/* التسجيل */
+/* =========================
+   التسجيل
+========================= */
 
 .register-card{
     background:white;
@@ -133,7 +133,9 @@ header p{
     color:#a00000;
 }
 
-/* دخول الحصة */
+/* =========================
+   دخول الحصة
+========================= */
 
 .class-card{
     background:linear-gradient(135deg,#075e54,#0b806f);
@@ -199,7 +201,9 @@ header p{
     line-height:1.8;
 }
 
-/* المصحف */
+/* =========================
+   المصحف
+========================= */
 
 .quran-card{
     background:#fffdf7;
@@ -235,6 +239,10 @@ header p{
     outline:none;
     margin-bottom:15px;
 }
+
+/* =========================
+   المصحف
+========================= */
 
 .mushaf{
     background:#fffef8;
@@ -299,6 +307,10 @@ header p{
     background:#fffdf4;
 }
 
+/* =========================
+   التفسير
+========================= */
+
 .tafsir-card{
     background:white;
     border-radius:20px;
@@ -323,6 +335,10 @@ header p{
     text-align:center;
 }
 
+/* =========================
+   التنقل
+========================= */
+
 .navigation{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -345,12 +361,20 @@ header p{
     background:#ccc;
 }
 
+/* =========================
+   تحميل
+========================= */
+
 .loading{
     text-align:center;
     color:#777;
     padding:30px 10px;
     line-height:2;
 }
+
+/* =========================
+   الفوتر
+========================= */
 
 footer{
     background:#075e54;
@@ -361,6 +385,10 @@ footer{
     line-height:2.2;
     margin-top:10px;
 }
+
+/* =========================
+   الجوال
+========================= */
 
 @media(max-width:600px){
 
@@ -403,7 +431,6 @@ footer{
 
 
 <div class="container">
-
 
 <!-- =========================
      تسجيل الطالب
@@ -459,7 +486,7 @@ footer{
 
 
 <!-- =========================
-     دخول الحصة
+     دخول الطالب
 ========================= -->
 
 <div class="class-card">
@@ -473,8 +500,10 @@ footer{
     </h2>
 
     <p>
-        إذا تمت الموافقة على تسجيلك،
+
+        بعد الموافقة على تسجيلك،
         أدخل الكود الذي أرسلته لك الأكاديمية.
+
     </p>
 
     <input
@@ -519,7 +548,7 @@ footer{
         id="surahSelect"
         class="select-box">
 
-        <option>
+        <option value="">
             ⏳ جاري تحميل السور...
         </option>
 
@@ -567,13 +596,14 @@ footer{
     </div>
 
     <p>
+
         فهم القرآن الكريم يعين على التدبر والعمل.
         اقرأ الآيات بتأنٍ، وتعلّم معانيها من
         مصادر التفسير الموثوقة.
+
     </p>
 
 </div>
-
 
 </div>
 
@@ -601,6 +631,7 @@ footer{
 
 /* =========================================
    Firebase
+   نفس إصدار firebase.js عندك
 ========================================= */
 
 import {
@@ -616,27 +647,37 @@ import {
     getDocs
 }
 from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 /* =========================================
-   التسجيل
+   تسجيل الطالب
 ========================================= */
 
 const studentName =
-document.getElementById("studentName");
+document.getElementById(
+    "studentName"
+);
 
 const studentPhone =
-document.getElementById("studentPhone");
+document.getElementById(
+    "studentPhone"
+);
 
 const studentAge =
-document.getElementById("studentAge");
+document.getElementById(
+    "studentAge"
+);
 
 const registerButton =
-document.getElementById("registerButton");
+document.getElementById(
+    "registerButton"
+);
 
 const registerMessage =
-document.getElementById("registerMessage");
+document.getElementById(
+    "registerMessage"
+);
 
 
 registerButton.addEventListener(
@@ -661,6 +702,7 @@ registerButton.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -672,10 +714,12 @@ registerButton.addEventListener(
             );
 
             return;
+
         }
 
 
-        registerButton.disabled = true;
+        registerButton.disabled =
+        true;
 
         registerButton.textContent =
         "⏳ جاري إرسال الطلب...";
@@ -683,26 +727,8 @@ registerButton.addEventListener(
 
         try{
 
-            console.log(
-                "بدء إرسال طلب التسجيل..."
-            );
-
-
             /*
-             * فحص Firebase
-             */
-
-            if(!db){
-
-                throw new Error(
-                    "لم يتم تحميل اتصال Firebase من firebase.js"
-                );
-
-            }
-
-
-            /*
-             * إرسال الطلب
+             * إرسال طلب التسجيل
              */
 
             const requestRef =
@@ -714,86 +740,114 @@ registerButton.addEventListener(
                 ),
 
                 {
-                    name: name,
 
-                    phone: phone,
+                    name:name,
 
-                    age: age,
+                    phone:phone,
 
-                    status: "pending",
+                    age:age,
 
-                    type: "student",
+                    status:"pending",
+
+                    type:"student",
 
                     createdAt:
                     serverTimestamp()
+
                 }
 
             );
 
 
             console.log(
-                "تم إنشاء الطلب:",
+                "تم إنشاء طلب التسجيل:",
                 requestRef.id
             );
 
 
             showRegisterMessage(
 
-                "✅ تم إرسال طلب التسجيل بنجاح. بعد مراجعة الإدارة والموافقة سيتم إرسال كود الدخول لك.",
+                "✅ تم إرسال طلب التسجيل بنجاح. سيتم مراجعة الطلب، وبعد الموافقة سيتم إرسال كود الدخول لك.",
 
                 true
 
             );
 
 
-            studentName.value = "";
-            studentPhone.value = "";
-            studentAge.value = "";
+            studentName.value =
+            "";
+
+            studentPhone.value =
+            "";
+
+            studentAge.value =
+            "";
 
 
-        }
-        catch(error){
+        }catch(error){
 
             console.error(
-                "خطأ التسجيل الكامل:",
+                "خطأ التسجيل:",
                 error
             );
 
 
-            /*
-             * عرض الخطأ الحقيقي
-             */
-
-            let errorText =
-            error.message ||
-            "خطأ غير معروف";
+            let message =
+            "❌ تعذر إرسال الطلب.";
 
 
             if(
-                error.code
+                error.code ===
+                "permission-denied"
             ){
 
-                errorText +=
-                " | الكود: "
+                message =
+                "❌ تم رفض الطلب من Firebase. تأكد من قواعد Firestore.";
+
+            }
+
+            else if(
+                error.code ===
+                "failed-precondition"
+            ){
+
+                message =
+                "❌ يوجد إعداد ناقص في Firebase.";
+
+            }
+
+            else if(
+                error.code ===
+                "unavailable"
+            ){
+
+                message =
+                "❌ تعذر الاتصال بـ Firebase. تأكد من الإنترنت.";
+
+            }
+
+            else if(
+                error.message
+            ){
+
+                message +=
+                "\n"
                 +
-                error.code;
+                error.message;
 
             }
 
 
             showRegisterMessage(
-
-                "❌ تعذر إرسال الطلب.<br>" +
-                errorText,
-
+                message,
                 false
-
             );
 
         }
 
 
-        registerButton.disabled = false;
+        registerButton.disabled =
+        false;
 
         registerButton.textContent =
         "إرسال طلب التسجيل";
@@ -807,7 +861,7 @@ function showRegisterMessage(
     success
 ){
 
-    registerMessage.innerHTML =
+    registerMessage.textContent =
     text;
 
     registerMessage.style.display =
@@ -866,7 +920,8 @@ codeButton.addEventListener(
         }
 
 
-        codeButton.disabled = true;
+        codeButton.disabled =
+        true;
 
         codeButton.textContent =
         "⏳ جاري التحقق...";
@@ -902,7 +957,9 @@ codeButton.addEventListener(
             ){
 
                 showCodeMessage(
+
                     "❌ الكود غير صحيح أو لم تتم الموافقة على الطالب بعد."
+
                 );
 
                 return;
@@ -910,18 +967,17 @@ codeButton.addEventListener(
             }
 
 
-            let studentData = null;
+            let studentData =
+            null;
 
 
             result.forEach(
                 function(doc){
 
-                    studentData = {
-
-                        id: doc.id,
-
+                    studentData =
+                    {
+                        id:doc.id,
                         ...doc.data()
-
                     };
 
                 }
@@ -929,18 +985,26 @@ codeButton.addEventListener(
 
 
             if(
-                studentData.status &&
-                studentData.status !== "active"
+                studentData.status
+                &&
+                studentData.status !==
+                "active"
             ){
 
                 showCodeMessage(
+
                     "⚠️ هذا الكود غير مفعل حاليًا."
+
                 );
 
                 return;
 
             }
 
+
+            /*
+             * حفظ جلسة الطالب
+             */
 
             localStorage.setItem(
 
@@ -954,6 +1018,9 @@ codeButton.addEventListener(
                     name:
                     studentData.name || "",
 
+                    phone:
+                    studentData.phone || "",
+
                     code:
                     code
 
@@ -962,35 +1029,49 @@ codeButton.addEventListener(
             );
 
 
+            /*
+             * الانتقال إلى الحصة
+             */
+
             window.location.href =
             "class.html";
 
 
-        }
-        catch(error){
+        }catch(error){
 
-            console.error(error);
-
-            showCodeMessage(
-
-                "❌ حدث خطأ أثناء التحقق: "
-                +
-                (
-                    error.message ||
-                    "خطأ غير معروف"
-                )
-
+            console.error(
+                "خطأ دخول الطالب:",
+                error
             );
 
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                showCodeMessage(
+                    "❌ لا توجد صلاحية لقراءة بيانات الطلاب."
+                );
+
+            }
+
+            else{
+
+                showCodeMessage(
+                    "❌ حدث خطأ أثناء التحقق من الكود."
+                );
+
+            }
+
         }
-        finally{
 
-            codeButton.disabled = false;
 
-            codeButton.textContent =
-            "🔐 دخول الحصة";
+        codeButton.disabled =
+        false;
 
-        }
+        codeButton.textContent =
+        "🔐 دخول الحصة";
 
     }
 );
@@ -998,7 +1079,7 @@ codeButton.addEventListener(
 
 function showCodeMessage(text){
 
-    codeMessage.innerHTML =
+    codeMessage.textContent =
     text;
 
     codeMessage.style.display =
@@ -1037,8 +1118,14 @@ let surahs = [];
 let currentSurahIndex = 0;
 
 
+/* تشغيل القرآن */
+
 loadSurahs();
 
+
+/* =========================================
+   تحميل السور
+========================================= */
 
 async function loadSurahs(){
 
@@ -1065,7 +1152,10 @@ async function loadSurahs(){
 
         if(
             !data ||
-            !Array.isArray(data.data)
+            !data.data ||
+            !Array.isArray(
+                data.data
+            )
         ){
 
             throw new Error(
@@ -1079,11 +1169,15 @@ async function loadSurahs(){
         data.data;
 
 
-        surahSelect.innerHTML = "";
+        surahSelect.innerHTML =
+        "";
 
 
         surahs.forEach(
-            function(surah,index){
+            function(
+                surah,
+                index
+            ){
 
                 const option =
                 document.createElement(
@@ -1111,17 +1205,23 @@ async function loadSurahs(){
         );
 
 
-        currentSurahIndex = 0;
+        currentSurahIndex =
+        0;
 
-        surahSelect.value = 0;
+
+        surahSelect.value =
+        0;
+
 
         await loadSurah(0);
 
 
-    }
-    catch(error){
+    }catch(error){
 
-        console.error(error);
+        console.error(
+            "خطأ تحميل السور:",
+            error
+        );
 
 
         quranContent.innerHTML = `
@@ -1129,9 +1229,7 @@ async function loadSurahs(){
             <div class="loading">
 
                 ❌ تعذر تحميل المصحف.
-
                 <br>
-
                 تأكد من اتصال الإنترنت.
 
             </div>
@@ -1143,10 +1241,18 @@ async function loadSurahs(){
 }
 
 
+/* =========================================
+   تحميل السورة
+========================================= */
+
 async function loadSurah(index){
 
-    if(!surahs[index]){
+    if(
+        !surahs[index]
+    ){
+
         return;
+
     }
 
 
@@ -1164,6 +1270,7 @@ async function loadSurah(index){
 
             ⏳ جاري تحميل سورة
             ${surah.name}
+            ...
 
         </div>
 
@@ -1218,10 +1325,12 @@ async function loadSurah(index){
         updateNavigation();
 
 
-    }
-    catch(error){
+    }catch(error){
 
-        console.error(error);
+        console.error(
+            "خطأ تحميل السورة:",
+            error
+        );
 
 
         quranContent.innerHTML = `
@@ -1229,6 +1338,8 @@ async function loadSurah(index){
             <div class="loading">
 
                 ❌ تعذر تحميل السورة.
+                <br>
+                تأكد من اتصال الإنترنت.
 
             </div>
 
@@ -1239,9 +1350,14 @@ async function loadSurah(index){
 }
 
 
+/* =========================================
+   عرض المصحف
+========================================= */
+
 function displaySurah(surah){
 
-    quranContent.innerHTML = "";
+    quranContent.innerHTML =
+    "";
 
 
     const mushaf =
@@ -1364,17 +1480,29 @@ function displaySurah(surah){
 }
 
 
+/* =========================================
+   اختيار السورة
+========================================= */
+
 surahSelect.addEventListener(
     "change",
     async function(){
 
         await loadSurah(
-            Number(this.value)
+
+            Number(
+                this.value
+            )
+
         );
 
     }
 );
 
+
+/* =========================================
+   السابقة
+========================================= */
 
 previousButton.addEventListener(
     "click",
@@ -1403,6 +1531,10 @@ previousButton.addEventListener(
     }
 );
 
+
+/* =========================================
+   التالية
+========================================= */
 
 nextButton.addEventListener(
     "click",
@@ -1433,6 +1565,10 @@ nextButton.addEventListener(
 );
 
 
+/* =========================================
+   تحديث أزرار التنقل
+========================================= */
+
 function updateNavigation(){
 
     previousButton.disabled =
@@ -1448,4 +1584,5 @@ function updateNavigation(){
 </script>
 
 </body>
-        </html>
+
+    </html>
