@@ -94,6 +94,11 @@ button{
     cursor:pointer;
 }
 
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 .primary{
     background:#075e54;
     color:white;
@@ -101,6 +106,16 @@ button{
 
 .secondary{
     background:#0b806f;
+    color:white;
+}
+
+.success-button{
+    background:#198754;
+    color:white;
+}
+
+.warning{
+    background:#c9a227;
     color:white;
 }
 
@@ -201,6 +216,34 @@ button{
     grid-template-columns:1fr 1fr;
     gap:10px;
     margin-top:12px;
+}
+
+.code-box{
+    margin-top:12px;
+    padding:15px;
+    background:#fff8df;
+    border:2px dashed #c9a227;
+    border-radius:12px;
+    text-align:center;
+}
+
+.code-number{
+    display:block;
+    font-size:28px;
+    font-weight:bold;
+    color:#075e54;
+    letter-spacing:4px;
+    margin-top:5px;
+}
+
+.status-approved{
+    color:#198754;
+    font-weight:bold;
+}
+
+.status-pending{
+    color:#c58a00;
+    font-weight:bold;
 }
 
 footer{
@@ -415,6 +458,7 @@ class="loading">
 
 <div class="section-title">
 📝 طلبات التسجيل
+
 </div>
 
 <div
@@ -463,7 +507,12 @@ import {
     collection,
     getDocs,
     deleteDoc,
-    doc
+    doc,
+    addDoc,
+    updateDoc,
+    query,
+    where,
+    serverTimestamp
 
 }
 from
@@ -798,11 +847,21 @@ async function loadStudents(){
 
                     <br>
 
+                    📱 الهاتف:
+                    ${escapeHTML(
+                        student.phone ||
+                        "-"
+                    )}
+
+                    <br>
+
                     🔢 الكود:
+                    <strong>
                     ${escapeHTML(
                         student.code ||
                         "-"
                     )}
+                    </strong>
 
                     <br>
 
@@ -835,19 +894,6 @@ async function loadStudents(){
                         student.lesson ||
                         "-"
                     )}
-
-                    <br>
-
-                    📅 الموعد:
-                    ${
-                        student.startTime
-                        ?
-                        formatDateTime(
-                            student.startTime
-                        )
-                        :
-                        "غير محدد"
-                    }
 
                     <br>
 
@@ -959,7 +1005,10 @@ async function loadStudents(){
 
                 <br><br>
 
-                تأكد من قواعد Firestore.
+                ${escapeHTML(
+                    error.message ||
+                    ""
+                )}
 
             </div>
 
@@ -1020,7 +1069,9 @@ async function copyStudentCode(
 
 
         showDashboardMessage(
-            "✅ تم نسخ كود الطالب.",
+            "✅ تم نسخ كود الطالب: "
+            +
+            student.code,
             true
         );
 
@@ -1075,7 +1126,7 @@ async function deleteStudent(id){
         );
 
 
-        loadStudents();
+        await loadStudents();
 
 
     }catch(error){
@@ -1084,7 +1135,9 @@ async function deleteStudent(id){
 
 
         showDashboardMessage(
-            "❌ تعذر حذف الطالب.",
+            "❌ تعذر حذف الطالب: "
+            +
+            error.message,
             false
         );
 
@@ -1149,6 +1202,11 @@ async function loadRequests(){
                 item.data();
 
 
+                const isApproved =
+                request.status ===
+                "approved";
+
+
                 const div =
                 document.createElement(
                     "div"
@@ -1186,19 +1244,34 @@ async function loadRequests(){
 
                     <br>
 
-                    📖 المستوى:
-                    ${escapeHTML(
-                        request.level ||
-                        "-"
-                    )}
+                    📊 الحالة:
+                    ${
+                        isApproved
+                        ?
+                        '<span class="status-approved">✅ تمت الموافقة</span>'
+                        :
+                        '<span class="status-pending">🟡 بانتظار المراجعة</span>'
+                    }
 
-                    <br>
+                    ${
+                        request.studentCode
+                        ?
+                        `
+                        <div class="code-box">
 
-                    📝 الملاحظات:
-                    ${escapeHTML(
-                        request.note ||
-                        "-"
-                    )}
+                            🔐 كود الطالب
+
+                            <span class="code-number">
+                                ${escapeHTML(
+                                    request.studentCode
+                                )}
+                            </span>
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
 
                     <br>
 
@@ -1215,9 +1288,39 @@ async function loadRequests(){
 
                     <div class="actions">
 
+                        ${
+                            !isApproved
+                            ?
+                            `
+                            <button
+                                class="success-button"
+                                data-request-id="${item.id}"
+                                data-action="approve">
+
+                                ✅ قبول وإنشاء كود
+
+                            </button>
+                            `
+                            :
+                            `
+                            <button
+                                class="warning"
+                                data-code="${escapeHTML(
+                                    request.studentCode ||
+                                    ""
+                                )}"
+                                data-action="copy-request-code">
+
+                                📋 نسخ الكود
+
+                            </button>
+                            `
+                        }
+
                         <button
                             class="danger"
-                            data-request-id="${item.id}">
+                            data-request-id="${item.id}"
+                            data-action="delete-request">
 
                             🗑️ حذف الطلب
 
@@ -1247,51 +1350,46 @@ async function loadRequests(){
                     "click",
                     async function(){
 
+                        const action =
+                        this.dataset.action;
+
+
                         const id =
                         this.dataset.requestId;
 
 
-                        const confirmed =
-                        confirm(
-                            "هل تريد حذف هذا الطلب؟"
-                        );
+                        if(
+                            action ===
+                            "approve"
+                        ){
 
-
-                        if(!confirmed){
-
-                            return;
+                            await approveStudent(
+                                id,
+                                this
+                            );
 
                         }
 
 
-                        try{
+                        if(
+                            action ===
+                            "delete-request"
+                        ){
 
-                            await deleteDoc(
-                                doc(
-                                    db,
-                                    "bookingRequests",
-                                    id
-                                )
+                            await deleteRequest(
+                                id
                             );
 
-
-                            loadRequests();
-
-
-                            showDashboardMessage(
-                                "✅ تم حذف الطلب.",
-                                true
-                            );
+                        }
 
 
-                        }catch(error){
+                        if(
+                            action ===
+                            "copy-request-code"
+                        ){
 
-                            console.error(error);
-
-
-                            showDashboardMessage(
-                                "❌ تعذر حذف الطلب.",
-                                false
+                            await copyText(
+                                this.dataset.code
                             );
 
                         }
@@ -1316,11 +1414,392 @@ async function loadRequests(){
 
                 <br><br>
 
-                تأكد من قواعد Firestore.
+                ${escapeHTML(
+                    error.message ||
+                    ""
+                )}
 
             </div>
 
         `;
+
+    }
+
+}
+
+
+/* =========================================
+   الموافقة وإنشاء كود
+========================================= */
+
+async function approveStudent(
+    requestId,
+    button
+){
+
+    const confirmed =
+    confirm(
+        "هل تريد قبول هذا الطالب وإنشاء كود دخول له؟"
+    );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    button.disabled =
+    true;
+
+    button.textContent =
+    "⏳ جاري إنشاء الكود...";
+
+
+    try{
+
+        /*
+        قراءة الطلب
+        */
+
+        const requestRef =
+        doc(
+            db,
+            "bookingRequests",
+            requestId
+        );
+
+
+        const requestsSnapshot =
+        await getDocs(
+            collection(
+                db,
+                "bookingRequests"
+            )
+        );
+
+
+        let requestData =
+        null;
+
+
+        requestsSnapshot.forEach(
+            function(item){
+
+                if(
+                    item.id ===
+                    requestId
+                ){
+
+                    requestData =
+                    item.data();
+
+                }
+
+            }
+        );
+
+
+        if(!requestData){
+
+            throw new Error(
+                "لم يتم العثور على الطلب."
+            );
+
+        }
+
+
+        /*
+        التأكد أن الطلب لم تتم الموافقة عليه
+        */
+
+        if(
+            requestData.status ===
+            "approved"
+        ){
+
+            showDashboardMessage(
+                "⚠️ هذا الطالب تمت الموافقة عليه مسبقًا.",
+                false
+            );
+
+            await loadRequests();
+
+            return;
+
+        }
+
+
+        /*
+        إنشاء كود فريد
+        */
+
+        const code =
+        await generateUniqueCode();
+
+
+        /*
+        إنشاء الطالب
+        */
+
+        await addDoc(
+            collection(
+                db,
+                "students"
+            ),
+            {
+
+                name:
+                requestData.name ||
+                "",
+
+                phone:
+                requestData.phone ||
+                "",
+
+                age:
+                requestData.age ||
+                "",
+
+                code:
+                code,
+
+                active:
+                true,
+
+                status:
+                "active",
+
+                teacher:
+                "",
+
+                level:
+                "",
+
+                lesson:
+                "",
+
+                createdAt:
+                serverTimestamp()
+
+            }
+        );
+
+
+        /*
+        تحديث الطلب
+        */
+
+        await updateDoc(
+            requestRef,
+            {
+
+                status:
+                "approved",
+
+                studentCode:
+                code,
+
+                approvedAt:
+                serverTimestamp()
+
+            }
+        );
+
+
+        showDashboardMessage(
+            "✅ تمت الموافقة بنجاح. كود الطالب هو: "
+            +
+            code,
+            true
+        );
+
+
+        await loadDashboard();
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showDashboardMessage(
+            "❌ تعذر قبول الطالب: "
+            +
+            error.message,
+            false
+        );
+
+
+        button.disabled =
+        false;
+
+        button.textContent =
+        "✅ قبول وإنشاء كود";
+
+    }
+
+}
+
+
+/* =========================================
+   إنشاء كود فريد
+========================================= */
+
+async function generateUniqueCode(){
+
+    for(
+        let attempt = 0;
+        attempt < 20;
+        attempt++
+    ){
+
+        const code =
+        String(
+            Math.floor(
+                100000 +
+                Math.random() *
+                900000
+            )
+        );
+
+
+        const check =
+        await getDocs(
+            query(
+                collection(
+                    db,
+                    "students"
+                ),
+                where(
+                    "code",
+                    "==",
+                    code
+                )
+            )
+        );
+
+
+        if(
+            check.empty
+        ){
+
+            return code;
+
+        }
+
+    }
+
+
+    throw new Error(
+        "تعذر إنشاء كود فريد. حاول مرة أخرى."
+    );
+
+}
+
+
+/* =========================================
+   حذف الطلب
+========================================= */
+
+async function deleteRequest(
+    id
+){
+
+    const confirmed =
+    confirm(
+        "هل تريد حذف هذا الطلب؟"
+    );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        await deleteDoc(
+            doc(
+                db,
+                "bookingRequests",
+                id
+            )
+        );
+
+
+        showDashboardMessage(
+            "✅ تم حذف الطلب.",
+            true
+        );
+
+
+        await loadRequests();
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showDashboardMessage(
+            "❌ تعذر حذف الطلب: "
+            +
+            error.message,
+            false
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   نسخ النص
+========================================= */
+
+async function copyText(
+    text
+){
+
+    if(!text){
+
+        showDashboardMessage(
+            "⚠️ لا يوجد كود.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await navigator.clipboard.writeText(
+            String(text)
+        );
+
+
+        showDashboardMessage(
+            "✅ تم نسخ الكود: "
+            +
+            text,
+            true
+        );
+
+
+    }catch(error){
+
+        showDashboardMessage(
+            "🔐 كود الطالب: "
+            +
+            text,
+            true
+        );
 
     }
 
@@ -1406,7 +1885,7 @@ function showDashboardMessage(
             "none";
 
         },
-        4000
+        5000
     );
 
 }
@@ -1544,4 +2023,4 @@ function escapeHTML(value){
 
 </body>
 
-  </html>
+</html>
