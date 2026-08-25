@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>دخول الطالب | جنود الهدى</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7f6;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+.logo{
+    font-size:42px;
+}
+
+header h1{
+    font-size:28px;
+}
+
+header p{
+    margin-top:5px;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    padding:25px 15px;
+}
+
+.login-card,
+.student-card{
+    background:white;
+    border-radius:18px;
+    padding:25px 20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.student-card{
+    display:none;
+}
+
+h2{
+    text-align:center;
+    color:#075e54;
+    margin-bottom:15px;
+}
+
+.description{
+    text-align:center;
+    color:#666;
+    margin-bottom:20px;
+}
+
+.code-input{
+    width:100%;
+    padding:17px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:25px;
+    text-align:center;
+    letter-spacing:7px;
+    outline:none;
+}
+
+.code-input:focus{
+    border-color:#075e54;
+}
+
+.login-btn{
+    width:100%;
+    margin-top:15px;
+    border:0;
+    background:#075e54;
+    color:white;
+    padding:15px;
+    border-radius:11px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-btn:disabled{
+    opacity:.6;
+}
+
+.error{
+    display:none;
+    margin-top:15px;
+    padding:13px;
+    border-radius:10px;
+    background:#ffe8e8;
+    color:#b00020;
+    text-align:center;
+}
+
+.info{
+    background:#e8f7f2;
+    padding:16px;
+    border-radius:12px;
+    margin-bottom:15px;
+    line-height:2;
+}
+
+.row{
+    background:#f8faf9;
+    border-radius:11px;
+    padding:13px;
+    margin-bottom:10px;
+}
+
+.row strong{
+    color:#075e54;
+}
+
+.status{
+    margin-top:20px;
+    padding:18px;
+    border-radius:13px;
+    text-align:center;
+    font-weight:bold;
+    line-height:2;
+}
+
+.waiting{
+    background:#fff8e1;
+    color:#856404;
+}
+
+.live{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.expired{
+    background:#ffe8e8;
+    color:#b00020;
+}
+
+.join-btn{
+    display:none;
+    width:100%;
+    margin-top:12px;
+    padding:15px;
+    border:0;
+    border-radius:11px;
+    background:#075e54;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    background:#555;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    color:#075e54;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">🕌</div>
+
+    <h1>جنود الهدى</h1>
+
+    <p>صفحة الطالب</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =========================
+     دخول الطالب
+========================= -->
+
+<div
+    id="loginCard"
+    class="login-card">
+
+    <h2>
+        🎓 دخول الطالب
+    </h2>
+
+    <p class="description">
+
+        أدخل الكود الرقمي الخاص بك
+        للدخول إلى حسابك.
+
+    </p>
+
+
+    <form id="studentLoginForm">
+
+        <input
+            type="text"
+            id="studentCode"
+            class="code-input"
+            placeholder="000000"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="off"
+            required>
+
+
+        <button
+            type="submit"
+            id="loginButton"
+            class="login-btn">
+
+            دخول
+
+        </button>
+
+    </form>
+
+
+    <div
+        id="loginError"
+        class="error">
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        ← العودة للرئيسية
+
+    </a>
+
+</div>
+
+
+
+<!-- =========================
+     بيانات الطالب
+========================= -->
+
+<div
+    id="studentCard"
+    class="student-card">
+
+    <h2>
+        🎓 أهلاً بك
+    </h2>
+
+
+    <div class="info">
+
+        <div class="row">
+
+            <strong>اسم الطالب:</strong>
+
+            <span id="studentName">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>المدرس:</strong>
+
+            <span id="teacherName">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>وقت الحصة:</strong>
+
+            <span id="lessonTime">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>مدة الحصة:</strong>
+
+            <span id="lessonDuration">
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <strong>انتهاء الاشتراك:</strong>
+
+            <span id="expiryDate">
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="statusBox"
+        class="status waiting">
+
+        ⏳ جاري التحقق من موعد الحصة...
+
+    </div>
+
+
+    <button
+        id="joinButton"
+        class="join-btn">
+
+        🎥 دخول الحصة
+
+    </button>
+
+
+    <button
+        id="logoutButton"
+        class="logout-btn">
+
+        تسجيل الخروج
+
+    </button>
+
+</div>
+
+
+</div>
+
+
+
+<script type="module">
+
+import {
+    db
+} from "./firebase.js";
+
+
+import {
+    collection,
+    query,
+    where,
+    getDocs,
+    limit
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/*
+========================================
+ عناصر الصفحة
+========================================
+*/
+
+const loginCard =
+    document.getElementById("loginCard");
+
+const studentCard =
+    document.getElementById("studentCard");
+
+const form =
+    document.getElementById("studentLoginForm");
+
+const codeInput =
+    document.getElementById("studentCode");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginError =
+    document.getElementById("loginError");
+
+const joinButton =
+    document.getElementById("joinButton");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+let currentStudent = null;
+
+let timer = null;
+
+
+/*
+========================================
+ السماح بالأرقام فقط
+========================================
+*/
+
+codeInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(/\D/g,"")
+            .slice(0,6);
+
+    }
+);
+
+
+/*
+========================================
+ دخول الطالب
+========================================
+*/
+
+form.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        hideError();
+
+
+        const code =
+            codeInput.value.trim();
+
+
+        if(!/^\d{6}$/.test(code)){
+
+            showError(
+                "⚠️ أدخل الكود الرقمي المكون من 6 أرقام."
+            );
+
+            return;
+
+        }
+
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+            "⏳ جاري التحقق...";
+
+
+        try{
+
+
+            /*
+            ====================================
+            البحث عن الطالب بالكود فقط
+            ====================================
+            */
+
+            const q =
+                query(
+                    collection(db,"students"),
+                    where("code","==",code),
+                    limit(1)
+                );
+
+
+            const snapshot =
+                await getDocs(q);
+
+
+            if(snapshot.empty){
+
+                showError(
+                    "❌ الكود غير صحيح أو غير موجود."
+                );
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "دخول";
+
+                return;
+
+            }
+
+
+            const doc =
+                snapshot.docs[0];
+
+
+            const student =
+                {
+                    id:doc.id,
+                    ...doc.data()
+                };
+
+
+            /*
+            ====================================
+            التحقق من حالة الطالب
+            ====================================
+            */
+
+            if(student.active === false){
+
+                showError(
+                    "⛔ تم تعطيل هذا الحساب من الإدارة."
+                );
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "دخول";
+
+                return;
+
+            }
+
+
+            /*
+            ====================================
+            حفظ الطالب
+            ====================================
+            */
+
+            currentStudent =
+                student;
+
+
+            showStudent(student);
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showError(
+                "⚠️ حدث خطأ أثناء الاتصال. حاول مرة أخرى."
+            );
+
+        }
+
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+            "دخول";
+
+    }
+);
+
+
+/*
+========================================
+ عرض بيانات الطالب
+========================================
+*/
+
+function showStudent(student){
+
+    loginCard.style.display = "none";
+
+    studentCard.style.display = "block";
+
+
+    document
+    .getElementById("studentName")
+    .textContent =
+        student.name || "غير محدد";
+
+
+    document
+    .getElementById("teacherName")
+    .textContent =
+        student.teacherName || "غير محدد";
+
+
+    document
+    .getElementById("lessonTime")
+    .textContent =
+        student.lessonTime || "غير محدد";
+
+
+    document
+    .getElementById("lessonDuration")
+    .textContent =
+        student.lessonDuration
+        ? student.lessonDuration + " دقيقة"
+        : "غير محددة";
+
+
+    document
+    .getElementById("expiryDate")
+    .textContent =
+        formatDate(student.expiryDate);
+
+
+    checkLesson(student);
+
+
+    clearInterval(timer);
+
+
+    timer =
+        setInterval(
+            function(){
+
+                checkLesson(student);
+
+            },
+            30000
+        );
+
+}
+
+
+/*
+========================================
+ التحقق من الاشتراك والموعد
+========================================
+*/
+
+function checkLesson(student){
+
+    const statusBox =
+        document.getElementById("statusBox");
+
+
+    joinButton.style.display =
+        "none";
+
+
+    /*
+    ====================================
+    انتهاء الاشتراك
+    ====================================
+    */
+
+    const expiry =
+        getDateValue(student.expiryDate);
+
+
+    if(
+        expiry &&
+        new Date() > expiry
+    ){
+
+        statusBox.className =
+            "status expired";
+
+        statusBox.innerHTML =
+            "⛔ انتهى الاشتراك.<br>يرجى التواصل مع الإدارة.";
+
+        return;
+
+    }
+
+
+    /*
+    ====================================
+    وقت الحصة
+    ====================================
+    */
+
+    if(!student.lessonTime){
+
+        statusBox.className =
+            "status waiting";
+
+        statusBox.textContent =
+            "📅 لم يتم تحديد وقت الحصة بعد.";
+
+        return;
+
+    }
+
+
+    const lesson =
+        getTodayLessonTime(
+            student.lessonTime
+        );
+
+
+    if(!lesson){
+
+        statusBox.className =
+            "status waiting";
+
+        statusBox.textContent =
+            "📅 موعد الحصة اليوم: "
+            + student.lessonTime;
+
+        return;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const start =
+        lesson.start;
+
+
+    const end =
+        new Date(
+            start.getTime()
+            +
+            (
+                Number(student.lessonDuration || 30)
+                *
+                60000
+            )
+        );
+
+
+    /*
+    ====================================
+    قبل الحصة
+    ====================================
+    */
+
+    if(now < start){
+
+        const minutes =
+            Math.ceil(
+                (start - now) / 60000
+            );
+
+
+        statusBox.className =
+            "status waiting";
+
+
+        statusBox.innerHTML =
+            "⏳ الحصة لم تبدأ بعد.<br>"
+            +
+            "باقي تقريبًا "
+            +
+            minutes
+            +
+            " دقيقة.";
+
+
+        return;
+
+    }
+
+
+    /*
+    ====================================
+    أثناء الحصة
+    ====================================
+    */
+
+    if(
+        now >= start &&
+        now <= end
+    ){
+
+        statusBox.className =
+            "status live";
+
+
+        statusBox.innerHTML =
+            "🟢 الحصة بدأت الآن";
+
+
+        /*
+        الرابط نفسه لا يظهر في الصفحة
+        */
+
+
+        joinButton.style.display =
+            "block";
+
+
+        joinButton.onclick =
+            function(){
+
+                if(
+                    student.lessonUrl
+                ){
+
+                    window.open(
+                        student.lessonUrl,
+                        "_blank"
+                    );
+
+                }else{
+
+                    alert(
+                        "لم يتم إضافة رابط الحصة من الإدارة."
+                    );
+
+                }
+
+            };
+
+
+        return;
+
+    }
+
+
+    /*
+    ====================================
+    بعد انتهاء الحصة
+    ====================================
+    */
+
+    statusBox.className =
+        "status waiting";
+
+    statusBox.innerHTML =
+        "✅ انتهت حصة اليوم.<br>"
+        +
+        "نلتقي في الموعد القادم.";
+
+}
+
+
+/*
+========================================
+ تحويل وقت الحصة
+========================================
+*/
+
+function getTodayLessonTime(timeText){
+
+    const match =
+        timeText.match(
+            /^(\d{1,2}):(\d{2})\s*(ص|م|AM|PM)?$/i
+        );
+
+
+    if(!match){
+
+        return null;
+
+    }
+
+
+    let hour =
+        Number(match[1]);
+
+    const minute =
+        Number(match[2]);
+
+    const period =
+        match[3];
+
+
+    if(
+        period &&
+        (
+            period === "م" ||
+            period.toUpperCase() === "PM"
+        )
+    ){
+
+        if(hour < 12){
+            hour += 12;
+        }
+
+    }
+
+
+    if(
+        period &&
+        (
+            period === "ص" ||
+            period.toUpperCase() === "AM"
+        )
+    ){
+
+        if(hour === 12){
+            hour = 0;
+        }
+
+    }
+
+
+    const start =
+        new Date();
+
+
+    start.setHours(
+        hour,
+        minute,
+        0,
+        0
+    );
+
+
+    return {
+        start:start
+    };
+
+}
+
+
+/*
+========================================
+ التاريخ
+========================================
+*/
+
+function getDateValue(value){
+
+    if(!value){
+        return null;
+    }
+
+
+    if(
+        value &&
+        typeof value.toDate === "function"
+    ){
+
+        return value.toDate();
+
+    }
+
+
+    if(
+        typeof value === "string"
+    ){
+
+        const date =
+            new Date(value);
+
+        if(!isNaN(date.getTime())){
+            return date;
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+function formatDate(value){
+
+    const date =
+        getDateValue(value);
+
+
+    if(!date){
+        return "غير محدد";
+    }
+
+
+    return date.toLocaleDateString(
+        "ar-SA",
+        {
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }
+    );
+
+}
+
+
+/*
+========================================
+ الأخطاء
+========================================
+*/
+
+function showError(text){
+
+    loginError.textContent =
+        text;
+
+    loginError.style.display =
+        "block";
+
+}
+
+
+function hideError(){
+
+    loginError.style.display =
+        "none";
+
+}
+
+
+/*
+========================================
+ تسجيل الخروج
+========================================
+*/
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        currentStudent = null;
+
+        clearInterval(timer);
+
+        studentCard.style.display =
+            "none";
+
+        loginCard.style.display =
+            "block";
+
+        codeInput.value = "";
+
+    }
+);
+
+</script>
+
+
+</body>
+
+  </html>
