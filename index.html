@@ -1,7 +1,16 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport"
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>أكاديمية جنود الهدى | القرآن الكريم</title><style>
+<title>أكاديمية جنود الهدى</title>
+
+<style>
 
 *{
     box-sizing:border-box;
@@ -11,7 +20,7 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-    background:#f4f7f5;
+    background:#f3f7f5;
     color:#222;
 }
 
@@ -29,54 +38,25 @@ header{
 
     color:white;
     text-align:center;
-
-    padding:30px 15px 35px;
+    padding:28px 15px 35px;
 
     position:relative;
     overflow:hidden;
 }
 
-header::before{
-    content:"";
-    position:absolute;
-    width:220px;
-    height:220px;
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:50%;
-    top:-100px;
-    right:-70px;
-}
-
-header::after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:50%;
-    bottom:-100px;
-    left:-50px;
-}
-
 .logo{
     font-size:52px;
     margin-bottom:8px;
-    position:relative;
-    z-index:2;
 }
 
 header h1{
-    font-size:30px;
-    position:relative;
-    z-index:2;
+    font-size:29px;
 }
 
 header p{
     margin-top:8px;
-    font-size:15px;
+    font-size:14px;
     opacity:.95;
-    position:relative;
-    z-index:2;
 }
 
 /* =========================
@@ -86,491 +66,89 @@ header p{
 .container{
     max-width:850px;
     margin:auto;
-    padding:20px 14px;
+    padding:16px 13px 30px;
 }
 
 /* =========================
-   بطاقة الترحيب
+   التسجيل
 ========================= */
 
-.hero{
+.register-card{
+
     background:white;
+
     border-radius:22px;
-
-    padding:27px 20px;
-
-    text-align:center;
-
-    box-shadow:
-        0 5px 22px
-        rgba(0,0,0,.07);
-
-    margin-bottom:18px;
-
-    border-top:4px solid #0b806f;
-}
-
-.hero-icon{
-    font-size:48px;
-    margin-bottom:10px;
-}
-
-.hero h2{
-    color:#075e54;
-    font-size:25px;
-    margin-bottom:10px;
-}
-
-.hero h3{
-    color:#555;
-    font-size:16px;
-    margin-bottom:12px;
-}
-
-.hero p{
-    color:#666;
-    line-height:2;
-    font-size:15px;
-}
-
-.free{
-    display:inline-block;
-
-    margin-top:15px;
-
-    background:#e8f7f2;
-    color:#075e54;
-
-    padding:10px 20px;
-
-    border-radius:25px;
-
-    font-weight:bold;
-}
-
-/* =========================
-   شعار الأكاديمية
-========================= */
-
-.academy-card{
-    background:
-        linear-gradient(
-            135deg,
-            #075e54,
-            #0b806f
-        );
-
-    color:white;
-
-    border-radius:20px;
 
     padding:22px 18px;
 
-    text-align:center;
-
-    margin-bottom:18px;
-
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.08);
-}
-
-.academy-card .icon{
-    font-size:38px;
-    margin-bottom:8px;
-}
-
-.academy-card h2{
-    font-size:22px;
-    margin-bottom:7px;
-}
-
-.academy-card p{
-    font-size:14px;
-    line-height:2;
-    opacity:.95;
-}
-
-/* =========================
-   المصحف
-========================= */
-
-.quran-card{
-    background:#fffdf7;
-
-    border-radius:22px;
-
-    padding:20px;
-
     box-shadow:
         0 5px 22px
         rgba(0,0,0,.08);
 
-    border:1px solid #eee3c9;
+    margin-bottom:16px;
 
-    margin-bottom:18px;
+    border-top:5px solid #075e54;
 }
 
-.quran-title{
+.register-title{
+
     text-align:center;
 
     color:#075e54;
 
-    font-size:25px;
+    font-size:24px;
 
     font-weight:bold;
 
     margin-bottom:7px;
 }
 
-.quran-subtitle{
+.register-subtitle{
+
     text-align:center;
 
     color:#777;
 
     font-size:13px;
 
+    line-height:2;
+
     margin-bottom:18px;
 }
 
-.select-box{
+.input{
+
     width:100%;
-
-    padding:15px;
-
-    border:1px solid #ddd;
-
-    border-radius:13px;
-
-    font-size:16px;
-
-    outline:none;
-
-    background:white;
-
-    color:#333;
-
-    margin-bottom:10px;
-}
-
-.select-box:focus{
-    border-color:#075e54;
-}
-
-/* =========================
-   زخرفة السورة
-========================= */
-
-.surah-header{
-    text-align:center;
-
-    margin:20px 0;
-
-    padding:16px;
-
-    border-top:2px solid #c9a227;
-    border-bottom:2px solid #c9a227;
-
-    color:#075e54;
-
-    font-size:25px;
-
-    font-weight:bold;
-}
-
-.surah-header small{
-    display:block;
-
-    margin-top:6px;
-
-    font-size:12px;
-
-    color:#888;
-
-    font-weight:normal;
-}
-
-/* =========================
-   البسملة
-========================= */
-
-.basmala{
-    text-align:center;
-
-    color:#075e54;
-
-    font-size:20px;
-
-    line-height:2;
-
-    margin:15px 0 20px;
-
-    font-weight:bold;
-}
-
-/* =========================
-   الآيات
-========================= */
-
-.ayah{
-    background:
-        linear-gradient(
-            90deg,
-            #fffdf7,
-            #faf7ec
-        );
-
-    border-radius:14px;
-
-    padding:17px 15px;
-
-    margin-bottom:10px;
-
-    line-height:2.6;
-
-    font-size:21px;
-
-    color:#222;
-
-    border-right:4px solid #c9a227;
-
-    box-shadow:
-        0 2px 7px
-        rgba(0,0,0,.04);
-}
-
-.ayah-number{
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    width:31px;
-    height:31px;
-
-    border-radius:50%;
-
-    background:#075e54;
-
-    color:white;
-
-    font-size:12px;
-
-    margin-left:8px;
-
-    vertical-align:middle;
-}
-
-/* =========================
-   تحميل
-========================= */
-
-.loading{
-    text-align:center;
-
-    padding:30px 10px;
-
-    color:#777;
-
-    line-height:2;
-}
-
-/* =========================
-   بطاقات التعليم
-========================= */
-
-.learning-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:12px;
-
-    margin-bottom:18px;
-}
-
-.learning-card{
-    background:white;
-
-    border-radius:18px;
-
-    padding:18px 15px;
-
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.06);
-
-    border-top:4px solid #0b806f;
-}
-
-.learning-card.tajweed{
-    border-top-color:#c9a227;
-}
-
-.learning-icon{
-    font-size:30px;
-
-    margin-bottom:8px;
-}
-
-.learning-card h3{
-    color:#075e54;
-
-    font-size:18px;
-
-    margin-bottom:8px;
-}
-
-.learning-card.tajweed h3{
-    color:#8b6b00;
-}
-
-.learning-card p{
-    color:#666;
-
-    font-size:13px;
-
-    line-height:2;
-}
-
-/* =========================
-   أحكام التجويد
-========================= */
-
-.tajweed-title{
-    background:white;
-
-    border-radius:18px;
-
-    padding:20px;
-
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.06);
-
-    margin-bottom:18px;
-}
-
-.tajweed-title h2{
-    text-align:center;
-
-    color:#075e54;
-
-    margin-bottom:6px;
-}
-
-.tajweed-title p{
-    text-align:center;
-
-    color:#777;
-
-    font-size:13px;
-
-    line-height:2;
-}
-
-.tajweed-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-
-    margin-top:15px;
-}
-
-.tajweed-item{
-    background:#faf8ee;
-
-    border:1px solid #eee1b8;
-
-    border-radius:13px;
 
     padding:14px;
 
-    text-align:center;
-}
+    border:1px solid #ddd;
 
-.tajweed-item strong{
-    display:block;
-
-    color:#8b6b00;
-
-    font-size:16px;
-
-    margin-bottom:5px;
-}
-
-.tajweed-item span{
-    color:#666;
-
-    font-size:12px;
-
-    line-height:1.8;
-}
-
-/* =========================
-   التفسير
-========================= */
-
-.tafsir-card{
-    background:white;
-
-    border-radius:20px;
-
-    padding:20px;
-
-    box-shadow:
-        0 4px 17px
-        rgba(0,0,0,.06);
-
-    margin-bottom:18px;
-
-    border-right:5px solid #075e54;
-}
-
-.tafsir-title{
-    color:#075e54;
-
-    font-size:21px;
-
-    font-weight:bold;
+    border-radius:12px;
 
     margin-bottom:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:#fff;
 }
 
-.tafsir-card p{
-    color:#666;
+.input:focus{
 
-    line-height:2;
-
-    font-size:14px;
+    border-color:#075e54;
 }
 
-/* =========================
-   التنقل
-========================= */
+.register-button{
 
-.navigation{
-    display:grid;
+    width:100%;
 
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:10px;
-
-    margin-top:18px;
-}
-
-.navigation button{
     border:0;
 
     border-radius:12px;
 
-    padding:14px;
+    padding:15px;
 
     background:#075e54;
 
@@ -583,64 +161,19 @@ header p{
     cursor:pointer;
 }
 
-.navigation button:disabled{
-    background:#ccc;
+.register-button:disabled{
 
-    cursor:not-allowed;
+    background:#aaa;
+
 }
 
-/* =========================
-   الروابط
-========================= */
+.register-message{
 
-.links{
-    margin-top:18px;
+    display:none;
 
-    display:grid;
+    margin-top:12px;
 
-    gap:10px;
-}
-
-.link-button{
-    display:block;
-
-    text-align:center;
-
-    text-decoration:none;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    background:#0b806f;
-
-    color:white;
-
-    font-weight:bold;
-
-    box-shadow:
-        0 3px 8px
-        rgba(0,0,0,.08);
-}
-
-.link-button.student{
-    background:#075e54;
-}
-
-.link-button.teacher{
-    background:#555;
-}
-
-/* =========================
-   الخطأ
-========================= */
-
-.error{
-    background:#ffe8e8;
-
-    color:#a00000;
-
-    padding:15px;
+    padding:13px;
 
     border-radius:11px;
 
@@ -648,7 +181,427 @@ header p{
 
     line-height:1.8;
 
-    margin-top:15px;
+    font-size:14px;
+}
+
+.success{
+
+    background:#e5f7ed;
+
+    color:#08733d;
+}
+
+.danger{
+
+    background:#ffe8e8;
+
+    color:#a00000;
+}
+
+/* =========================
+   دخول الحصة
+========================= */
+
+.class-card{
+
+    background:
+        linear-gradient(
+            135deg,
+            #075e54,
+            #0b806f
+        );
+
+    color:white;
+
+    border-radius:22px;
+
+    padding:24px 18px;
+
+    text-align:center;
+
+    margin-bottom:16px;
+
+    box-shadow:
+        0 5px 22px
+        rgba(0,0,0,.10);
+}
+
+.class-icon{
+
+    font-size:43px;
+
+    margin-bottom:8px;
+}
+
+.class-card h2{
+
+    font-size:23px;
+
+    margin-bottom:8px;
+}
+
+.class-card p{
+
+    font-size:13px;
+
+    line-height:2;
+
+    opacity:.95;
+
+    margin-bottom:15px;
+}
+
+.code-input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-size:20px;
+
+    letter-spacing:3px;
+
+    outline:none;
+
+    margin-bottom:10px;
+}
+
+.code-button{
+
+    width:100%;
+
+    padding:14px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:#c9a227;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.code-message{
+
+    display:none;
+
+    margin-top:12px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:10px;
+
+    padding:12px;
+
+    line-height:1.8;
+
+}
+
+/* =========================
+   المصحف
+========================= */
+
+.quran-card{
+
+    background:#fffdf7;
+
+    border-radius:23px;
+
+    padding:20px 16px;
+
+    box-shadow:
+        0 5px 22px
+        rgba(0,0,0,.08);
+
+    border:1px solid #eee2c3;
+
+    margin-bottom:16px;
+}
+
+.quran-title{
+
+    text-align:center;
+
+    color:#075e54;
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+}
+
+.quran-subtitle{
+
+    text-align:center;
+
+    color:#888;
+
+    font-size:13px;
+
+    margin-bottom:18px;
+}
+
+.select-box{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    background:white;
+
+    outline:none;
+
+    margin-bottom:15px;
+}
+
+/* =========================
+   إطار المصحف
+========================= */
+
+.mushaf{
+
+    background:#fffef8;
+
+    border:2px solid #d8c27a;
+
+    border-radius:18px;
+
+    padding:18px 14px;
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(150,120,30,.06);
+}
+
+/* =========================
+   عنوان السورة
+========================= */
+
+.surah-header{
+
+    text-align:center;
+
+    margin:5px 0 18px;
+
+    padding:15px 8px;
+
+    border-top:2px solid #c9a227;
+
+    border-bottom:2px solid #c9a227;
+
+    color:#075e54;
+
+    font-size:25px;
+
+    font-weight:bold;
+}
+
+.surah-header small{
+
+    display:block;
+
+    color:#8b6b00;
+
+    font-size:12px;
+
+    margin-top:7px;
+
+    font-weight:normal;
+}
+
+/* =========================
+   البسملة
+========================= */
+
+.basmala{
+
+    text-align:center;
+
+    color:#075e54;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    line-height:2;
+
+    margin:12px 0 20px;
+}
+
+/* =========================
+   الآيات
+========================= */
+
+.ayah{
+
+    padding:17px 8px;
+
+    margin-bottom:4px;
+
+    font-family:
+        "Traditional Arabic",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    font-size:23px;
+
+    line-height:2.5;
+
+    text-align:right;
+
+    color:#222;
+
+    border-bottom:1px solid
+        rgba(201,162,39,.22);
+}
+
+.ayah-number{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:29px;
+
+    height:29px;
+
+    border:1px solid #c9a227;
+
+    border-radius:50%;
+
+    color:#075e54;
+
+    font-family:Tahoma,Arial;
+
+    font-size:11px;
+
+    margin-left:8px;
+
+    vertical-align:middle;
+
+    background:#fffdf4;
+}
+
+/* =========================
+   التفسير
+========================= */
+
+.tafsir-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px 17px;
+
+    box-shadow:
+        0 4px 17px
+        rgba(0,0,0,.06);
+
+    margin-bottom:16px;
+
+    border-right:5px solid #075e54;
+}
+
+.tafsir-title{
+
+    color:#075e54;
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.tafsir-card p{
+
+    color:#666;
+
+    font-size:14px;
+
+    line-height:2;
+
+    text-align:center;
+}
+
+/* =========================
+   التنقل
+========================= */
+
+.navigation{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.navigation button{
+
+    border:0;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    background:#075e54;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.navigation button:disabled{
+
+    background:#ccc;
+
+}
+
+/* =========================
+   تحميل
+========================= */
+
+.loading{
+
+    text-align:center;
+
+    color:#777;
+
+    padding:30px 10px;
+
+    line-height:2;
 }
 
 /* =========================
@@ -656,7 +609,6 @@ header p{
 ========================= */
 
 footer{
-    margin-top:25px;
 
     background:#075e54;
 
@@ -664,11 +616,13 @@ footer{
 
     text-align:center;
 
-    padding:24px 15px;
+    padding:23px 15px;
 
     font-size:13px;
 
     line-height:2.2;
+
+    margin-top:10px;
 }
 
 /* =========================
@@ -678,25 +632,12 @@ footer{
 @media(max-width:600px){
 
     header h1{
-        font-size:26px;
-    }
-
-    .hero h2{
-        font-size:21px;
+        font-size:25px;
     }
 
     .ayah{
-        font-size:19px;
-
+        font-size:20px;
         line-height:2.5;
-    }
-
-    .learning-grid{
-        grid-template-columns:1fr;
-    }
-
-    .tajweed-grid{
-        grid-template-columns:1fr;
     }
 
     .navigation{
@@ -705,309 +646,596 @@ footer{
 
 }
 
-</style></head><body><!-- =========================
-     الهيدر
-========================= --><header><div class="logo">
-    🕌
-</div>
+</style>
 
-<h1>
-    أكاديمية جنود الهدى
-</h1>
+</head>
 
-<p>
-    لتعليم القرآن الكريم وتلاوته
-</p>
+<body>
 
-</header><div class="container"><!-- =========================
-     الترحيب
-========================= --><div class="hero"><div class="hero-icon">
-    📖
-</div>
+<header>
 
-<h2>
-    القرآن الكريم
-</h2>
-
-<h3>
-    كتاب الله نور القلوب وهدى للناس
-</h3>
-
-<p>
-    اقرأ القرآن الكريم في أي وقت ومن أي مكان،
-    <br>
-    وتعلّم أحكام التجويد واستفد من بطاقات التعليم.
-</p>
-
-<div class="free">
-    🌿 القرآن الكريم مجاني للجميع
-</div>
-
-</div><!-- =========================
-     بطاقة الأكاديمية
-========================= --><div class="academy-card"><div class="icon">
-    🕌
-</div>
-
-<h2>
-    أكاديمية جنود الهدى
-</h2>
-
-<p>
-    تعليم القرآن الكريم عن بُعد
-    <br>
-    للطلاب الراغبين في القراءة والحفظ والتعلم.
-</p>
-
-</div><!-- =========================
-     بطاقات سريعة
-========================= --><div class="learning-grid"><div class="learning-card">
-
-    <div class="learning-icon">
-        📖
+    <div class="logo">
+        🕌
     </div>
 
-    <h3>
-        القرآن الكريم
-    </h3>
+    <h1>
+        أكاديمية جنود الهدى
+    </h1>
 
     <p>
-        اقرأ السور والآيات بسهولة
-        من خلال المصحف الإلكتروني.
+        لتعليم القرآن الكريم وتلاوته
     </p>
 
-</div>
+</header>
 
+<div class="container">
 
-<div class="learning-card tajweed">
+<!-- =========================
+     تسجيل الطالب
+========================= -->
 
-    <div class="learning-icon">
-        🎨
+<div class="register-card">
+
+    <div class="register-title">
+        🎓 التسجيل في أكاديمية جنود الهدى
     </div>
 
-    <h3>
-        أحكام التجويد
-    </h3>
+    <div class="register-subtitle">
 
-    <p>
-        تعرّف على أهم أحكام التجويد
-        بطريقة بسيطة ومختصرة.
-    </p>
+        سجّل بياناتك أولًا،
+        وسيتم مراجعة طلبك من الإدارة.
+        <br>
+        بعد الموافقة سيتم إرسال كود الدخول الخاص بك.
+
+    </div>
+
+    <input
+        id="studentName"
+        class="input"
+        type="text"
+        placeholder="اسم الطالب">
+
+    <input
+        id="studentPhone"
+        class="input"
+        type="tel"
+        placeholder="رقم الجوال">
+
+    <input
+        id="studentAge"
+        class="input"
+        type="number"
+        placeholder="العمر">
+
+    <button
+        id="registerButton"
+        class="register-button">
+
+        إرسال طلب التسجيل
+
+    </button>
+
+    <div
+        id="registerMessage"
+        class="register-message">
+
+    </div>
 
 </div>
 
-</div><!-- =========================
+
+<!-- =========================
+     دخول الحصة
+========================= -->
+
+<div class="class-card">
+
+    <div class="class-icon">
+        🎓
+    </div>
+
+    <h2>
+        دخول الحصة المباشرة
+    </h2>
+
+    <p>
+
+        إذا تمت الموافقة على تسجيلك،
+        أدخل الكود الذي أرسلته لك الأكاديمية.
+
+    </p>
+
+    <input
+        id="studentCode"
+        class="code-input"
+        type="text"
+        inputmode="numeric"
+        maxlength="12"
+        placeholder="أدخل كود الطالب">
+
+    <button
+        id="codeButton"
+        class="code-button">
+
+        🔐 دخول الحصة
+
+    </button>
+
+    <div
+        id="codeMessage"
+        class="code-message">
+
+    </div>
+
+</div>
+
+
+<!-- =========================
      المصحف
-========================= --><div class="quran-card"><div class="quran-title">
-    📖 المصحف الشريف
-</div>
+========================= -->
 
-<div class="quran-subtitle">
-    تلاوة القرآن الكريم مجانًا
-</div>
+<div class="quran-card">
 
+    <div class="quran-title">
+        📖 المصحف الشريف
+    </div>
 
-<select
-    id="surahSelect"
-    class="select-box">
+    <div class="quran-subtitle">
 
-    <option value="">
-        ⏳ جاري تحميل السور...
-    </option>
+        اقرأ كتاب الله في أي وقت
 
-</select>
+    </div>
 
+    <select
+        id="surahSelect"
+        class="select-box">
 
-<div id="quranContent">
+        <option>
+            ⏳ جاري تحميل السور...
+        </option>
 
-    <div class="loading">
-        ⏳ جاري تحميل القرآن الكريم...
+    </select>
+
+    <div
+        id="quranContent">
+
+        <div class="loading">
+
+            ⏳ جاري تحميل القرآن الكريم...
+
+        </div>
+
+    </div>
+
+    <div class="navigation">
+
+        <button
+            id="previousButton"
+            disabled>
+
+            ← السورة السابقة
+
+        </button>
+
+        <button
+            id="nextButton"
+            disabled>
+
+            السورة التالية →
+
+        </button>
+
     </div>
 
 </div>
 
 
-<div
-    id="errorBox"
-    class="error"
-    style="display:none;">
+<!-- =========================
+     التفسير
+========================= -->
+
+<div class="tafsir-card">
+
+    <div class="tafsir-title">
+        🌿 التفسير والتدبر
+    </div>
+
+    <p>
+
+        فهم القرآن الكريم يعين على التدبر والعمل.
+        اقرأ الآيات بتأنٍ، وتعلّم معانيها من
+        مصادر التفسير الموثوقة.
+
+    </p>
+
+</div>
 
 </div>
 
 
-<div class="navigation">
+<footer>
 
-    <button
-        id="previousButton"
-        disabled>
+    🕌 أكاديمية جنود الهدى
 
-        ← السورة السابقة
+    <br>
 
-    </button>
+    تعليم القرآن الكريم عن بُعد
 
+    <br>
 
-    <button
-        id="nextButton"
-        disabled>
+    📖 القرآن الكريم مجاني للجميع
 
-        السورة التالية →
+    <br>
 
-    </button>
+    © 2026
 
-</div>
-
-</div><!-- =========================
-     بطاقة التفسير
-========================= --><div class="tafsir-card"><div class="tafsir-title">
-    🌿 بطاقة التفسير
-</div>
-
-<p>
-    التفسير يساعدك على فهم معاني آيات القرآن الكريم
-    والتدبر فيها. اقرأ الآية بتأنٍ، وحاول فهم معناها
-    والعمل بما فيها من هداية وخير.
-</p>
-
-</div><!-- =========================
-     بطاقات التجويد
-========================= --><div class="tajweed-title"><h2>
-    🎨 بطاقات أحكام التجويد
-</h2>
-
-<p>
-    تعلّم أهم أحكام التجويد خطوة بخطوة
-</p>
+</footer>
 
 
-<div class="tajweed-grid">
+<script type="module">
 
+import {
+    db
+} from "./firebase.js";
 
-    <div class="tajweed-item">
-
-        <strong>
-            الإظهار
-        </strong>
-
-        <span>
-            إخراج الحرف من مخرجه واضحًا
-            من غير إدغام.
-        </span>
-
-    </div>
-
-
-    <div class="tajweed-item">
-
-        <strong>
-            الإدغام
-        </strong>
-
-        <span>
-            إدخال حرف في حرف حتى يصيرا
-            حرفًا واحدًا مشددًا.
-        </span>
-
-    </div>
-
-
-    <div class="tajweed-item">
-
-        <strong>
-            الإخفاء
-        </strong>
-
-        <span>
-            النطق بالنون الساكنة أو التنوين
-            بين الإظهار والإدغام.
-        </span>
-
-    </div>
-
-
-    <div class="tajweed-item">
-
-        <strong>
-            الإقلاب
-        </strong>
-
-        <span>
-            قلب النون الساكنة أو التنوين
-            ميمًا عند الباء.
-        </span>
-
-    </div>
-
-
-    <div class="tajweed-item">
-
-        <strong>
-            المد
-        </strong>
-
-        <span>
-            إطالة الصوت بحرف من حروف المد
-            حسب الحكم التجويدي.
-        </span>
-
-    </div>
-
-
-    <div class="tajweed-item">
-
-        <strong>
-            القلقلة
-        </strong>
-
-        <span>
-            اضطراب صوت الحرف عند سكونه
-            في حروف القلقلة.
-        </span>
-
-    </div>
-
-
-</div>
-
-</div><!-- =========================
-     الدخول
-========================= --><div class="links"><a
-    href="student.html"
-    class="link-button student">
-
-    🎓 دخول الطالب
-
-</a>
-
-
-<a
-    href="login.html"
-    class="link-button teacher">
-
-    👨‍🏫 دخول المدرس
-
-</a>
-
-</div></div><!-- =========================
-     الفوتر
-========================= --><footer>🕌 أكاديمية جنود الهدى
-
-<br>
-
-لتعليم القرآن الكريم
-
-<br>
-
-📖 القرآن الكريم مجاني للجميع
-
-<br>
-
-© 2026
-
-</footer><script type="module">
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    where,
+    getDocs
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 /* =========================================
-   القرآن الكريم
+   التسجيل
+========================================= */
+
+const studentName =
+document.getElementById(
+    "studentName"
+);
+
+const studentPhone =
+document.getElementById(
+    "studentPhone"
+);
+
+const studentAge =
+document.getElementById(
+    "studentAge"
+);
+
+const registerButton =
+document.getElementById(
+    "registerButton"
+);
+
+const registerMessage =
+document.getElementById(
+    "registerMessage"
+);
+
+
+registerButton.addEventListener(
+    "click",
+    async function(){
+
+        const name =
+        studentName.value.trim();
+
+        const phone =
+        studentPhone.value.trim();
+
+        const age =
+        studentAge.value.trim();
+
+
+        if(!name || !phone){
+
+            showRegisterMessage(
+                "⚠️ اكتب اسم الطالب ورقم الجوال.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        registerButton.disabled =
+        true;
+
+        registerButton.textContent =
+        "⏳ جاري إرسال الطلب...";
+
+
+        try{
+
+            await addDoc(
+                collection(
+                    db,
+                    "bookingRequests"
+                ),
+                {
+
+                    name:name,
+
+                    phone:phone,
+
+                    age:age,
+
+                    status:"pending",
+
+                    type:"student",
+
+                    createdAt:
+                    serverTimestamp()
+
+                }
+            );
+
+
+            showRegisterMessage(
+
+                "✅ تم إرسال طلب التسجيل بنجاح. بعد مراجعة الإدارة والموافقة سيتم إرسال كود الدخول لك.",
+
+                true
+
+            );
+
+
+            studentName.value =
+            "";
+
+            studentPhone.value =
+            "";
+
+            studentAge.value =
+            "";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            showRegisterMessage(
+
+                "❌ تعذر إرسال الطلب. حاول مرة أخرى.",
+
+                false
+
+            );
+
+        }
+
+
+        registerButton.disabled =
+        false;
+
+        registerButton.textContent =
+        "إرسال طلب التسجيل";
+
+    }
+);
+
+
+function showRegisterMessage(
+    text,
+    success
+){
+
+    registerMessage.textContent =
+    text;
+
+    registerMessage.style.display =
+    "block";
+
+    registerMessage.className =
+    "register-message "
+    +
+    (
+        success
+        ?
+        "success"
+        :
+        "danger"
+    );
+
+}
+
+
+/* =========================================
+   دخول الطالب بالكود
+========================================= */
+
+const studentCode =
+document.getElementById(
+    "studentCode"
+);
+
+const codeButton =
+document.getElementById(
+    "codeButton"
+);
+
+const codeMessage =
+document.getElementById(
+    "codeMessage"
+);
+
+
+codeButton.addEventListener(
+    "click",
+    async function(){
+
+        const code =
+        studentCode.value.trim();
+
+
+        if(!code){
+
+            showCodeMessage(
+                "⚠️ أدخل كود الطالب."
+            );
+
+            return;
+
+        }
+
+
+        codeButton.disabled =
+        true;
+
+        codeButton.textContent =
+        "⏳ جاري التحقق...";
+
+
+        try{
+
+            const studentsQuery =
+            query(
+
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "code",
+                    "==",
+                    code
+                )
+
+            );
+
+
+            const result =
+            await getDocs(
+                studentsQuery
+            );
+
+
+            if(
+                result.empty
+            ){
+
+                showCodeMessage(
+
+                    "❌ الكود غير صحيح أو لم تتم الموافقة على الطالب بعد."
+
+                );
+
+                return;
+
+            }
+
+
+            let studentData =
+            null;
+
+
+            result.forEach(
+                function(doc){
+
+                    studentData =
+                    {
+                        id:doc.id,
+                        ...doc.data()
+                    };
+
+                }
+            );
+
+
+            if(
+                studentData.status
+                &&
+                studentData.status !==
+                "active"
+            ){
+
+                showCodeMessage(
+
+                    "⚠️ هذا الكود غير مفعل حاليًا."
+
+                );
+
+                return;
+
+            }
+
+
+            /*
+            حفظ بيانات الطالب
+            */
+
+            localStorage.setItem(
+
+                "studentSession",
+
+                JSON.stringify({
+
+                    id:studentData.id,
+
+                    name:
+                    studentData.name || "",
+
+                    code:code
+
+                })
+
+            );
+
+
+            /*
+            الانتقال إلى صفحة الحصة
+            */
+
+            window.location.href =
+            "class.html";
+
+        }catch(error){
+
+            console.error(error);
+
+            showCodeMessage(
+
+                "❌ حدث خطأ أثناء التحقق من الكود."
+
+            );
+
+        }finally{
+
+            codeButton.disabled =
+            false;
+
+            codeButton.textContent =
+            "🔐 دخول الحصة";
+
+        }
+
+    }
+);
+
+
+function showCodeMessage(text){
+
+    codeMessage.textContent =
+    text;
+
+    codeMessage.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   القرآن
 ========================================= */
 
 const surahSelect =
@@ -1015,24 +1243,15 @@ document.getElementById(
     "surahSelect"
 );
 
-
 const quranContent =
 document.getElementById(
     "quranContent"
 );
 
-
-const errorBox =
-document.getElementById(
-    "errorBox"
-);
-
-
 const previousButton =
 document.getElementById(
     "previousButton"
 );
-
 
 const nextButton =
 document.getElementById(
@@ -1045,16 +1264,8 @@ let surahs = [];
 let currentSurahIndex = 0;
 
 
-/* =========================================
-   تشغيل القرآن
-========================================= */
-
 loadSurahs();
 
-
-/* =========================================
-   تحميل السور
-========================================= */
 
 async function loadSurahs(){
 
@@ -1079,19 +1290,6 @@ async function loadSurahs(){
         await response.json();
 
 
-        if(
-            !data ||
-            !data.data ||
-            !Array.isArray(data.data)
-        ){
-
-            throw new Error(
-                "بيانات السور غير صحيحة"
-            );
-
-        }
-
-
         surahs =
         data.data;
 
@@ -1108,10 +1306,8 @@ async function loadSurahs(){
                     "option"
                 );
 
-
                 option.value =
                 index;
-
 
                 option.textContent =
                 surah.number
@@ -1119,7 +1315,6 @@ async function loadSurahs(){
                 " - "
                 +
                 surah.name;
-
 
                 surahSelect.appendChild(
                     option
@@ -1129,44 +1324,39 @@ async function loadSurahs(){
         );
 
 
-        currentSurahIndex = 0;
-
+        currentSurahIndex =
+        0;
 
         surahSelect.value =
-        currentSurahIndex;
+        0;
 
-
-        await loadSurah(
-            currentSurahIndex
-        );
-
+        await loadSurah(0);
 
     }catch(error){
 
         console.error(error);
 
+        quranContent.innerHTML = `
 
-        showError(
-            "❌ تعذر تحميل القرآن الكريم. تأكد من اتصال الإنترنت ثم حاول مرة أخرى."
-        );
+            <div class="loading">
+
+                ❌ تعذر تحميل المصحف.
+                <br>
+                تأكد من اتصال الإنترنت.
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-/* =========================================
-   تحميل السورة
-========================================= */
-
 async function loadSurah(index){
 
-    if(
-        !surahs[index]
-    ){
-
+    if(!surahs[index]){
         return;
-
     }
 
 
@@ -1184,14 +1374,10 @@ async function loadSurah(index){
 
             ⏳ جاري تحميل سورة
             ${surah.name}
-            ...
 
         </div>
 
     `;
-
-
-    hideError();
 
 
     try{
@@ -1208,30 +1394,8 @@ async function loadSurah(index){
         );
 
 
-        if(!response.ok){
-
-            throw new Error(
-                "تعذر تحميل الآيات"
-            );
-
-        }
-
-
         const data =
         await response.json();
-
-
-        if(
-            !data ||
-            !data.data ||
-            !data.data.ayahs
-        ){
-
-            throw new Error(
-                "بيانات الآيات غير صحيحة"
-            );
-
-        }
 
 
         displaySurah(
@@ -1241,28 +1405,24 @@ async function loadSurah(index){
 
         updateNavigation();
 
-
     }catch(error){
 
         console.error(error);
 
+        quranContent.innerHTML = `
 
-        quranContent.innerHTML =
-        "";
+            <div class="loading">
 
+                ❌ تعذر تحميل السورة.
 
-        showError(
-            "❌ تعذر تحميل آيات السورة. تأكد من اتصال الإنترنت."
-        );
+            </div>
+
+        `;
 
     }
 
 }
 
-
-/* =========================================
-   عرض السورة
-========================================= */
 
 function displaySurah(surah){
 
@@ -1270,25 +1430,31 @@ function displaySurah(surah){
     "";
 
 
+    const mushaf =
+    document.createElement(
+        "div"
+    );
+
+    mushaf.className =
+    "mushaf";
+
+
     const title =
     document.createElement(
         "div"
     );
 
-
     title.className =
     "surah-header";
-
 
     title.innerHTML =
     "سورة "
     +
     surah.name
     +
-    "<small>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</small>";
+    "<small>المصحف الشريف</small>";
 
-
-    quranContent.appendChild(
+    mushaf.appendChild(
         title
     );
 
@@ -1302,16 +1468,13 @@ function displaySurah(surah){
             "div"
         );
 
-
         basmala.className =
         "basmala";
-
 
         basmala.textContent =
         "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 
-
-        quranContent.appendChild(
+        mushaf.appendChild(
             basmala
         );
 
@@ -1326,7 +1489,6 @@ function displaySurah(surah){
                 "div"
             );
 
-
             div.className =
             "ayah";
 
@@ -1336,18 +1498,11 @@ function displaySurah(surah){
                 "span"
             );
 
-
             number.className =
             "ayah-number";
 
-
             number.textContent =
             ayah.numberInSurah;
-
-
-            div.appendChild(
-                number
-            );
 
 
             const text =
@@ -1355,51 +1510,47 @@ function displaySurah(surah){
                 "span"
             );
 
-
             text.textContent =
             ayah.text;
 
+
+            div.appendChild(
+                number
+            );
 
             div.appendChild(
                 text
             );
 
 
-            quranContent.appendChild(
+            mushaf.appendChild(
                 div
             );
 
         }
     );
 
+
+    quranContent.appendChild(
+        mushaf
+    );
+
 }
 
-
-/* =========================================
-   تغيير السورة
-========================================= */
 
 surahSelect.addEventListener(
     "change",
     async function(){
 
-        const index =
-        Number(
-            this.value
-        );
-
-
         await loadSurah(
-            index
+            Number(
+                this.value
+            )
         );
 
     }
 );
 
-
-/* =========================================
-   السابقة
-========================================= */
 
 previousButton.addEventListener(
     "click",
@@ -1413,13 +1564,10 @@ previousButton.addEventListener(
 
         }
 
-
         currentSurahIndex--;
-
 
         surahSelect.value =
         currentSurahIndex;
-
 
         await loadSurah(
             currentSurahIndex
@@ -1428,10 +1576,6 @@ previousButton.addEventListener(
     }
 );
 
-
-/* =========================================
-   التالية
-========================================= */
 
 nextButton.addEventListener(
     "click",
@@ -1446,13 +1590,10 @@ nextButton.addEventListener(
 
         }
 
-
         currentSurahIndex++;
-
 
         surahSelect.value =
         currentSurahIndex;
-
 
         await loadSurah(
             currentSurahIndex
@@ -1462,15 +1603,10 @@ nextButton.addEventListener(
 );
 
 
-/* =========================================
-   أزرار التنقل
-========================================= */
-
 function updateNavigation(){
 
     previousButton.disabled =
     currentSurahIndex <= 0;
-
 
     nextButton.disabled =
     currentSurahIndex >=
@@ -1478,28 +1614,8 @@ function updateNavigation(){
 
 }
 
+</script>
 
-/* =========================================
-   الأخطاء
-========================================= */
+</body>
 
-function showError(text){
-
-    errorBox.textContent =
-    text;
-
-
-    errorBox.style.display =
-    "block";
-
-}
-
-
-function hideError(){
-
-    errorBox.style.display =
-    "none";
-
-}
-
-</script></body></html>
+    </html>
