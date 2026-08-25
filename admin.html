@@ -504,7 +504,6 @@ placeholder="العمر">
 
 </div>
 
-
 </div>
 
 
@@ -765,15 +764,25 @@ addDoc,
 getDocs,
 doc,
 updateDoc,
-deleteDoc,
-query,
-orderBy
+deleteDoc
 
 }
 
 from
 
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+import {
+
+getAuth,
+onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 const firebaseConfig = {
@@ -810,7 +819,41 @@ const db =
 getFirestore(app);
 
 
+const auth =
+getAuth(app);
+
+
 let editId = null;
+
+
+
+/* =========================
+   التحقق من تسجيل دخول الإدارة
+========================= */
+
+onAuthStateChanged(auth, (user) => {
+
+    if(!user){
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    console.log(
+        "تم تسجيل دخول الإدارة:",
+        user.email
+    );
+
+
+    loadStudents();
+
+    loadRequests();
+
+});
 
 
 
@@ -1833,6 +1876,13 @@ document.getElementById(
 );
 
 
+container.innerHTML = `
+<div class="empty">
+⏳ جاري تحميل الطلبات...
+</div>
+`;
+
+
 try{
 
 
@@ -2075,17 +2125,6 @@ return String(value)
 .replace(/'/g,"&#039;");
 
 }
-
-
-
-/* =========================
-   تشغيل
-========================= */
-
-loadStudents();
-
-loadRequests();
-
 
 </script>
 
