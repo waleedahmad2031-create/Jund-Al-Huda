@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>دخول المدرس | جنود الهدى</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#f3f7f5;
+    color:#222;
+    display:flex;
+    flex-direction:column;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:30px 15px 38px;
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:8px;
+}
+
+header h1{
+    font-size:28px;
+}
+
+header p{
+    margin-top:8px;
+    font-size:14px;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:20px 14px;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:25px 20px;
+    box-shadow:0 5px 22px rgba(0,0,0,.08);
+    border-top:5px solid #075e54;
+}
+
+.title{
+    text-align:center;
+    color:#075e54;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    line-height:2;
+    margin-bottom:22px;
+}
+
+.icon{
+    text-align:center;
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.code-input{
+    width:100%;
+    padding:17px 12px;
+    border:1px solid #ddd;
+    border-radius:13px;
+    outline:none;
+    text-align:center;
+    font-size:25px;
+    letter-spacing:6px;
+    margin-bottom:12px;
+}
+
+.code-input:focus{
+    border-color:#075e54;
+}
+
+.login-button,
+.enter-button{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:#075e54;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.enter-button{
+    background:#198754;
+    margin-top:12px;
+}
+
+.enter-button.disabled{
+    background:#999;
+}
+
+.login-button:disabled,
+.enter-button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:14px;
+    padding:13px;
+    border-radius:11px;
+    text-align:center;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
+.success{
+    background:#e7f7ef;
+    color:#08733d;
+}
+
+.info{
+    margin-top:18px;
+    background:#f8faf9;
+    border-radius:13px;
+    padding:15px;
+    color:#666;
+    font-size:13px;
+    line-height:2;
+    text-align:center;
+}
+
+.lesson-card{
+    display:none;
+    margin-top:18px;
+    background:#f8faf9;
+    border-radius:16px;
+    padding:18px;
+    border:1px solid #e1e8e5;
+}
+
+.lesson-title{
+    text-align:center;
+    color:#075e54;
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.lesson-row{
+    background:white;
+    border-radius:11px;
+    padding:12px;
+    margin-bottom:9px;
+    line-height:1.8;
+}
+
+.lesson-row strong{
+    color:#075e54;
+}
+
+.countdown{
+    text-align:center;
+    margin-top:12px;
+    padding:13px;
+    border-radius:11px;
+    background:#fff8df;
+    color:#8a6d00;
+    font-weight:bold;
+    line-height:1.8;
+}
+
+.teacher-welcome{
+    display:none;
+    text-align:center;
+    background:#e8f7f2;
+    color:#075e54;
+    padding:13px;
+    border-radius:12px;
+    margin-bottom:15px;
+    line-height:1.8;
+}
+
+.back-button{
+    display:block;
+    margin-top:12px;
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    background:#eee;
+    color:#444;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout-button{
+    display:none;
+    margin-top:12px;
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    background:#dc3545;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+footer{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px 15px;
+    font-size:13px;
+    line-height:2;
+    margin-top:auto;
+}
+
+@media(max-width:600px){
+
+    header h1{
+        font-size:24px;
+    }
+
+    .code-input{
+        font-size:22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        👨‍🏫
+    </div>
+
+    <h1>
+        أكاديمية جنود الهدى
+    </h1>
+
+    <p>
+        دخول المدرس إلى الحصة
+    </p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="icon">
+            🎓
+        </div>
+
+        <div class="title">
+            دخول المدرس
+        </div>
+
+        <div class="subtitle">
+
+            أدخل كود المدرس الخاص بك
+            <br>
+            لمعرفة الحصة ووقت الدخول
+
+        </div>
+
+
+        <div
+            id="teacherWelcome"
+            class="teacher-welcome">
+        </div>
+
+
+        <input
+            id="teacherCode"
+            class="code-input"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            autocomplete="off"
+            placeholder="••••••">
+
+
+        <button
+            id="loginButton"
+            class="login-button">
+
+            🔐 التحقق من كود المدرس
+
+        </button>
+
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+
+        <!-- =========================
+             معلومات الحصة
+        ========================== -->
+
+        <div
+            id="lessonCard"
+            class="lesson-card">
+
+            <div class="lesson-title">
+                📖 الحصة الخاصة بك
+            </div>
+
+
+            <div class="lesson-row">
+
+                📚 المادة:
+
+                <strong id="lessonSubject">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="lesson-row">
+
+                👨‍🏫 المدرس:
+
+                <strong id="lessonTeacher">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="lesson-row">
+
+                🎓 الطالب:
+
+                <strong id="lessonStudent">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="lesson-row">
+
+                📅 التاريخ:
+
+                <strong id="lessonDate">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="lesson-row">
+
+                🕐 الوقت:
+
+                <strong id="lessonTime">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div
+                id="countdown"
+                class="countdown">
+
+                ⏳ جاري حساب وقت الحصة...
+
+            </div>
+
+
+            <button
+                id="enterButton"
+                class="enter-button">
+
+                🔴 دخول الحصة
+
+            </button>
+
+        </div>
+
+
+        <div class="info">
+
+            🔒 الدخول مخصص للمدرسين المعتمدين فقط.
+
+            <br>
+
+            بعد التحقق سيظهر لك موعد الحصة
+            وزر الدخول إليها.
+
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button">
+
+            🚪 تسجيل خروج المدرس
+
+        </button>
+
+
+        <button
+            id="backButton"
+            class="back-button">
+
+            ← العودة
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    🕌 جنود الهدى
+
+    <br>
+
+    تعليم القرآن الكريم عن بُعد
+
+    <br>
+
+    © 2026
+
+</footer>
+
+
+<script type="module">
+
+
+/* =========================================
+   Firebase
+========================================= */
+
+import {
+    db
+}
+from "./firebase.js";
+
+
+import {
+
+    collection,
+    query,
+    where,
+    getDocs
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   العناصر
+========================================= */
+
+const teacherCode =
+document.getElementById(
+    "teacherCode"
+);
+
+const loginButton =
+document.getElementById(
+    "loginButton"
+);
+
+const message =
+document.getElementById(
+    "message"
+);
+
+const backButton =
+document.getElementById(
+    "backButton"
+);
+
+const logoutButton =
+document.getElementById(
+    "logoutButton"
+);
+
+const teacherWelcome =
+document.getElementById(
+    "teacherWelcome"
+);
+
+const lessonCard =
+document.getElementById(
+    "lessonCard"
+);
+
+const lessonSubject =
+document.getElementById(
+    "lessonSubject"
+);
+
+const lessonTeacher =
+document.getElementById(
+    "lessonTeacher"
+);
+
+const lessonStudent =
+document.getElementById(
+    "lessonStudent"
+);
+
+const lessonDate =
+document.getElementById(
+    "lessonDate"
+);
+
+const lessonTime =
+document.getElementById(
+    "lessonTime"
+);
+
+const countdown =
+document.getElementById(
+    "countdown"
+);
+
+const enterButton =
+document.getElementById(
+    "enterButton"
+);
+
+
+let currentTeacher = null;
+
+let currentLesson = null;
+
+let countdownTimer = null;
+
+
+/* =========================================
+   دخول المدرس
+========================================= */
+
+loginButton.addEventListener(
+    "click",
+    loginTeacher
+);
+
+
+/* =========================================
+   Enter
+========================================= */
+
+teacherCode.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            loginTeacher();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   التحقق من المدرس
+========================================= */
+
+async function loginTeacher(){
+
+    const code =
+    teacherCode.value.trim();
+
+
+    if(!code){
+
+        showMessage(
+            "⚠️ أدخل كود المدرس.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    if(!/^\d{6}$/.test(code)){
+
+        showMessage(
+            "⚠️ كود المدرس يجب أن يكون 6 أرقام.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    loginButton.disabled =
+    true;
+
+    loginButton.textContent =
+    "⏳ جاري التحقق...";
+
+
+    try{
+
+        const teachersQuery =
+        query(
+
+            collection(
+                db,
+                "teachers"
+            ),
+
+            where(
+                "code",
+                "==",
+                code
+            )
+
+        );
+
+
+        const result =
+        await getDocs(
+            teachersQuery
+        );
+
+
+        if(result.empty){
+
+            showMessage(
+                "❌ كود المدرس غير صحيح.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        let teacher =
+        null;
+
+
+        result.forEach(
+            function(item){
+
+                teacher = {
+
+                    id:item.id,
+
+                    ...item.data()
+
+                };
+
+            }
+        );
+
+
+        if(
+            teacher.active ===
+            false
+        ){
+
+            showMessage(
+                "⚠️ هذا المدرس غير مفعل حاليًا.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        currentTeacher =
+        teacher;
+
+
+        localStorage.setItem(
+
+            "teacherSession",
+
+            JSON.stringify({
+
+                id:
+                teacher.id,
+
+                name:
+                teacher.name ||
+                "",
+
+                code:
+                teacher.code,
+
+                phone:
+                teacher.phone ||
+                "",
+
+                active:
+                teacher.active !== false
+
+            })
+
+        );
+
+
+        teacherWelcome.style.display =
+        "block";
+
+
+        teacherWelcome.innerHTML =
+
+        "👨‍🏫 مرحبًا بك أستاذ " +
+
+        escapeHTML(
+            teacher.name ||
+            "المدرس"
+        ) +
+
+        "<br>تم التحقق من حسابك بنجاح.";
+
+
+        showMessage(
+            "✅ تم التحقق من المدرس.",
+            true
+        );
+
+
+        teacherCode.style.display =
+        "none";
+
+        loginButton.style.display =
+        "none";
+
+        logoutButton.style.display =
+        "block";
+
+
+        await loadTeacherLesson(
+            teacher
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showMessage(
+
+            "❌ حدث خطأ أثناء التحقق. تأكد من اتصال الإنترنت وقواعد Firestore.",
+
+            false
+
+        );
+
+    }finally{
+
+        loginButton.disabled =
+        false;
+
+        loginButton.textContent =
+        "🔐 التحقق من كود المدرس";
+
+    }
+
+}
+
+
+/* =========================================
+   تحميل حصة المدرس
+========================================= */
+
+async function loadTeacherLesson(
+    teacher
+){
+
+    lessonCard.style.display =
+    "block";
+
+
+    countdown.textContent =
+    "⏳ جاري البحث عن الحصة...";
+
+
+    try{
+
+        /*
+        البحث أولًا بواسطة teacherId
+        */
+
+        let result =
+        await getDocs(
+
+            query(
+
+                collection(
+                    db,
+                    "liveSessions"
+                ),
+
+                where(
+                    "teacherId",
+                    "==",
+                    teacher.id
+                )
+
+            )
+
+        );
+
+
+        /*
+        إذا لم توجد نتيجة
+        نجرب teacherCode
+        */
+
+        if(result.empty){
+
+            result =
+            await getDocs(
+
+                query(
+
+                    collection(
+                        db,
+                        "liveSessions"
+                    ),
+
+                    where(
+                        "teacherCode",
+                        "==",
+                        teacher.code
+                    )
+
+                )
+
+            );
+
+        }
+
+
+        /*
+        إذا لم توجد نتيجة
+        نجرب teacher
+        */
+
+        if(result.empty){
+
+            result =
+            await getDocs(
+
+                query(
+
+                    collection(
+                        db,
+                        "liveSessions"
+                    ),
+
+                    where(
+                        "teacher",
+                        "==",
+                        teacher.name
+                    )
+
+                )
+
+            );
+
+        }
+
+
+        if(result.empty){
+
+            showNoLesson();
+
+            return;
+
+        }
+
+
+        /*
+        اختيار أقرب حصة
+        */
+
+        let sessions = [];
+
+
+        result.forEach(
+            function(item){
+
+                sessions.push({
+
+                    id:item.id,
+
+                    ...item.data()
+
+                });
+
+            }
+        );
+
+
+        currentLesson =
+        chooseBestLesson(
+            sessions
+        );
+
+
+        if(!currentLesson){
+
+            showNoLesson();
+
+            return;
+
+        }
+
+
+        displayLesson(
+            currentLesson,
+            teacher
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        countdown.textContent =
+        "❌ تعذر تحميل الحصة: " +
+        error.message;
+
+        countdown.style.background =
+        "#ffe8e8";
+
+        countdown.style.color =
+        "#a00000";
+
+    }
+
+}
+
+
+/* =========================================
+   اختيار أفضل حصة
+========================================= */
+
+function chooseBestLesson(
+    sessions
+){
+
+    const now =
+    new Date();
+
+
+    /*
+    نحاول اختيار الحصة التي لم تنتهِ.
+    */
+
+    let validSessions =
+    sessions.filter(
+        function(session){
+
+            const start =
+            getSessionStart(
+                session
+            );
+
+
+            const end =
+            getSessionEnd(
+                session,
+                start
+            );
+
+
+            if(!start){
+
+                return true;
+
+            }
+
+
+            return end > now;
+
+        }
+    );
+
+
+    if(validSessions.length > 0){
+
+        validSessions.sort(
+            function(a,b){
+
+                const dateA =
+                getSessionStart(a);
+
+                const dateB =
+                getSessionStart(b);
+
+
+                if(!dateA){
+
+                    return 1;
+
+                }
+
+                if(!dateB){
+
+                    return -1;
+
+                }
+
+
+                return dateA - dateB;
+
+            }
+        );
+
+
+        return validSessions[0];
+
+    }
+
+
+    /*
+    إذا كانت كل الحصص قديمة
+    نعرض آخر حصة.
+    */
+
+    return sessions[0] || null;
+
+}
+
+
+/* =========================================
+   عرض الحصة
+========================================= */
+
+function displayLesson(
+    lesson,
+    teacher
+){
+
+    lessonSubject.textContent =
+
+        lesson.subject ||
+
+        lesson.lesson ||
+
+        lesson.title ||
+
+        lesson.name ||
+
+        "القرآن الكريم";
+
+
+    lessonTeacher.textContent =
+
+        lesson.teacher ||
+
+        lesson.teacherName ||
+
+        teacher.name ||
+
+        "-";
+
+
+    lessonStudent.textContent =
+
+        lesson.student ||
+
+        lesson.studentName ||
+
+        lesson.studentNameArabic ||
+
+        "الطالب";
+
+
+    lessonDate.textContent =
+
+        getDisplayDate(
+            lesson
+        );
+
+
+    lessonTime.textContent =
+
+        getDisplayTime(
+            lesson
+        );
+
+
+    startCountdown(
+        lesson
+    );
+
+}
+
+
+/* =========================================
+   تاريخ الحصة
+========================================= */
+
+function getDisplayDate(
+    lesson
+){
+
+    const start =
+    getSessionStart(
+        lesson
+    );
+
+
+    if(start){
+
+        return start.toLocaleDateString(
+            "ar-SA",
+            {
+
+                year:"numeric",
+
+                month:"long",
+
+                day:"numeric"
+
+            }
+        );
+
+    }
+
+
+    return (
+
+        lesson.date ||
+
+        lesson.lessonDate ||
+
+        lesson.sessionDate ||
+
+        "حسب الموعد المسجل"
+
+    );
+
+}
+
+
+/* =========================================
+   وقت الحصة
+========================================= */
+
+function getDisplayTime(
+    lesson
+){
+
+    const start =
+    getSessionStart(
+        lesson
+    );
+
+
+    const end =
+    getSessionEnd(
+        lesson,
+        start
+    );
+
+
+    if(start){
+
+        let text =
+
+            start.toLocaleTimeString(
+                "ar-SA",
+                {
+
+                    hour:"2-digit",
+
+                    minute:"2-digit"
+
+                }
+            );
+
+
+        if(end){
+
+            text +=
+
+                " - " +
+
+                end.toLocaleTimeString(
+                    "ar-SA",
+                    {
+
+                        hour:"2-digit",
+
+                        minute:"2-digit"
+
+                    }
+                );
+
+        }
+
+
+        return text;
+
+    }
+
+
+    return (
+
+        lesson.time ||
+
+        lesson.lessonTime ||
+
+        lesson.sessionTime ||
+
+        "الوقت المسجل"
+
+    );
+
+}
+
+
+/* =========================================
+   الحصول على بداية الحصة
+========================================= */
+
+function getSessionStart(
+    lesson
+){
+
+    const possible = [
+
+        lesson.startTime,
+
+        lesson.sessionStart,
+
+        lesson.scheduledAt,
+
+        lesson.lessonStart,
+
+        lesson.dateTime,
+
+        lesson.startAt
+
+    ];
+
+
+    for(
+        const value of possible
+    ){
+
+        const date =
+        convertToDate(
+            value
+        );
+
+
+        if(date){
+
+            return date;
+
+        }
+
+    }
+
+
+    /*
+    إذا التاريخ والوقت منفصلان
+    */
+
+    const dateValue =
+
+        lesson.date ||
+
+        lesson.lessonDate ||
+
+        lesson.sessionDate;
+
+
+    const timeValue =
+
+        lesson.time ||
+
+        lesson.lessonTime ||
+
+        lesson.sessionTime;
+
+
+    if(
+        dateValue &&
+        timeValue
+    ){
+
+        const date =
+        new Date(
+            String(dateValue)
+            + " "
+            + String(timeValue)
+        );
+
+
+        if(
+            !isNaN(
+                date.getTime()
+            )
+        ){
+
+            return date;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================
+   نهاية الحصة
+========================================= */
+
+function getSessionEnd(
+    lesson,
+    start
+){
+
+    const possible = [
+
+        lesson.endTime,
+
+        lesson.sessionEnd,
+
+        lesson.lessonEnd,
+
+        lesson.endAt
+
+    ];
+
+
+    for(
+        const value of possible
+    ){
+
+        const date =
+        convertToDate(
+            value
+        );
+
+
+        if(date){
+
+            return date;
+
+        }
+
+    }
+
+
+    /*
+    إذا توجد مدة بالدقائق
+    */
+
+    const duration =
+    Number(
+
+        lesson.duration ||
+
+        lesson.durationMinutes ||
+
+        lesson.minutes ||
+
+        60
+
+    );
+
+
+    if(start){
+
+        return new Date(
+
+            start.getTime() +
+
+            duration * 60000
+
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================
+   تحويل التاريخ
+========================================= */
+
+function convertToDate(
+    value
+){
+
+    if(!value){
+
+        return null;
+
+    }
+
+
+    try{
+
+        if(
+            value &&
+            typeof value.toDate ===
+            "function"
+        ){
+
+            const date =
+            value.toDate();
+
+
+            if(
+                !isNaN(
+                    date.getTime()
+                )
+            ){
+
+                return date;
+
+            }
+
+        }
+
+
+        if(
+            value instanceof Date
+        ){
+
+            return value;
+
+        }
+
+
+        const date =
+        new Date(value);
+
+
+        if(
+            !isNaN(
+                date.getTime()
+            )
+        ){
+
+            return date;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================
+   العد التنازلي
+========================================= */
+
+function startCountdown(
+    lesson
+){
+
+    if(countdownTimer){
+
+        clearInterval(
+            countdownTimer
+        );
+
+    }
+
+
+    updateCountdown(
+        lesson
+    );
+
+
+    countdownTimer =
+    setInterval(
+        function(){
+
+            updateCountdown(
+                lesson
+            );
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================================
+   تحديث العد
+========================================= */
+
+function updateCountdown(
+    lesson
+){
+
+    const now =
+    new Date();
+
+
+    const start =
+    getSessionStart(
+        lesson
+    );
+
+
+    const end =
+    getSessionEnd(
+        lesson,
+        start
+    );
+
+
+    /*
+    لا يوجد تاريخ مفهوم
+    */
+
+    if(!start){
+
+        countdown.textContent =
+        "🕐 الموعد مسجل. اضغط دخول الحصة عند بدء الموعد.";
+
+        enableEnterButton();
+
+        return;
+
+    }
+
+
+    /*
+    قبل بداية الحصة
+    */
+
+    if(
+        now < start
+    ){
+
+        const difference =
+        start - now;
+
+
+        countdown.innerHTML =
+
+            "⏳ الحصة لم تبدأ بعد." +
+
+            "<br>" +
+
+            "تبدأ بعد: " +
+
+            formatDuration(
+                difference
+            );
+
+
+        disableEnterButton();
+
+        return;
+
+    }
+
+
+    /*
+    وقت الحصة
+    */
+
+    if(
+        now >= start &&
+        (
+            !end ||
+            now < end
+        )
+    ){
+
+        countdown.textContent =
+        "🟢 الحصة بدأت الآن — يمكنك الدخول.";
+
+
+        countdown.style.background =
+        "#e7f7ef";
+
+        countdown.style.color =
+        "#08733d";
+
+
+        enableEnterButton();
+
+        return;
+
+    }
+
+
+    /*
+    انتهت الحصة
+    */
+
+    countdown.textContent =
+    "✅ انتهى وقت الحصة.";
+
+
+    countdown.style.background =
+    "#eeeeee";
+
+    countdown.style.color =
+    "#666";
+
+
+    disableEnterButton();
+
+}
+
+
+/* =========================================
+   تفعيل زر الدخول
+========================================= */
+
+function enableEnterButton(){
+
+    enterButton.disabled =
+    false;
+
+    enterButton.classList.remove(
+        "disabled"
+    );
+
+    enterButton.textContent =
+    "🔴 دخول الحصة";
+
+}
+
+
+/* =========================================
+   تعطيل زر الدخول
+========================================= */
+
+function disableEnterButton(){
+
+    enterButton.disabled =
+    true;
+
+    enterButton.classList.add(
+        "disabled"
+    );
+
+    enterButton.textContent =
+    "⏳ انتظر وقت الحصة";
+
+}
+
+
+/* =========================================
+   دخول الحصة
+========================================= */
+
+enterButton.addEventListener(
+    "click",
+    function(){
+
+        if(!currentTeacher){
+
+            showMessage(
+                "⚠️ لم يتم التحقق من المدرس.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        if(!currentLesson){
+
+            showMessage(
+                "⚠️ لا توجد حصة محددة.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        const roomId =
+
+            currentLesson.roomId ||
+
+            currentLesson.id;
+
+
+        if(!roomId){
+
+            showMessage(
+                "❌ لم يتم تحديد رقم غرفة الحصة.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        /*
+        حفظ بيانات الحصة
+        */
+
+        localStorage.setItem(
+
+            "currentLesson",
+
+            JSON.stringify({
+
+                id:
+                currentLesson.id,
+
+                roomId:
+                roomId,
+
+                teacherId:
+                currentTeacher.id,
+
+                teacherName:
+                currentTeacher.name || "",
+
+                studentId:
+                currentLesson.studentId || "",
+
+                studentName:
+                currentLesson.studentName || "",
+
+                subject:
+                currentLesson.subject ||
+                currentLesson.lesson ||
+                "القرآن الكريم"
+
+            })
+
+        );
+
+
+        /*
+        الدخول إلى class.html
+        */
+
+        window.location.href =
+
+            "class.html" +
+
+            "?room=" +
+
+            encodeURIComponent(
+                roomId
+            ) +
+
+            "&role=teacher";
+
+    }
+);
+
+
+/* =========================================
+   لا توجد حصة
+========================================= */
+
+function showNoLesson(){
+
+    lessonSubject.textContent =
+    "لا توجد حصة";
+
+    lessonTeacher.textContent =
+    currentTeacher?.name || "-";
+
+    lessonStudent.textContent =
+    "-";
+
+    lessonDate.textContent =
+    "-";
+
+    lessonTime.textContent =
+    "-";
+
+
+    countdown.textContent =
+    "📭 لا توجد حصة مسجلة لهذا المدرس حاليًا.";
+
+    countdown.style.background =
+    "#eeeeee";
+
+    countdown.style.color =
+    "#666";
+
+
+    disableEnterButton();
+
+}
+
+
+/* =========================================
+   تسجيل الخروج
+========================================= */
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        if(countdownTimer){
+
+            clearInterval(
+                countdownTimer
+            );
+
+        }
+
+
+        localStorage.removeItem(
+            "teacherSession"
+        );
+
+
+        localStorage.removeItem(
+            "currentLesson"
+        );
+
+
+        location.reload();
+
+    }
+);
+
+
+/* =========================================
+   العودة
+========================================= */
+
+backButton.addEventListener(
+    "click",
+    function(){
+
+        window.history.back();
+
+    }
+);
+
+
+/* =========================================
+   تنظيف الكود
+========================================= */
+
+teacherCode.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+
+            this.value
+
+            .replace(
+                /[^0-9]/g,
+                ""
+            )
+
+            .slice(
+                0,
+                6
+            );
+
+    }
+);
+
+
+/* =========================================
+   الرسائل
+========================================= */
+
+function showMessage(
+    text,
+    success
+){
+
+    message.textContent =
+    text;
+
+    message.className =
+    "message " +
+
+    (
+
+        success
+
+        ?
+
+        "success"
+
+        :
+
+        "error"
+
+    );
+
+
+    message.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   حماية النص
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   تنسيق المدة
+========================================= */
+
+function formatDuration(
+    milliseconds
+){
+
+    let seconds =
+    Math.floor(
+        milliseconds / 1000
+    );
+
+
+    const hours =
+    Math.floor(
+        seconds / 3600
+    );
+
+
+    seconds %=
+    3600;
+
+
+    const minutes =
+    Math.floor(
+        seconds / 60
+    );
+
+
+    seconds %=
+    60;
+
+
+    if(hours > 0){
+
+        return (
+
+            hours +
+            " ساعة و " +
+            minutes +
+            " دقيقة"
+
+        );
+
+    }
+
+
+    if(minutes > 0){
+
+        return (
+
+            minutes +
+            " دقيقة و " +
+            seconds +
+            " ثانية"
+
+        );
+
+    }
+
+
+    return (
+        seconds +
+        " ثانية"
+    );
+
+}
+
+</script>
+
+</body>
+
+              </html>
