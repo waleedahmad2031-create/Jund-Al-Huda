@@ -267,10 +267,6 @@ button:disabled{
     margin-bottom:15px;
 }
 
-/* =========================
-   إعداد الحصة
-========================= */
-
 .lesson-box{
     background:#eef8f5;
     border:1px solid #c9e5dd;
@@ -358,29 +354,19 @@ footer{
 
     <div class="logo">🕌</div>
 
-    <h1>
-        جنود الهدى
-    </h1>
+    <h1>جنود الهدى</h1>
 
-    <p>
-        لوحة الإدارة
-    </p>
+    <p>لوحة الإدارة</p>
 
 </header>
 
-
 <div class="container">
 
-
-<!-- ================================
-     تسجيل الدخول
-================================ -->
+<!-- تسجيل الدخول -->
 
 <div id="loginCard" class="card login-card">
 
-    <h2>
-        🔐 دخول الإدارة
-    </h2>
+    <h2>🔐 دخول الإدارة</h2>
 
     <div
         id="loginMessage"
@@ -409,10 +395,7 @@ footer{
 
 </div>
 
-
-<!-- ================================
-     لوحة الإدارة
-================================ -->
+<!-- لوحة الإدارة -->
 
 <div
     id="dashboard"
@@ -423,12 +406,9 @@ footer{
         class="message">
     </div>
 
-
     <div class="card">
 
-        <h2>
-            👨‍💼 لوحة الإدارة
-        </h2>
+        <h2>👨‍💼 لوحة الإدارة</h2>
 
         <p
             style="text-align:center;color:#666;line-height:2">
@@ -447,159 +427,143 @@ footer{
 
     </div>
 
+    <!-- الإحصائيات -->
 
-<!-- ================================
-     الإحصائيات
-================================ -->
+    <div class="stats">
 
-<div class="stats">
+        <div class="stat">
 
-    <div class="stat">
+            <span
+                id="studentsCount"
+                class="stat-number">
 
-        <span
-            id="studentsCount"
-            class="stat-number">
+                0
 
-            0
+            </span>
 
-        </span>
+            <span class="stat-title">
+                الطلاب
+            </span>
 
-        <span class="stat-title">
-            الطلاب
-        </span>
+        </div>
 
-    </div>
+        <div class="stat">
 
+            <span
+                id="requestsCount"
+                class="stat-number">
 
-    <div class="stat">
+                0
 
-        <span
-            id="requestsCount"
-            class="stat-number">
+            </span>
 
-            0
+            <span class="stat-title">
+                طلبات التسجيل
+            </span>
 
-        </span>
+        </div>
 
-        <span class="stat-title">
-            طلبات التسجيل
-        </span>
+        <div class="stat">
 
-    </div>
+            <span
+                id="activeCount"
+                class="stat-number">
 
+                0
 
-    <div class="stat">
+            </span>
 
-        <span
-            id="activeCount"
-            class="stat-number">
+            <span class="stat-title">
+                الطلاب النشطون
+            </span>
 
-            0
-
-        </span>
-
-        <span class="stat-title">
-            الطلاب النشطون
-        </span>
+        </div>
 
     </div>
 
-</div>
+    <!-- المدرسون -->
 
+    <div class="card">
 
-<!-- ================================
-     المدرسون
-================================ -->
+        <div class="section-title">
+            👨‍🏫 إدارة المدرسين
+        </div>
 
-<div class="card">
+        <div class="teacher-form">
 
-    <div class="section-title">
-        👨‍🏫 إدارة المدرسين
-    </div>
+            <h3>
+                ➕ إضافة مدرس جديد
+            </h3>
 
-    <div class="teacher-form">
+            <input
+                id="teacherName"
+                type="text"
+                placeholder="اسم المدرس">
 
-        <h3>
-            ➕ إضافة مدرس جديد
-        </h3>
+            <input
+                id="teacherPhone"
+                type="tel"
+                placeholder="رقم جوال المدرس">
 
-        <input
-            id="teacherName"
-            type="text"
-            placeholder="اسم المدرس">
+            <button
+                id="addTeacherButton"
+                class="primary">
 
-        <input
-            id="teacherPhone"
-            type="tel"
-            placeholder="رقم جوال المدرس">
+                🔐 إنشاء المدرس وكود الدخول
 
-        <button
-            id="addTeacherButton"
-            class="primary">
+            </button>
 
-            🔐 إنشاء المدرس وكود الدخول
+        </div>
 
-        </button>
+        <div
+            id="teachersList"
+            class="loading">
 
-    </div>
+            ⏳ جاري تحميل المدرسين...
 
-    <div
-        id="teachersList"
-        class="loading">
-
-        ⏳ جاري تحميل المدرسين...
+        </div>
 
     </div>
 
-</div>
+    <!-- الطلاب -->
 
+    <div class="card">
 
-<!-- ================================
-     الطلاب
-================================ -->
+        <div class="section-title">
+            🎓 الطلاب
+        </div>
 
-<div class="card">
+        <div
+            id="studentsList"
+            class="loading">
 
-    <div class="section-title">
-        🎓 الطلاب
-    </div>
+            ⏳ جاري تحميل الطلاب...
 
-    <div
-        id="studentsList"
-        class="loading">
-
-        ⏳ جاري تحميل الطلاب...
+        </div>
 
     </div>
 
-</div>
+    <!-- طلبات التسجيل -->
 
+    <div class="card">
 
-<!-- ================================
-     طلبات التسجيل
-================================ -->
+        <div class="section-title">
+            📝 طلبات التسجيل
+        </div>
 
-<div class="card">
+        <div
+            id="requestsList"
+            class="loading">
 
-    <div class="section-title">
-        📝 طلبات التسجيل
-    </div>
+            ⏳ جاري تحميل الطلبات...
 
-    <div
-        id="requestsList"
-        class="loading">
-
-        ⏳ جاري تحميل الطلبات...
+        </div>
 
     </div>
-
-</div>
-
-
+    
 </div>
 
 </div>
-
 
 <footer>
 
@@ -611,19 +575,12 @@ footer{
 
 </footer>
 
-
 <script type="module">
-
-/* =========================================
-   Firebase
-========================================= */
 
 import {
     db,
     auth
-}
-from "./firebase.js";
-
+} from "./firebase.js";
 
 import {
     collection,
@@ -635,31 +592,20 @@ import {
     query,
     where,
     serverTimestamp
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
 
 import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-}
-from
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-
-/* =========================================
-   المدير
-========================================= */
 
 const ADMIN_EMAIL =
 "yuo123@gmail.com";
 
-
-/* =========================================
-   العناصر
-========================================= */
 
 const loginCard =
 document.getElementById("loginCard");
@@ -713,9 +659,9 @@ const addTeacherButton =
 document.getElementById("addTeacherButton");
 
 
-/* =========================================
-   التحقق من المدير
-========================================= */
+/* =========================
+   التحقق من الإدارة
+========================= */
 
 onAuthStateChanged(
     auth,
@@ -728,7 +674,6 @@ onAuthStateChanged(
             return;
         }
 
-
         if(user.email !== ADMIN_EMAIL){
 
             signOut(auth);
@@ -740,7 +685,6 @@ onAuthStateChanged(
             return;
         }
 
-
         showDashboard();
 
         loadDashboard();
@@ -749,9 +693,9 @@ onAuthStateChanged(
 );
 
 
-/* =========================================
-   تسجيل دخول الإدارة
-========================================= */
+/* =========================
+   تسجيل الدخول
+========================= */
 
 loginButton.addEventListener(
     "click",
@@ -763,7 +707,6 @@ loginButton.addEventListener(
         const password =
         passwordInput.value;
 
-
         if(!email){
 
             showLoginError(
@@ -772,7 +715,6 @@ loginButton.addEventListener(
 
             return;
         }
-
 
         if(!password){
 
@@ -783,13 +725,11 @@ loginButton.addEventListener(
             return;
         }
 
-
         loginButton.disabled =
         true;
 
         loginButton.textContent =
         "⏳ جاري الدخول...";
-
 
         try{
 
@@ -799,7 +739,6 @@ loginButton.addEventListener(
                 email,
                 password
             );
-
 
             if(
                 result.user.email !==
@@ -811,6 +750,7 @@ loginButton.addEventListener(
                 showLoginError(
                     "⛔ هذا الحساب ليس حساب الإدارة."
                 );
+
             }
 
         }catch(error){
@@ -821,22 +761,23 @@ loginButton.addEventListener(
                 "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة."
             );
 
+        }finally{
+
+            loginButton.disabled =
+            false;
+
+            loginButton.textContent =
+            "دخول الإدارة";
+
         }
-
-
-        loginButton.disabled =
-        false;
-
-        loginButton.textContent =
-        "دخول الإدارة";
 
     }
 );
 
 
-/* =========================================
-   تحميل لوحة الإدارة
-========================================= */
+/* =========================
+   تحميل الإدارة
+========================= */
 
 async function loadDashboard(){
 
@@ -849,9 +790,9 @@ async function loadDashboard(){
 }
 
 
-/* =========================================
+/* =========================
    إضافة مدرس
-========================================= */
+========================= */
 
 addTeacherButton.addEventListener(
     "click",
@@ -863,7 +804,6 @@ addTeacherButton.addEventListener(
         const phone =
         teacherPhone.value.trim();
 
-
         if(!name){
 
             showDashboardMessage(
@@ -873,7 +813,6 @@ addTeacherButton.addEventListener(
 
             return;
         }
-
 
         if(!phone){
 
@@ -885,19 +824,16 @@ addTeacherButton.addEventListener(
             return;
         }
 
-
         addTeacherButton.disabled =
         true;
 
         addTeacherButton.textContent =
         "⏳ جاري إنشاء المدرس...";
 
-
         try{
 
             const code =
             await generateUniqueTeacherCode();
-
 
             await addDoc(
                 collection(
@@ -922,22 +858,19 @@ addTeacherButton.addEventListener(
                 }
             );
 
-
             teacherName.value =
             "";
 
             teacherPhone.value =
             "";
 
-
             showDashboardMessage(
-                "✅ تم إنشاء المدرس بنجاح. كود المدرس: " + code,
+                "✅ تم إنشاء المدرس بنجاح. كود المدرس: " +
+                code,
                 true
             );
 
-
             await loadTeachers();
-
 
         }catch(error){
 
@@ -949,22 +882,23 @@ addTeacherButton.addEventListener(
                 false
             );
 
+        }finally{
+
+            addTeacherButton.disabled =
+            false;
+
+            addTeacherButton.textContent =
+            "🔐 إنشاء المدرس وكود الدخول";
+
         }
-
-
-        addTeacherButton.disabled =
-        false;
-
-        addTeacherButton.textContent =
-        "🔐 إنشاء المدرس وكود الدخول";
 
     }
 );
 
 
-/* =========================================
+/* =========================
    تحميل المدرسين
-========================================= */
+========================= */
 
 async function loadTeachers(){
 
@@ -976,7 +910,6 @@ async function loadTeachers(){
 
     `;
 
-
     try{
 
         const result =
@@ -986,7 +919,6 @@ async function loadTeachers(){
                 "teachers"
             )
         );
-
 
         if(result.empty){
 
@@ -1001,10 +933,8 @@ async function loadTeachers(){
             return;
         }
 
-
         teachersList.innerHTML =
         "";
-
 
         result.forEach(
             function(item){
@@ -1012,16 +942,13 @@ async function loadTeachers(){
                 const teacher =
                 item.data();
 
-
                 const div =
                 document.createElement(
                     "div"
                 );
 
-
                 div.className =
                 "item";
-
 
                 div.innerHTML = `
 
@@ -1117,7 +1044,6 @@ async function loadTeachers(){
 
                 `;
 
-
                 teachersList.appendChild(
                     div
                 );
@@ -1141,7 +1067,6 @@ async function loadTeachers(){
                         const action =
                         this.dataset.action;
 
-
                         if(
                             action ===
                             "copy-teacher"
@@ -1153,7 +1078,6 @@ async function loadTeachers(){
                             );
 
                         }
-
 
                         if(
                             action ===
@@ -1167,7 +1091,6 @@ async function loadTeachers(){
 
                         }
 
-
                         if(
                             action ===
                             "toggle-teacher"
@@ -1179,7 +1102,6 @@ async function loadTeachers(){
                             );
 
                         }
-
 
                         if(
                             action ===
@@ -1198,11 +1120,9 @@ async function loadTeachers(){
             }
         );
 
-
     }catch(error){
 
         console.error(error);
-
 
         teachersList.innerHTML = `
 
@@ -1226,9 +1146,9 @@ async function loadTeachers(){
 }
 
 
-/* =========================================
-   إنشاء كود مدرس فريد
-========================================= */
+/* =========================
+   إنشاء كود مدرس
+========================= */
 
 async function generateUniqueTeacherCode(){
 
@@ -1247,7 +1167,6 @@ async function generateUniqueTeacherCode(){
             )
         );
 
-
         const check =
         await getDocs(
             query(
@@ -1264,7 +1183,6 @@ async function generateUniqueTeacherCode(){
             )
         );
 
-
         if(check.empty){
 
             return code;
@@ -1273,16 +1191,16 @@ async function generateUniqueTeacherCode(){
 
     }
 
-
     throw new Error(
-        "تعذر إنشاء كود مدرس فريد. حاول مرة أخرى."
+        "تعذر إنشاء كود مدرس فريد."
     );
 
 }
 
-  /* =========================================
+
+/* =========================
    نسخ كود المدرس
-========================================= */
+========================= */
 
 async function copyTeacherCode(
     id,
@@ -1323,9 +1241,9 @@ async function copyTeacherCode(
 }
 
 
-/* =========================================
-   إرسال كود المدرس واتساب
-========================================= */
+/* =========================
+   واتساب المدرس
+========================= */
 
 function sendTeacherCodeWhatsApp(
     id,
@@ -1378,13 +1296,13 @@ function sendTeacherCodeWhatsApp(
 }
 
 
-/* =========================================
-   واتساب المدرس
-========================================= */
+/* =========================
+   فتح واتساب المدرس
+========================= */
 
 function openTeacherWhatsApp(
     phone,
-    teacherName,
+    name,
     code
 ){
 
@@ -1421,7 +1339,7 @@ function openTeacherWhatsApp(
 مرحبًا بك في أكاديمية جنود الهدى 🕌
 
 👨‍🏫 اسم المدرس:
-${teacherName || "المدرس"}
+${name || "المدرس"}
 
 🔐 كود المدرس:
 ${code}
@@ -1448,9 +1366,9 @@ ${code}
 }
 
 
-/* =========================================
+/* =========================
    تفعيل / تعطيل المدرس
-========================================= */
+========================= */
 
 async function toggleTeacher(
     id,
@@ -1526,20 +1444,19 @@ async function toggleTeacher(
 }
 
 
-/* =========================================
+/* =========================
    حذف المدرس
-========================================= */
+========================= */
 
 async function deleteTeacher(
     id
 ){
 
-    const confirmed =
-    confirm(
-        "هل أنت متأكد من حذف هذا المدرس؟"
-    );
-
-    if(!confirmed){
+    if(
+        !confirm(
+            "هل أنت متأكد من حذف هذا المدرس؟"
+        )
+    ){
 
         return;
     }
@@ -1575,10 +1492,10 @@ async function deleteTeacher(
 
 }
 
-
-/* =========================================
+    
+  /* =========================
    تحميل الطلاب
-========================================= */
+========================= */
 
 async function loadStudents(){
 
@@ -1667,10 +1584,10 @@ async function loadStudents(){
 
                     🔐 الكود:
                     <strong>
-                    ${escapeHTML(
-                        student.code ||
-                        "-"
-                    )}
+                        ${escapeHTML(
+                            student.code ||
+                            "-"
+                        )}
                     </strong>
 
                     <br>
@@ -1707,6 +1624,35 @@ async function loadStudents(){
 
                     <br>
 
+                    🕐 وقت الحصة:
+                    ${escapeHTML(
+                        student.lessonTime ||
+                        "-"
+                    )}
+
+                    <br>
+
+                    ⏱️ مدة الحصة:
+                    ${escapeHTML(
+                        student.lessonDuration ||
+                        "-"
+                    )}
+
+                    دقيقة
+
+                    <br>
+
+                    🔗 رابط الحصة:
+                    ${
+                        student.meetingUrl
+                        ?
+                        "تم تحديد الرابط"
+                        :
+                        "لم يتم تحديد الرابط"
+                    }
+
+                    <br>
+
                     الحالة:
 
                     ${
@@ -1716,6 +1662,79 @@ async function loadStudents(){
                         :
                         "🟢 نشط"
                     }
+
+                    <!-- إعداد الحصة -->
+
+                    <div class="lesson-box">
+
+                        <div class="lesson-box-title">
+                            ⚙️ إعداد حصة الطالب
+                        </div>
+
+                        <div class="lesson-grid">
+
+                            <input
+                                type="text"
+                                class="lesson-time"
+                                data-id="${item.id}"
+                                value="${escapeHTML(
+                                    student.lessonTime ||
+                                    ""
+                                )}"
+                                placeholder="وقت الحصة مثال 20:30">
+
+                            <input
+                                type="number"
+                                class="lesson-duration"
+                                data-id="${item.id}"
+                                value="${escapeHTML(
+                                    student.lessonDuration ||
+                                    "30"
+                                )}"
+                                placeholder="مدة الحصة بالدقائق">
+
+                        </div>
+
+                        <input
+                            type="text"
+                            class="lesson-name"
+                            data-id="${item.id}"
+                            value="${escapeHTML(
+                                student.lesson ||
+                                ""
+                            )}"
+                            placeholder="اسم الدرس">
+
+                        <select
+                            class="lesson-teacher"
+                            data-id="${item.id}">
+
+                            <option value="">
+                                اختر المدرس
+                            </option>
+
+                        </select>
+
+                        <input
+                            type="url"
+                            class="meeting-url"
+                            data-id="${item.id}"
+                            value="${escapeHTML(
+                                student.meetingUrl ||
+                                ""
+                            )}"
+                            placeholder="رابط الحصة المباشرة">
+
+                        <button
+                            class="save-lesson"
+                            data-id="${item.id}"
+                            data-action="save-lesson">
+
+                            💾 حفظ إعداد الحصة
+
+                        </button>
+
+                    </div>
 
                     <div class="actions">
 
@@ -1760,6 +1779,14 @@ async function loadStudents(){
         activeCount.textContent =
         active;
 
+
+        /* =========================
+           تحميل المدرسين داخل القوائم
+        ========================= */
+
+        await fillTeacherSelects();
+
+
         studentsList
         .querySelectorAll("button")
         .forEach(
@@ -1767,7 +1794,7 @@ async function loadStudents(){
 
                 button.addEventListener(
                     "click",
-                    function(){
+                    async function(){
 
                         const id =
                         this.dataset.id;
@@ -1780,7 +1807,7 @@ async function loadStudents(){
                             "copy"
                         ){
 
-                            copyStudentCode(
+                            await copyStudentCode(
                                 id,
                                 result
                             );
@@ -1804,7 +1831,18 @@ async function loadStudents(){
                             "delete"
                         ){
 
-                            deleteStudent(
+                            await deleteStudent(
+                                id
+                            );
+
+                        }
+
+                        if(
+                            action ===
+                            "save-lesson"
+                        ){
+
+                            await saveStudentLesson(
                                 id
                             );
 
@@ -1815,6 +1853,44 @@ async function loadStudents(){
 
             }
         );
+
+
+        /* =========================
+           اختيار المدرس الحالي
+        ========================= */
+
+        studentsList
+        .querySelectorAll(".lesson-teacher")
+        .forEach(
+            function(select){
+
+                const id =
+                select.dataset.id;
+
+                const item =
+                result.docs.find(
+                    function(docItem){
+
+                        return docItem.id === id;
+
+                    }
+                );
+
+                if(!item){
+
+                    return;
+                }
+
+                const student =
+                item.data();
+
+                select.value =
+                student.teacherId ||
+                "";
+
+            }
+        );
+
 
     }catch(error){
 
@@ -1842,9 +1918,311 @@ async function loadStudents(){
 }
 
 
-/* =========================================
+/* =========================
+   تحميل المدرسين للقوائم
+========================= */
+
+async function fillTeacherSelects(){
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "teachers"
+            )
+        );
+
+        const selects =
+        studentsList.querySelectorAll(
+            ".lesson-teacher"
+        );
+
+        selects.forEach(
+            function(select){
+
+                const currentValue =
+                select.value;
+
+                select.innerHTML = `
+
+                    <option value="">
+                        اختر المدرس
+                    </option>
+
+                `;
+
+                result.forEach(
+                    function(item){
+
+                        const teacher =
+                        item.data();
+
+                        if(
+                            teacher.active === false
+                        ){
+
+                            return;
+                        }
+
+                        const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                        option.value =
+                        item.id;
+
+                        option.textContent =
+                        teacher.name ||
+                        "مدرس";
+
+                        select.appendChild(
+                            option
+                        );
+
+                    }
+                );
+
+                select.value =
+                currentValue;
+
+            }
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================
+   حفظ إعداد حصة الطالب
+========================= */
+
+async function saveStudentLesson(
+    studentId
+){
+
+    const card =
+    studentsList.querySelector(
+        `.save-lesson[data-id="${studentId}"]`
+    );
+
+    if(!card){
+
+        return;
+    }
+
+    const lessonBox =
+    card.closest(
+        ".lesson-box"
+    );
+
+    if(!lessonBox){
+
+        return;
+    }
+
+
+    const timeInput =
+    lessonBox.querySelector(
+        ".lesson-time"
+    );
+
+    const durationInput =
+    lessonBox.querySelector(
+        ".lesson-duration"
+    );
+
+    const lessonInput =
+    lessonBox.querySelector(
+        ".lesson-name"
+    );
+
+    const teacherSelect =
+    lessonBox.querySelector(
+        ".lesson-teacher"
+    );
+
+    const meetingInput =
+    lessonBox.querySelector(
+        ".meeting-url"
+    );
+
+
+    const lessonTimeValue =
+    timeInput.value.trim();
+
+    const lessonDurationValue =
+    Number(
+        durationInput.value
+    ) || 30;
+
+    const lessonValue =
+    lessonInput.value.trim();
+
+    const teacherIdValue =
+    teacherSelect.value;
+
+    const meetingUrlValue =
+    meetingInput.value.trim();
+
+
+    if(
+        lessonTimeValue &&
+        !/^\d{1,2}:\d{2}$/.test(
+            lessonTimeValue
+        )
+    ){
+
+        showDashboardMessage(
+            "⚠️ وقت الحصة يجب أن يكون مثل 20:30",
+            false
+        );
+
+        return;
+    }
+
+
+    if(
+        lessonDurationValue <= 0
+    ){
+
+        showDashboardMessage(
+            "⚠️ مدة الحصة غير صحيحة.",
+            false
+        );
+
+        return;
+    }
+
+
+    let teacherNameValue =
+    "";
+
+    if(teacherIdValue){
+
+        try{
+
+            const teacherDoc =
+            await getDocs(
+                query(
+                    collection(
+                        db,
+                        "teachers"
+                    ),
+                    where(
+                        "__name__",
+                        "==",
+                        teacherIdValue
+                    )
+                )
+            );
+
+            /*
+             * إذا تعذر البحث بالطريقة السابقة،
+             * نستخدم المدرس المختار من النص.
+             */
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+        const selectedOption =
+        teacherSelect.options[
+            teacherSelect.selectedIndex
+        ];
+
+        teacherNameValue =
+        selectedOption
+        ?
+        selectedOption.textContent
+        :
+        "";
+
+    }
+
+
+    card.disabled =
+    true;
+
+    card.textContent =
+    "⏳ جاري الحفظ...";
+
+
+    try{
+
+        await updateDoc(
+            doc(
+                db,
+                "students",
+                studentId
+            ),
+            {
+
+                teacher:
+                teacherNameValue,
+
+                teacherId:
+                teacherIdValue,
+
+                lessonTime:
+                lessonTimeValue,
+
+                lessonDuration:
+                lessonDurationValue,
+
+                lesson:
+                lessonValue,
+
+                meetingUrl:
+                meetingUrlValue
+
+            }
+        );
+
+
+        showDashboardMessage(
+            "✅ تم حفظ إعداد الحصة بنجاح.",
+            true
+        );
+
+
+        await loadStudents();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showDashboardMessage(
+            "❌ تعذر حفظ إعداد الحصة: " +
+            error.message,
+            false
+        );
+
+
+        card.disabled =
+        false;
+
+        card.textContent =
+        "💾 حفظ إعداد الحصة";
+
+    }
+
+}
+
+
+/* =========================
    نسخ كود الطالب
-========================================= */
+========================= */
 
 async function copyStudentCode(
     id,
@@ -1885,9 +2263,9 @@ async function copyStudentCode(
 }
 
 
-/* =========================================
+/* =========================
    إرسال كود الطالب واتساب
-========================================= */
+========================= */
 
 function sendStudentCodeWhatsApp(
     id,
@@ -1913,7 +2291,8 @@ function sendStudentCodeWhatsApp(
 
     const phone =
     String(
-        student.phone || ""
+        student.phone ||
+        ""
     ).replace(
         /\D/g,
         ""
@@ -1921,7 +2300,8 @@ function sendStudentCodeWhatsApp(
 
     const code =
     String(
-        student.code || ""
+        student.code ||
+        ""
     );
 
     if(!phone){
@@ -1966,17 +2346,13 @@ function sendStudentCodeWhatsApp(
 
     }
 
-    const studentName =
-    student.name ||
-    "الطالب";
-
     const message =
 `السلام عليكم ورحمة الله وبركاته 🌹
 
 نبارك لك قبولك في أكاديمية جنود الهدى 🕌
 
 👤 اسم الطالب:
-${studentName}
+${student.name || "الطالب"}
 
 🔐 كود الدخول:
 ${code}
@@ -2003,20 +2379,19 @@ ${code}
 }
 
 
-/* =========================================
+/* =========================
    حذف الطالب
-========================================= */
+========================= */
 
 async function deleteStudent(
     id
 ){
 
-    const confirmed =
-    confirm(
-        "هل أنت متأكد من حذف هذا الطالب؟"
-    );
-
-    if(!confirmed){
+    if(
+        !confirm(
+            "هل أنت متأكد من حذف هذا الطالب؟"
+        )
+    ){
 
         return;
     }
@@ -2053,9 +2428,9 @@ async function deleteStudent(
 }
 
 
-/* =========================================
-   تحميل الطلبات
-========================================= */
+/* =========================
+   تحميل طلبات التسجيل
+========================= */
 
 async function loadRequests(){
 
@@ -2247,6 +2622,7 @@ async function loadRequests(){
             }
         );
 
+
         requestsList
         .querySelectorAll("button")
         .forEach(
@@ -2336,24 +2712,23 @@ async function loadRequests(){
 
     }
 
-}
+    }
 
 
-/* =========================================
+    /* =========================
    قبول الطالب وإنشاء الكود
-========================================= */
+========================= */
 
 async function approveStudent(
     requestId,
     button
 ){
 
-    const confirmed =
-    confirm(
-        "هل تريد قبول هذا الطالب وإنشاء كود دخول له؟"
-    );
-
-    if(!confirmed){
+    if(
+        !confirm(
+            "هل تريد قبول هذا الطالب وإنشاء كود دخول له؟"
+        )
+    ){
 
         return;
     }
@@ -2375,11 +2750,9 @@ async function approveStudent(
 
         const requestSnap =
         await getDocs(
-            query(
-                collection(
-                    db,
-                    "bookingRequests"
-                )
+            collection(
+                db,
+                "bookingRequests"
             )
         );
 
@@ -2390,8 +2763,7 @@ async function approveStudent(
             function(item){
 
                 if(
-                    item.id ===
-                    requestId
+                    item.id === requestId
                 ){
 
                     requestData =
@@ -2428,6 +2800,7 @@ async function approveStudent(
 
         const code =
         await generateUniqueStudentCode();
+
 
         await addDoc(
             collection(
@@ -2469,11 +2842,21 @@ async function approveStudent(
                 lesson:
                 "",
 
+                lessonTime:
+                "",
+
+                lessonDuration:
+                30,
+
+                meetingUrl:
+                "",
+
                 createdAt:
                 serverTimestamp()
 
             }
         );
+
 
         await updateDoc(
             requestRef,
@@ -2491,13 +2874,16 @@ async function approveStudent(
             }
         );
 
+
         showDashboardMessage(
             "✅ تمت الموافقة بنجاح. كود الطالب هو: " +
             code,
             true
         );
 
+
         await loadDashboard();
+
 
     }catch(error){
 
@@ -2520,9 +2906,9 @@ async function approveStudent(
 }
 
 
-/* =========================================
+/* =========================
    إنشاء كود طالب فريد
-========================================= */
+========================= */
 
 async function generateUniqueStudentCode(){
 
@@ -2541,6 +2927,7 @@ async function generateUniqueStudentCode(){
             )
         );
 
+
         const check =
         await getDocs(
             query(
@@ -2557,6 +2944,7 @@ async function generateUniqueStudentCode(){
             )
         );
 
+
         if(check.empty){
 
             return code;
@@ -2565,6 +2953,7 @@ async function generateUniqueStudentCode(){
 
     }
 
+
     throw new Error(
         "تعذر إنشاء كود طالب فريد. حاول مرة أخرى."
     );
@@ -2572,9 +2961,9 @@ async function generateUniqueStudentCode(){
 }
 
 
-/* =========================================
+/* =========================
    إرسال كود الطلب واتساب
-========================================= */
+========================= */
 
 async function sendRequestCodeWhatsApp(
     requestId
@@ -2590,8 +2979,10 @@ async function sendRequestCodeWhatsApp(
             )
         );
 
+
         let requestData =
         null;
+
 
         result.forEach(
             function(item){
@@ -2609,6 +3000,7 @@ async function sendRequestCodeWhatsApp(
             }
         );
 
+
         if(!requestData){
 
             showDashboardMessage(
@@ -2617,7 +3009,9 @@ async function sendRequestCodeWhatsApp(
             );
 
             return;
+
         }
+
 
         if(!requestData.studentCode){
 
@@ -2627,13 +3021,16 @@ async function sendRequestCodeWhatsApp(
             );
 
             return;
+
         }
+
 
         openWhatsApp(
             requestData.phone,
             requestData.name,
             requestData.studentCode
         );
+
 
     }catch(error){
 
@@ -2650,9 +3047,9 @@ async function sendRequestCodeWhatsApp(
 }
 
 
-/* =========================================
+/* =========================
    واتساب الطالب
-========================================= */
+========================= */
 
 function openWhatsApp(
     phone,
@@ -2662,11 +3059,13 @@ function openWhatsApp(
 
     let whatsappPhone =
     String(
-        phone || ""
+        phone ||
+        ""
     ).replace(
         /\D/g,
         ""
     );
+
 
     if(!whatsappPhone){
 
@@ -2676,7 +3075,9 @@ function openWhatsApp(
         );
 
         return;
+
     }
+
 
     if(
         whatsappPhone.startsWith("05")
@@ -2697,6 +3098,7 @@ function openWhatsApp(
 
     }
 
+
     const message =
 `السلام عليكم ورحمة الله وبركاته 🌹
 
@@ -2714,6 +3116,7 @@ ${code}
 
 أكاديمية جنود الهدى`;
 
+
     const url =
     "https://wa.me/" +
     whatsappPhone +
@@ -2721,6 +3124,7 @@ ${code}
     encodeURIComponent(
         message
     );
+
 
     window.open(
         url,
@@ -2730,23 +3134,24 @@ ${code}
 }
 
 
-/* =========================================
+/* =========================
    حذف الطلب
-========================================= */
+========================= */
 
 async function deleteRequest(
     id
 ){
 
-    const confirmed =
-    confirm(
-        "هل تريد حذف هذا الطلب؟"
-    );
-
-    if(!confirmed){
+    if(
+        !confirm(
+            "هل تريد حذف هذا الطلب؟"
+        )
+    ){
 
         return;
+
     }
+
 
     try{
 
@@ -2758,16 +3163,20 @@ async function deleteRequest(
             )
         );
 
+
         showDashboardMessage(
             "✅ تم حذف الطلب.",
             true
         );
 
+
         await loadRequests();
+
 
     }catch(error){
 
         console.error(error);
+
 
         showDashboardMessage(
             "❌ تعذر حذف الطلب: " +
@@ -2780,9 +3189,9 @@ async function deleteRequest(
 }
 
 
-/* =========================================
+/* =========================
    نسخ النص
-========================================= */
+========================= */
 
 async function copyText(
     text
@@ -2796,7 +3205,9 @@ async function copyText(
         );
 
         return;
+
     }
+
 
     try{
 
@@ -2804,11 +3215,13 @@ async function copyText(
             String(text)
         );
 
+
         showDashboardMessage(
             "✅ تم نسخ الكود: " +
             text,
             true
         );
+
 
     }catch(error){
 
@@ -2823,9 +3236,9 @@ async function copyText(
 }
 
 
-/* =========================================
+/* =========================
    عرض لوحة الإدارة
-========================================= */
+========================= */
 
 function showDashboard(){
 
@@ -2838,9 +3251,9 @@ function showDashboard(){
 }
 
 
-/* =========================================
+/* =========================
    عرض تسجيل الدخول
-========================================= */
+========================= */
 
 function showLogin(){
 
@@ -2853,9 +3266,9 @@ function showLogin(){
 }
 
 
-/* =========================================
+/* =========================
    رسالة تسجيل الدخول
-========================================= */
+========================= */
 
 function showLoginError(
     text
@@ -2865,14 +3278,18 @@ function showLoginError(
     text;
 
     loginMessage.style.display =
-    "block";
+    text
+    ?
+    "block"
+    :
+    "none";
 
 }
 
 
-/* =========================================
+/* =========================
    رسالة لوحة الإدارة
-========================================= */
+========================= */
 
 function showDashboardMessage(
     text,
@@ -2895,6 +3312,7 @@ function showDashboardMessage(
     dashboardMessage.style.display =
     "block";
 
+
     setTimeout(
         function(){
 
@@ -2908,9 +3326,9 @@ function showDashboardMessage(
 }
 
 
-/* =========================================
+/* =========================
    تسجيل الخروج
-========================================= */
+========================= */
 
 logoutButton.addEventListener(
     "click",
@@ -2918,7 +3336,9 @@ logoutButton.addEventListener(
 
         try{
 
-            await signOut(auth);
+            await signOut(
+                auth
+            );
 
         }catch(error){
 
@@ -2930,16 +3350,19 @@ logoutButton.addEventListener(
 );
 
 
-/* =========================================
+/* =========================
    التاريخ
-========================================= */
+========================= */
 
 function formatDateTime(
     value
 ){
 
     const date =
-    new Date(value);
+    new Date(
+        value
+    );
+
 
     if(
         isNaN(
@@ -2951,19 +3374,25 @@ function formatDateTime(
 
     }
 
+
     return date.toLocaleString(
         "ar-SA",
         {
 
-            year:"numeric",
+            year:
+            "numeric",
 
-            month:"long",
+            month:
+            "long",
 
-            day:"numeric",
+            day:
+            "numeric",
 
-            hour:"2-digit",
+            hour:
+            "2-digit",
 
-            minute:"2-digit"
+            minute:
+            "2-digit"
 
         }
     );
@@ -2971,9 +3400,9 @@ function formatDateTime(
 }
 
 
-/* =========================================
+/* =========================
    تاريخ الطلب
-========================================= */
+========================= */
 
 function formatCreatedAt(
     value
@@ -2988,16 +3417,18 @@ function formatCreatedAt(
         ){
 
             return value
-            .toDate()
-            .toLocaleString(
-                "ar-SA"
-            );
+                .toDate()
+                .toLocaleString(
+                    "ar-SA"
+                );
 
         }
+
 
         return formatDateTime(
             value
         );
+
 
     }catch(error){
 
@@ -3008,40 +3439,42 @@ function formatCreatedAt(
 }
 
 
-/* =========================================
+/* =========================
    حماية النص
-========================================= */
+========================= */
 
 function escapeHTML(
     value
 ){
 
-    return String(value)
+    return String(
+        value
+    )
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -3050,5 +3483,3 @@ function escapeHTML(
 </body>
 
 </html>
-
-  
