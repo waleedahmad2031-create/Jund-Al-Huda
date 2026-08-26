@@ -267,7 +267,6 @@ footer{
 
 <body>
 
-
 <header>
 
     <div class="logo">
@@ -336,10 +335,6 @@ footer{
             class="message">
         </div>
 
-
-        <!-- =========================
-             معلومات الحصة
-        ========================== -->
 
         <div
             id="lessonCard"
@@ -476,26 +471,21 @@ footer{
 
 <script type="module">
 
-
 /* =========================================
    Firebase
 ========================================= */
 
 import {
     db
-}
-from "./firebase.js";
-
+} from "./firebase.js";
 
 import {
-
     collection,
     query,
     where,
-    getDocs
-
-}
-from
+    getDocs,
+    limit
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
@@ -591,18 +581,11 @@ loginButton.addEventListener(
 );
 
 
-/* =========================================
-   Enter
-========================================= */
-
 teacherCode.addEventListener(
     "keydown",
     function(event){
 
-        if(
-            event.key ===
-            "Enter"
-        ){
+        if(event.key === "Enter"){
 
             loginTeacher();
 
@@ -613,7 +596,69 @@ teacherCode.addEventListener(
 
 
 /* =========================================
-   التحقق من المدرس
+   تنظيف الكود
+========================================= */
+
+teacherCode.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value
+        .replace(/[^0-9]/g,"")
+        .slice(0,6);
+
+    }
+);
+
+
+/* =========================================
+   الرسائل
+========================================= */
+
+function showMessage(
+    text,
+    success
+){
+
+    message.textContent =
+    text;
+
+    message.className =
+    "message " +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+    message.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   حماية النص
+========================================= */
+
+function escapeHTML(value){
+
+    return String(value)
+
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+ 
+/* =========================================
+   تسجيل دخول المدرس
 ========================================= */
 
 async function loginTeacher(){
@@ -667,7 +712,9 @@ async function loginTeacher(){
                 "code",
                 "==",
                 code
-            )
+            ),
+
+            limit(1)
 
         );
 
@@ -690,28 +737,22 @@ async function loginTeacher(){
         }
 
 
-        let teacher =
-        null;
+        const teacherDoc =
+        result.docs[0];
 
 
-        result.forEach(
-            function(item){
+        const teacher = {
 
-                teacher = {
+            id:
+            teacherDoc.id,
 
-                    id:item.id,
+            ...teacherDoc.data()
 
-                    ...item.data()
-
-                };
-
-            }
-        );
+        };
 
 
         if(
-            teacher.active ===
-            false
+            teacher.active === false
         ){
 
             showMessage(
@@ -742,7 +783,8 @@ async function loginTeacher(){
                 "",
 
                 code:
-                teacher.code,
+                teacher.code ||
+                "",
 
                 phone:
                 teacher.phone ||
@@ -767,7 +809,9 @@ async function loginTeacher(){
         escapeHTML(
             teacher.name ||
             "المدرس"
-        ) +
+        )
+
+        +
 
         "<br>تم التحقق من حسابك بنجاح.";
 
@@ -781,8 +825,10 @@ async function loginTeacher(){
         teacherCode.style.display =
         "none";
 
+
         loginButton.style.display =
         "none";
+
 
         logoutButton.style.display =
         "block";
@@ -821,6 +867,7 @@ async function loginTeacher(){
 
 /* =========================================
    تحميل حصة المدرس
+   نفس بيانات الطلاب
 ========================================= */
 
 async function loadTeacherLesson(
@@ -832,57 +879,63 @@ async function loadTeacherLesson(
 
 
     countdown.textContent =
-    "⏳ جاري البحث عن الحصة...";
+    "⏳ جاري البحث عن حصة المدرس...";
 
 
     try{
 
         /*
-        البحث أولًا بواسطة teacherId
+        أولاً نبحث عن الطلاب المرتبطين
+        بهذا المدرس.
         */
 
-        let result =
-        await getDocs(
+        const studentsQuery =
+        query(
 
-            query(
+            collection(
+                db,
+                "students"
+            ),
 
-                collection(
-                    db,
-                    "liveSessions"
-                ),
-
-                where(
-                    "teacherId",
-                    "==",
-                    teacher.id
-                )
-
+            where(
+                "teacher",
+                "==",
+                teacher.name
             )
 
         );
 
 
+        let studentsResult =
+        await getDocs(
+            studentsQuery
+        );
+
+
         /*
-        إذا لم توجد نتيجة
-        نجرب teacherCode
+        إذا كان النظام يحفظ teacherId
+        بدل اسم المدرس، نجربه.
         */
 
-        if(result.empty){
+        if(
+            studentsResult.empty &&
+            teacher.id
+        ){
 
-            result =
+            studentsResult =
             await getDocs(
 
                 query(
 
                     collection(
                         db,
-                        "liveSessions"
+                        "students"
                     ),
 
                     where(
-                        "teacherCode",
+                        "teacherId",
                         "==",
-                        teacher.code
+                        teacher.id
                     )
 
                 )
@@ -893,36 +946,12 @@ async function loadTeacherLesson(
 
 
         /*
-        إذا لم توجد نتيجة
-        نجرب teacher
+        إذا لم توجد أي حصة
         */
 
-        if(result.empty){
-
-            result =
-            await getDocs(
-
-                query(
-
-                    collection(
-                        db,
-                        "liveSessions"
-                    ),
-
-                    where(
-                        "teacher",
-                        "==",
-                        teacher.name
-                    )
-
-                )
-
-            );
-
-        }
-
-
-        if(result.empty){
+        if(
+            studentsResult.empty
+        ){
 
             showNoLesson();
 
@@ -931,19 +960,16 @@ async function loadTeacherLesson(
         }
 
 
-        /*
-        اختيار أقرب حصة
-        */
-
-        let sessions = [];
+        let students = [];
 
 
-        result.forEach(
+        studentsResult.forEach(
             function(item){
 
-                sessions.push({
+                students.push({
 
-                    id:item.id,
+                    id:
+                    item.id,
 
                     ...item.data()
 
@@ -953,9 +979,13 @@ async function loadTeacherLesson(
         );
 
 
+        /*
+        اختيار الطالب صاحب أقرب حصة
+        */
+
         currentLesson =
-        chooseBestLesson(
-            sessions
+        chooseBestStudentLesson(
+            students
         );
 
 
@@ -968,7 +998,7 @@ async function loadTeacherLesson(
         }
 
 
-        displayLesson(
+        displayStudentLesson(
             currentLesson,
             teacher
         );
@@ -980,7 +1010,7 @@ async function loadTeacherLesson(
 
 
         countdown.textContent =
-        "❌ تعذر تحميل الحصة: " +
+        "❌ تعذر تحميل بيانات الحصة: " +
         error.message;
 
         countdown.style.background =
@@ -995,173 +1025,206 @@ async function loadTeacherLesson(
 
 
 /* =========================================
-   اختيار أفضل حصة
+   اختيار أقرب حصة من الطلاب
 ========================================= */
 
-function chooseBestLesson(
-    sessions
+function chooseBestStudentLesson(
+    students
 ){
 
     const now =
     new Date();
 
 
-    /*
-    نحاول اختيار الحصة التي لم تنتهِ.
-    */
-
-    let validSessions =
-    sessions.filter(
-        function(session){
+    let validStudents =
+    students.filter(
+        function(student){
 
             const start =
-            getSessionStart(
-                session
+            getStudentStart(
+                student
             );
 
 
             const end =
-            getSessionEnd(
-                session,
+            getStudentEnd(
+                student,
                 start
             );
 
 
-            if(!start){
+            /*
+            الطالب الذي لديه موعد
+            لم ينتهِ بعد.
+            */
 
-                return true;
+            if(start){
+
+                return end
+                ?
+                end > now
+                :
+                true;
 
             }
 
 
-            return end > now;
+            return true;
 
         }
     );
 
 
-    if(validSessions.length > 0){
-
-        validSessions.sort(
-            function(a,b){
-
-                const dateA =
-                getSessionStart(a);
-
-                const dateB =
-                getSessionStart(b);
-
-
-                if(!dateA){
-
-                    return 1;
-
-                }
-
-                if(!dateB){
-
-                    return -1;
-
-                }
-
-
-                return dateA - dateB;
-
-            }
-        );
-
-
-        return validSessions[0];
-
-    }
-
-
     /*
-    إذا كانت كل الحصص قديمة
-    نعرض آخر حصة.
+    ترتيب حسب أقرب وقت
     */
 
-    return sessions[0] || null;
+    validStudents.sort(
+        function(a,b){
+
+            const dateA =
+            getStudentStart(a);
+
+            const dateB =
+            getStudentStart(b);
+
+
+            if(!dateA && !dateB){
+
+                return 0;
+
+            }
+
+
+            if(!dateA){
+
+                return 1;
+
+            }
+
+
+            if(!dateB){
+
+                return -1;
+
+            }
+
+
+            return dateA - dateB;
+
+        }
+    );
+
+
+    return (
+        validStudents[0] ||
+        students[0] ||
+        null
+    );
 
 }
 
 
 /* =========================================
-   عرض الحصة
+   عرض حصة الطالب للمدرس
 ========================================= */
 
-function displayLesson(
-    lesson,
+function displayStudentLesson(
+    student,
     teacher
 ){
 
+    currentLesson =
+    student;
+
+
+    /*
+    المادة
+    */
+
     lessonSubject.textContent =
 
-        lesson.subject ||
+        student.lesson ||
 
-        lesson.lesson ||
+        student.subject ||
 
-        lesson.title ||
-
-        lesson.name ||
+        student.level ||
 
         "القرآن الكريم";
 
 
+    /*
+    اسم المدرس
+    */
+
     lessonTeacher.textContent =
 
-        lesson.teacher ||
+        student.teacher ||
 
-        lesson.teacherName ||
+        student.teacherName ||
 
         teacher.name ||
 
         "-";
 
 
+    /*
+    اسم الطالب
+    */
+
     lessonStudent.textContent =
 
-        lesson.student ||
+        student.name ||
 
-        lesson.studentName ||
-
-        lesson.studentNameArabic ||
+        student.studentName ||
 
         "الطالب";
 
 
+    /*
+    التاريخ
+    */
+
     lessonDate.textContent =
 
-        getDisplayDate(
-            lesson
+        getStudentDisplayDate(
+            student
         );
 
+
+    /*
+    الوقت
+    */
 
     lessonTime.textContent =
 
-        getDisplayTime(
-            lesson
+        getStudentDisplayTime(
+            student
         );
 
 
-    startCountdown(
-        lesson
+    /*
+    تشغيل العد التنازلي
+    */
+
+    startStudentCountdown(
+        student
     );
 
 }
 
 
 /* =========================================
-   تاريخ الحصة
+   تاريخ حصة الطالب
 ========================================= */
 
-function getDisplayDate(
-    lesson
+function getStudentDisplayDate(
+    student
 ){
 
     const start =
-    getSessionStart(
-        lesson
+    getStudentStart(
+        student
     );
 
 
@@ -1170,13 +1233,9 @@ function getDisplayDate(
         return start.toLocaleDateString(
             "ar-SA",
             {
-
                 year:"numeric",
-
                 month:"long",
-
                 day:"numeric"
-
             }
         );
 
@@ -1185,13 +1244,13 @@ function getDisplayDate(
 
     return (
 
-        lesson.date ||
+        student.date ||
 
-        lesson.lessonDate ||
+        student.lessonDate ||
 
-        lesson.sessionDate ||
+        student.sessionDate ||
 
-        "حسب الموعد المسجل"
+        "غير محدد"
 
     );
 
@@ -1199,22 +1258,22 @@ function getDisplayDate(
 
 
 /* =========================================
-   وقت الحصة
+   وقت حصة الطالب
 ========================================= */
 
-function getDisplayTime(
-    lesson
+function getStudentDisplayTime(
+    student
 ){
 
     const start =
-    getSessionStart(
-        lesson
+    getStudentStart(
+        student
     );
 
 
     const end =
-    getSessionEnd(
-        lesson,
+    getStudentEnd(
+        student,
         start
     );
 
@@ -1226,11 +1285,8 @@ function getDisplayTime(
             start.toLocaleTimeString(
                 "ar-SA",
                 {
-
                     hour:"2-digit",
-
                     minute:"2-digit"
-
                 }
             );
 
@@ -1244,11 +1300,8 @@ function getDisplayTime(
                 end.toLocaleTimeString(
                     "ar-SA",
                     {
-
                         hour:"2-digit",
-
                         minute:"2-digit"
-
                     }
                 );
 
@@ -1262,40 +1315,38 @@ function getDisplayTime(
 
     return (
 
-        lesson.time ||
+        student.time ||
 
-        lesson.lessonTime ||
+        student.lessonTime ||
 
-        lesson.sessionTime ||
+        student.sessionTime ||
 
-        "الوقت المسجل"
+        "غير محدد"
 
     );
 
-}
+    }
 
-
+     
 /* =========================================
-   الحصول على بداية الحصة
+   الحصول على بداية حصة الطالب
 ========================================= */
 
-function getSessionStart(
-    lesson
-){
+function getStudentStart(student){
 
     const possible = [
 
-        lesson.startTime,
+        student.startTime,
 
-        lesson.sessionStart,
+        student.sessionStart,
 
-        lesson.scheduledAt,
+        student.scheduledAt,
 
-        lesson.lessonStart,
+        student.lessonStart,
 
-        lesson.dateTime,
+        student.dateTime,
 
-        lesson.startAt
+        student.startAt
 
     ];
 
@@ -1305,9 +1356,7 @@ function getSessionStart(
     ){
 
         const date =
-        convertToDate(
-            value
-        );
+        convertToDate(value);
 
 
         if(date){
@@ -1320,25 +1369,19 @@ function getSessionStart(
 
 
     /*
-    إذا التاريخ والوقت منفصلان
+    إذا كان التاريخ والوقت منفصلين
     */
 
     const dateValue =
-
-        lesson.date ||
-
-        lesson.lessonDate ||
-
-        lesson.sessionDate;
+        student.date ||
+        student.lessonDate ||
+        student.sessionDate;
 
 
     const timeValue =
-
-        lesson.time ||
-
-        lesson.lessonTime ||
-
-        lesson.sessionTime;
+        student.time ||
+        student.lessonTime ||
+        student.sessionTime;
 
 
     if(
@@ -1373,23 +1416,23 @@ function getSessionStart(
 
 
 /* =========================================
-   نهاية الحصة
+   الحصول على نهاية حصة الطالب
 ========================================= */
 
-function getSessionEnd(
-    lesson,
+function getStudentEnd(
+    student,
     start
 ){
 
     const possible = [
 
-        lesson.endTime,
+        student.endTime,
 
-        lesson.sessionEnd,
+        student.sessionEnd,
 
-        lesson.lessonEnd,
+        student.lessonEnd,
 
-        lesson.endAt
+        student.endAt
 
     ];
 
@@ -1399,9 +1442,7 @@ function getSessionEnd(
     ){
 
         const date =
-        convertToDate(
-            value
-        );
+        convertToDate(value);
 
 
         if(date){
@@ -1414,31 +1455,25 @@ function getSessionEnd(
 
 
     /*
-    إذا توجد مدة بالدقائق
+    إذا لم توجد نهاية
+    نجعل الحصة 60 دقيقة
     */
 
     const duration =
-    Number(
-
-        lesson.duration ||
-
-        lesson.durationMinutes ||
-
-        lesson.minutes ||
-
-        60
-
-    );
+        Number(
+            student.duration ||
+            student.durationMinutes ||
+            student.minutes ||
+            60
+        );
 
 
     if(start){
 
         return new Date(
-
-            start.getTime() +
-
+            start.getTime()
+            +
             duration * 60000
-
         );
 
     }
@@ -1453,9 +1488,7 @@ function getSessionEnd(
    تحويل التاريخ
 ========================================= */
 
-function convertToDate(
-    value
-){
+function convertToDate(value){
 
     if(!value){
 
@@ -1466,6 +1499,10 @@ function convertToDate(
 
     try{
 
+        /*
+        Firebase Timestamp
+        */
+
         if(
             value &&
             typeof value.toDate ===
@@ -1473,7 +1510,7 @@ function convertToDate(
         ){
 
             const date =
-            value.toDate();
+                value.toDate();
 
 
             if(
@@ -1489,17 +1526,31 @@ function convertToDate(
         }
 
 
+        /*
+        Date
+        */
+
         if(
             value instanceof Date
         ){
 
-            return value;
+            return isNaN(
+                value.getTime()
+            )
+            ?
+            null
+            :
+            value;
 
         }
 
 
+        /*
+        نص أو رقم
+        */
+
         const date =
-        new Date(value);
+            new Date(value);
 
 
         if(
@@ -1514,7 +1565,10 @@ function convertToDate(
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "خطأ في تحويل التاريخ:",
+            error
+        );
 
     }
 
@@ -1525,11 +1579,11 @@ function convertToDate(
 
 
 /* =========================================
-   العد التنازلي
+   العد التنازلي للحصة
 ========================================= */
 
-function startCountdown(
-    lesson
+function startStudentCountdown(
+    student
 ){
 
     if(countdownTimer){
@@ -1541,90 +1595,66 @@ function startCountdown(
     }
 
 
-    updateCountdown(
-        lesson
+    updateStudentCountdown(
+        student
     );
 
 
     countdownTimer =
-    setInterval(
-        function(){
+        setInterval(
+            function(){
 
-            updateCountdown(
-                lesson
-            );
+                updateStudentCountdown(
+                    student
+                );
 
-        },
-        1000
-    );
+            },
+            1000
+        );
 
 }
 
 
 /* =========================================
-   تحديث العد
+   تحديث حالة الحصة
 ========================================= */
 
-function updateCountdown(
-    lesson
+function updateStudentCountdown(
+    student
 ){
 
     const now =
-    new Date();
+        new Date();
 
 
     const start =
-    getSessionStart(
-        lesson
-    );
+        getStudentStart(
+            student
+        );
 
 
     const end =
-    getSessionEnd(
-        lesson,
-        start
-    );
+        getStudentEnd(
+            student,
+            start
+        );
 
 
     /*
-    لا يوجد تاريخ مفهوم
+    لا يوجد وقت واضح
     */
 
     if(!start){
 
         countdown.textContent =
-        "🕐 الموعد مسجل. اضغط دخول الحصة عند بدء الموعد.";
-
-        enableEnterButton();
-
-        return;
-
-    }
+            "🕐 لم يتم تحديد وقت الحصة بعد.";
 
 
-    /*
-    قبل بداية الحصة
-    */
+        countdown.style.background =
+            "#fff8df";
 
-    if(
-        now < start
-    ){
-
-        const difference =
-        start - now;
-
-
-        countdown.innerHTML =
-
-            "⏳ الحصة لم تبدأ بعد." +
-
-            "<br>" +
-
-            "تبدأ بعد: " +
-
-            formatDuration(
-                difference
-            );
+        countdown.style.color =
+            "#8a6d00";
 
 
         disableEnterButton();
@@ -1635,7 +1665,54 @@ function updateCountdown(
 
 
     /*
-    وقت الحصة
+    قبل الحصة
+    */
+
+    if(
+        now < start
+    ){
+
+        const difference =
+            start.getTime()
+            -
+            now.getTime();
+
+
+        countdown.innerHTML =
+
+            "⏳ الحصة لم تبدأ بعد."
+
+            +
+
+            "<br>"
+
+            +
+
+            "تبدأ بعد: "
+
+            +
+
+            formatDuration(
+                difference
+            );
+
+
+        countdown.style.background =
+            "#fff8df";
+
+        countdown.style.color =
+            "#8a6d00";
+
+
+        disableEnterButton();
+
+        return;
+
+    }
+
+
+    /*
+    أثناء الحصة
     */
 
     if(
@@ -1647,14 +1724,14 @@ function updateCountdown(
     ){
 
         countdown.textContent =
-        "🟢 الحصة بدأت الآن — يمكنك الدخول.";
+            "🟢 الحصة بدأت الآن — يمكنك الدخول.";
 
 
         countdown.style.background =
-        "#e7f7ef";
+            "#e7f7ef";
 
         countdown.style.color =
-        "#08733d";
+            "#08733d";
 
 
         enableEnterButton();
@@ -1665,18 +1742,18 @@ function updateCountdown(
 
 
     /*
-    انتهت الحصة
+    بعد انتهاء الحصة
     */
 
     countdown.textContent =
-    "✅ انتهى وقت الحصة.";
+        "✅ انتهى وقت الحصة.";
 
 
     countdown.style.background =
-    "#eeeeee";
+        "#eeeeee";
 
     countdown.style.color =
-    "#666";
+        "#666";
 
 
     disableEnterButton();
@@ -1685,39 +1762,43 @@ function updateCountdown(
 
 
 /* =========================================
-   تفعيل زر الدخول
+   تفعيل زر دخول الحصة
 ========================================= */
 
 function enableEnterButton(){
 
     enterButton.disabled =
-    false;
+        false;
+
 
     enterButton.classList.remove(
         "disabled"
     );
 
+
     enterButton.textContent =
-    "🔴 دخول الحصة";
+        "🔴 دخول الحصة";
 
 }
 
 
 /* =========================================
-   تعطيل زر الدخول
+   تعطيل زر دخول الحصة
 ========================================= */
 
 function disableEnterButton(){
 
     enterButton.disabled =
-    true;
+        true;
+
 
     enterButton.classList.add(
         "disabled"
     );
 
+
     enterButton.textContent =
-    "⏳ انتظر وقت الحصة";
+        "⏳ انتظر وقت الحصة";
 
 }
 
@@ -1754,9 +1835,17 @@ enterButton.addEventListener(
         }
 
 
+        /*
+        رقم الغرفة
+        */
+
         const roomId =
 
             currentLesson.roomId ||
+
+            currentLesson.lessonRoom ||
+
+            currentLesson.room ||
 
             currentLesson.id;
 
@@ -1764,7 +1853,7 @@ enterButton.addEventListener(
         if(!roomId){
 
             showMessage(
-                "❌ لم يتم تحديد رقم غرفة الحصة.",
+                "❌ لم يتم تحديد غرفة الحصة.",
                 false
             );
 
@@ -1784,27 +1873,33 @@ enterButton.addEventListener(
             JSON.stringify({
 
                 id:
-                currentLesson.id,
+                    currentLesson.id ||
+                    "",
 
                 roomId:
-                roomId,
+                    roomId,
 
                 teacherId:
-                currentTeacher.id,
+                    currentTeacher.id ||
+                    "",
 
                 teacherName:
-                currentTeacher.name || "",
+                    currentTeacher.name ||
+                    "",
 
                 studentId:
-                currentLesson.studentId || "",
+                    currentLesson.id ||
+                    "",
 
                 studentName:
-                currentLesson.studentName || "",
+                    currentLesson.name ||
+                    currentLesson.studentName ||
+                    "",
 
                 subject:
-                currentLesson.subject ||
-                currentLesson.lesson ||
-                "القرآن الكريم"
+                    currentLesson.lesson ||
+                    currentLesson.subject ||
+                    "القرآن الكريم"
 
             })
 
@@ -1812,7 +1907,7 @@ enterButton.addEventListener(
 
 
         /*
-        الدخول إلى class.html
+        الدخول إلى غرفة الحصة
         */
 
         window.location.href =
@@ -1823,7 +1918,9 @@ enterButton.addEventListener(
 
             encodeURIComponent(
                 roomId
-            ) +
+            )
+
+            +
 
             "&role=teacher";
 
@@ -1837,30 +1934,41 @@ enterButton.addEventListener(
 
 function showNoLesson(){
 
+    lessonCard.style.display =
+        "block";
+
+
     lessonSubject.textContent =
-    "لا توجد حصة";
+        "لا توجد حصة";
+
 
     lessonTeacher.textContent =
-    currentTeacher?.name || "-";
+        currentTeacher?.name ||
+        "-";
+
 
     lessonStudent.textContent =
-    "-";
+        "-";
+
 
     lessonDate.textContent =
-    "-";
+        "-";
+
 
     lessonTime.textContent =
-    "-";
+        "-";
 
 
     countdown.textContent =
-    "📭 لا توجد حصة مسجلة لهذا المدرس حاليًا.";
+        "📭 لا توجد حصة مسجلة لهذا المدرس حاليًا.";
+
 
     countdown.style.background =
-    "#eeeeee";
+        "#eeeeee";
+
 
     countdown.style.color =
-    "#666";
+        "#666";
 
 
     disableEnterButton();
@@ -1916,106 +2024,6 @@ backButton.addEventListener(
 
 
 /* =========================================
-   تنظيف الكود
-========================================= */
-
-teacherCode.addEventListener(
-    "input",
-    function(){
-
-        this.value =
-
-            this.value
-
-            .replace(
-                /[^0-9]/g,
-                ""
-            )
-
-            .slice(
-                0,
-                6
-            );
-
-    }
-);
-
-
-/* =========================================
-   الرسائل
-========================================= */
-
-function showMessage(
-    text,
-    success
-){
-
-    message.textContent =
-    text;
-
-    message.className =
-    "message " +
-
-    (
-
-        success
-
-        ?
-
-        "success"
-
-        :
-
-        "error"
-
-    );
-
-
-    message.style.display =
-    "block";
-
-}
-
-
-/* =========================================
-   حماية النص
-========================================= */
-
-function escapeHTML(
-    value
-){
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================
    تنسيق المدة
 ========================================= */
 
@@ -2024,29 +2032,29 @@ function formatDuration(
 ){
 
     let seconds =
-    Math.floor(
-        milliseconds / 1000
-    );
+        Math.floor(
+            milliseconds / 1000
+        );
 
 
     const hours =
-    Math.floor(
-        seconds / 3600
-    );
+        Math.floor(
+            seconds / 3600
+        );
 
 
     seconds %=
-    3600;
+        3600;
 
 
     const minutes =
-    Math.floor(
-        seconds / 60
-    );
+        Math.floor(
+            seconds / 60
+        );
 
 
     seconds %=
-    60;
+        60;
 
 
     if(hours > 0){
@@ -2088,4 +2096,5 @@ function formatDuration(
 
 </body>
 
-              </html>
+</html>
+    
