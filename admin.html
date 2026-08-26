@@ -1192,8 +1192,8 @@ createLessonButton.addEventListener(
             );
 
             return;
-
         }
+
 
         if(!teacher){
 
@@ -1203,8 +1203,8 @@ createLessonButton.addEventListener(
             );
 
             return;
-
         }
+
 
         if(!subject){
 
@@ -1214,8 +1214,8 @@ createLessonButton.addEventListener(
             );
 
             return;
-
         }
+
 
         if(!date){
 
@@ -1225,8 +1225,8 @@ createLessonButton.addEventListener(
             );
 
             return;
-
         }
+
 
         if(!time){
 
@@ -1236,7 +1236,6 @@ createLessonButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -1249,6 +1248,102 @@ createLessonButton.addEventListener(
 
         try{
 
+            /*
+             * البحث عن الطالب
+             * للحصول على studentId
+             */
+
+            const studentsResult =
+            await getDocs(
+                collection(
+                    db,
+                    "students"
+                )
+            );
+
+
+            const studentDoc =
+            studentsResult.docs.find(
+                function(item){
+
+                    const data =
+                    item.data();
+
+                    return (
+                        String(
+                            data.name || ""
+                        ).trim()
+                        ===
+                        student
+                    );
+
+                }
+            );
+
+
+            if(!studentDoc){
+
+                showLessonMessage(
+                    "❌ لم يتم العثور على الطالب: " +
+                    student,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * البحث عن المدرس
+             * للحصول على teacherId
+             */
+
+            const teachersResult =
+            await getDocs(
+                collection(
+                    db,
+                    "teachers"
+                )
+            );
+
+
+            const teacherDoc =
+            teachersResult.docs.find(
+                function(item){
+
+                    const data =
+                    item.data();
+
+                    return (
+                        String(
+                            data.name || ""
+                        ).trim()
+                        ===
+                        teacher
+                    );
+
+                }
+            );
+
+
+            if(!teacherDoc){
+
+                showLessonMessage(
+                    "❌ لم يتم العثور على المدرس: " +
+                    teacher,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * إنشاء الحصة
+             */
+
             await addDoc(
                 collection(
                     db,
@@ -1256,8 +1351,14 @@ createLessonButton.addEventListener(
                 ),
                 {
 
+                    studentId:
+                    studentDoc.id,
+
                     studentName:
                     student,
+
+                    teacherId:
+                    teacherDoc.id,
 
                     teacherName:
                     teacher,
@@ -1273,6 +1374,9 @@ createLessonButton.addEventListener(
 
                     status:
                     "scheduled",
+
+                    meetingUrl:
+                    "",
 
                     createdAt:
                     serverTimestamp()
@@ -1313,11 +1417,13 @@ createLessonButton.addEventListener(
                 error
             );
 
+
             showLessonMessage(
                 "❌ تعذر إنشاء الحصة: " +
                 error.message,
                 "error"
             );
+
 
         }finally{
 
@@ -1331,7 +1437,6 @@ createLessonButton.addEventListener(
 
     }
 );
-
 
 /* =========================
    تحميل الحصص
