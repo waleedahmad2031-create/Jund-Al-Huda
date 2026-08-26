@@ -389,7 +389,10 @@ type="date">
 <input
 id="lessonTime"
 type="time">
-
+<input
+id="lessonMeetingUrl"
+type="url"
+placeholder="🎥 رابط الحصة المباشرة">
 </div>
 
 <button
@@ -604,7 +607,8 @@ document.getElementById("lessonDate");
 
 const lessonTime =
 document.getElementById("lessonTime");
-
+const lessonMeetingUrl =
+document.getElementById("lessonMeetingUrl");
 const createLessonButton =
 document.getElementById("createLessonButton");
 
@@ -1182,7 +1186,8 @@ createLessonButton.addEventListener(
 
         const time =
         lessonTime.value;
-
+        const meetingUrl =
+lessonMeetingUrl.value.trim();
 
         if(!student){
 
@@ -1345,44 +1350,41 @@ createLessonButton.addEventListener(
              */
 
             await addDoc(
-                collection(
-                    db,
-                    "liveSessions"
-                ),
-                {
+    collection(
+        db,
+        "liveSessions"
+    ),
+    {
 
-                    studentId:
-                    studentDoc.id,
+        studentName:
+        student,
 
-                    studentName:
-                    student,
+        teacherName:
+        teacher,
 
-                    teacherId:
-                    teacherDoc.id,
+        subject:
+        subject,
 
-                    teacherName:
-                    teacher,
+        lessonDate:
+        date,
 
-                    subject:
-                    subject,
+        lessonTime:
+        time,
 
-                    lessonDate:
-                    date,
+        meetingUrl:
+        meetingUrl,
 
-                    lessonTime:
-                    time,
+        status:
+        "scheduled",
 
-                    status:
-                    "scheduled",
+        createdAt:
+        serverTimestamp()
 
-                    meetingUrl:
-                    "",
+    }
+);
 
-                    createdAt:
-                    serverTimestamp()
-
-                }
-            );
+                
+            
 
 
             showLessonMessage(
