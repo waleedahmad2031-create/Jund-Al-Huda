@@ -43,7 +43,6 @@ header h1{
 header p{
     margin-top:8px;
     font-size:14px;
-    opacity:.95;
 }
 
 .container{
@@ -52,27 +51,38 @@ header p{
     padding:16px 13px 30px;
 }
 
-.portal-card{
+.portal-card,
+.register-card,
+.quran-card,
+.tafsir-card{
     background:white;
     border-radius:20px;
-    padding:18px;
+    padding:20px 17px;
     box-shadow:0 5px 20px rgba(0,0,0,.07);
     margin-bottom:16px;
 }
 
-.portal-title{
+.portal-title,
+.register-title,
+.quran-title,
+.tafsir-title{
     text-align:center;
     color:#075e54;
-    font-size:21px;
     font-weight:bold;
-    margin-bottom:6px;
 }
 
-.portal-subtitle{
+.portal-title{
+    font-size:21px;
+}
+
+.portal-subtitle,
+.register-subtitle,
+.quran-subtitle{
     text-align:center;
     color:#777;
     font-size:13px;
-    margin-bottom:15px;
+    line-height:2;
+    margin:8px 0 15px;
 }
 
 .portal-buttons{
@@ -111,28 +121,11 @@ header p{
 }
 
 .register-card{
-    background:white;
-    border-radius:22px;
-    padding:22px 18px;
-    box-shadow:0 5px 22px rgba(0,0,0,.08);
-    margin-bottom:16px;
     border-top:5px solid #075e54;
 }
 
 .register-title{
-    text-align:center;
-    color:#075e54;
     font-size:24px;
-    font-weight:bold;
-    margin-bottom:7px;
-}
-
-.register-subtitle{
-    text-align:center;
-    color:#777;
-    font-size:13px;
-    line-height:2;
-    margin-bottom:18px;
 }
 
 .input{
@@ -143,30 +136,35 @@ header p{
     margin-bottom:10px;
     font-size:15px;
     outline:none;
-    background:#fff;
 }
 
 .input:focus{
     border-color:#075e54;
 }
 
-.register-button{
+.register-button,
+.code-button{
     width:100%;
     border:0;
     border-radius:12px;
     padding:15px;
-    background:#075e54;
     color:white;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.register-button:disabled{
-    background:#aaa;
+.register-button{
+    background:#075e54;
 }
 
-.register-message{
+.register-button:disabled,
+.code-button:disabled{
+    background:#999;
+}
+
+.register-message,
+.code-message{
     display:none;
     margin-top:12px;
     padding:13px;
@@ -174,7 +172,7 @@ header p{
     text-align:center;
     line-height:1.8;
     font-size:14px;
-    word-break:break-word;
+    white-space:pre-line;
 }
 
 .success{
@@ -220,59 +218,18 @@ header p{
     border:0;
     border-radius:12px;
     text-align:center;
-    font-size:20px;
-    letter-spacing:3px;
+    font-size:22px;
+    letter-spacing:5px;
     outline:none;
     margin-bottom:10px;
 }
 
 .code-button{
-    width:100%;
-    padding:14px;
-    border:0;
-    border-radius:12px;
     background:#c9a227;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.code-button:disabled{
-    background:#999;
-}
-
-.code-message{
-    display:none;
-    margin-top:12px;
-    background:rgba(255,255,255,.15);
-    border-radius:10px;
-    padding:12px;
-    line-height:1.8;
-}
-
-.quran-card{
-    background:#fffdf7;
-    border-radius:23px;
-    padding:20px 16px;
-    box-shadow:0 5px 22px rgba(0,0,0,.08);
-    border:1px solid #eee2c3;
-    margin-bottom:16px;
 }
 
 .quran-title{
-    text-align:center;
-    color:#075e54;
     font-size:26px;
-    font-weight:bold;
-    margin-bottom:5px;
-}
-
-.quran-subtitle{
-    text-align:center;
-    color:#888;
-    font-size:13px;
-    margin-bottom:18px;
 }
 
 .select-box{
@@ -291,7 +248,6 @@ header p{
     border:2px solid #d8c27a;
     border-radius:18px;
     padding:18px 14px;
-    box-shadow:inset 0 0 20px rgba(150,120,30,.06);
 }
 
 .surah-header{
@@ -349,20 +305,8 @@ header p{
     background:#fffdf4;
 }
 
-.tafsir-card{
-    background:white;
-    border-radius:20px;
-    padding:20px 17px;
-    box-shadow:0 4px 17px rgba(0,0,0,.06);
-    margin-bottom:16px;
-    border-right:5px solid #075e54;
-}
-
 .tafsir-title{
-    color:#075e54;
-    text-align:center;
     font-size:22px;
-    font-weight:bold;
     margin-bottom:10px;
 }
 
@@ -409,7 +353,6 @@ footer{
     padding:23px 15px;
     font-size:13px;
     line-height:2.2;
-    margin-top:10px;
 }
 
 @media(max-width:600px){
@@ -420,14 +363,10 @@ footer{
 
     .ayah{
         font-size:20px;
-        line-height:2.5;
     }
 
+    .portal-buttons,
     .navigation{
-        grid-template-columns:1fr;
-    }
-
-    .portal-buttons{
         grid-template-columns:1fr;
     }
 
@@ -438,7 +377,9 @@ footer{
 </head>
 
 <body>
-   <header>
+
+
+<header>
 
 <div class="logo">
     🕌
@@ -472,42 +413,39 @@ footer{
     اختر طريقة الدخول المناسبة لك
 </div>
 
-
 <div class="portal-buttons">
 
 <button
-    class="portal-button admin-button"
-    onclick="window.location.href='admin.html'">
+class="portal-button admin-button"
+onclick="window.location.href='admin.html'">
 
-    👨‍💼
-    <br>
-    دخول الإدارة
+👨‍💼
+<br>
+دخول الإدارة
 
 </button>
 
-
 <button
-    class="portal-button teacher-button"
-    onclick="window.location.href='teacher.html'">
+class="portal-button teacher-button"
+onclick="window.location.href='teacher.html'">
 
-    👨‍🏫
-    <br>
-    دخول المدرس
+👨‍🏫
+<br>
+دخول المدرس
 
 </button>
 
 </div>
-
 
 <div class="portal-info">
 
-    🎓 الطالب يستطيع التسجيل أو الدخول
-    من نفس الصفحة بالأسفل
+🎓 دخول الطالب يكون بالكود فقط
+<br>
+بدون كلمة مرور
 
 </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -520,60 +458,53 @@ footer{
     🎓 التسجيل في أكاديمية جنود الهدى
 </div>
 
-
 <div class="register-subtitle">
 
-    سجّل بياناتك أولًا،
-    وسيتم مراجعة طلبك من الإدارة.
+سجّل بياناتك أولًا،
+وسيتم مراجعة طلبك من الإدارة.
 
-    <br>
+<br>
 
-    بعد الموافقة سيتم إرسال كود الدخول الخاص بك.
+بعد الموافقة سيتم إعطاؤك كود الطالب.
 
 </div>
 
+<input
+id="studentName"
+class="input"
+type="text"
+placeholder="اسم الطالب">
 
 <input
-    id="studentName"
-    class="input"
-    type="text"
-    placeholder="اسم الطالب">
-
-
-<input
-    id="studentPhone"
-    class="input"
-    type="tel"
-    placeholder="رقم الجوال">
-
+id="studentPhone"
+class="input"
+type="tel"
+placeholder="رقم الجوال">
 
 <input
-    id="studentAge"
-    class="input"
-    type="number"
-    placeholder="العمر">
-
+id="studentAge"
+class="input"
+type="number"
+placeholder="العمر">
 
 <button
-    id="registerButton"
-    class="register-button">
+id="registerButton"
+class="register-button">
 
-    إرسال طلب التسجيل
+إرسال طلب التسجيل
 
 </button>
 
-
 <div
-    id="registerMessage"
-    class="register-message">
+id="registerMessage"
+class="register-message">
 </div>
 
 </div>
-
 
 
 <!-- =========================
-     دخول الطالب
+     دخول الطالب بالكود فقط
 ========================= -->
 
 <div class="class-card">
@@ -582,45 +513,44 @@ footer{
     🎓
 </div>
 
-
 <h2>
-    دخول الحصة المباشرة
+    دخول الطالب
 </h2>
-
 
 <p>
 
-    بعد الموافقة على تسجيلك،
-    أدخل الكود الذي أرسلته لك الأكاديمية.
+أدخل كود الطالب المكوّن من 6 أرقام.
+
+<br>
+
+لا تحتاج إلى كلمة مرور.
 
 </p>
 
-
 <input
-    id="studentCode"
-    class="code-input"
-    type="text"
-    inputmode="numeric"
-    maxlength="12"
-    placeholder="أدخل كود الطالب">
-
+id="studentCode"
+class="code-input"
+type="text"
+inputmode="numeric"
+maxlength="6"
+pattern="[0-9]*"
+autocomplete="off"
+placeholder="000000">
 
 <button
-    id="codeButton"
-    class="code-button">
+id="codeButton"
+class="code-button">
 
-    🔐 دخول الحصة
+🔐 دخول الطالب
 
 </button>
 
-
 <div
-    id="codeMessage"
-    class="code-message">
+id="codeMessage"
+class="code-message">
 </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -633,55 +563,49 @@ footer{
     📖 المصحف الشريف
 </div>
 
-
 <div class="quran-subtitle">
     اقرأ كتاب الله في أي وقت
 </div>
 
-
 <select
-    id="surahSelect"
-    class="select-box">
+id="surahSelect"
+class="select-box">
 
-    <option value="">
-        ⏳ جاري تحميل السور...
-    </option>
+<option value="">
+    ⏳ جاري تحميل السور...
+</option>
 
 </select>
 
-
 <div id="quranContent">
 
-    <div class="loading">
-        ⏳ جاري تحميل القرآن الكريم...
-    </div>
-
+<div class="loading">
+    ⏳ جاري تحميل القرآن الكريم...
 </div>
 
+</div>
 
 <div class="navigation">
 
 <button
-    id="previousButton"
-    disabled>
+id="previousButton"
+disabled>
 
-    ← السورة السابقة
+← السورة السابقة
 
 </button>
-
 
 <button
-    id="nextButton"
-    disabled>
+id="nextButton"
+disabled>
 
-    السورة التالية →
+السورة التالية →
 
 </button>
 
 </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -694,12 +618,11 @@ footer{
     🌿 التفسير والتدبر
 </div>
 
-
 <p>
 
-    فهم القرآن الكريم يعين على التدبر والعمل.
-    اقرأ الآيات بتأنٍ، وتعلّم معانيها من
-    مصادر التفسير الموثوقة.
+فهم القرآن الكريم يعين على التدبر والعمل.
+اقرأ الآيات بتأنٍ، وتعلّم معانيها من
+مصادر التفسير الموثوقة.
 
 </p>
 
@@ -707,7 +630,6 @@ footer{
 
 
 </div>
-
 
 
 <footer>
@@ -726,8 +648,11 @@ footer{
 
 © 2026
 
-    </footer>
-    <script type="module">
+</footer>
+
+
+<script type="module">
+
 
 /* =========================================
    Firebase
@@ -736,7 +661,6 @@ footer{
 import {
     db
 } from "./firebase.js";
-
 
 import {
     collection,
@@ -755,200 +679,149 @@ from
 ========================================= */
 
 const studentName =
-document.getElementById(
-    "studentName"
-);
+document.getElementById("studentName");
 
 const studentPhone =
-document.getElementById(
-    "studentPhone"
-);
+document.getElementById("studentPhone");
 
 const studentAge =
-document.getElementById(
-    "studentAge"
-);
+document.getElementById("studentAge");
 
 const registerButton =
-document.getElementById(
-    "registerButton"
-);
+document.getElementById("registerButton");
 
 const registerMessage =
-document.getElementById(
-    "registerMessage"
-);
+document.getElementById("registerMessage");
 
 
 registerButton.addEventListener(
-    "click",
-    async function(){
+"click",
+async function(){
 
-        const name =
-        studentName.value.trim();
+    const name =
+    studentName.value.trim();
 
-        const phone =
-        studentPhone.value.trim();
+    const phone =
+    studentPhone.value.trim();
 
-        const age =
-        studentAge.value.trim();
-
-
-        if(!name){
-
-            showRegisterMessage(
-                "⚠️ اكتب اسم الطالب.",
-                false
-            );
-
-            return;
-        }
+    const age =
+    studentAge.value.trim();
 
 
-        if(!phone){
+    if(!name){
 
-            showRegisterMessage(
-                "⚠️ اكتب رقم الجوال.",
-                false
-            );
+        showRegisterMessage(
+            "⚠️ اكتب اسم الطالب.",
+            false
+        );
 
-            return;
-        }
-
-
-        registerButton.disabled =
-        true;
-
-        registerButton.textContent =
-        "⏳ جاري إرسال الطلب...";
+        return;
+    }
 
 
-        try{
+    if(!phone){
 
-            const requestRef =
-            await addDoc(
-                collection(
-                    db,
-                    "bookingRequests"
-                ),
-                {
+        showRegisterMessage(
+            "⚠️ اكتب رقم الجوال.",
+            false
+        );
 
-                    name:name,
-
-                    phone:phone,
-
-                    age:age,
-
-                    status:"pending",
-
-                    type:"student",
-
-                    createdAt:
-                    serverTimestamp()
-
-                }
-            );
+        return;
+    }
 
 
-            console.log(
-                "تم إنشاء طلب التسجيل:",
-                requestRef.id
-            );
+    registerButton.disabled = true;
+
+    registerButton.textContent =
+    "⏳ جاري إرسال الطلب...";
 
 
-            showRegisterMessage(
+    try{
 
-                "✅ تم إرسال طلب التسجيل بنجاح. سيتم مراجعة الطلب، وبعد الموافقة سيتم إرسال كود الدخول لك.",
+        await addDoc(
+            collection(
+                db,
+                "bookingRequests"
+            ),
+            {
 
-                true
+                name:name,
 
-            );
+                phone:phone,
 
+                age:age,
 
-            studentName.value =
-            "";
+                status:"pending",
 
-            studentPhone.value =
-            "";
+                type:"student",
 
-            studentAge.value =
-            "";
-
-
-        }catch(error){
-
-            console.error(
-                "خطأ التسجيل:",
-                error
-            );
-
-
-            let message =
-            "❌ تعذر إرسال الطلب.";
-
-
-            if(
-                error.code ===
-                "permission-denied"
-            ){
-
-                message =
-                "❌ تم رفض الطلب من Firebase. تأكد من قواعد Firestore.";
+                createdAt:
+                serverTimestamp()
 
             }
-
-            else if(
-                error.code ===
-                "failed-precondition"
-            ){
-
-                message =
-                "❌ يوجد إعداد ناقص في Firebase.";
-
-            }
-
-            else if(
-                error.code ===
-                "unavailable"
-            ){
-
-                message =
-                "❌ تعذر الاتصال بـ Firebase. تأكد من الإنترنت.";
-
-            }
-
-            else if(
-                error.message
-            ){
-
-                message +=
-                "\n" +
-                error.message;
-
-            }
+        );
 
 
-            showRegisterMessage(
-                message,
-                false
-            );
+        showRegisterMessage(
 
-        }
+            "✅ تم إرسال طلب التسجيل بنجاح.\nسيتم مراجعة الطلب من الإدارة، وبعد الموافقة سيتم إعطاؤك كود الطالب.",
+
+            true
+
+        );
 
 
-        registerButton.disabled =
-        false;
+        studentName.value = "";
 
-        registerButton.textContent =
-        "إرسال طلب التسجيل";
+        studentPhone.value = "";
+
+        studentAge.value = "";
+
 
     }
-);
+    catch(error){
+
+        console.error(
+            "خطأ التسجيل:",
+            error
+        );
+
+
+        if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            showRegisterMessage(
+                "❌ تم رفض الطلب من Firebase. تأكد من قواعد Firestore.",
+                false
+            );
+
+        }
+        else{
+
+            showRegisterMessage(
+                "❌ تعذر إرسال الطلب.\n" +
+                error.message,
+                false
+            );
+
+        }
+
+    }
+
+
+    registerButton.disabled = false;
+
+    registerButton.textContent =
+    "إرسال طلب التسجيل";
+
+});
 
 
 function showRegisterMessage(
-    text,
-    success
+text,
+success
 ){
 
     registerMessage.textContent =
@@ -970,9 +843,8 @@ function showRegisterMessage(
 }
 
 
-
 /* =========================================
-   دخول الطالب بالكود
+   دخول الطالب بالكود فقط
 ========================================= */
 
 const studentCode =
@@ -991,185 +863,253 @@ document.getElementById(
 );
 
 
+/* =========================================
+   السماح بالأرقام فقط
+========================================= */
+
+studentCode.addEventListener(
+"input",
+function(){
+
+    this.value =
+    this.value
+    .replace(
+        /[^0-9]/g,
+        ""
+    )
+    .slice(0,6);
+
+});
+
+
+/* =========================================
+   دخول الطالب
+========================================= */
+
 codeButton.addEventListener(
-    "click",
-    async function(){
+"click",
+async function(){
 
-        const code =
-        studentCode.value.trim();
+    const code =
+    studentCode.value.trim();
 
 
-        if(!code){
+    if(!code){
+
+        showCodeMessage(
+            "⚠️ أدخل كود الطالب."
+        );
+
+        return;
+    }
+
+
+    if(!/^\d{6}$/.test(code)){
+
+        showCodeMessage(
+            "⚠️ كود الطالب يجب أن يكون 6 أرقام."
+        );
+
+        return;
+    }
+
+
+    codeButton.disabled = true;
+
+    codeButton.textContent =
+    "⏳ جاري التحقق...";
+
+
+    try{
+
+        const studentsQuery =
+        query(
+
+            collection(
+                db,
+                "students"
+            ),
+
+            where(
+                "code",
+                "==",
+                code
+            )
+
+        );
+
+
+        const result =
+        await getDocs(
+            studentsQuery
+        );
+
+
+        if(result.empty){
 
             showCodeMessage(
-                "⚠️ أدخل كود الطالب."
+                "❌ الكود غير صحيح أو الطالب غير موجود."
             );
 
             return;
-        }
-
-
-        codeButton.disabled =
-        true;
-
-        codeButton.textContent =
-        "⏳ جاري التحقق...";
-
-
-        try{
-
-            const studentsQuery =
-            query(
-
-                collection(
-                    db,
-                    "students"
-                ),
-
-                where(
-                    "code",
-                    "==",
-                    code
-                )
-
-            );
-
-
-            const result =
-            await getDocs(
-                studentsQuery
-            );
-
-
-            if(
-                result.empty
-            ){
-
-                showCodeMessage(
-                    "❌ الكود غير صحيح أو لم تتم الموافقة على الطالب بعد."
-                );
-
-                return;
-            }
-
-
-            let studentData =
-            null;
-
-
-            result.forEach(
-                function(item){
-
-                    studentData = {
-
-                        id:
-                        item.id,
-
-                        ...item.data()
-
-                    };
-
-                }
-            );
-
-
-            if(
-                studentData.status &&
-                studentData.status !==
-                "active"
-            ){
-
-                showCodeMessage(
-                    "⚠️ هذا الكود غير مفعل حاليًا."
-                );
-
-                return;
-            }
-
-
-            localStorage.setItem(
-                "studentSession",
-                JSON.stringify({
-
-                    id:
-                    studentData.id,
-
-                    name:
-                    studentData.name || "",
-
-                    phone:
-                    studentData.phone || "",
-
-                    code:
-                    code,
-
-                    teacher:
-                    studentData.teacher || "",
-
-                    teacherId:
-                    studentData.teacherId || "",
-
-                    lessonTime:
-                    studentData.lessonTime || "",
-
-                    lessonDuration:
-                    studentData.lessonDuration || 30,
-
-                    lesson:
-                    studentData.lesson || "",
-
-                    lessonDate:
-                    studentData.lessonDate || "",
-
-                    meetingUrl:
-                    studentData.meetingUrl || ""
-
-                })
-            );
-
-
-            window.location.href =
-            "class.html";
-
-
-        }catch(error){
-
-            console.error(
-                "خطأ دخول الطالب:",
-                error
-            );
-
-
-            if(
-                error.code ===
-                "permission-denied"
-            ){
-
-                showCodeMessage(
-                    "❌ لا توجد صلاحية لقراءة بيانات الطلاب."
-                );
-
-            }
-
-            else{
-
-                showCodeMessage(
-                    "❌ حدث خطأ أثناء التحقق من الكود."
-                );
-
-            }
 
         }
 
 
-        codeButton.disabled =
-        false;
+        const studentDoc =
+        result.docs[0];
 
-        codeButton.textContent =
-        "🔐 دخول الحصة";
+
+        const data =
+        studentDoc.data();
+
+
+        /* =========================
+           التأكد أن الطالب نشط
+        ========================= */
+
+        if(
+            data.active === false
+        ){
+
+            showCodeMessage(
+                "🔴 هذا الطالب غير نشط حاليًا."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            data.status &&
+            data.status !== "active"
+        ){
+
+            showCodeMessage(
+                "🔴 هذا الكود غير مفعل حاليًا."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           حفظ جلسة الطالب
+        ========================= */
+
+        const studentSession = {
+
+            id:
+            studentDoc.id,
+
+            name:
+            data.name || "الطالب",
+
+            phone:
+            data.phone || "",
+
+            age:
+            data.age || "",
+
+            code:
+            data.code || code,
+
+            teacher:
+            data.teacher || "",
+
+            teacherId:
+            data.teacherId || ""
+
+        };
+
+
+        localStorage.setItem(
+            "studentSession",
+            JSON.stringify(
+                studentSession
+            )
+        );
+
+
+        localStorage.setItem(
+            "jund_student",
+            JSON.stringify(
+                studentSession
+            )
+        );
+
+
+        /*
+         * مهم:
+         * نرسل الطالب إلى صفحة الحصة.
+         *
+         * class.html يجب أن تستخدم
+         * studentSession.id
+         *
+         * حتى تعرض حصص هذا الطالب فقط.
+         */
+
+        window.location.href =
+        "class.html";
+
 
     }
-);
+    catch(error){
+
+        console.error(
+            "خطأ دخول الطالب:",
+            error
+        );
+
+
+        if(
+            error.code ===
+            "permission-denied"
+        ){
+
+            showCodeMessage(
+                "❌ لا توجد صلاحية لقراءة بيانات الطلاب."
+            );
+
+        }
+        else{
+
+            showCodeMessage(
+                "❌ حدث خطأ أثناء التحقق من الكود."
+            );
+
+        }
+
+    }
+
+
+    codeButton.disabled = false;
+
+    codeButton.textContent =
+    "🔐 دخول الطالب";
+
+});
+
+
+/* =========================================
+   Enter
+========================================= */
+
+studentCode.addEventListener(
+"keydown",
+function(event){
+
+    if(
+        event.key === "Enter"
+    ){
+
+        codeButton.click();
+
+    }
+
+});
 
 
 function showCodeMessage(text){
@@ -1181,7 +1121,9 @@ function showCodeMessage(text){
     "block";
 
 }
-        /* =========================================
+
+
+/* =========================================
    المصحف الشريف
 ========================================= */
 
@@ -1212,19 +1154,12 @@ let currentSurahIndex = 0;
 
 
 /* =========================================
-   تحميل قائمة السور
+   تحميل السور
 ========================================= */
 
 async function loadSurahs(){
 
     try{
-
-        surahSelect.innerHTML = `
-            <option value="">
-                ⏳ جاري تحميل السور...
-            </option>
-        `;
-
 
         const response =
         await fetch(
@@ -1267,43 +1202,39 @@ async function loadSurahs(){
 
 
         surahs.forEach(
-            function(surah,index){
+        function(surah,index){
 
-                const option =
-                document.createElement(
-                    "option"
-                );
-
-
-                option.value =
-                index;
+            const option =
+            document.createElement(
+                "option"
+            );
 
 
-                option.textContent =
-                surah.number +
-                " - " +
-                surah.name;
+            option.value =
+            index;
 
 
-                surahSelect.appendChild(
-                    option
-                );
+            option.textContent =
+            surah.number +
+            " - " +
+            surah.name;
 
-            }
-        );
+
+            surahSelect.appendChild(
+                option
+            );
+
+        });
 
 
         currentSurahIndex = 0;
 
-
-        surahSelect.value =
-        "0";
-
+        surahSelect.value = "0";
 
         await loadSurah(0);
 
-
-    }catch(error){
+    }
+    catch(error){
 
         console.error(
             "Quran loading error:",
@@ -1312,7 +1243,7 @@ async function loadSurahs(){
 
 
         surahSelect.innerHTML = `
-            <option value="">
+            <option>
                 ❌ تعذر تحميل السور
             </option>
         `;
@@ -1326,8 +1257,7 @@ async function loadSurahs(){
 
                 <br><br>
 
-                تأكد من اتصال الإنترنت ثم
-                أعد تحميل الصفحة.
+                تأكد من اتصال الإنترنت.
 
             </div>
 
@@ -1339,7 +1269,7 @@ async function loadSurahs(){
 
 
 /* =========================================
-   تحميل سورة محددة
+   تحميل سورة
 ========================================= */
 
 async function loadSurah(index){
@@ -1422,7 +1352,8 @@ async function loadSurah(index){
         );
 
 
-    }catch(error){
+    }
+    catch(error){
 
         console.error(
             "Surah loading error:",
@@ -1443,18 +1374,18 @@ async function loadSurah(index){
                 <br><br>
 
                 <button
-                    id="retryQuranButton"
-                    style="
-                    background:#075e54;
-                    color:white;
-                    border:0;
-                    border-radius:10px;
-                    padding:12px 20px;
-                    font-weight:bold;
-                    cursor:pointer;
-                    ">
+                id="retryQuranButton"
+                style="
+                background:#075e54;
+                color:white;
+                border:0;
+                border-radius:10px;
+                padding:12px 20px;
+                font-weight:bold;
+                cursor:pointer;
+                ">
 
-                    🔄 إعادة المحاولة
+                🔄 إعادة المحاولة
 
                 </button>
 
@@ -1490,7 +1421,7 @@ async function loadSurah(index){
 
 
 /* =========================================
-   عرض السورة والآيات
+   عرض السورة
 ========================================= */
 
 function renderSurah(surah){
@@ -1517,11 +1448,6 @@ function renderSurah(surah){
     `;
 
 
-    /*
-       البسملة لا تظهر في سورة التوبة
-       لأننا نعرضها بشكل مستقل.
-    */
-
     if(
         surah.number !== 9
     ){
@@ -1540,28 +1466,27 @@ function renderSurah(surah){
 
 
     surah.ayahs.forEach(
-        function(ayah){
+    function(ayah){
 
-            html += `
+        html += `
 
-                <div class="ayah">
+            <div class="ayah">
 
-                    <span class="ayah-number">
+                <span class="ayah-number">
 
-                        ${ayah.numberInSurah}
+                    ${ayah.numberInSurah}
 
-                    </span>
+                </span>
 
-                    ${safeQuranText(
-                        ayah.text
-                    )}
+                ${safeQuranText(
+                    ayah.text
+                )}
 
-                </div>
+            </div>
 
-            `;
+        `;
 
-        }
-    );
+    });
 
 
     html += `
@@ -1577,117 +1502,100 @@ function renderSurah(surah){
 
     updateNavigation();
 
-
-    /*
-       الرجوع إلى بداية المصحف
-    */
-
-    quranContent.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
-
 }
 
 
 /* =========================================
-   اختيار سورة من القائمة
+   اختيار السورة
 ========================================= */
 
 surahSelect.addEventListener(
-    "change",
-    async function(){
+"change",
+async function(){
 
-        const index =
-        Number(
-            surahSelect.value
-        );
-
-
-        if(
-            Number.isNaN(index)
-        ){
-
-            return;
-
-        }
+    const index =
+    Number(
+        surahSelect.value
+    );
 
 
-        await loadSurah(
-            index
-        );
+    if(
+        Number.isNaN(index)
+    ){
+
+        return;
 
     }
-);
+
+
+    await loadSurah(
+        index
+    );
+
+});
 
 
 /* =========================================
-   السورة السابقة
+   السابقة
 ========================================= */
 
 previousButton.addEventListener(
-    "click",
-    async function(){
+"click",
+async function(){
 
-        if(
-            currentSurahIndex <= 0
-        ){
+    if(
+        currentSurahIndex <= 0
+    ){
 
-            return;
-
-        }
-
-
-        currentSurahIndex--;
-
-
-        surahSelect.value =
-        currentSurahIndex;
-
-
-        await loadSurah(
-            currentSurahIndex
-        );
+        return;
 
     }
-);
+
+
+    currentSurahIndex--;
+
+    surahSelect.value =
+    currentSurahIndex;
+
+    await loadSurah(
+        currentSurahIndex
+    );
+
+});
 
 
 /* =========================================
-   السورة التالية
+   التالية
 ========================================= */
 
 nextButton.addEventListener(
-    "click",
-    async function(){
+"click",
+async function(){
 
-        if(
-            currentSurahIndex >=
-            surahs.length - 1
-        ){
+    if(
+        currentSurahIndex >=
+        surahs.length - 1
+    ){
 
-            return;
-
-        }
-
-
-        currentSurahIndex++;
-
-
-        surahSelect.value =
-        currentSurahIndex;
-
-
-        await loadSurah(
-            currentSurahIndex
-        );
+        return;
 
     }
-);
+
+
+    currentSurahIndex++;
+
+    surahSelect.value =
+    currentSurahIndex;
+
+    await loadSurah(
+        currentSurahIndex
+    );
+
+});
 
 
 /* =========================================
-   تحديث أزرار التنقل
+   تحديث الأزرار
 ========================================= */
 
 function updateNavigation(){
@@ -1748,11 +1656,16 @@ function safeQuranText(value){
 
 loadSurahs();
 
+
+console.log(
+    "✅ index.html - جنود الهدى يعمل"
+);
+
 </script>
 
 </body>
 
-</html>
+    </html>
 
 
     
