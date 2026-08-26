@@ -219,6 +219,7 @@ button:disabled{
     color:#075e54;
     font-size:13px;
     word-break:break-all;
+    direction:ltr;
 }
 
 footer{
@@ -249,6 +250,7 @@ footer{
 
 <body>
 
+
 <header>
 
     <div class="logo">
@@ -268,6 +270,10 @@ footer{
 
 <div class="container">
 
+
+<!-- =========================
+     تسجيل دخول الطالب
+========================= -->
 
 <div id="loginCard" class="card">
 
@@ -298,6 +304,10 @@ footer{
 </div>
 
 
+<!-- =========================
+     لوحة الطالب
+========================= -->
+
 <div
     id="dashboard"
     class="dashboard">
@@ -309,6 +319,7 @@ footer{
 
 
     <div class="card">
+
 
         <div
             id="studentName"
@@ -372,6 +383,10 @@ footer{
         </div>
 
 
+        <!-- =========================
+             حالة الحصة
+        ========================= -->
+
         <div
             id="statusBox"
             class="status-box waiting">
@@ -410,16 +425,20 @@ footer{
         </div>
 
 
+        <!-- =========================
+             رابط الحصة
+        ========================= -->
+
         <div
             id="meetingBox"
             class="meeting-box"
             style="display:none;">
-
-            🎥
-            https://meet.google.com/usr-jfhn-hxs
-
         </div>
 
+
+        <!-- =========================
+             خروج
+        ========================= -->
 
         <div class="logout-box">
 
@@ -432,6 +451,7 @@ footer{
             </button>
 
         </div>
+
 
     </div>
 
@@ -473,14 +493,6 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-/* =========================================
-   رابط Google Meet
-========================================= */
-
-const MEETING_URL =
-"https://meet.google.com/usr-jfhn-hxs";
 
 
 /* =========================================
@@ -579,7 +591,7 @@ document.getElementById(
 
 
 /* =========================================
-   البيانات
+   البيانات الحالية
 ========================================= */
 
 let currentStudent = null;
@@ -590,7 +602,7 @@ let timer = null;
 
 
 /* =========================================
-   دخول الطالب
+   دخول الطالب بالكود فقط
 ========================================= */
 
 loginButton.addEventListener(
@@ -634,17 +646,22 @@ loginButton.addEventListener(
 
             const result =
             await getDocs(
+
                 query(
+
                     collection(
                         db,
                         "students"
                     ),
+
                     where(
                         "code",
                         "==",
                         code
                     )
+
                 )
+
             );
 
 
@@ -697,6 +714,7 @@ loginButton.addEventListener(
         }catch(error){
 
             console.error(
+                "Student login error:",
                 error
             );
 
@@ -720,7 +738,7 @@ loginButton.addEventListener(
 
 
 /* =========================================
-   تحميل الحصة
+   تحميل حصة الطالب
 ========================================= */
 
 async function loadStudentLesson(){
@@ -731,17 +749,22 @@ async function loadStudentLesson(){
 
     const result =
     await getDocs(
+
         query(
+
             collection(
                 db,
                 "liveSessions"
             ),
+
             where(
                 "studentId",
                 "==",
                 currentStudent.id
             )
+
         )
+
     );
 
 
@@ -769,6 +792,11 @@ async function loadStudentLesson(){
     );
 
 
+    /*
+       ترتيب الحصص من الأقرب
+       إلى الأبعد
+    */
+
     lessons.sort(
         function(a,b){
 
@@ -794,22 +822,116 @@ async function loadStudentLesson(){
             );
 
 
-            return dateB.localeCompare(
-                dateA
+            return dateA.localeCompare(
+                dateB
             );
 
         }
     );
 
 
+    /*
+       نبحث عن الحصة المناسبة:
+       - القادمة
+       - أو الحالية
+       - أو آخر حصة
+    */
+
+    const now =
+    new Date();
+
+
+    let selectedLesson =
+    null;
+
+
+    for(
+        const lesson
+        of lessons
+    ){
+
+        const start =
+        getLessonDate(
+            lesson.lessonDate,
+            lesson.startTime
+        );
+
+
+        let end =
+        getLessonDate(
+            lesson.lessonDate,
+            lesson.endTime
+        );
+
+
+        if(
+            start &&
+            !end
+        ){
+
+            end =
+            new Date(
+                start.getTime()
+                +
+                30 *
+                60 *
+                1000
+            );
+
+        }
+
+
+        if(
+            start &&
+            end &&
+            now >= start &&
+            now < end
+        ){
+
+            selectedLesson =
+            lesson;
+
+            break;
+
+        }
+
+
+        if(
+            start &&
+            now < start
+        ){
+
+            selectedLesson =
+            lesson;
+
+            break;
+
+        }
+
+    }
+
+
+    /*
+       إذا لم توجد حصة قادمة،
+       نستخدم آخر حصة
+    */
+
+    if(!selectedLesson){
+
+        selectedLesson =
+        lessons[lessons.length - 1];
+
+    }
+
+
     currentLesson =
-    lessons[0];
+    selectedLesson || null;
 
 }
 
 
 /* =========================================
-   عرض الطالب
+   عرض لوحة الطالب
 ========================================= */
 
 function showStudentDashboard(){
@@ -834,6 +956,7 @@ function showStudentDashboard(){
 
         teacherName.textContent =
         currentLesson.teacherName ||
+        currentStudent.teacher ||
         "لم يتم تحديد المدرس";
 
 
@@ -855,6 +978,33 @@ function showStudentDashboard(){
         currentLesson.subject ||
         "الحصة القرآنية";
 
+
+        /*
+           عرض رابط الحصة القادم
+           من Firebase
+        */
+
+        if(
+            currentLesson.meetingUrl
+        ){
+
+            meetingBox.textContent =
+            "🎥 رابط الحصة: " +
+            currentLesson.meetingUrl;
+
+            meetingBox.style.display =
+            "block";
+
+        }else{
+
+            meetingBox.textContent =
+            "⚠️ لم يتم إضافة رابط Google Meet لهذه الحصة.";
+
+            meetingBox.style.display =
+            "block";
+
+        }
+
     }else{
 
         teacherName.textContent =
@@ -873,16 +1023,11 @@ function showStudentDashboard(){
         lessonName.textContent =
         "الحصة القرآنية";
 
+
+        meetingBox.style.display =
+        "none";
+
     }
-
-
-    meetingBox.textContent =
-    "🎥 رابط الحصة: " +
-    MEETING_URL;
-
-
-    meetingBox.style.display =
-    "block";
 
 
     startLessonTimer();
@@ -925,12 +1070,14 @@ function calculateDuration(
 
 
     const startMinutes =
-    Number(startParts[0]) * 60 +
+    Number(startParts[0]) *
+    60 +
     Number(startParts[1]);
 
 
     const endMinutes =
-    Number(endParts[0]) * 60 +
+    Number(endParts[0]) *
+    60 +
     Number(endParts[1]);
 
 
@@ -953,7 +1100,7 @@ function calculateDuration(
 
 
 /* =========================================
-   المؤقت
+   تشغيل المؤقت
 ========================================= */
 
 function startLessonTimer(){
@@ -1014,7 +1161,10 @@ function updateLessonStatus(){
     currentLesson.endTime;
 
 
-    if(!date || !startTime){
+    if(
+        !date ||
+        !startTime
+    ){
 
         setWaitingStatus(
             "⚠️ بيانات الحصة غير مكتملة",
@@ -1058,7 +1208,9 @@ function updateLessonStatus(){
         new Date(
             start.getTime()
             +
-            30 * 60 * 1000
+            30 *
+            60 *
+            1000
         );
 
     }
@@ -1068,11 +1220,15 @@ function updateLessonStatus(){
     new Date();
 
 
+    /*
+       قبل الحصة
+    */
+
     if(now < start){
 
         setWaitingStatus(
             "⏳ لم تبدأ الحصة بعد",
-            "موعد حصتك:"
+            "الوقت المتبقي:"
         );
 
 
@@ -1088,6 +1244,10 @@ function updateLessonStatus(){
 
     }
 
+
+    /*
+       أثناء الحصة
+    */
 
     if(
         now >= start &&
@@ -1105,6 +1265,10 @@ function updateLessonStatus(){
 
     }
 
+
+    /*
+       بعد الحصة
+    */
 
     setFinishedStatus();
 
@@ -1169,8 +1333,28 @@ function setReadyStatus(
     );
 
 
-    joinButton.style.display =
-    "block";
+    /*
+       لا نعرض الزر إلا إذا
+       يوجد رابط حقيقي من الإدارة
+    */
+
+    if(
+        currentLesson &&
+        currentLesson.meetingUrl
+    ){
+
+        joinButton.style.display =
+        "block";
+
+    }else{
+
+        joinButton.style.display =
+        "none";
+
+        countdown.textContent +=
+        "\n⚠️ لم يتم إضافة رابط الحصة.";
+
+    }
 
 }
 
@@ -1204,17 +1388,40 @@ function setFinishedStatus(){
 
 
 /* =========================================
-   دخول Google Meet
-   تم تعديلها لفتح الرابط مباشرة
-   في المتصفح الحالي
+   فتح Google Meet
 ========================================= */
 
 joinButton.addEventListener(
     "click",
     function(){
 
+        if(
+            !currentLesson ||
+            !currentLesson.meetingUrl
+        ){
+
+            alert(
+                "⚠️ رابط الحصة غير موجود."
+            );
+
+            return;
+
+        }
+
+
+        const meetingUrl =
+        String(
+            currentLesson.meetingUrl
+        ).trim();
+
+
+        /*
+           فتح الرابط في نفس الصفحة
+           حتى يعمل من الهواتف المختلفة
+        */
+
         window.location.href =
-        MEETING_URL;
+        meetingUrl;
 
     }
 );
@@ -1229,7 +1436,10 @@ function getLessonDate(
     timeValue
 ){
 
-    if(!dateValue || !timeValue){
+    if(
+        !dateValue ||
+        !timeValue
+    ){
 
         return null;
 
@@ -1338,7 +1548,7 @@ function formatLessonDateTime(
 
 
 /* =========================================
-   التاريخ
+   التاريخ بالعربي
 ========================================= */
 
 function formatDateArabic(
@@ -1385,8 +1595,7 @@ function formatLessonTime(
 ){
 
     const match =
-    String(value)
-    .match(
+    String(value).match(
         /^(\d{1,2}):(\d{2})$/
     );
 
@@ -1488,7 +1697,7 @@ function formatCountdown(
 
 
 /* =========================================
-   خروج
+   خروج الطالب
 ========================================= */
 
 logoutButton.addEventListener(
@@ -1533,7 +1742,7 @@ logoutButton.addEventListener(
 
 
 /* =========================================
-   رسالة الدخول
+   رسالة تسجيل الدخول
 ========================================= */
 
 function showLoginError(
@@ -1600,8 +1809,7 @@ console.log(
 );
 
 console.log(
-    "🎥 Google Meet:",
-    MEETING_URL
+    "🎥 رابط الحصة يتم أخذه من liveSessions"
 );
 
 </script>
