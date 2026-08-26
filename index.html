@@ -1,7 +1,16 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport"
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>أكاديمية جنود الهدى</title><style>
+<title>أكاديمية جنود الهدى</title>
+
+<style>
 
 *{
     box-sizing:border-box;
@@ -42,10 +51,6 @@ header p{
     margin:auto;
     padding:16px 13px 30px;
 }
-
-/* =========================
-   بوابة الإدارة والمدرس
-========================= */
 
 .portal-card{
     background:white;
@@ -104,10 +109,6 @@ header p{
     font-size:13px;
     line-height:1.8;
 }
-
-/* =========================
-   التسجيل
-========================= */
 
 .register-card{
     background:white;
@@ -186,10 +187,6 @@ header p{
     color:#a00000;
 }
 
-/* =========================
-   دخول الحصة
-========================= */
-
 .class-card{
     background:linear-gradient(135deg,#075e54,#0b806f);
     color:white;
@@ -253,10 +250,6 @@ header p{
     padding:12px;
     line-height:1.8;
 }
-
-/* =========================
-   المصحف
-========================= */
 
 .quran-card{
     background:#fffdf7;
@@ -356,10 +349,6 @@ header p{
     background:#fffdf4;
 }
 
-/* =========================
-   التفسير
-========================= */
-
 .tafsir-card{
     background:white;
     border-radius:20px;
@@ -384,10 +373,6 @@ header p{
     text-align:center;
 }
 
-/* =========================
-   التنقل
-========================= */
-
 .navigation{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -410,20 +395,12 @@ header p{
     background:#ccc;
 }
 
-/* =========================
-   تحميل
-========================= */
-
 .loading{
     text-align:center;
     color:#777;
     padding:30px 10px;
     line-height:2;
 }
-
-/* =========================
-   الفوتر
-========================= */
 
 footer{
     background:#075e54;
@@ -434,10 +411,6 @@ footer{
     line-height:2.2;
     margin-top:10px;
 }
-
-/* =========================
-   الجوال
-========================= */
 
 @media(max-width:600px){
 
@@ -460,9 +433,14 @@ footer{
 
 }
 
-    </style>
+</style>
 
-    </head><body><header><div class="logo">
+</head>
+
+<body>
+   <header>
+
+<div class="logo">
     🕌
 </div>
 
@@ -474,9 +452,19 @@ footer{
     لتعليم القرآن الكريم وتلاوته
 </p>
 
-</header><div class="container"><!-- =========================
+</header>
+
+
+<div class="container">
+
+
+<!-- =========================
      بوابة الإدارة والمدرس
-========================= --><div class="portal-card"><div class="portal-title">
+========================= -->
+
+<div class="portal-card">
+
+<div class="portal-title">
     🕌 بوابة الأكاديمية
 </div>
 
@@ -484,28 +472,29 @@ footer{
     اختر طريقة الدخول المناسبة لك
 </div>
 
+
 <div class="portal-buttons">
 
-    <button
-        class="portal-button admin-button"
-        onclick="window.location.href='admin.html'">
+<button
+    class="portal-button admin-button"
+    onclick="window.location.href='admin.html'">
 
-        👨‍💼
-        <br>
-        دخول الإدارة
+    👨‍💼
+    <br>
+    دخول الإدارة
 
-    </button>
+</button>
 
 
-    <button
-        class="portal-button teacher-button"
-        onclick="window.location.href='teacher-login.html'">
+<button
+    class="portal-button teacher-button"
+    onclick="window.location.href='teacher.html'">
 
-        👨‍🏫
-        <br>
-        دخول المدرس
+    👨‍🏫
+    <br>
+    دخول المدرس
 
-    </button>
+</button>
 
 </div>
 
@@ -517,17 +506,28 @@ footer{
 
 </div>
 
-</div><!-- =========================
+</div>
+
+
+
+<!-- =========================
      تسجيل الطالب
-========================= --><div class="register-card"><div class="register-title">
+========================= -->
+
+<div class="register-card">
+
+<div class="register-title">
     🎓 التسجيل في أكاديمية جنود الهدى
 </div>
+
 
 <div class="register-subtitle">
 
     سجّل بياناتك أولًا،
     وسيتم مراجعة طلبك من الإدارة.
+
     <br>
+
     بعد الموافقة سيتم إرسال كود الدخول الخاص بك.
 
 </div>
@@ -568,9 +568,17 @@ footer{
     class="register-message">
 </div>
 
-</div><!-- =========================
+</div>
+
+
+
+<!-- =========================
      دخول الطالب
-========================= --><div class="class-card"><div class="class-icon">
+========================= -->
+
+<div class="class-card">
+
+<div class="class-icon">
     🎓
 </div>
 
@@ -611,9 +619,17 @@ footer{
     class="code-message">
 </div>
 
-</div><!-- =========================
+</div>
+
+
+
+<!-- =========================
      المصحف
-========================= --><div class="quran-card"><div class="quran-title">
+========================= -->
+
+<div class="quran-card">
+
+<div class="quran-title">
     📖 المصحف الشريف
 </div>
 
@@ -645,28 +661,36 @@ footer{
 
 <div class="navigation">
 
-    <button
-        id="previousButton"
-        disabled>
+<button
+    id="previousButton"
+    disabled>
 
-        ← السورة السابقة
+    ← السورة السابقة
 
-    </button>
+</button>
 
 
-    <button
-        id="nextButton"
-        disabled>
+<button
+    id="nextButton"
+    disabled>
 
-        السورة التالية →
+    السورة التالية →
 
-    </button>
+</button>
 
 </div>
 
-</div><!-- =========================
+</div>
+
+
+
+<!-- =========================
      التفسير
-========================= --><div class="tafsir-card"><div class="tafsir-title">
+========================= -->
+
+<div class="tafsir-card">
+
+<div class="tafsir-title">
     🌿 التفسير والتدبر
 </div>
 
@@ -679,7 +703,16 @@ footer{
 
 </p>
 
-</div></div><footer>🕌 أكاديمية جنود الهدى
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+🕌 أكاديمية جنود الهدى
 
 <br>
 
@@ -693,11 +726,11 @@ footer{
 
 © 2026
 
-</footer><script type="module">
+    </footer>
+    <script type="module">
 
 /* =========================================
    Firebase
-   نفس إصدار firebase.js عندك
 ========================================= */
 
 import {
@@ -726,24 +759,20 @@ document.getElementById(
     "studentName"
 );
 
-
 const studentPhone =
 document.getElementById(
     "studentPhone"
 );
-
 
 const studentAge =
 document.getElementById(
     "studentAge"
 );
 
-
 const registerButton =
 document.getElementById(
     "registerButton"
 );
-
 
 const registerMessage =
 document.getElementById(
@@ -758,10 +787,8 @@ registerButton.addEventListener(
         const name =
         studentName.value.trim();
 
-
         const phone =
         studentPhone.value.trim();
-
 
         const age =
         studentAge.value.trim();
@@ -775,7 +802,6 @@ registerButton.addEventListener(
             );
 
             return;
-
         }
 
 
@@ -787,13 +813,11 @@ registerButton.addEventListener(
             );
 
             return;
-
         }
 
 
         registerButton.disabled =
         true;
-
 
         registerButton.textContent =
         "⏳ جاري إرسال الطلب...";
@@ -803,12 +827,10 @@ registerButton.addEventListener(
 
             const requestRef =
             await addDoc(
-
                 collection(
                     db,
                     "bookingRequests"
                 ),
-
                 {
 
                     name:name,
@@ -825,7 +847,6 @@ registerButton.addEventListener(
                     serverTimestamp()
 
                 }
-
             );
 
 
@@ -901,8 +922,7 @@ registerButton.addEventListener(
             ){
 
                 message +=
-                "\n"
-                +
+                "\n" +
                 error.message;
 
             }
@@ -919,7 +939,6 @@ registerButton.addEventListener(
         registerButton.disabled =
         false;
 
-
         registerButton.textContent =
         "إرسال طلب التسجيل";
 
@@ -935,14 +954,11 @@ function showRegisterMessage(
     registerMessage.textContent =
     text;
 
-
     registerMessage.style.display =
     "block";
 
-
     registerMessage.className =
-    "register-message "
-    +
+    "register-message " +
     (
         success
         ?
@@ -954,6 +970,7 @@ function showRegisterMessage(
 }
 
 
+
 /* =========================================
    دخول الطالب بالكود
 ========================================= */
@@ -963,12 +980,10 @@ document.getElementById(
     "studentCode"
 );
 
-
 const codeButton =
 document.getElementById(
     "codeButton"
 );
-
 
 const codeMessage =
 document.getElementById(
@@ -991,13 +1006,11 @@ codeButton.addEventListener(
             );
 
             return;
-
         }
 
 
         codeButton.disabled =
         true;
-
 
         codeButton.textContent =
         "⏳ جاري التحقق...";
@@ -1033,13 +1046,10 @@ codeButton.addEventListener(
             ){
 
                 showCodeMessage(
-
                     "❌ الكود غير صحيح أو لم تتم الموافقة على الطالب بعد."
-
                 );
 
                 return;
-
             }
 
 
@@ -1048,12 +1058,15 @@ codeButton.addEventListener(
 
 
             result.forEach(
-                function(doc){
+                function(item){
 
-                    studentData =
-                    {
-                        id:doc.id,
-                        ...doc.data()
+                    studentData = {
+
+                        id:
+                        item.id,
+
+                        ...item.data()
+
                     };
 
                 }
@@ -1061,59 +1074,58 @@ codeButton.addEventListener(
 
 
             if(
-                studentData.status
-                &&
+                studentData.status &&
                 studentData.status !==
                 "active"
             ){
 
                 showCodeMessage(
-
                     "⚠️ هذا الكود غير مفعل حاليًا."
-
                 );
 
                 return;
-
             }
 
 
             localStorage.setItem(
+                "studentSession",
+                JSON.stringify({
 
-    "studentSession",
+                    id:
+                    studentData.id,
 
-    JSON.stringify({
+                    name:
+                    studentData.name || "",
 
-        id:
-        studentData.id,
+                    phone:
+                    studentData.phone || "",
 
-        name:
-        studentData.name || "",
+                    code:
+                    code,
 
-        phone:
-        studentData.phone || "",
+                    teacher:
+                    studentData.teacher || "",
 
-        code:
-        code,
+                    teacherId:
+                    studentData.teacherId || "",
 
-        teacher:
-        studentData.teacher || "",
+                    lessonTime:
+                    studentData.lessonTime || "",
 
-        lessonTime:
-        studentData.lessonTime || "",
+                    lessonDuration:
+                    studentData.lessonDuration || 30,
 
-        lessonDuration:
-        studentData.lessonDuration || 30,
+                    lesson:
+                    studentData.lesson || "",
 
-        lesson:
-        studentData.lesson || "",
+                    lessonDate:
+                    studentData.lessonDate || "",
 
-        meetingUrl:
-        studentData.meetingUrl || ""
+                    meetingUrl:
+                    studentData.meetingUrl || ""
 
-    })
-
-);
+                })
+            );
 
 
             window.location.href =
@@ -1153,7 +1165,6 @@ codeButton.addEventListener(
         codeButton.disabled =
         false;
 
-
         codeButton.textContent =
         "🔐 دخول الحصة";
 
@@ -1166,13 +1177,516 @@ function showCodeMessage(text){
     codeMessage.textContent =
     text;
 
-
     codeMessage.style.display =
     "block";
 
 }
+        /* =========================================
+   المصحف الشريف
+========================================= */
 
-    /* =========================================
+const surahSelect =
+document.getElementById(
+    "surahSelect"
+);
+
+const quranContent =
+document.getElementById(
+    "quranContent"
+);
+
+const previousButton =
+document.getElementById(
+    "previousButton"
+);
+
+const nextButton =
+document.getElementById(
+    "nextButton"
+);
+
+
+let surahs = [];
+
+let currentSurahIndex = 0;
+
+
+/* =========================================
+   تحميل قائمة السور
+========================================= */
+
+async function loadSurahs(){
+
+    try{
+
+        surahSelect.innerHTML = `
+            <option value="">
+                ⏳ جاري تحميل السور...
+            </option>
+        `;
+
+
+        const response =
+        await fetch(
+            "https://api.alquran.cloud/v1/surah"
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "تعذر الاتصال بمصدر القرآن"
+            );
+
+        }
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !data ||
+            !data.data ||
+            !data.data.length
+        ){
+
+            throw new Error(
+                "لم يتم العثور على السور"
+            );
+
+        }
+
+
+        surahs =
+        data.data;
+
+
+        surahSelect.innerHTML =
+        "";
+
+
+        surahs.forEach(
+            function(surah,index){
+
+                const option =
+                document.createElement(
+                    "option"
+                );
+
+
+                option.value =
+                index;
+
+
+                option.textContent =
+                surah.number +
+                " - " +
+                surah.name;
+
+
+                surahSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        currentSurahIndex = 0;
+
+
+        surahSelect.value =
+        "0";
+
+
+        await loadSurah(0);
+
+
+    }catch(error){
+
+        console.error(
+            "Quran loading error:",
+            error
+        );
+
+
+        surahSelect.innerHTML = `
+            <option value="">
+                ❌ تعذر تحميل السور
+            </option>
+        `;
+
+
+        quranContent.innerHTML = `
+
+            <div class="loading">
+
+                ❌ تعذر تحميل القرآن الكريم.
+
+                <br><br>
+
+                تأكد من اتصال الإنترنت ثم
+                أعد تحميل الصفحة.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   تحميل سورة محددة
+========================================= */
+
+async function loadSurah(index){
+
+    if(
+        !surahs.length ||
+        index < 0 ||
+        index >= surahs.length
+    ){
+
+        return;
+
+    }
+
+
+    currentSurahIndex =
+    index;
+
+
+    quranContent.innerHTML = `
+
+        <div class="loading">
+
+            ⏳ جاري تحميل الآيات...
+
+        </div>
+
+    `;
+
+
+    updateNavigation();
+
+
+    try{
+
+        const surahNumber =
+        surahs[index].number;
+
+
+        const response =
+        await fetch(
+
+            "https://api.alquran.cloud/v1/surah/"
+            +
+            surahNumber
+            +
+            "/quran-uthmani"
+
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "تعذر تحميل السورة"
+            );
+
+        }
+
+
+        const data =
+        await response.json();
+
+
+        if(
+            !data ||
+            !data.data ||
+            !data.data.ayahs
+        ){
+
+            throw new Error(
+                "بيانات السورة غير متوفرة"
+            );
+
+        }
+
+
+        renderSurah(
+            data.data
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Surah loading error:",
+            error
+        );
+
+
+        quranContent.innerHTML = `
+
+            <div class="loading">
+
+                ❌ تعذر تحميل الآيات.
+
+                <br><br>
+
+                حاول مرة أخرى.
+
+                <br><br>
+
+                <button
+                    id="retryQuranButton"
+                    style="
+                    background:#075e54;
+                    color:white;
+                    border:0;
+                    border-radius:10px;
+                    padding:12px 20px;
+                    font-weight:bold;
+                    cursor:pointer;
+                    ">
+
+                    🔄 إعادة المحاولة
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        const retryButton =
+        document.getElementById(
+            "retryQuranButton"
+        );
+
+
+        if(retryButton){
+
+            retryButton.addEventListener(
+                "click",
+                function(){
+
+                    loadSurah(
+                        currentSurahIndex
+                    );
+
+                }
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   عرض السورة والآيات
+========================================= */
+
+function renderSurah(surah){
+
+    let html = `
+
+        <div class="mushaf">
+
+            <div class="surah-header">
+
+                ${safeQuranText(
+                    surah.name
+                )}
+
+                <small>
+
+                    ${surah.numberOfAyahs}
+                    آية
+
+                </small>
+
+            </div>
+
+    `;
+
+
+    /*
+       البسملة لا تظهر في سورة التوبة
+       لأننا نعرضها بشكل مستقل.
+    */
+
+    if(
+        surah.number !== 9
+    ){
+
+        html += `
+
+            <div class="basmala">
+
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+
+            </div>
+
+        `;
+
+    }
+
+
+    surah.ayahs.forEach(
+        function(ayah){
+
+            html += `
+
+                <div class="ayah">
+
+                    <span class="ayah-number">
+
+                        ${ayah.numberInSurah}
+
+                    </span>
+
+                    ${safeQuranText(
+                        ayah.text
+                    )}
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+        </div>
+
+    `;
+
+
+    quranContent.innerHTML =
+    html;
+
+
+    updateNavigation();
+
+
+    /*
+       الرجوع إلى بداية المصحف
+    */
+
+    quranContent.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+
+}
+
+
+/* =========================================
+   اختيار سورة من القائمة
+========================================= */
+
+surahSelect.addEventListener(
+    "change",
+    async function(){
+
+        const index =
+        Number(
+            surahSelect.value
+        );
+
+
+        if(
+            Number.isNaN(index)
+        ){
+
+            return;
+
+        }
+
+
+        await loadSurah(
+            index
+        );
+
+    }
+);
+
+
+/* =========================================
+   السورة السابقة
+========================================= */
+
+previousButton.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            currentSurahIndex <= 0
+        ){
+
+            return;
+
+        }
+
+
+        currentSurahIndex--;
+
+
+        surahSelect.value =
+        currentSurahIndex;
+
+
+        await loadSurah(
+            currentSurahIndex
+        );
+
+    }
+);
+
+
+/* =========================================
+   السورة التالية
+========================================= */
+
+nextButton.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            currentSurahIndex >=
+            surahs.length - 1
+        ){
+
+            return;
+
+        }
+
+
+        currentSurahIndex++;
+
+
+        surahSelect.value =
+        currentSurahIndex;
+
+
+        await loadSurah(
+            currentSurahIndex
+        );
+
+    }
+);
+
+
+/* =========================================
    تحديث أزرار التنقل
 ========================================= */
 
@@ -1181,7 +1695,9 @@ function updateNavigation(){
     previousButton.disabled =
     currentSurahIndex <= 0;
 
+
     nextButton.disabled =
+    !surahs.length ||
     currentSurahIndex >=
     surahs.length - 1;
 
@@ -1189,85 +1705,48 @@ function updateNavigation(){
 
 
 /* =========================================
-   فتح الحصة المباشرة
+   حماية نص القرآن
 ========================================= */
 
-function openClassPage(){
+function safeQuranText(value){
 
-    const session =
-    localStorage.getItem(
-        "studentSession"
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
     );
-
-    if(!session){
-
-        return;
-
-    }
-
-    window.location.href =
-    "class.html";
 
 }
 
 
 /* =========================================
-   التأكد من جلسة الطالب
+   تشغيل المصحف
 ========================================= */
 
-function checkStudentSession(){
-
-    const session =
-    localStorage.getItem(
-        "studentSession"
-    );
-
-    if(!session){
-
-        return;
-
-    }
-
-    try{
-
-        const student =
-        JSON.parse(session);
-
-        if(
-            student &&
-            student.id &&
-            student.code
-        ){
-
-            console.log(
-                "جلسة الطالب موجودة:",
-                student.name
-            );
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "خطأ في جلسة الطالب:",
-            error
-        );
-
-        localStorage.removeItem(
-            "studentSession"
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   تشغيل فحص الجلسة
-========================================= */
-
-checkStudentSession();
-
+loadSurahs();
 
 </script>
 
