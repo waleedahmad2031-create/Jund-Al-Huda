@@ -93,10 +93,6 @@ header p{
     color:#ff9c9c;
 }
 
-/* =========================
-   Google Meet
-========================= */
-
 .meet-card{
     background:white;
     color:#222;
@@ -167,10 +163,6 @@ header p{
     cursor:pointer;
 }
 
-/* =========================
-   معلومات الطرف
-========================= */
-
 .role-card{
     background:#182522;
     border-radius:18px;
@@ -193,10 +185,6 @@ header p{
     font-size:14px;
 }
 
-/* =========================
-   التعليمات
-========================= */
-
 .instructions{
     background:#182522;
     border-radius:18px;
@@ -216,10 +204,6 @@ header p{
     font-size:14px;
     margin-bottom:7px;
 }
-
-/* =========================
-   أزرار التحكم
-========================= */
 
 .controls{
     display:flex;
@@ -243,10 +227,6 @@ header p{
 .control-btn.danger{
     background:#a52a2a;
 }
-
-/* =========================
-   الفوتر
-========================= */
 
 footer{
     background:#075e54;
@@ -300,10 +280,6 @@ footer{
 <div class="container">
 
 
-<!-- =========================
-     معلومات الحصة
-========================= -->
-
 <div class="lesson-info">
 
     <h2 id="lessonTitle">
@@ -317,10 +293,6 @@ footer{
 </div>
 
 
-<!-- =========================
-     حالة الحصة
-========================= -->
-
 <div
     id="statusBox"
     class="status">
@@ -329,10 +301,6 @@ footer{
 
 </div>
 
-
-<!-- =========================
-     Google Meet
-========================= -->
 
 <div class="meet-card">
 
@@ -363,9 +331,7 @@ footer{
     <a
         id="meetButton"
         class="meet-button"
-        href="#"
-        target="_blank"
-        rel="noopener">
+        href="https://meet.google.com/usr-jfhn-hxs">
 
         🎥 دخول الحصة الآن
 
@@ -396,10 +362,6 @@ footer{
 </div>
 
 
-<!-- =========================
-     بيانات المستخدم
-========================= -->
-
 <div class="role-card">
 
     <div class="role-title">
@@ -416,10 +378,6 @@ footer{
 
 </div>
 
-
-<!-- =========================
-     التعليمات
-========================= -->
 
 <div class="instructions">
 
@@ -449,10 +407,6 @@ footer{
 
 </div>
 
-
-<!-- =========================
-     الأزرار
-========================= -->
 
 <div class="controls">
 
@@ -496,16 +450,17 @@ footer{
 
 <script>
 
+
 /* =========================================
-   رابط Google Meet
+   رابط Google Meet الصحيح
 ========================================= */
 
 const DEFAULT_MEETING_URL =
-"https://meet.google.com/qkh-bpyk-mhy";
+"https://meet.google.com/usr-jfhn-hxs";
 
 
 /* =========================================
-   عناصر الصفحة
+   العناصر
 ========================================= */
 
 const meetButton =
@@ -560,7 +515,7 @@ document.getElementById(
 
 
 /* =========================================
-   قراءة الدور من الرابط
+   قراءة الدور
 ========================================= */
 
 const params =
@@ -573,7 +528,7 @@ params.get("role");
 
 
 /* =========================================
-   تحديد الرابط
+   تحديد رابط الحصة
 ========================================= */
 
 let meetingUrl =
@@ -581,8 +536,8 @@ DEFAULT_MEETING_URL;
 
 
 /*
-إذا كان هناك رابط حصة محفوظ
-في جلسة الطالب نستخدمه.
+إذا كانت هناك جلسة طالب
+وفيها رابط صحيح، نستخدمه.
 */
 
 try{
@@ -603,11 +558,12 @@ try{
 
         if(
             student &&
-            student.meetingUrl
+            typeof student.meetingUrl === "string" &&
+            student.meetingUrl.trim()
         ){
 
             meetingUrl =
-            student.meetingUrl;
+            student.meetingUrl.trim();
 
         }
 
@@ -616,10 +572,50 @@ try{
 }catch(error){
 
     console.log(
-        "لا توجد جلسة طالب."
+        "لا توجد جلسة طالب محفوظة."
     );
 
 }
+
+
+/* =========================================
+   إصلاح الرابط
+========================================= */
+
+function fixMeetingUrl(url){
+
+    url =
+    String(
+        url || ""
+    ).trim();
+
+
+    if(!url){
+
+        return DEFAULT_MEETING_URL;
+
+    }
+
+
+    if(
+        url.startsWith("https://") ||
+        url.startsWith("http://")
+    ){
+
+        return url;
+
+    }
+
+
+    return "https://" + url;
+
+}
+
+
+meetingUrl =
+fixMeetingUrl(
+    meetingUrl
+);
 
 
 /* =========================================
@@ -640,15 +636,22 @@ meetingUrl;
 
 if(role === "teacher"){
 
+    lessonTitle.textContent =
+    "📖 حصة القرآن الكريم";
+
+
     roleText.textContent =
     "👨‍🏫 أنت داخل الحصة كمدرس.";
 
+
     userData.innerHTML =
     "👨‍🏫 الدور: المدرس<br>" +
-    "🎥 استخدم زر دخول الحصة للانضمام إلى Google Meet.";
+    "🎥 اضغط على زر دخول الحصة للانضمام إلى Google Meet.";
+
 
     statusBox.textContent =
     "🟢 الحصة جاهزة للدخول.";
+
 
     statusBox.className =
     "status connected";
@@ -656,11 +659,17 @@ if(role === "teacher"){
 }
 else{
 
+    lessonTitle.textContent =
+    "📖 حصة القرآن الكريم";
+
+
     roleText.textContent =
     "🎓 أنت داخل الحصة كطالب.";
 
+
     statusBox.textContent =
     "🟢 الحصة جاهزة للدخول.";
+
 
     statusBox.className =
     "status connected";
@@ -719,6 +728,7 @@ else{
 
 /* =========================================
    فتح Google Meet
+   مباشرة في المتصفح
 ========================================= */
 
 meetButton.addEventListener(
@@ -728,8 +738,18 @@ meetButton.addEventListener(
         statusBox.textContent =
         "🟢 جاري فتح Google Meet...";
 
+
         statusBox.className =
         "status connected";
+
+
+        /*
+        لا نستخدم window.open
+        حتى لا يمنع المتصفح فتح الرابط.
+        */
+
+        window.location.href =
+        meetingUrl;
 
     }
 );
@@ -812,11 +832,6 @@ clearButton.addEventListener(
         }
 
 
-        /*
-        لا نحذف جلسة الطالب.
-        فقط نعود للصفحة الرئيسية.
-        */
-
         window.location.href =
         "index.html";
 
@@ -867,7 +882,7 @@ console.log(
 );
 
 console.log(
-    "رابط الحصة:",
+    "🎥 رابط Google Meet:",
     meetingUrl
 );
 
