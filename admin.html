@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>الإدارة | جنود الهدى</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f4f7f5;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+.logo{
+    font-size:45px;
+}
+
+header h1{
+    font-size:27px;
+    margin-top:5px;
+}
+
+header p{
+    margin-top:6px;
+    font-size:14px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px 14px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+h2{
+    color:#075e54;
+    margin-bottom:18px;
+    text-align:center;
+}
+
+.login-card{
+    max-width:500px;
+    margin:30px auto;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    font-size:16px;
+    margin-bottom:12px;
+    outline:none;
+}
+
+button{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary{
+    background:#075e54;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
+.success{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.dashboard{
+    display:none;
+}
+
+.section{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.section h3{
+    color:#075e54;
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.loading{
+    text-align:center;
+    color:#777;
+    padding:20px;
+}
+
+.item{
+    background:#f8faf9;
+    border-right:4px solid #0b806f;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:10px;
+    line-height:2;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:20px;
+    background:#fafafa;
+    border-radius:10px;
+}
+
+footer{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px;
+    line-height:2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🕌</div>
+
+<h1>جنود الهدى</h1>
+
+<p>لوحة الإدارة</p>
+
+</header>
+
+<div class="container">
+
+<div id="loginCard" class="card login-card">
+
+<h2>🔐 دخول الإدارة</h2>
+
+<div id="loginMessage"
+class="message error">
+</div>
+
+<input
+id="email"
+type="email"
+placeholder="البريد الإلكتروني"
+autocomplete="email">
+
+<input
+id="password"
+type="password"
+placeholder="كلمة المرور"
+autocomplete="current-password">
+
+<button
+id="loginButton"
+class="primary">
+
+🔐 دخول الإدارة
+
+</button>
+
+</div>
+
+<div id="dashboard"
+class="dashboard">
+
+<div id="dashboardMessage"
+class="message">
+</div>
+
+<div class="card">
+
+<h2>👨‍💼 لوحة الإدارة</h2>
+
+<p style="text-align:center;color:#666;line-height:2">
+
+مرحبًا بك في إدارة أكاديمية جنود الهدى
+
+</p>
+
+<button
+id="logoutButton"
+class="danger">
+
+🚪 تسجيل الخروج
+
+</button>
+
+</div>
+<div class="section">
+
+    <h3>📊 الإحصائيات</h3>
+
+    <div class="item">
+        👨‍🎓 عدد الطلاب:
+        <strong id="studentsCount">0</strong>
+    </div>
+
+    <div class="item">
+        📝 عدد طلبات التسجيل:
+        <strong id="requestsCount">0</strong>
+    </div>
+
+    <div class="item">
+        👨‍🏫 عدد المدرسين:
+        <strong id="teachersCount">0</strong>
+    </div>
+
+</div>
+
+
+<div class="section">
+
+    <h3>👨‍🎓 الطلاب</h3>
+
+    <div id="studentsList" class="loading">
+        ⏳ جاري تحميل الطلاب...
+    </div>
+
+</div>
+
+
+<div class="section">
+
+    <h3>📝 طلبات التسجيل</h3>
+
+    <div id="requestsList" class="loading">
+        ⏳ جاري تحميل طلبات التسجيل...
+    </div>
+
+</div>
+
+
+<div class="section">
+
+    <h3>👨‍🏫 المدرسون</h3>
+
+    <div id="teachersList" class="loading">
+        ⏳ جاري تحميل المدرسين...
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+<footer>
+
+جنود الهدى © 2026
+
+<br>
+
+أكاديمية القرآن الكريم
+
+</footer>
+<script type="module">
+
+import {
+    auth,
+    db
+} from "./firebase.js";
+
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const ADMIN_EMAIL = "yuo123@gmail.com";
+
+
+const loginCard =
+document.getElementById("loginCard");
+
+const dashboard =
+document.getElementById("dashboard");
+
+const emailInput =
+document.getElementById("email");
+
+const passwordInput =
+document.getElementById("password");
+
+const loginButton =
+document.getElementById("loginButton");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const logoutButton =
+document.getElementById("logoutButton");
+
+const studentsList =
+document.getElementById("studentsList");
+
+const requestsList =
+document.getElementById("requestsList");
+
+const teachersList =
+document.getElementById("teachersList");
+
+const studentsCount =
+document.getElementById("studentsCount");
+
+const requestsCount =
+document.getElementById("requestsCount");
+
+const teachersCount =
+document.getElementById("teachersCount");
+
+
+function showLogin(){
+
+    loginCard.style.display = "block";
+
+    dashboard.style.display = "none";
+
+}
+
+
+function showDashboard(){
+
+    loginCard.style.display = "none";
+
+    dashboard.style.display = "block";
+
+}
+
+
+function showError(message){
+
+    loginMessage.textContent = message;
+
+    loginMessage.style.display =
+    message ? "block" : "none";
+
+}
+
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        if(!user){
+
+            showLogin();
+
+            return;
+
+        }
+
+
+        if(user.email !== ADMIN_EMAIL){
+
+            await signOut(auth);
+
+            showLogin();
+
+            showError(
+                "⛔ هذا الحساب ليس حساب الإدارة."
+            );
+
+            return;
+
+        }
+
+
+        showDashboard();
+
+        await loadAll();
+
+    }
+);
+
+
+loginButton.addEventListener(
+    "click",
+    async function(){
+
+        const email =
+        emailInput.value.trim();
+
+        const password =
+        passwordInput.value;
+
+
+        if(!email){
+
+            showError(
+                "⚠️ اكتب البريد الإلكتروني."
+            );
+
+            return;
+
+        }
+
+
+        if(!password){
+
+            showError(
+                "⚠️ اكتب كلمة المرور."
+            );
+
+            return;
+
+        }
+
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+        "⏳ جاري الدخول...";
+
+
+        try{
+
+            const result =
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            if(result.user.email !== ADMIN_EMAIL){
+
+                await signOut(auth);
+
+                showError(
+                    "⛔ هذا الحساب ليس حساب الإدارة."
+                );
+
+                return;
+
+            }
+
+
+            showError("");
+
+        }catch(error){
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+            showError(
+                "❌ تعذر تسجيل الدخول: " +
+                error.message
+            );
+
+        }finally{
+
+            loginButton.disabled = false;
+
+            loginButton.textContent =
+            "🔐 دخول الإدارة";
+
+        }
+
+    }
+);
+
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        await signOut(auth);
+
+    }
+);
+
+
+async function loadAll(){
+
+    await loadStudents();
+
+    await loadRequests();
+
+    await loadTeachers();
+
+}
+
+
+async function loadStudents(){
+
+    studentsList.innerHTML =
+    "⏳ جاري تحميل الطلاب...";
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "students"
+            )
+        );
+
+
+        studentsCount.textContent =
+        result.size;
+
+
+        if(result.empty){
+
+            studentsList.innerHTML =
+            `<div class="empty">
+                لا يوجد طلاب حاليًا.
+            </div>`;
+
+            return;
+
+        }
+
+
+        studentsList.innerHTML = "";
+
+
+        result.forEach(
+            function(item){
+
+                const student =
+                item.data();
+
+
+                const div =
+                document.createElement("div");
+
+
+                div.className =
+                "item";
+
+
+                div.innerHTML = `
+                    👤 <strong>
+                    ${safe(student.name || "بدون اسم")}
+                    </strong>
+
+                    <br>
+
+                    📱 الهاتف:
+                    ${safe(student.phone || "-")}
+
+                    <br>
+
+                    🔐 الكود:
+                    ${safe(student.code || "-")}
+
+                    <br>
+
+                    👨‍🏫 المدرس:
+                    ${safe(student.teacher || "-")}
+
+                    <br>
+
+                    📚 المستوى:
+                    ${safe(student.level || "-")}
+
+                    <br>
+
+                    الحالة:
+                    ${
+                        student.active === false
+                        ? "🔴 غير نشط"
+                        : "🟢 نشط"
+                    }
+                `;
+
+
+                studentsList.appendChild(div);
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Students error:",
+            error
+        );
+
+
+        studentsList.innerHTML =
+        `<div class="empty">
+            ❌ تعذر تحميل الطلاب.
+            <br><br>
+            ${safe(error.message)}
+        </div>`;
+
+    }
+
+}
+
+
+async function loadRequests(){
+
+    requestsList.innerHTML =
+    "⏳ جاري تحميل طلبات التسجيل...";
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "bookingRequests"
+            )
+        );
+
+
+        requestsCount.textContent =
+        result.size;
+
+
+        if(result.empty){
+
+            requestsList.innerHTML =
+            `<div class="empty">
+                لا توجد طلبات تسجيل.
+            </div>`;
+
+            return;
+
+        }
+
+
+        requestsList.innerHTML = "";
+
+
+        result.forEach(
+            function(item){
+
+                const request =
+                item.data();
+
+
+                const div =
+                document.createElement("div");
+
+
+                div.className =
+                "item";
+
+
+                div.innerHTML = `
+                    👤 <strong>
+                    ${safe(request.name || "بدون اسم")}
+                    </strong>
+
+                    <br>
+
+                    📱 الهاتف:
+                    ${safe(request.phone || "-")}
+
+                    <br>
+
+                    🎂 العمر:
+                    ${safe(request.age || "-")}
+
+                    <br>
+
+                    📊 الحالة:
+                    ${safe(request.status || "بانتظار المراجعة")}
+                `;
+
+
+                requestsList.appendChild(div);
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Requests error:",
+            error
+        );
+
+
+        requestsList.innerHTML =
+        `<div class="empty">
+            ❌ تعذر تحميل الطلبات.
+            <br><br>
+            ${safe(error.message)}
+        </div>`;
+
+    }
+
+}
+
+
+async function loadTeachers(){
+
+    teachersList.innerHTML =
+    "⏳ جاري تحميل المدرسين...";
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "teachers"
+            )
+        );
+
+
+        teachersCount.textContent =
+        result.size;
+
+
+        if(result.empty){
+
+            teachersList.innerHTML =
+            `<div class="empty">
+                لا يوجد مدرسون حاليًا.
+            </div>`;
+
+            return;
+
+        }
+
+
+        teachersList.innerHTML = "";
+
+
+        result.forEach(
+            function(item){
+
+                const teacher =
+                item.data();
+
+
+                const div =
+                document.createElement("div");
+
+
+                div.className =
+                "item";
+
+
+                div.innerHTML = `
+                    👨‍🏫 <strong>
+                    ${safe(teacher.name || "بدون اسم")}
+                    </strong>
+
+                    <br>
+
+                    📱 الهاتف:
+                    ${safe(teacher.phone || "-")}
+
+                    <br>
+
+                    🔐 الكود:
+                    ${safe(teacher.code || "-")}
+
+                    <br>
+
+                    الحالة:
+                    ${
+                        teacher.active === false
+                        ? "🔴 غير نشط"
+                        : "🟢 نشط"
+                    }
+                `;
+
+
+                teachersList.appendChild(div);
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Teachers error:",
+            error
+        );
+
+
+        teachersList.innerHTML =
+        `<div class="empty">
+            ❌ تعذر تحميل المدرسين.
+            <br><br>
+            ${safe(error.message)}
+        </div>`;
+
+    }
+
+}
+
+
+function safe(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+console.log(
+    "✅ admin.html يعمل بنجاح"
+);
+
+</script>
+
+</body>
+
+</html>
