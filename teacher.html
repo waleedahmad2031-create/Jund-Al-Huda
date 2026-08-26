@@ -247,7 +247,6 @@ footer{
 
 <body>
 
-
 <header>
 
 <div class="logo">
@@ -280,12 +279,10 @@ class="card login-card">
     👨‍🏫 دخول المدرس
 </h2>
 
-
 <div
 id="loginMessage"
 class="message error">
 </div>
-
 
 <input
 id="teacherCodeInput"
@@ -293,7 +290,6 @@ type="text"
 inputmode="numeric"
 maxlength="6"
 placeholder="أدخل كود المدرس">
-
 
 <button
 id="loginButton"
@@ -329,7 +325,6 @@ class="message">
     👨‍🏫 بيانات المدرس
 </h2>
 
-
 <div class="teacher-info">
 
 <div
@@ -339,7 +334,6 @@ class="teacher-name">
 -
 
 </div>
-
 
 <div class="teacher-code">
 
@@ -355,7 +349,6 @@ id="teacherCode">
 </div>
 
 </div>
-
 
 <button
 id="logoutButton"
@@ -378,7 +371,6 @@ style="margin-top:15px;">
 🎓 طلابي وحصصي
 
 </div>
-
 
 <div
 id="studentsList"
@@ -405,7 +397,10 @@ class="loading">
 أكاديمية القرآن الكريم
 
 </footer>
+
+
 <script type="module">
+
 
 /* =========================
    Firebase
@@ -413,7 +408,8 @@ class="loading">
 
 import {
     db
-} from "./firebase.js";
+}
+from "./firebase.js";
 
 
 import {
@@ -421,7 +417,8 @@ import {
     getDocs,
     query,
     where
-} from
+}
+from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
@@ -675,12 +672,19 @@ async function openTeacherPage(){
 
 }
 
-    async function loadTeacherStudents(){
+
+/* =========================
+   تحميل طلاب وحصص المدرس
+========================= */
+
+async function loadTeacherStudents(){
 
     studentsList.innerHTML = `
 
         <div class="loading">
+
             ⏳ جاري تحميل الطلاب والحصص...
+
         </div>
 
     `;
@@ -714,7 +718,7 @@ async function openTeacherPage(){
 
 
         /* =========================
-           تحميل جميع الحصص
+           تحميل الحصص
         ========================= */
 
         const lessonsResult =
@@ -738,13 +742,21 @@ async function openTeacherPage(){
                 item.data();
 
 
-                /*
-                   ربط الحصة باسم المدرس
-                */
+                const lessonTeacherId =
+                String(
+                    lesson.teacherId || ""
+                ).trim();
 
-                const lessonTeacher =
+
+                const lessonTeacherName =
                 String(
                     lesson.teacherName || ""
+                ).trim();
+
+
+                const currentTeacherId =
+                String(
+                    currentTeacher.id || ""
                 ).trim();
 
 
@@ -754,9 +766,30 @@ async function openTeacherPage(){
                 ).trim();
 
 
+                /*
+                الربط الأساسي:
+                teacherId
+
+                الربط الاحتياطي:
+                teacherName
+                */
+
+                const isSameTeacher =
+                    (
+                        lessonTeacherId &&
+                        lessonTeacherId ===
+                        currentTeacherId
+                    )
+                    ||
+                    (
+                        !lessonTeacherId &&
+                        lessonTeacherName ===
+                        currentTeacherName
+                    );
+
+
                 if(
-                    lessonTeacher ===
-                    currentTeacherName
+                    isSameTeacher
                     &&
                     lesson.status !==
                     "cancelled"
@@ -778,7 +811,7 @@ async function openTeacherPage(){
 
 
         /* =========================
-           إذا لا يوجد شيء
+           إذا لا يوجد طلاب ولا حصص
         ========================= */
 
         if(
@@ -801,7 +834,8 @@ async function openTeacherPage(){
         }
 
 
-        studentsList.innerHTML = "";
+        studentsList.innerHTML =
+        "";
 
 
         /* =========================
@@ -827,11 +861,42 @@ async function openTeacherPage(){
 
                 /*
                    البحث عن حصص الطالب
+                   باستخدام studentId أولًا
                 */
 
                 const studentLessons =
                 lessons.filter(
                     function(lesson){
+
+                        const lessonStudentId =
+                        String(
+                            lesson.studentId || ""
+                        ).trim();
+
+
+                        const currentStudentId =
+                        String(
+                            item.id || ""
+                        ).trim();
+
+
+                        if(
+                            lessonStudentId &&
+                            currentStudentId
+                        ){
+
+                            return (
+                                lessonStudentId ===
+                                currentStudentId
+                            );
+
+                        }
+
+
+                        /*
+                        احتياط إذا الحصة القديمة
+                        لا تحتوي studentId
+                        */
 
                         return String(
                             lesson.studentName || ""
@@ -845,7 +910,8 @@ async function openTeacherPage(){
                 );
 
 
-                let lessonsHTML = "";
+                let lessonsHTML =
+                "";
 
 
                 if(
@@ -1039,8 +1105,8 @@ async function openTeacherPage(){
 
 
         /* =========================
-           عرض الحصص التي لم ترتبط
-           بطالب داخل students
+           الحصص التي لا ترتبط
+           بطالب موجود
         ========================= */
 
         const displayedLessonIds =
@@ -1057,14 +1123,39 @@ async function openTeacherPage(){
                 lessons.forEach(
                     function(lesson){
 
+                        const lessonStudentId =
+                        String(
+                            lesson.studentId || ""
+                        ).trim();
+
+
+                        const studentId =
+                        String(
+                            item.id || ""
+                        ).trim();
+
+
+                        const sameStudent =
+                            (
+                                lessonStudentId &&
+                                lessonStudentId ===
+                                studentId
+                            )
+                            ||
+                            (
+                                !lessonStudentId &&
+                                String(
+                                    lesson.studentName || ""
+                                ).trim()
+                                ===
+                                String(
+                                    student.name || ""
+                                ).trim()
+                            );
+
+
                         if(
-                            String(
-                                lesson.studentName || ""
-                            ).trim()
-                            ===
-                            String(
-                                student.name || ""
-                            ).trim()
+                            sameStudent
                         ){
 
                             displayedLessonIds.add(
@@ -1180,7 +1271,6 @@ async function openTeacherPage(){
 
                         </strong>
 
-
                         <div class="lesson">
 
                             <div class="lesson-title">
@@ -1188,7 +1278,6 @@ async function openTeacherPage(){
                                 📖 الحصة المجدولة
 
                             </div>
-
 
                             📚 المادة:
 
@@ -1199,9 +1288,7 @@ async function openTeacherPage(){
                                 )
                             }
 
-
                             <br>
-
 
                             📅 التاريخ:
 
@@ -1212,9 +1299,7 @@ async function openTeacherPage(){
                                 )
                             }
 
-
                             <br>
-
 
                             🕐 الوقت:
 
@@ -1225,9 +1310,7 @@ async function openTeacherPage(){
                                 )
                             }
 
-
                             <br>
-
 
                             📊 الحالة:
 
@@ -1246,7 +1329,6 @@ async function openTeacherPage(){
                                     "-"
                                 )
                             }
-
 
                             ${
                                 meetingButton
@@ -1296,9 +1378,9 @@ async function openTeacherPage(){
 
     }
 
-    }
+}
 
-        
+
 /* =========================
    تسجيل الخروج
 ========================= */
@@ -1346,7 +1428,7 @@ logoutButton.addEventListener(
 
 
 /* =========================
-   استعادة الجلسة السابقة
+   استعادة الجلسة
 ========================= */
 
 async function restoreTeacher(){
@@ -1556,8 +1638,9 @@ console.log(
 
 restoreTeacher();
 
+
 </script>
 
 </body>
 
-</html>
+    </html>
