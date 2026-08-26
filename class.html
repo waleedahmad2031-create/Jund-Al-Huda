@@ -259,7 +259,6 @@ footer{
 
 <body>
 
-
 <header>
 
     <div class="logo">
@@ -276,9 +275,7 @@ footer{
 
 </header>
 
-
 <div class="container">
-
 
 <div class="lesson-info">
 
@@ -287,20 +284,18 @@ footer{
     </h2>
 
     <p id="roleText">
-        جاري تجهيز الحصة...
+        جاري التحقق من الحصة...
     </p>
 
 </div>
-
 
 <div
     id="statusBox"
     class="status">
 
-    ⏳ جاري تجهيز الحصة...
+    ⏳ جاري التحقق من صلاحية الدخول...
 
 </div>
-
 
 <div class="meet-card">
 
@@ -313,39 +308,36 @@ footer{
     </h2>
 
     <p>
-        اضغط على الزر للدخول إلى الحصة.
-        <br>
-        المدرس والطالب يدخلان من نفس الرابط.
+        سيتم إظهار رابط الحصة بعد التأكد
+        من أن الحصة مخصصة لك.
     </p>
-
 
     <div
         id="meetLink"
         class="meet-link">
 
-        جاري تحميل رابط الحصة...
+        🔒 جاري التحقق...
 
     </div>
-
 
     <a
         id="meetButton"
         class="meet-button"
-        href="https://meet.google.com/usr-jfhn-hxs">
+        href="#"
+        style="display:none;">
 
         🎥 دخول الحصة الآن
 
     </a>
 
-
     <button
         id="copyButton"
-        class="copy-button">
+        class="copy-button"
+        style="display:none;">
 
         📋 نسخ رابط الحصة
 
     </button>
-
 
     <div
         id="copyMessage"
@@ -360,7 +352,6 @@ footer{
     </div>
 
 </div>
-
 
 <div class="role-card">
 
@@ -377,7 +368,6 @@ footer{
     </div>
 
 </div>
-
 
 <div class="instructions">
 
@@ -398,7 +388,7 @@ footer{
     </div>
 
     <div>
-        4️⃣ المدرس والطالب يدخلان من نفس رابط الحصة.
+        4️⃣ لا يظهر رابط الحصة إلا للطالب المخصص له.
     </div>
 
     <div>
@@ -406,7 +396,6 @@ footer{
     </div>
 
 </div>
-
 
 <div class="controls">
 
@@ -418,7 +407,6 @@ footer{
 
     </button>
 
-
     <button
         id="clearButton"
         class="control-btn danger">
@@ -429,9 +417,7 @@ footer{
 
 </div>
 
-
 </div>
-
 
 <footer>
 
@@ -447,16 +433,23 @@ footer{
 
 </footer>
 
-
-<script>
-
+<script type="module">
 
 /* =========================================
-   رابط Google Meet الصحيح
+   Firebase
 ========================================= */
 
-const DEFAULT_MEETING_URL =
-"https://meet.google.com/usr-jfhn-hxs";
+import {
+    db
+} from "./firebase.js";
+
+import {
+    collection,
+    getDocs,
+    query,
+    where
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 /* =========================================
@@ -528,58 +521,56 @@ params.get("role");
 
 
 /* =========================================
-   تحديد رابط الحصة
+   متغيرات الحصة
 ========================================= */
 
-let meetingUrl =
-DEFAULT_MEETING_URL;
+let meetingUrl = "";
+
+let currentStudent = null;
+
+let currentLesson = null;
 
 
-/*
-إذا كانت هناك جلسة طالب
-وفيها رابط صحيح، نستخدمه.
-*/
+/* =========================================
+   حماية النص
+========================================= */
 
-try{
+function escapeHtml(value){
 
-    const studentSession =
-    localStorage.getItem(
-        "studentSession"
-    );
+    return String(
+        value ?? ""
+    )
 
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-    if(studentSession){
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-        const student =
-        JSON.parse(
-            studentSession
-        );
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-        if(
-            student &&
-            typeof student.meetingUrl === "string" &&
-            student.meetingUrl.trim()
-        ){
-
-            meetingUrl =
-            student.meetingUrl.trim();
-
-        }
-
-    }
-
-}catch(error){
-
-    console.log(
-        "لا توجد جلسة طالب محفوظة."
+    .replace(
+        /'/g,
+        "&#039;"
     );
 
 }
 
 
 /* =========================================
-   إصلاح الرابط
+   إصلاح رابط Meet
 ========================================= */
 
 function fixMeetingUrl(url){
@@ -592,7 +583,7 @@ function fixMeetingUrl(url){
 
     if(!url){
 
-        return DEFAULT_MEETING_URL;
+        return "";
 
     }
 
@@ -612,114 +603,28 @@ function fixMeetingUrl(url){
 }
 
 
-meetingUrl =
-fixMeetingUrl(
-    meetingUrl
-);
-
-
 /* =========================================
-   عرض الرابط
+   تغيير حالة الصفحة
 ========================================= */
 
-meetLink.textContent =
-meetingUrl;
-
-
-meetButton.href =
-meetingUrl;
-
-
-/* =========================================
-   تحديد الدور
-========================================= */
-
-if(role === "teacher"){
-
-    lessonTitle.textContent =
-    "📖 حصة القرآن الكريم";
-
-
-    roleText.textContent =
-    "👨‍🏫 أنت داخل الحصة كمدرس.";
-
-
-    userData.innerHTML =
-    "👨‍🏫 الدور: المدرس<br>" +
-    "🎥 اضغط على زر دخول الحصة للانضمام إلى Google Meet.";
-
+function setStatus(
+    text,
+    type = ""
+){
 
     statusBox.textContent =
-    "🟢 الحصة جاهزة للدخول.";
+    text;
 
 
     statusBox.className =
-    "status connected";
-
-}
-else{
-
-    lessonTitle.textContent =
-    "📖 حصة القرآن الكريم";
+    "status";
 
 
-    roleText.textContent =
-    "🎓 أنت داخل الحصة كطالب.";
+    if(type){
 
-
-    statusBox.textContent =
-    "🟢 الحصة جاهزة للدخول.";
-
-
-    statusBox.className =
-    "status connected";
-
-
-    try{
-
-        const studentSession =
-        localStorage.getItem(
-            "studentSession"
+        statusBox.classList.add(
+            type
         );
-
-
-        if(studentSession){
-
-            const student =
-            JSON.parse(
-                studentSession
-            );
-
-
-            userData.innerHTML =
-            "🎓 الطالب: " +
-            escapeHtml(
-                student.name || "-"
-            )
-            +
-            "<br>" +
-            "👨‍🏫 المدرس: " +
-            escapeHtml(
-                student.teacher || "-"
-            )
-            +
-            "<br>" +
-            "📚 الحصة: القرآن الكريم";
-
-        }
-        else{
-
-            userData.innerHTML =
-            "🎓 الدور: الطالب<br>" +
-            "📚 الحصة: القرآن الكريم";
-
-        }
-
-    }catch(error){
-
-        userData.innerHTML =
-        "🎓 الدور: الطالب<br>" +
-        "📚 الحصة: القرآن الكريم";
 
     }
 
@@ -727,13 +632,948 @@ else{
 
 
 /* =========================================
+   إخفاء رابط Meet
+========================================= */
+
+function hideMeeting(){
+
+    meetingUrl = "";
+
+    meetLink.textContent =
+    "🔒 لا يوجد رابط متاح لك.";
+
+    meetButton.style.display =
+    "none";
+
+    copyButton.style.display =
+    "none";
+
+}
+
+
+/* =========================================
+   عرض رابط Meet بعد التحقق
+========================================= */
+
+function showMeeting(url){
+
+    meetingUrl =
+    fixMeetingUrl(
+        url
+    );
+
+
+    if(!meetingUrl){
+
+        hideMeeting();
+
+        return;
+
+    }
+
+
+    meetLink.textContent =
+    meetingUrl;
+
+
+    meetButton.href =
+    meetingUrl;
+
+
+    meetButton.style.display =
+    "block";
+
+
+    copyButton.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   الحصول على الطالب المحفوظ
+========================================= */
+
+function getSavedStudent(){
+
+    try{
+
+        /*
+        online.html الحالي يستخدم
+        jund_alhuda_student
+        */
+
+        let saved =
+        localStorage.getItem(
+            "jund_alhuda_student"
+        );
+
+
+        /*
+        دعم الاسم القديم أيضًا
+        */
+
+        if(!saved){
+
+            saved =
+            localStorage.getItem(
+                "studentSession"
+            );
+
+        }
+
+
+        if(!saved){
+
+            return null;
+
+        }
+
+
+        const student =
+        JSON.parse(
+            saved
+        );
+
+
+        if(
+            !student ||
+            !student.id
+        ){
+
+            return null;
+
+        }
+
+
+        return student;
+
+    }catch(error){
+
+        console.error(
+            "Student session error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================
+   التحقق من الطالب في Firebase
+========================================= */
+
+async function verifyStudent(){
+
+    const savedStudent =
+    getSavedStudent();
+
+
+    if(!savedStudent){
+
+        return null;
+
+    }
+
+
+    try{
+
+        /*
+        نتحقق بالكود الموجود
+        في الجلسة المحفوظة.
+        */
+
+        const code =
+        String(
+            savedStudent.code || ""
+        );
+
+
+        if(!code){
+
+            return null;
+
+        }
+
+
+        const studentsQuery =
+        query(
+
+            collection(
+                db,
+                "students"
+            ),
+
+            where(
+                "code",
+                "==",
+                code
+            )
+
+        );
+
+
+        const result =
+        await getDocs(
+            studentsQuery
+        );
+
+
+        if(result.empty){
+
+            return null;
+
+        }
+
+
+        const studentDoc =
+        result.docs[0];
+
+
+        const student =
+        studentDoc.data();
+
+
+        if(
+            student.active === false
+        ){
+
+            return null;
+
+        }
+
+
+        /*
+        نعيد الطالب من Firebase
+        وليس من localStorage.
+        */
+
+        return {
+
+            id:
+            studentDoc.id,
+
+            ...student
+
+        };
+
+    }catch(error){
+
+        console.error(
+            "Verify student error:",
+            error
+        );
+
+        throw error;
+
+    }
+
+}
+
+
+/* =========================================
+   البحث عن حصة الطالب
+========================================= */
+
+async function findStudentLesson(
+    studentId
+){
+
+    /*
+    إذا كان الرابط يحتوي lessonId
+    نستخدمه كأولوية.
+    */
+
+    const lessonId =
+    params.get(
+        "lessonId"
+    );
+
+
+    const result =
+    await getDocs(
+        query(
+
+            collection(
+                db,
+                "liveSessions"
+            ),
+
+            where(
+                "studentId",
+                "==",
+                studentId
+            )
+
+        )
+    );
+
+
+    if(result.empty){
+
+        return null;
+
+    }
+
+
+    const lessons = [];
+
+
+    result.forEach(
+        function(doc){
+
+            const data =
+            doc.data();
+
+
+            /*
+            حماية إضافية مهمة جدًا
+            */
+
+            if(
+                String(
+                    data.studentId || ""
+                )
+                !==
+                String(
+                    studentId
+                )
+            ){
+
+                return;
+
+            }
+
+
+            lessons.push({
+
+                id:
+                doc.id,
+
+                ...data
+
+            });
+
+        }
+    );
+
+
+    if(!lessons.length){
+
+        return null;
+
+    }
+
+
+    /*
+    إذا تم تحديد حصة معينة
+    نبحث عنها فقط.
+    */
+
+    if(lessonId){
+
+        const selected =
+        lessons.find(
+            function(item){
+
+                return String(
+                    item.id
+                )
+                ===
+                String(
+                    lessonId
+                );
+
+            }
+        );
+
+
+        if(selected){
+
+            return selected;
+
+        }
+
+
+        return null;
+
+    }
+
+
+    /*
+    ترتيب الحصص
+    */
+
+    lessons.sort(
+        function(a,b){
+
+            const aDate =
+            String(
+                a.lessonDate || ""
+            ) +
+            " " +
+            String(
+                a.startTime || ""
+            );
+
+
+            const bDate =
+            String(
+                b.lessonDate || ""
+            ) +
+            " " +
+            String(
+                b.startTime || ""
+            );
+
+
+            return aDate.localeCompare(
+                bDate
+            );
+
+        }
+    );
+
+
+    /*
+    نختار الحصة الحالية
+    */
+
+    const now =
+    new Date();
+
+
+    const current =
+    lessons.find(
+        function(lesson){
+
+            if(
+                !lesson.lessonDate ||
+                !lesson.startTime ||
+                !lesson.endTime
+            ){
+
+                return false;
+
+            }
+
+
+            const start =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.startTime
+            );
+
+
+            const end =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.endTime
+            );
+
+
+            return now >= start &&
+                   now <= end;
+
+        }
+    );
+
+
+    if(current){
+
+        return current;
+
+    }
+
+
+    /*
+    إذا لا توجد حصة حالية
+    نأخذ أقرب حصة قادمة.
+    */
+
+    const upcoming =
+    lessons.find(
+        function(lesson){
+
+            if(
+                !lesson.lessonDate ||
+                !lesson.startTime
+            ){
+
+                return false;
+
+            }
+
+
+            const start =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.startTime
+            );
+
+
+            return start >= now;
+
+        }
+    );
+
+
+    return upcoming || lessons[0];
+
+}
+
+
+/* =========================================
+   تشغيل الطالب
+========================================= */
+
+async function loadStudent(){
+
+    setStatus(
+        "⏳ جاري التحقق من بيانات الطالب..."
+    );
+
+
+    currentStudent =
+    await verifyStudent();
+
+
+    if(!currentStudent){
+
+        hideMeeting();
+
+
+        roleText.textContent =
+        "⚠️ لم يتم التحقق من الطالب.";
+
+
+        userData.innerHTML =
+        "❌ لا توجد جلسة طالب صحيحة.<br>" +
+        "ارجع إلى صفحة دخول الطالب وسجل الدخول من جديد.";
+
+
+        setStatus(
+            "❌ لا يمكن فتح الحصة بدون تسجيل دخول صحيح.",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    عرض بيانات الطالب
+    */
+
+    userData.innerHTML =
+
+    "🎓 الطالب: " +
+    escapeHtml(
+        currentStudent.name ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "👨‍🏫 المدرس: " +
+    escapeHtml(
+        currentStudent.teacher ||
+        "لم يتم تحديده"
+    )
+    +
+    "<br>" +
+
+    "📚 الحصة: القرآن الكريم";
+
+
+    roleText.textContent =
+    "🎓 أنت داخل الحصة كطالب.";
+
+
+    /*
+    البحث عن حصته فقط
+    */
+
+    const lesson =
+    await findStudentLesson(
+        currentStudent.id
+    );
+
+
+    if(!lesson){
+
+        hideMeeting();
+
+
+        lessonTitle.textContent =
+        "📚 لا توجد حصة";
+
+
+        roleText.textContent =
+        "لا توجد حصة مخصصة لك حاليًا.";
+
+
+        setStatus(
+            "📚 ليس لديك حصة حاليًا.",
+            "error"
+        );
+
+
+        meetLink.textContent =
+        "❌ لا توجد حصة مخصصة لك.";
+
+
+        return;
+
+    }
+
+
+    /*
+    حماية نهائية:
+    الحصة يجب أن تكون للطالب نفسه
+    */
+
+    if(
+        String(
+            lesson.studentId || ""
+        )
+        !==
+        String(
+            currentStudent.id
+        )
+    ){
+
+        hideMeeting();
+
+
+        setStatus(
+            "❌ هذه الحصة ليست مخصصة لك.",
+            "error"
+        );
+
+
+        meetLink.textContent =
+        "🔒 لا يمكنك الدخول إلى هذه الحصة.";
+
+
+        return;
+
+    }
+
+
+    currentLesson =
+    lesson;
+
+
+    lessonTitle.textContent =
+    "📖 " +
+    escapeHtml(
+        lesson.subject ||
+        "حصة القرآن الكريم"
+    );
+
+
+    /*
+    عرض اسم الطالب الحقيقي
+    */
+
+    userData.innerHTML =
+
+    "🎓 الطالب: " +
+    escapeHtml(
+        currentStudent.name ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "👨‍🏫 المدرس: " +
+    escapeHtml(
+        lesson.teacherName ||
+        currentStudent.teacher ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "📅 التاريخ: " +
+    escapeHtml(
+        lesson.lessonDate ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "⏰ الوقت: " +
+    escapeHtml(
+        lesson.startTime ||
+        "-"
+    )
+    +
+    " - " +
+    escapeHtml(
+        lesson.endTime ||
+        "-"
+    );
+
+
+    /*
+    التحقق من رابط الحصة
+    */
+
+    const url =
+    fixMeetingUrl(
+        lesson.meetingUrl
+    );
+
+
+    if(!url){
+
+        hideMeeting();
+
+
+        setStatus(
+            "⚠️ الحصة موجودة ولكن لم يتم إضافة رابط Google Meet.",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    الحصة ملغاة
+    */
+
+    if(
+        lesson.status ===
+        "cancelled"
+    ){
+
+        hideMeeting();
+
+
+        setStatus(
+            "🔴 هذه الحصة ملغاة.",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    التحقق من الوقت
+    */
+
+    const now =
+    new Date();
+
+
+    let lessonStart =
+    null;
+
+    let lessonEnd =
+    null;
+
+
+    if(
+        lesson.lessonDate &&
+        lesson.startTime
+    ){
+
+        lessonStart =
+        new Date(
+            lesson.lessonDate +
+            "T" +
+            lesson.startTime
+        );
+
+    }
+
+
+    if(
+        lesson.lessonDate &&
+        lesson.endTime
+    ){
+
+        lessonEnd =
+        new Date(
+            lesson.lessonDate +
+            "T" +
+            lesson.endTime
+        );
+
+    }
+
+
+    const isNow =
+    lessonStart &&
+    lessonEnd &&
+    now >= lessonStart &&
+    now <= lessonEnd;
+
+
+    const finished =
+    lessonEnd &&
+    now > lessonEnd;
+
+
+    /*
+    الحصة انتهت
+    */
+
+    if(finished){
+
+        hideMeeting();
+
+
+        setStatus(
+            "⏰ انتهت هذه الحصة.",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    الحصة لم تبدأ
+    */
+
+    if(
+        lessonStart &&
+        now < lessonStart
+    ){
+
+        hideMeeting();
+
+
+        setStatus(
+            "⏳ الحصة لم تبدأ بعد.",
+            ""
+        );
+
+
+        meetLink.textContent =
+        "🔒 سيظهر رابط الحصة عند بدء الحصة.";
+
+
+        return;
+
+    }
+
+
+    /*
+    الحصة الحالية
+    */
+
+    if(isNow){
+
+        showMeeting(
+            url
+        );
+
+
+        setStatus(
+            "🟢 الحصة بدأت ويمكنك الدخول الآن.",
+            "connected"
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+    إذا لم نستطع تحديد الوقت
+    ولكن الحصة موجودة والرابط صحيح
+    */
+
+    showMeeting(
+        url
+    );
+
+
+    setStatus(
+        "🟢 الحصة جاهزة للدخول.",
+        "connected"
+    );
+
+}
+
+
+/* =========================================
+   المدرس
+========================================= */
+
+async function loadTeacher(){
+
+    roleText.textContent =
+    "👨‍🏫 أنت داخل الحصة كمدرس.";
+
+
+    userData.innerHTML =
+    "👨‍🏫 الدور: المدرس<br>" +
+    "🎥 سيتم استخدام رابط الحصة المخصص للمدرس.";
+
+
+    /*
+    المدرس فقط يمكنه استخدام
+    الرابط الافتراضي القديم.
+    الطالب لا يحصل عليه أبدًا.
+    */
+
+    const teacherMeetingUrl =
+    "https://meet.google.com/usr-jfhn-hxs";
+
+
+    showMeeting(
+        teacherMeetingUrl
+    );
+
+
+    statusBox.textContent =
+    "🟢 الحصة جاهزة للدخول.";
+
+
+    statusBox.className =
+    "status connected";
+
+}
+
+
+/* =========================================
    فتح Google Meet
-   مباشرة في المتصفح
 ========================================= */
 
 meetButton.addEventListener(
     "click",
-    function(){
+    function(event){
+
+        if(!meetingUrl){
+
+            event.preventDefault();
+
+            return;
+
+        }
+
 
         statusBox.textContent =
         "🟢 جاري فتح Google Meet...";
@@ -741,15 +1581,6 @@ meetButton.addEventListener(
 
         statusBox.className =
         "status connected";
-
-
-        /*
-        لا نستخدم window.open
-        حتى لا يمنع المتصفح فتح الرابط.
-        */
-
-        window.location.href =
-        meetingUrl;
 
     }
 );
@@ -762,6 +1593,13 @@ meetButton.addEventListener(
 copyButton.addEventListener(
     "click",
     async function(){
+
+        if(!meetingUrl){
+
+            return;
+
+        }
+
 
         try{
 
@@ -832,6 +1670,15 @@ clearButton.addEventListener(
         }
 
 
+        localStorage.removeItem(
+            "jund_alhuda_student"
+        );
+
+        localStorage.removeItem(
+            "studentSession"
+        );
+
+
         window.location.href =
         "index.html";
 
@@ -840,41 +1687,63 @@ clearButton.addEventListener(
 
 
 /* =========================================
-   حماية النص
+   تشغيل الصفحة
 ========================================= */
 
-function escapeHtml(value){
+async function startPage(){
 
-    return String(
-        value ?? ""
-    )
+    /*
+    مهم جدًا:
 
-    .replace(
-        /&/g,
-        "&amp;"
-    )
+    لا يوجد رابط Meet افتراضي للطالب.
+    */
 
-    .replace(
-        /</g,
-        "&lt;"
-    )
+    hideMeeting();
 
-    .replace(
-        />/g,
-        "&gt;"
-    )
 
-    .replace(
-        /"/g,
-        "&quot;"
-    )
+    if(role === "teacher"){
 
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+        await loadTeacher();
+
+        return;
+
+    }
+
+
+    try{
+
+        await loadStudent();
+
+    }catch(error){
+
+        console.error(
+            "Class page error:",
+            error
+        );
+
+
+        hideMeeting();
+
+
+        roleText.textContent =
+        "❌ حدث خطأ أثناء التحقق.";
+
+
+        userData.innerHTML =
+        "❌ تعذر التحقق من بيانات الطالب.";
+
+
+        setStatus(
+            "❌ تعذر تحميل الحصة. حاول مرة أخرى.",
+            "error"
+        );
+
+    }
 
 }
+
+
+startPage();
 
 
 console.log(
@@ -882,13 +1751,11 @@ console.log(
 );
 
 console.log(
-    "🎥 رابط Google Meet:",
-    meetingUrl
+    "🔒 حماية رابط الحصة مفعلة للطلاب"
 );
 
 </script>
 
-
 </body>
 
-    </html>
+</html>
