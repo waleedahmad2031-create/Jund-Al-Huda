@@ -279,6 +279,7 @@ class="primary">
 id="studentPage"
 class="student-page">
 
+
 <div class="card">
 
 <h2>
@@ -451,35 +452,38 @@ let currentStudent = null;
    إصلاح رابط Google Meet
 ========================= */
 
-function fixMeetUrl(url){
+function fixMeetingUrl(url){
 
-    if(!url){
+    let fixedUrl =
+    String(url || "").trim();
+
+
+    if(!fixedUrl){
 
         return "";
 
     }
 
 
-    url =
-    String(url).trim();
-
-
     /*
-    إذا كان الرابط مكتوبًا بدون
-    http أو https نضيف https
+    إذا الرابط لا يحتوي على
+    http:// أو https://
+    نضيف https:// تلقائيًا
     */
 
     if(
-        !/^https?:\/\//i.test(url)
+        !fixedUrl.startsWith("http://") &&
+        !fixedUrl.startsWith("https://")
     ){
 
-        url =
-        "https://" + url;
+        fixedUrl =
+        "https://" +
+        fixedUrl;
 
     }
 
 
-    return url;
+    return fixedUrl;
 
 }
 
@@ -720,7 +724,7 @@ async function loadStudentLessons(){
 
         /*
         إذا لم توجد نتائج
-        نبحث باسم الطالب.
+        نبحث باسم الطالب
         */
 
         if(result.empty){
@@ -809,30 +813,30 @@ async function loadStudentLessons(){
                 "-";
 
 
+                /* =========================
+                   إصلاح رابط Meet
+                ========================= */
+
+                const fixedMeetingUrl =
+                fixMeetingUrl(
+                    lesson.meetingUrl
+                );
+
+
                 let meetingButton =
                 "";
 
 
-                /* =========================
-                   إصلاح رابط الحصة
-                ========================= */
-
                 if(
-                    lesson.meetingUrl
+                    fixedMeetingUrl
                 ){
-
-                    const meetingUrl =
-                    fixMeetUrl(
-                        lesson.meetingUrl
-                    );
-
 
                     meetingButton = `
 
                         <a
                             class="online-button"
                             href="${safe(
-                                meetingUrl
+                                fixedMeetingUrl
                             )}"
                             target="_blank"
                             rel="noopener noreferrer">
@@ -1233,4 +1237,4 @@ restoreStudent();
 
 </body>
 
-</html>
+    </html>
