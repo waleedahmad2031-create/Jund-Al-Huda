@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>الحصة المباشرة | جنود الهدى</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f4f7f5;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+.logo{
+    font-size:45px;
+}
+
+header h1{
+    font-size:27px;
+    margin-top:5px;
+}
+
+header p{
+    margin-top:7px;
+    font-size:14px;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    padding:20px 14px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+h2{
+    color:#075e54;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    font-size:17px;
+    margin-bottom:12px;
+    text-align:center;
+    outline:none;
+}
+
+input:focus{
+    border-color:#075e54;
+}
+
+button{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:15px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.primary{
+    background:#075e54;
+    color:white;
+}
+
+.logout{
+    background:#dc3545;
+    color:white;
+    margin-top:12px;
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    text-align:center;
+    margin-bottom:15px;
+    line-height:1.9;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
+.success{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.info{
+    background:#eef7ff;
+    color:#075e54;
+}
+
+.dashboard{
+    display:none;
+}
+
+.student-name{
+    text-align:center;
+    color:#075e54;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.info-box{
+    background:#f8faf9;
+    border-radius:14px;
+    padding:17px;
+    margin-bottom:12px;
+    line-height:2;
+}
+
+.info-title{
+    color:#777;
+    font-size:13px;
+}
+
+.info-value{
+    color:#075e54;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.status-box{
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    margin-top:18px;
+    line-height:2;
+}
+
+.waiting{
+    background:#fff8df;
+    border:2px solid #c9a227;
+    color:#805f00;
+}
+
+.ready{
+    background:#e8f7f2;
+    border:2px solid #198754;
+    color:#075e54;
+}
+
+.finished{
+    background:#ffe8e8;
+    border:2px solid #dc3545;
+    color:#a00000;
+}
+
+.status-icon{
+    font-size:40px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.status-title{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.countdown{
+    font-size:27px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.join-button{
+    background:#198754;
+    color:white;
+    margin-top:15px;
+    font-size:18px;
+}
+
+.logout-box{
+    margin-top:18px;
+}
+
+footer{
+    margin-top:25px;
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px;
+    font-size:13px;
+    line-height:2;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    background:#fafafa;
+    padding:25px;
+    border-radius:11px;
+}
+
+@media(max-width:600px){
+
+    .container{
+        padding:15px 10px;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🕌</div>
+
+    <h1>
+        جنود الهدى
+    </h1>
+
+    <p>
+        الحصة المباشرة
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =========================
+     دخول الطالب
+========================= -->
+
+<div id="loginCard" class="card">
+
+    <h2>
+        🔐 دخول الطالب
+    </h2>
+
+    <div
+        id="loginMessage"
+        class="message error">
+    </div>
+
+    <input
+        id="studentCode"
+        type="tel"
+        inputmode="numeric"
+        maxlength="6"
+        placeholder="اكتب كود الطالب">
+
+    <button
+        id="loginButton"
+        class="primary">
+
+        دخول الحصة
+
+    </button>
+
+</div>
+
+
+<!-- =========================
+     لوحة الطالب
+========================= -->
+
+<div
+    id="dashboard"
+    class="dashboard">
+
+    <div
+        id="dashboardMessage"
+        class="message">
+    </div>
+
+
+    <div class="card">
+
+        <div
+            id="studentName"
+            class="student-name">
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-title">
+                👨‍🏫 المدرس
+            </div>
+
+            <div
+                id="teacherName"
+                class="info-value">
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-title">
+                🕐 موعد الحصة
+            </div>
+
+            <div
+                id="lessonTime"
+                class="info-value">
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-title">
+                ⏱️ مدة الحصة
+            </div>
+
+            <div
+                id="lessonDuration"
+                class="info-value">
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-title">
+                📖 الدرس
+            </div>
+
+            <div
+                id="lessonName"
+                class="info-value">
+            </div>
+
+        </div>
+
+
+        <div
+            id="statusBox"
+            class="status-box waiting">
+
+            <span
+                id="statusIcon"
+                class="status-icon">
+                ⏳
+            </span>
+
+            <div
+                id="statusTitle"
+                class="status-title">
+
+                جاري التحقق من موعد الحصة...
+
+            </div>
+
+            <div
+                id="countdown"
+                class="countdown">
+            </div>
+
+            <button
+                id="joinButton"
+                class="join-button"
+                style="display:none;">
+
+                🟢 دخول الحصة
+
+            </button>
+
+        </div>
+
+
+        <div class="logout-box">
+
+            <button
+                id="logoutButton"
+                class="logout">
+
+                🚪 خروج
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+    جنود الهدى © 2026
+
+    <br>
+
+    أكاديمية القرآن الكريم
+
+</footer>
+
+
+<script type="module">
+
+
+/* =========================================
+   Firebase
+========================================= */
+
+import {
+    db
+}
+from "./firebase.js";
+
+
+import {
+    collection,
+    getDocs,
+    query,
+    where
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   العناصر
+========================================= */
+
+const loginCard =
+document.getElementById(
+    "loginCard"
+);
+
+const dashboard =
+document.getElementById(
+    "dashboard"
+);
+
+const studentCodeInput =
+document.getElementById(
+    "studentCode"
+);
+
+const loginButton =
+document.getElementById(
+    "loginButton"
+);
+
+const loginMessage =
+document.getElementById(
+    "loginMessage"
+);
+
+const dashboardMessage =
+document.getElementById(
+    "dashboardMessage"
+);
+
+const studentName =
+document.getElementById(
+    "studentName"
+);
+
+const teacherName =
+document.getElementById(
+    "teacherName"
+);
+
+const lessonTime =
+document.getElementById(
+    "lessonTime"
+);
+
+const lessonDuration =
+document.getElementById(
+    "lessonDuration"
+);
+
+const lessonName =
+document.getElementById(
+    "lessonName"
+);
+
+const statusBox =
+document.getElementById(
+    "statusBox"
+);
+
+const statusIcon =
+document.getElementById(
+    "statusIcon"
+);
+
+const statusTitle =
+document.getElementById(
+    "statusTitle"
+);
+
+const countdown =
+document.getElementById(
+    "countdown"
+);
+
+const joinButton =
+document.getElementById(
+    "joinButton"
+);
+
+const logoutButton =
+document.getElementById(
+    "logoutButton"
+);
+
+
+/* =========================================
+   بيانات الطالب
+========================================= */
+
+let currentStudent = null;
+
+let timer = null;
+
+
+/* =========================================
+   دخول الطالب
+========================================= */
+
+loginButton.addEventListener(
+    "click",
+    async function(){
+
+        const code =
+        studentCodeInput.value
+        .trim();
+
+
+        if(!code){
+
+            showLoginError(
+                "⚠️ اكتب كود الطالب."
+            );
+
+            return;
+        }
+
+
+        if(!/^\d{6}$/.test(code)){
+
+            showLoginError(
+                "⚠️ كود الطالب يجب أن يكون 6 أرقام."
+            );
+
+            return;
+        }
+
+
+        loginButton.disabled =
+        true;
+
+        loginButton.textContent =
+        "⏳ جاري التحقق...";
+
+
+        try{
+
+            const result =
+            await getDocs(
+                query(
+                    collection(
+                        db,
+                        "students"
+                    ),
+                    where(
+                        "code",
+                        "==",
+                        code
+                    )
+                )
+            );
+
+
+            if(result.empty){
+
+                showLoginError(
+                    "❌ كود الطالب غير صحيح."
+                );
+
+                return;
+            }
+
+
+            const studentDoc =
+            result.docs[0];
+
+
+            const student =
+            studentDoc.data();
+
+
+            if(student.active === false){
+
+                showLoginError(
+                    "🔴 هذا الحساب غير نشط. يرجى مراجعة الإدارة."
+                );
+
+                return;
+            }
+
+
+            currentStudent = {
+
+                id:
+                studentDoc.id,
+
+                ...student
+
+            };
+
+
+            showStudentDashboard();
+
+
+        }catch(error){
+
+            console.error(error);
+
+            showLoginError(
+                "❌ تعذر الاتصال بالنظام. حاول مرة أخرى."
+            );
+
+        }finally{
+
+            loginButton.disabled =
+            false;
+
+            loginButton.textContent =
+            "دخول الحصة";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   عرض الطالب
+========================================= */
+
+function showStudentDashboard(){
+
+    loginCard.style.display =
+    "none";
+
+    dashboard.style.display =
+    "block";
+
+
+    studentName.textContent =
+    "👤 " +
+    (
+        currentStudent.name ||
+        "الطالب"
+    );
+
+
+    teacherName.textContent =
+    currentStudent.teacher ||
+    "لم يتم تحديد المدرس";
+
+
+    lessonTime.textContent =
+    formatLessonTime(
+        currentStudent.lessonTime
+    );
+
+
+    lessonDuration.textContent =
+    (
+        currentStudent.lessonDuration ||
+        30
+    ) +
+    " دقيقة";
+
+
+    lessonName.textContent =
+    currentStudent.lesson ||
+    "الحصة القرآنية";
+
+
+    startLessonTimer();
+
+}
+
+
+/* =========================================
+   حساب وقت الحصة
+========================================= */
+
+function startLessonTimer(){
+
+    if(timer){
+
+        clearInterval(timer);
+
+    }
+
+
+    updateLessonStatus();
+
+
+    timer =
+    setInterval(
+        updateLessonStatus,
+        1000
+    );
+
+}
+
+
+/* =========================================
+   حالة الحصة
+========================================= */
+
+function updateLessonStatus(){
+
+    if(!currentStudent){
+
+        return;
+    }
+
+
+    const time =
+    currentStudent.lessonTime;
+
+
+    if(!time){
+
+        setWaitingStatus(
+            "لم يتم تحديد موعد الحصة",
+            "يرجى مراجعة الإدارة."
+        );
+
+        return;
+    }
+
+
+    const duration =
+    Number(
+        currentStudent.lessonDuration
+    ) || 30;
+
+
+    const start =
+    getTodayLessonDate(
+        time
+    );
+
+
+    if(!start){
+
+        setWaitingStatus(
+            "موعد الحصة غير صحيح",
+            "يرجى مراجعة الإدارة."
+        );
+
+        return;
+    }
+
+
+    const end =
+    new Date(
+        start.getTime() +
+        duration * 60 * 1000
+    );
+
+
+    const now =
+    new Date();
+
+
+    if(now < start){
+
+        const difference =
+        start.getTime() -
+        now.getTime();
+
+
+        setWaitingStatus(
+            "⏳ لم تبدأ الحصة بعد",
+            "موعد حصتك اليوم:"
+        );
+
+
+        countdown.textContent =
+        formatCountdown(
+            difference
+        );
+
+
+        return;
+    }
+
+
+    if(
+        now >= start &&
+        now < end
+    ){
+
+        setReadyStatus(
+            end.getTime() -
+            now.getTime()
+        );
+
+
+        return;
+    }
+
+
+    setFinishedStatus();
+
+}
+
+
+/* =========================================
+   قبل الحصة
+========================================= */
+
+function setWaitingStatus(
+    title,
+    text
+){
+
+    statusBox.className =
+    "status-box waiting";
+
+
+    statusIcon.textContent =
+    "⏳";
+
+
+    statusTitle.textContent =
+    title;
+
+
+    if(text){
+
+        countdown.textContent =
+        text;
+
+    }
+
+
+    joinButton.style.display =
+    "none";
+
+}
+
+
+/* =========================================
+   الحصة بدأت
+========================================= */
+
+function setReadyStatus(
+    remaining
+){
+
+    statusBox.className =
+    "status-box ready";
+
+
+    statusIcon.textContent =
+    "🟢";
+
+
+    statusTitle.textContent =
+    "الحصة متاحة الآن";
+
+
+    countdown.textContent =
+    "الوقت المتبقي: " +
+    formatCountdown(
+        remaining
+    );
+
+
+    joinButton.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   انتهاء الحصة
+========================================= */
+
+function setFinishedStatus(){
+
+    statusBox.className =
+    "status-box finished";
+
+
+    statusIcon.textContent =
+    "🔴";
+
+
+    statusTitle.textContent =
+    "انتهت الحصة";
+
+
+    countdown.textContent =
+    "سيكون موعدك القادم حسب الجدول المحدد.";
+
+
+    joinButton.style.display =
+    "none";
+
+}
+
+
+/* =========================================
+   زر دخول الحصة
+========================================= */
+
+joinButton.addEventListener(
+    "click",
+    function(){
+
+        /*
+         * هنا نضع رابط غرفة الحصة.
+         *
+         * لاحقًا نقدر نخلي لكل مدرس
+         * رابط حصة خاص به من Firebase.
+         */
+
+        const meetingURL =
+        currentStudent.meetingUrl;
+
+
+        if(
+            meetingURL &&
+            String(
+                meetingURL
+            ).trim()
+        ){
+
+            window.open(
+                meetingURL,
+                "_blank"
+            );
+
+            return;
+        }
+
+
+        showDashboardMessage(
+            "⚠️ الحصة بدأت، لكن رابط الحصة لم يتم تحديده من الإدارة بعد.",
+            false
+        );
+
+    }
+);
+
+
+/* =========================================
+   تحويل وقت 24 ساعة
+========================================= */
+
+function getTodayLessonDate(
+    time
+){
+
+    const value =
+    String(
+        time || ""
+    ).trim();
+
+
+    const match =
+    value.match(
+        /^(\d{1,2}):(\d{2})$/
+    );
+
+
+    if(!match){
+
+        return null;
+    }
+
+
+    const hour =
+    Number(
+        match[1]
+    );
+
+    const minute =
+    Number(
+        match[2]
+    );
+
+
+    if(
+        hour < 0 ||
+        hour > 23 ||
+        minute < 0 ||
+        minute > 59
+    ){
+
+        return null;
+    }
+
+
+    const date =
+    new Date();
+
+
+    date.setHours(
+        hour,
+        minute,
+        0,
+        0
+    );
+
+
+    return date;
+
+}
+
+
+/* =========================================
+   عرض الوقت
+========================================= */
+
+function formatLessonTime(
+    value
+){
+
+    if(!value){
+
+        return "لم يتم تحديد الموعد";
+    }
+
+
+    const match =
+    String(
+        value
+    ).match(
+        /^(\d{1,2}):(\d{2})$/
+    );
+
+
+    if(!match){
+
+        return value;
+    }
+
+
+    let hour =
+    Number(
+        match[1]
+    );
+
+    const minute =
+    match[2];
+
+
+    const period =
+    hour >= 12
+    ?
+    "مساءً"
+    :
+    "صباحًا";
+
+
+    hour =
+    hour % 12 ||
+    12;
+
+
+    return (
+        hour +
+        ":" +
+        minute +
+        " " +
+        period
+    );
+
+}
+
+
+/* =========================================
+   العد التنازلي
+========================================= */
+
+function formatCountdown(
+    milliseconds
+){
+
+    if(milliseconds <= 0){
+
+        return "00:00:00";
+    }
+
+
+    let totalSeconds =
+    Math.floor(
+        milliseconds / 1000
+    );
+
+
+    const hours =
+    Math.floor(
+        totalSeconds / 3600
+    );
+
+
+    totalSeconds %=
+    3600;
+
+
+    const minutes =
+    Math.floor(
+        totalSeconds / 60
+    );
+
+
+    const seconds =
+    totalSeconds %
+    60;
+
+
+    return (
+        String(hours)
+        .padStart(2,"0")
+        +
+        ":" +
+        String(minutes)
+        .padStart(2,"0")
+        +
+        ":" +
+        String(seconds)
+        .padStart(2,"0")
+    );
+
+}
+
+
+/* =========================================
+   خروج
+========================================= */
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        if(timer){
+
+            clearInterval(timer);
+
+        }
+
+
+        currentStudent =
+        null;
+
+
+        dashboard.style.display =
+        "none";
+
+
+        loginCard.style.display =
+        "block";
+
+
+        studentCodeInput.value =
+        "";
+
+
+        showLoginError("");
+
+    }
+);
+
+
+/* =========================================
+   رسالة الدخول
+========================================= */
+
+function showLoginError(
+    text
+){
+
+    loginMessage.textContent =
+    text;
+
+
+    loginMessage.style.display =
+    text
+    ?
+    "block"
+    :
+    "none";
+
+}
+
+
+/* =========================================
+   رسالة لوحة الطالب
+========================================= */
+
+function showDashboardMessage(
+    text,
+    success
+){
+
+    dashboardMessage.textContent =
+    text;
+
+
+    dashboardMessage.className =
+    "message " +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+
+    dashboardMessage.style.display =
+    "block";
+
+
+    setTimeout(
+        function(){
+
+            dashboardMessage.style.display =
+            "none";
+
+        },
+        5000
+    );
+
+}
+
+</script>
+
+</body>
+
+  </html>
