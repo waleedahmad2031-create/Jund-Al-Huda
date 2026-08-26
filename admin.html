@@ -51,7 +51,8 @@ header p{
     padding:20px 14px;
 }
 
-.card{
+.card,
+.section{
     background:white;
     border-radius:18px;
     padding:20px;
@@ -70,7 +71,8 @@ h2{
     margin:30px auto;
 }
 
-input{
+input,
+select{
     width:100%;
     padding:14px;
     border:1px solid #ddd;
@@ -107,11 +109,6 @@ button:disabled{
 
 .warning{
     background:#c9a227;
-    color:white;
-}
-
-.whatsapp{
-    background:#25D366;
     color:white;
 }
 
@@ -171,14 +168,6 @@ button:disabled{
     font-size:13px;
 }
 
-.section{
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
-}
-
 .section-title{
     color:#075e54;
     font-size:20px;
@@ -213,30 +202,6 @@ button:disabled{
     color:#777;
 }
 
-.actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:12px;
-}
-
-.code-box{
-    margin-top:12px;
-    padding:15px;
-    background:#fff8df;
-    border:2px dashed #c9a227;
-    border-radius:12px;
-    text-align:center;
-}
-
-.code-number{
-    display:block;
-    font-size:28px;
-    font-weight:bold;
-    color:#075e54;
-    letter-spacing:4px;
-}
-
 .lesson-box{
     background:#eef8f5;
     border:1px solid #c9e5dd;
@@ -249,7 +214,8 @@ button:disabled{
     color:#075e54;
     font-weight:bold;
     text-align:center;
-    margin-bottom:12px;
+    margin-bottom:15px;
+    font-size:18px;
 }
 
 .lesson-grid{
@@ -258,14 +224,40 @@ button:disabled{
     gap:10px;
 }
 
-.lesson-grid input{
+.lesson-grid input,
+.lesson-grid select{
     margin-bottom:0;
 }
 
 .save-button{
     background:#198754;
     color:white;
-    margin-top:10px;
+    margin-top:12px;
+}
+
+.lesson-card{
+    background:#f8faf9;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+    border-right:4px solid #075e54;
+    line-height:2;
+}
+
+.lesson-card-title{
+    color:#075e54;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.lesson-actions{
+    margin-top:12px;
+}
+
+.delete-button{
+    background:#dc3545;
+    color:white;
 }
 
 footer{
@@ -278,13 +270,16 @@ footer{
     line-height:2;
 }
 
+.small-note{
+    color:#777;
+    font-size:13px;
+    line-height:1.8;
+    margin-top:8px;
+}
+
 @media(max-width:600px){
 
     .stats{
-        grid-template-columns:1fr;
-    }
-
-    .actions{
         grid-template-columns:1fr;
     }
 
@@ -300,7 +295,6 @@ footer{
 
 <body>
 
-
 <header>
 
 <div class="logo">🕌</div>
@@ -311,13 +305,9 @@ footer{
 
 </header>
 
-
 <div class="container">
 
-
-<!-- =========================
-     تسجيل الدخول
-========================= -->
+<!-- تسجيل الدخول -->
 
 <div id="loginCard"
 class="card login-card">
@@ -351,13 +341,10 @@ class="primary">
 </div>
 
 
-<!-- =========================
-     لوحة الإدارة
-========================= -->
+<!-- لوحة الإدارة -->
 
 <div id="dashboard"
 class="dashboard">
-
 
 <div id="dashboardMessage"
 class="message">
@@ -386,9 +373,7 @@ style="margin-top:15px;">
 </div>
 
 
-<!-- =========================
-     الإحصائيات
-========================= -->
+<!-- الإحصائيات -->
 
 <div class="stats">
 
@@ -397,15 +382,11 @@ style="margin-top:15px;">
 <span
 id="studentsCount"
 class="stat-number">
-
 0
-
 </span>
 
 <span class="stat-title">
-
 👨‍🎓 الطلاب
-
 </span>
 
 </div>
@@ -416,15 +397,11 @@ class="stat-number">
 <span
 id="requestsCount"
 class="stat-number">
-
 0
-
 </span>
 
 <span class="stat-title">
-
 📝 طلبات التسجيل
-
 </span>
 
 </div>
@@ -435,15 +412,11 @@ class="stat-number">
 <span
 id="teachersCount"
 class="stat-number">
-
 0
-
 </span>
 
 <span class="stat-title">
-
 👨‍🏫 المدرسون
-
 </span>
 
 </div>
@@ -451,9 +424,193 @@ class="stat-number">
 </div>
 
 
-<!-- =========================
-     الطلاب
-========================= -->
+<!-- =====================
+إنشاء حصة
+===================== -->
+
+<div class="section">
+
+<div class="section-title">
+
+📚 إنشاء حصة جديدة
+
+</div>
+
+<div id="lessonMessage"
+class="message">
+</div>
+
+
+<div class="lesson-box">
+
+<div class="lesson-title">
+
+📝 بيانات الحصة
+
+</div>
+
+
+<div class="lesson-grid">
+
+<div>
+
+<label>👨‍🎓 الطالب</label>
+
+<select id="lessonStudent">
+
+<option value="">
+اختر الطالب
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>👨‍🏫 المدرس</label>
+
+<select id="lessonTeacher">
+
+<option value="">
+اختر المدرس
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>📖 المادة</label>
+
+<select id="lessonSubject">
+
+<option value="">
+اختر المادة
+</option>
+
+<option value="قرآن">
+قرآن
+</option>
+
+<option value="تجويد">
+تجويد
+</option>
+
+<option value="حفظ">
+حفظ
+</option>
+
+<option value="مراجعة">
+مراجعة
+</option>
+
+<option value="حديث">
+حديث
+</option>
+
+<option value="أخرى">
+أخرى
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>📅 تاريخ الحصة</label>
+
+<input
+id="lessonDate"
+type="date">
+
+</div>
+
+
+<div>
+
+<label>🕐 وقت الحصة</label>
+
+<input
+id="lessonTime"
+type="time">
+
+</div>
+
+
+<div>
+
+<label>⏱️ مدة الحصة</label>
+
+<select id="lessonDuration">
+
+<option value="30">
+30 دقيقة
+</option>
+
+<option value="45">
+45 دقيقة
+</option>
+
+<option value="60">
+60 دقيقة
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+id="createLessonButton"
+class="save-button">
+
+💾 إنشاء الحصة
+
+</button>
+
+<p class="small-note">
+
+بعد إنشاء الحصة سيظهر للطالب والمدرس داخل موقع جنود الهدى، ويمكن الدخول إليها من الموقع نفسه.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+الحصص
+===================== -->
+
+<div class="section">
+
+<div class="section-title">
+
+🎓 الحصص المجدولة
+
+</div>
+
+<div
+id="lessonsList"
+class="loading">
+
+⏳ جاري تحميل الحصص...
+
+</div>
+
+</div>
+
+
+<!-- الطلاب -->
 
 <div class="section">
 
@@ -474,9 +631,7 @@ class="loading">
 </div>
 
 
-<!-- =========================
-     طلبات التسجيل
-========================= -->
+<!-- الطلبات -->
 
 <div class="section">
 
@@ -497,9 +652,7 @@ class="loading">
 </div>
 
 
-<!-- =========================
-     المدرسون
-========================= -->
+<!-- المدرسون -->
 
 <div class="section">
 
@@ -508,7 +661,6 @@ class="loading">
 👨‍🏫 المدرسون
 
 </div>
-
 
 <div
 id="teachersList"
@@ -541,7 +693,7 @@ class="loading">
 
 
 /* =========================
-   Firebase
+Firebase
 ========================= */
 
 import {
@@ -561,18 +713,16 @@ import {
 import {
     collection,
     getDocs,
-    doc,
-    updateDoc,
     addDoc,
-    serverTimestamp,
-    query,
-    where
+    deleteDoc,
+    doc,
+    serverTimestamp
 } from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 /* =========================
-   حساب الإدارة
+حساب الإدارة
 ========================= */
 
 const ADMIN_EMAIL =
@@ -580,7 +730,7 @@ const ADMIN_EMAIL =
 
 
 /* =========================
-   عناصر الصفحة
+العناصر
 ========================= */
 
 const loginCard =
@@ -616,6 +766,9 @@ document.getElementById("requestsList");
 const teachersList =
 document.getElementById("teachersList");
 
+const lessonsList =
+document.getElementById("lessonsList");
+
 const studentsCount =
 document.getElementById("studentsCount");
 
@@ -625,9 +778,33 @@ document.getElementById("requestsCount");
 const teachersCount =
 document.getElementById("teachersCount");
 
+const lessonStudent =
+document.getElementById("lessonStudent");
+
+const lessonTeacher =
+document.getElementById("lessonTeacher");
+
+const lessonSubject =
+document.getElementById("lessonSubject");
+
+const lessonDate =
+document.getElementById("lessonDate");
+
+const lessonTime =
+document.getElementById("lessonTime");
+
+const lessonDuration =
+document.getElementById("lessonDuration");
+
+const createLessonButton =
+document.getElementById("createLessonButton");
+
+const lessonMessage =
+document.getElementById("lessonMessage");
+
 
 /* =========================
-   حالة تسجيل الدخول
+تسجيل الدخول
 ========================= */
 
 onAuthStateChanged(
@@ -670,7 +847,7 @@ onAuthStateChanged(
 
 
 /* =========================
-   تسجيل الدخول
+دخول الإدارة
 ========================= */
 
 loginButton.addEventListener(
@@ -744,10 +921,7 @@ loginButton.addEventListener(
 
         }catch(error){
 
-            console.error(
-                "Login error:",
-                error
-            );
+            console.error(error);
 
 
             let message =
@@ -764,7 +938,6 @@ loginButton.addEventListener(
 
             }
 
-
             else if(
                 error.code ===
                 "auth/user-not-found"
@@ -775,7 +948,6 @@ loginButton.addEventListener(
 
             }
 
-
             else if(
                 error.code ===
                 "auth/wrong-password"
@@ -785,7 +957,6 @@ loginButton.addEventListener(
                 "❌ كلمة المرور غير صحيحة.";
 
             }
-
 
             else if(
                 error.code ===
@@ -798,9 +969,7 @@ loginButton.addEventListener(
             }
 
 
-            showLoginError(
-                message
-            );
+            showLoginError(message);
 
 
         }finally{
@@ -818,31 +987,21 @@ loginButton.addEventListener(
 
 
 /* =========================
-   تسجيل الخروج
+الخروج
 ========================= */
 
 logoutButton.addEventListener(
     "click",
     async function(){
 
-        try{
-
-            await signOut(auth);
-
-        }catch(error){
-
-            console.error(
-                error
-            );
-
-        }
+        await signOut(auth);
 
     }
 );
 
 
 /* =========================
-   تحميل الإدارة
+تحميل كل الإدارة
 ========================= */
 
 async function loadDashboard(){
@@ -853,17 +1012,28 @@ async function loadDashboard(){
 
     await loadTeachers();
 
+    await loadLessons();
+
 }
 
 
 /* =========================
-   الطلاب
+تحميل الطلاب
 ========================= */
 
 async function loadStudents(){
 
     studentsList.innerHTML =
     "⏳ جاري تحميل الطلاب...";
+
+
+    lessonStudent.innerHTML = `
+
+        <option value="">
+        اختر الطالب
+        </option>
+
+    `;
 
 
     try{
@@ -886,9 +1056,7 @@ async function loadStudents(){
             studentsList.innerHTML = `
 
                 <div class="empty">
-
-                    لا يوجد طلاب حاليًا.
-
+                لا يوجد طلاب حاليًا.
                 </div>
 
             `;
@@ -908,12 +1076,31 @@ async function loadStudents(){
                 const student =
                 item.data();
 
+                const name =
+                student.name ||
+                "بدون اسم";
+
+
+                const option =
+                document.createElement(
+                    "option"
+                );
+
+                option.value =
+                item.id;
+
+                option.textContent =
+                name;
+
+                lessonStudent.appendChild(
+                    option
+                );
+
 
                 const div =
                 document.createElement(
                     "div"
                 );
-
 
                 div.className =
                 "item";
@@ -922,7 +1109,7 @@ async function loadStudents(){
                 div.innerHTML = `
 
                     👤 <strong>
-                    ${safe(student.name || "بدون اسم")}
+                    ${safe(name)}
                     </strong>
 
                     <br>
@@ -957,16 +1144,6 @@ async function loadStudents(){
 
                     <br>
 
-                    📅 تاريخ الحصة:
-                    ${safe(student.lessonDate || "لم يتم تحديده")}
-
-                    <br>
-
-                    🕐 وقت الحصة:
-                    ${safe(student.lessonTime || "لم يتم تحديده")}
-
-                    <br>
-
                     الحالة:
 
                     ${
@@ -991,7 +1168,6 @@ async function loadStudents(){
     }catch(error){
 
         console.error(
-            "Students error:",
             error
         );
 
@@ -1016,161 +1192,22 @@ async function loadStudents(){
 
 
 /* =========================
-   طلبات التسجيل
-========================= */
-
-async function loadRequests(){
-
-    requestsList.innerHTML =
-    "⏳ جاري تحميل الطلبات...";
-
-
-    try{
-
-        const result =
-        await getDocs(
-            collection(
-                db,
-                "bookingRequests"
-            )
-        );
-
-
-        requestsCount.textContent =
-        result.size;
-
-
-        if(result.empty){
-
-            requestsList.innerHTML = `
-
-                <div class="empty">
-
-                    لا توجد طلبات تسجيل.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        requestsList.innerHTML =
-        "";
-
-
-        result.forEach(
-            function(item){
-
-                const request =
-                item.data();
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-                div.className =
-                "item";
-
-
-                div.innerHTML = `
-
-                    👤 <strong>
-                    ${safe(request.name || "بدون اسم")}
-                    </strong>
-
-                    <br>
-
-                    📱 الهاتف:
-                    ${safe(request.phone || "-")}
-
-                    <br>
-
-                    🎂 العمر:
-                    ${safe(request.age || "-")}
-
-                    <br>
-
-                    📊 الحالة:
-                    ${
-                        request.status === "approved"
-                        ?
-                        "✅ تمت الموافقة"
-                        :
-                        "🟡 بانتظار المراجعة"
-                    }
-
-                    ${
-                        request.studentCode
-                        ?
-                        `
-                        <div class="code-box">
-
-                            🔐 كود الطالب
-
-                            <span class="code-number">
-
-                                ${safe(request.studentCode)}
-
-                            </span>
-
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-                `;
-
-
-                requestsList.appendChild(
-                    div
-                );
-
-            }
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Requests error:",
-            error
-        );
-
-
-        requestsList.innerHTML = `
-
-            <div class="empty">
-
-                ❌ تعذر تحميل الطلبات.
-
-                <br><br>
-
-                ${safe(error.message)}
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================
-   المدرسون
+تحميل المدرسين
 ========================= */
 
 async function loadTeachers(){
 
     teachersList.innerHTML =
     "⏳ جاري تحميل المدرسين...";
+
+
+    lessonTeacher.innerHTML = `
+
+        <option value="">
+        اختر المدرس
+        </option>
+
+    `;
 
 
     try{
@@ -1193,9 +1230,7 @@ async function loadTeachers(){
             teachersList.innerHTML = `
 
                 <div class="empty">
-
-                    لا يوجد مدرسون حاليًا.
-
+                لا يوجد مدرسون حاليًا.
                 </div>
 
             `;
@@ -1215,12 +1250,31 @@ async function loadTeachers(){
                 const teacher =
                 item.data();
 
+                const name =
+                teacher.name ||
+                "بدون اسم";
+
+
+                const option =
+                document.createElement(
+                    "option"
+                );
+
+                option.value =
+                item.id;
+
+                option.textContent =
+                name;
+
+                lessonTeacher.appendChild(
+                    option
+                );
+
 
                 const div =
                 document.createElement(
                     "div"
                 );
-
 
                 div.className =
                 "item";
@@ -1229,7 +1283,7 @@ async function loadTeachers(){
                 div.innerHTML = `
 
                     👨‍🏫 <strong>
-                    ${safe(teacher.name || "بدون اسم")}
+                    ${safe(name)}
                     </strong>
 
                     <br>
@@ -1240,7 +1294,6 @@ async function loadTeachers(){
                     <br>
 
                     🔐 كود المدرس:
-
                     <strong>
                     ${safe(teacher.code || "-")}
                     </strong>
@@ -1270,10 +1323,7 @@ async function loadTeachers(){
 
     }catch(error){
 
-        console.error(
-            "Teachers error:",
-            error
-        );
+        console.error(error);
 
 
         teachersList.innerHTML = `
@@ -1296,7 +1346,569 @@ async function loadTeachers(){
 
 
 /* =========================
-   رسائل الدخول
+طلبات التسجيل
+========================= */
+
+async function loadRequests(){
+
+    requestsList.innerHTML =
+    "⏳ جاري تحميل الطلبات...";
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "bookingRequests"
+            )
+        );
+
+
+        requestsCount.textContent =
+        result.size;
+
+
+        if(result.empty){
+
+            requestsList.innerHTML = `
+
+                <div class="empty">
+                لا توجد طلبات تسجيل.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        requestsList.innerHTML =
+        "";
+
+
+        result.forEach(
+            function(item){
+
+                const request =
+                item.data();
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+                div.className =
+                "item";
+
+
+                div.innerHTML = `
+
+                    👤 <strong>
+                    ${safe(request.name || "بدون اسم")}
+                    </strong>
+
+                    <br>
+
+                    📱 الهاتف:
+                    ${safe(request.phone || "-")}
+
+                    <br>
+
+                    🎂 العمر:
+                    ${safe(request.age || "-")}
+
+                    <br>
+
+                    📊 الحالة:
+
+                    ${
+                        request.status === "approved"
+                        ?
+                        "✅ تمت الموافقة"
+                        :
+                        "🟡 بانتظار المراجعة"
+                    }
+
+                    ${
+                        request.studentCode
+                        ?
+                        `
+                        <br>
+                        🔐 كود الطالب:
+                        <strong>
+                        ${safe(request.studentCode)}
+                        </strong>
+                        `
+                        :
+                        ""
+                    }
+
+                `;
+
+
+                requestsList.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        requestsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلبات.
+
+                <br><br>
+
+                ${safe(error.message)}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+إنشاء الحصة
+========================= */
+
+createLessonButton.addEventListener(
+    "click",
+    async function(){
+
+        const studentId =
+        lessonStudent.value;
+
+        const teacherId =
+        lessonTeacher.value;
+
+        const subject =
+        lessonSubject.value;
+
+        const date =
+        lessonDate.value;
+
+        const time =
+        lessonTime.value;
+
+        const duration =
+        lessonDuration.value;
+
+
+        if(!studentId){
+
+            showLessonMessage(
+                "⚠️ اختر الطالب.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!teacherId){
+
+            showLessonMessage(
+                "⚠️ اختر المدرس.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!subject){
+
+            showLessonMessage(
+                "⚠️ اختر المادة.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!date){
+
+            showLessonMessage(
+                "⚠️ اختر تاريخ الحصة.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!time){
+
+            showLessonMessage(
+                "⚠️ اختر وقت الحصة.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        createLessonButton.disabled =
+        true;
+
+        createLessonButton.textContent =
+        "⏳ جاري إنشاء الحصة...";
+
+
+        try{
+
+            const studentText =
+            lessonStudent.options[
+                lessonStudent.selectedIndex
+            ].textContent;
+
+
+            const teacherText =
+            lessonTeacher.options[
+                lessonTeacher.selectedIndex
+            ].textContent;
+
+
+            await addDoc(
+                collection(
+                    db,
+                    "lessons"
+                ),
+                {
+
+                    studentId:
+                    studentId,
+
+                    studentName:
+                    studentText,
+
+                    teacherId:
+                    teacherId,
+
+                    teacherName:
+                    teacherText,
+
+                    subject:
+                    subject,
+
+                    date:
+                    date,
+
+                    time:
+                    time,
+
+                    duration:
+                    Number(duration),
+
+                    status:
+                    "scheduled",
+
+                    createdAt:
+                    serverTimestamp()
+
+                }
+            );
+
+
+            showLessonMessage(
+                "✅ تم إنشاء الحصة بنجاح.",
+                "success"
+            );
+
+
+            lessonSubject.value =
+            "";
+
+            lessonDate.value =
+            "";
+
+            lessonTime.value =
+            "";
+
+
+            await loadLessons();
+
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+
+            showLessonMessage(
+                "❌ تعذر إنشاء الحصة: " +
+                error.message,
+                "error"
+            );
+
+        }finally{
+
+            createLessonButton.disabled =
+            false;
+
+            createLessonButton.textContent =
+            "💾 إنشاء الحصة";
+
+        }
+
+    }
+);
+
+
+/* =========================
+تحميل الحصص
+========================= */
+
+async function loadLessons(){
+
+    lessonsList.innerHTML =
+    "⏳ جاري تحميل الحصص...";
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "lessons"
+            )
+        );
+
+
+        if(result.empty){
+
+            lessonsList.innerHTML = `
+
+                <div class="empty">
+
+                    لا توجد حصص مجدولة حاليًا.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        lessonsList.innerHTML =
+        "";
+
+
+        result.forEach(
+            function(item){
+
+                const lesson =
+                item.data();
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+                div.className =
+                "lesson-card";
+
+
+                div.innerHTML = `
+
+                    <div class="lesson-card-title">
+
+                        📚 ${safe(lesson.subject || "حصة")}
+
+                    </div>
+
+                    👨‍🎓 الطالب:
+                    <strong>
+                    ${safe(lesson.studentName || "-")}
+                    </strong>
+
+                    <br>
+
+                    👨‍🏫 المدرس:
+                    <strong>
+                    ${safe(lesson.teacherName || "-")}
+                    </strong>
+
+                    <br>
+
+                    📅 التاريخ:
+                    ${safe(lesson.date || "-")}
+
+                    <br>
+
+                    🕐 الوقت:
+                    ${safe(lesson.time || "-")}
+
+                    <br>
+
+                    ⏱️ المدة:
+                    ${safe(lesson.duration || "-")}
+                    دقيقة
+
+                    <br>
+
+                    📊 الحالة:
+                    ${
+                        lesson.status === "scheduled"
+                        ?
+                        "🟢 مجدولة"
+                        :
+                        safe(lesson.status || "-")
+                    }
+
+                    <div class="lesson-actions">
+
+                        <button
+                        class="delete-button"
+                        data-id="${safe(item.id)}">
+
+                        🗑️ حذف الحصة
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                const deleteButton =
+                div.querySelector(
+                    ".delete-button"
+                );
+
+
+                deleteButton.addEventListener(
+                    "click",
+                    async function(){
+
+                        const ok =
+                        confirm(
+                            "هل تريد حذف هذه الحصة؟"
+                        );
+
+
+                        if(!ok){
+                            return;
+                        }
+
+
+                        try{
+
+                            await deleteDoc(
+                                doc(
+                                    db,
+                                    "lessons",
+                                    item.id
+                                )
+                            );
+
+
+                            await loadLessons();
+
+
+                        }catch(error){
+
+                            alert(
+                                "❌ تعذر حذف الحصة: " +
+                                error.message
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                lessonsList.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        lessonsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الحصص.
+
+                <br><br>
+
+                ${safe(error.message)}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+رسالة الحصة
+========================= */
+
+function showLessonMessage(
+    text,
+    type
+){
+
+    lessonMessage.textContent =
+    text;
+
+    lessonMessage.className =
+    "message " +
+    (
+        type === "success"
+        ?
+        "success"
+        :
+        "error"
+    );
+
+    lessonMessage.style.display =
+    "block";
+
+}
+
+
+/* =========================
+رسالة الدخول
 ========================= */
 
 function showLoginError(
@@ -1317,7 +1929,7 @@ function showLoginError(
 
 
 /* =========================
-   إظهار تسجيل الدخول
+إظهار الدخول
 ========================= */
 
 function showLogin(){
@@ -1332,7 +1944,7 @@ function showLogin(){
 
 
 /* =========================
-   إظهار الإدارة
+إظهار الإدارة
 ========================= */
 
 function showDashboard(){
@@ -1347,7 +1959,7 @@ function showDashboard(){
 
 
 /* =========================
-   حماية النص
+حماية النص
 ========================= */
 
 function safe(value){
@@ -1383,10 +1995,6 @@ function safe(value){
 
 }
 
-
-/* =========================
-   تشغيل
-========================= */
 
 console.log(
     "✅ admin.html - جنود الهدى يعمل"
