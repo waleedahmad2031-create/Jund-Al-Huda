@@ -78,6 +78,7 @@ input{
     font-size:16px;
     margin-bottom:12px;
     outline:none;
+    background:white;
 }
 
 button{
@@ -90,8 +91,27 @@ button{
     cursor:pointer;
 }
 
+button:disabled{
+    opacity:.6;
+}
+
 .primary{
     background:#075e54;
+    color:white;
+}
+
+.success-button{
+    background:#198754;
+    color:white;
+}
+
+.warning{
+    background:#c9a227;
+    color:white;
+}
+
+.whatsapp{
+    background:#25D366;
     color:white;
 }
 
@@ -106,6 +126,7 @@ button{
     border-radius:10px;
     text-align:center;
     margin-bottom:15px;
+    line-height:1.8;
 }
 
 .error{
@@ -122,6 +143,34 @@ button{
     display:none;
 }
 
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.stat{
+    background:white;
+    border-radius:14px;
+    padding:18px 10px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.stat-number{
+    display:block;
+    color:#075e54;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.stat-title{
+    color:#666;
+    font-size:13px;
+}
+
 .section{
     background:white;
     border-radius:18px;
@@ -130,41 +179,119 @@ button{
     box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
-.section h3{
+.section-title{
     color:#075e54;
     font-size:20px;
+    font-weight:bold;
     margin-bottom:15px;
-}
-
-.loading{
-    text-align:center;
-    color:#777;
-    padding:20px;
 }
 
 .item{
     background:#f8faf9;
-    border-right:4px solid #0b806f;
     border-radius:12px;
     padding:15px;
     margin-bottom:10px;
+    border-right:4px solid #0b806f;
     line-height:2;
+}
+
+.item strong{
+    color:#075e54;
 }
 
 .empty{
     text-align:center;
     color:#777;
-    padding:20px;
     background:#fafafa;
-    border-radius:10px;
+    padding:25px;
+    border-radius:11px;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:12px;
+}
+
+.code-box{
+    margin-top:12px;
+    padding:15px;
+    background:#fff8df;
+    border:2px dashed #c9a227;
+    border-radius:12px;
+    text-align:center;
+}
+
+.code-number{
+    display:block;
+    font-size:28px;
+    font-weight:bold;
+    color:#075e54;
+    letter-spacing:4px;
+}
+
+.lesson-box{
+    background:#eef8f5;
+    border:1px solid #c9e5dd;
+    border-radius:14px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.lesson-title{
+    color:#075e54;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.lesson-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.lesson-grid input{
+    margin-bottom:0;
+}
+
+.save-button{
+    background:#198754;
+    color:white;
+    margin-top:10px;
 }
 
 footer{
+    margin-top:25px;
     background:#075e54;
     color:white;
     text-align:center;
     padding:20px;
+    font-size:13px;
     line-height:2;
+}
+
+@media(max-width:600px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        grid-template-columns:1fr;
+    }
+
+    .lesson-grid{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -172,6 +299,7 @@ footer{
 </head>
 
 <body>
+
 
 <header>
 
@@ -183,9 +311,16 @@ footer{
 
 </header>
 
+
 <div class="container">
 
-<div id="loginCard" class="card login-card">
+
+<!-- =========================
+     تسجيل الدخول
+========================= -->
+
+<div id="loginCard"
+class="card login-card">
 
 <h2>🔐 دخول الإدارة</h2>
 
@@ -215,12 +350,19 @@ class="primary">
 
 </div>
 
+
+<!-- =========================
+     لوحة الإدارة
+========================= -->
+
 <div id="dashboard"
 class="dashboard">
+
 
 <div id="dashboardMessage"
 class="message">
 </div>
+
 
 <div class="card">
 
@@ -234,71 +376,155 @@ class="message">
 
 <button
 id="logoutButton"
-class="danger">
+class="danger"
+style="margin-top:15px;">
 
 🚪 تسجيل الخروج
 
 </button>
 
 </div>
+
+
+<!-- =========================
+     الإحصائيات
+========================= -->
+
+<div class="stats">
+
+<div class="stat">
+
+<span
+id="studentsCount"
+class="stat-number">
+
+0
+
+</span>
+
+<span class="stat-title">
+
+👨‍🎓 الطلاب
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<span
+id="requestsCount"
+class="stat-number">
+
+0
+
+</span>
+
+<span class="stat-title">
+
+📝 طلبات التسجيل
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<span
+id="teachersCount"
+class="stat-number">
+
+0
+
+</span>
+
+<span class="stat-title">
+
+👨‍🏫 المدرسون
+
+</span>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     الطلاب
+========================= -->
+
 <div class="section">
 
-    <h3>📊 الإحصائيات</h3>
+<div class="section-title">
 
-    <div class="item">
-        👨‍🎓 عدد الطلاب:
-        <strong id="studentsCount">0</strong>
-    </div>
-
-    <div class="item">
-        📝 عدد طلبات التسجيل:
-        <strong id="requestsCount">0</strong>
-    </div>
-
-    <div class="item">
-        👨‍🏫 عدد المدرسين:
-        <strong id="teachersCount">0</strong>
-    </div>
+👨‍🎓 الطلاب
 
 </div>
 
+<div
+id="studentsList"
+class="loading">
+
+⏳ جاري تحميل الطلاب...
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     طلبات التسجيل
+========================= -->
 
 <div class="section">
 
-    <h3>👨‍🎓 الطلاب</h3>
+<div class="section-title">
 
-    <div id="studentsList" class="loading">
-        ⏳ جاري تحميل الطلاب...
-    </div>
+📝 طلبات التسجيل
 
 </div>
 
+<div
+id="requestsList"
+class="loading">
+
+⏳ جاري تحميل الطلبات...
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     المدرسون
+========================= -->
 
 <div class="section">
 
-    <h3>📝 طلبات التسجيل</h3>
+<div class="section-title">
 
-    <div id="requestsList" class="loading">
-        ⏳ جاري تحميل طلبات التسجيل...
-    </div>
+👨‍🏫 المدرسون
 
 </div>
 
 
-<div class="section">
+<div
+id="teachersList"
+class="loading">
 
-    <h3>👨‍🏫 المدرسون</h3>
-
-    <div id="teachersList" class="loading">
-        ⏳ جاري تحميل المدرسين...
-    </div>
-
-</div>
-
+⏳ جاري تحميل المدرسين...
 
 </div>
 
 </div>
+
+
+</div>
+
+</div>
+
 
 <footer>
 
@@ -309,27 +535,53 @@ class="danger">
 أكاديمية القرآن الكريم
 
 </footer>
+
+
 <script type="module">
+
+
+/* =========================
+   Firebase
+========================= */
 
 import {
     auth,
     db
 } from "./firebase.js";
 
+
 import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
     collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    getDocs,
+    doc,
+    updateDoc,
+    addDoc,
+    serverTimestamp,
+    query,
+    where
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-const ADMIN_EMAIL = "yuo123@gmail.com";
+/* =========================
+   حساب الإدارة
+========================= */
 
+const ADMIN_EMAIL =
+"yuo123@gmail.com";
+
+
+/* =========================
+   عناصر الصفحة
+========================= */
 
 const loginCard =
 document.getElementById("loginCard");
@@ -352,6 +604,9 @@ document.getElementById("loginMessage");
 const logoutButton =
 document.getElementById("logoutButton");
 
+const dashboardMessage =
+document.getElementById("dashboardMessage");
+
 const studentsList =
 document.getElementById("studentsList");
 
@@ -371,33 +626,9 @@ const teachersCount =
 document.getElementById("teachersCount");
 
 
-function showLogin(){
-
-    loginCard.style.display = "block";
-
-    dashboard.style.display = "none";
-
-}
-
-
-function showDashboard(){
-
-    loginCard.style.display = "none";
-
-    dashboard.style.display = "block";
-
-}
-
-
-function showError(message){
-
-    loginMessage.textContent = message;
-
-    loginMessage.style.display =
-    message ? "block" : "none";
-
-}
-
+/* =========================
+   حالة تسجيل الدخول
+========================= */
 
 onAuthStateChanged(
     auth,
@@ -412,13 +643,16 @@ onAuthStateChanged(
         }
 
 
-        if(user.email !== ADMIN_EMAIL){
+        if(
+            user.email !==
+            ADMIN_EMAIL
+        ){
 
             await signOut(auth);
 
             showLogin();
 
-            showError(
+            showLoginError(
                 "⛔ هذا الحساب ليس حساب الإدارة."
             );
 
@@ -429,11 +663,15 @@ onAuthStateChanged(
 
         showDashboard();
 
-        await loadAll();
+        await loadDashboard();
 
     }
 );
 
+
+/* =========================
+   تسجيل الدخول
+========================= */
 
 loginButton.addEventListener(
     "click",
@@ -448,7 +686,7 @@ loginButton.addEventListener(
 
         if(!email){
 
-            showError(
+            showLoginError(
                 "⚠️ اكتب البريد الإلكتروني."
             );
 
@@ -459,7 +697,7 @@ loginButton.addEventListener(
 
         if(!password){
 
-            showError(
+            showLoginError(
                 "⚠️ اكتب كلمة المرور."
             );
 
@@ -468,7 +706,8 @@ loginButton.addEventListener(
         }
 
 
-        loginButton.disabled = true;
+        loginButton.disabled =
+        true;
 
         loginButton.textContent =
         "⏳ جاري الدخول...";
@@ -484,11 +723,14 @@ loginButton.addEventListener(
             );
 
 
-            if(result.user.email !== ADMIN_EMAIL){
+            if(
+                result.user.email !==
+                ADMIN_EMAIL
+            ){
 
                 await signOut(auth);
 
-                showError(
+                showLoginError(
                     "⛔ هذا الحساب ليس حساب الإدارة."
                 );
 
@@ -497,7 +739,8 @@ loginButton.addEventListener(
             }
 
 
-            showError("");
+            showLoginError("");
+
 
         }catch(error){
 
@@ -506,14 +749,64 @@ loginButton.addEventListener(
                 error
             );
 
-            showError(
-                "❌ تعذر تسجيل الدخول: " +
-                error.message
+
+            let message =
+            "❌ تعذر تسجيل الدخول.";
+
+
+            if(
+                error.code ===
+                "auth/invalid-credential"
+            ){
+
+                message =
+                "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/user-not-found"
+            ){
+
+                message =
+                "❌ حساب الإدارة غير موجود.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/wrong-password"
+            ){
+
+                message =
+                "❌ كلمة المرور غير صحيحة.";
+
+            }
+
+
+            else if(
+                error.code ===
+                "auth/network-request-failed"
+            ){
+
+                message =
+                "🌐 تحقق من اتصال الإنترنت.";
+
+            }
+
+
+            showLoginError(
+                message
             );
+
 
         }finally{
 
-            loginButton.disabled = false;
+            loginButton.disabled =
+            false;
 
             loginButton.textContent =
             "🔐 دخول الإدارة";
@@ -524,17 +817,35 @@ loginButton.addEventListener(
 );
 
 
+/* =========================
+   تسجيل الخروج
+========================= */
+
 logoutButton.addEventListener(
     "click",
     async function(){
 
-        await signOut(auth);
+        try{
+
+            await signOut(auth);
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+        }
 
     }
 );
 
 
-async function loadAll(){
+/* =========================
+   تحميل الإدارة
+========================= */
+
+async function loadDashboard(){
 
     await loadStudents();
 
@@ -544,6 +855,10 @@ async function loadAll(){
 
 }
 
+
+/* =========================
+   الطلاب
+========================= */
 
 async function loadStudents(){
 
@@ -568,17 +883,23 @@ async function loadStudents(){
 
         if(result.empty){
 
-            studentsList.innerHTML =
-            `<div class="empty">
-                لا يوجد طلاب حاليًا.
-            </div>`;
+            studentsList.innerHTML = `
+
+                <div class="empty">
+
+                    لا يوجد طلاب حاليًا.
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        studentsList.innerHTML = "";
+        studentsList.innerHTML =
+        "";
 
 
         result.forEach(
@@ -589,7 +910,9 @@ async function loadStudents(){
 
 
                 const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
                 div.className =
@@ -597,6 +920,7 @@ async function loadStudents(){
 
 
                 div.innerHTML = `
+
                     👤 <strong>
                     ${safe(student.name || "بدون اسم")}
                     </strong>
@@ -608,31 +932,57 @@ async function loadStudents(){
 
                     <br>
 
+                    🎂 العمر:
+                    ${safe(student.age || "-")}
+
+                    <br>
+
                     🔐 الكود:
                     ${safe(student.code || "-")}
 
                     <br>
 
                     👨‍🏫 المدرس:
-                    ${safe(student.teacher || "-")}
+                    ${safe(student.teacher || "لم يتم تحديده")}
 
                     <br>
 
                     📚 المستوى:
-                    ${safe(student.level || "-")}
+                    ${safe(student.level || "لم يتم تحديده")}
+
+                    <br>
+
+                    📖 الدرس:
+                    ${safe(student.lesson || "لم يتم تحديده")}
+
+                    <br>
+
+                    📅 تاريخ الحصة:
+                    ${safe(student.lessonDate || "لم يتم تحديده")}
+
+                    <br>
+
+                    🕐 وقت الحصة:
+                    ${safe(student.lessonTime || "لم يتم تحديده")}
 
                     <br>
 
                     الحالة:
+
                     ${
                         student.active === false
-                        ? "🔴 غير نشط"
-                        : "🟢 نشط"
+                        ?
+                        "🔴 غير نشط"
+                        :
+                        "🟢 نشط"
                     }
+
                 `;
 
 
-                studentsList.appendChild(div);
+                studentsList.appendChild(
+                    div
+                );
 
             }
         );
@@ -646,22 +996,33 @@ async function loadStudents(){
         );
 
 
-        studentsList.innerHTML =
-        `<div class="empty">
-            ❌ تعذر تحميل الطلاب.
-            <br><br>
-            ${safe(error.message)}
-        </div>`;
+        studentsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلاب.
+
+                <br><br>
+
+                ${safe(error.message)}
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
+/* =========================
+   طلبات التسجيل
+========================= */
+
 async function loadRequests(){
 
     requestsList.innerHTML =
-    "⏳ جاري تحميل طلبات التسجيل...";
+    "⏳ جاري تحميل الطلبات...";
 
 
     try{
@@ -681,17 +1042,23 @@ async function loadRequests(){
 
         if(result.empty){
 
-            requestsList.innerHTML =
-            `<div class="empty">
-                لا توجد طلبات تسجيل.
-            </div>`;
+            requestsList.innerHTML = `
+
+                <div class="empty">
+
+                    لا توجد طلبات تسجيل.
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        requestsList.innerHTML = "";
+        requestsList.innerHTML =
+        "";
 
 
         result.forEach(
@@ -702,7 +1069,9 @@ async function loadRequests(){
 
 
                 const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
                 div.className =
@@ -710,6 +1079,7 @@ async function loadRequests(){
 
 
                 div.innerHTML = `
+
                     👤 <strong>
                     ${safe(request.name || "بدون اسم")}
                     </strong>
@@ -727,11 +1097,40 @@ async function loadRequests(){
                     <br>
 
                     📊 الحالة:
-                    ${safe(request.status || "بانتظار المراجعة")}
+                    ${
+                        request.status === "approved"
+                        ?
+                        "✅ تمت الموافقة"
+                        :
+                        "🟡 بانتظار المراجعة"
+                    }
+
+                    ${
+                        request.studentCode
+                        ?
+                        `
+                        <div class="code-box">
+
+                            🔐 كود الطالب
+
+                            <span class="code-number">
+
+                                ${safe(request.studentCode)}
+
+                            </span>
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
                 `;
 
 
-                requestsList.appendChild(div);
+                requestsList.appendChild(
+                    div
+                );
 
             }
         );
@@ -745,17 +1144,28 @@ async function loadRequests(){
         );
 
 
-        requestsList.innerHTML =
-        `<div class="empty">
-            ❌ تعذر تحميل الطلبات.
-            <br><br>
-            ${safe(error.message)}
-        </div>`;
+        requestsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلبات.
+
+                <br><br>
+
+                ${safe(error.message)}
+
+            </div>
+
+        `;
 
     }
 
 }
 
+
+/* =========================
+   المدرسون
+========================= */
 
 async function loadTeachers(){
 
@@ -780,17 +1190,23 @@ async function loadTeachers(){
 
         if(result.empty){
 
-            teachersList.innerHTML =
-            `<div class="empty">
-                لا يوجد مدرسون حاليًا.
-            </div>`;
+            teachersList.innerHTML = `
+
+                <div class="empty">
+
+                    لا يوجد مدرسون حاليًا.
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        teachersList.innerHTML = "";
+        teachersList.innerHTML =
+        "";
 
 
         result.forEach(
@@ -801,7 +1217,9 @@ async function loadTeachers(){
 
 
                 const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
                 div.className =
@@ -809,6 +1227,7 @@ async function loadTeachers(){
 
 
                 div.innerHTML = `
+
                     👨‍🏫 <strong>
                     ${safe(teacher.name || "بدون اسم")}
                     </strong>
@@ -820,21 +1239,30 @@ async function loadTeachers(){
 
                     <br>
 
-                    🔐 الكود:
+                    🔐 كود المدرس:
+
+                    <strong>
                     ${safe(teacher.code || "-")}
+                    </strong>
 
                     <br>
 
                     الحالة:
+
                     ${
                         teacher.active === false
-                        ? "🔴 غير نشط"
-                        : "🟢 نشط"
+                        ?
+                        "🔴 غير نشط"
+                        :
+                        "🟢 نشط"
                     }
+
                 `;
 
 
-                teachersList.appendChild(div);
+                teachersList.appendChild(
+                    div
+                );
 
             }
         );
@@ -848,36 +1276,124 @@ async function loadTeachers(){
         );
 
 
-        teachersList.innerHTML =
-        `<div class="empty">
-            ❌ تعذر تحميل المدرسين.
-            <br><br>
-            ${safe(error.message)}
-        </div>`;
+        teachersList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل المدرسين.
+
+                <br><br>
+
+                ${safe(error.message)}
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-function safe(value){
+/* =========================
+   رسائل الدخول
+========================= */
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+function showLoginError(
+    text
+){
+
+    loginMessage.textContent =
+    text;
+
+    loginMessage.style.display =
+    text
+    ?
+    "block"
+    :
+    "none";
 
 }
 
 
+/* =========================
+   إظهار تسجيل الدخول
+========================= */
+
+function showLogin(){
+
+    loginCard.style.display =
+    "block";
+
+    dashboard.style.display =
+    "none";
+
+}
+
+
+/* =========================
+   إظهار الإدارة
+========================= */
+
+function showDashboard(){
+
+    loginCard.style.display =
+    "none";
+
+    dashboard.style.display =
+    "block";
+
+}
+
+
+/* =========================
+   حماية النص
+========================= */
+
+function safe(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================
+   تشغيل
+========================= */
+
 console.log(
-    "✅ admin.html يعمل بنجاح"
+    "✅ admin.html - جنود الهدى يعمل"
 );
 
 </script>
 
 </body>
 
-</html>
+    </html>
