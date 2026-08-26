@@ -166,7 +166,7 @@ button:disabled{
 
 .online-status{
     display:inline-block;
-    background:#198754;
+    background:#c9a227;
     color:white;
     padding:8px 18px;
     border-radius:30px;
@@ -183,17 +183,11 @@ button:disabled{
     margin-bottom:15px;
 }
 
-.meeting-box{
+.lesson-button{
     display:none;
-    margin-top:15px;
-}
-
-.meeting-frame{
-    width:100%;
-    height:500px;
-    border:0;
-    border-radius:15px;
-    background:#111;
+    background:#198754;
+    color:white;
+    margin-top:12px;
 }
 
 .note{
@@ -213,14 +207,6 @@ footer{
     line-height:2;
 }
 
-@media(max-width:600px){
-
-    .meeting-frame{
-        height:400px;
-    }
-
-}
-
 </style>
 
 </head>
@@ -237,13 +223,9 @@ footer{
 
 </header>
 
-
 <div class="container">
 
-
-<!-- =========================
-     تسجيل الدخول
-========================= -->
+<!-- تسجيل الدخول -->
 
 <div id="loginCard"
 class="card login-card">
@@ -272,14 +254,10 @@ class="primary">
 </div>
 
 
-
-<!-- =========================
-     لوحة الطالب
-========================= -->
+<!-- لوحة الطالب -->
 
 <div id="dashboard"
 class="dashboard">
-
 
 <div id="dashboardMessage"
 class="message">
@@ -292,7 +270,6 @@ class="message">
 👋 مرحبًا بك في أكاديمية جنود الهدى
 </h2>
 
-
 <div
 id="studentInfo"
 class="student-info">
@@ -300,7 +277,6 @@ class="student-info">
 ⏳ جاري تحميل بيانات الطالب...
 
 </div>
-
 
 <button
 id="logoutButton"
@@ -313,10 +289,7 @@ class="danger">
 </div>
 
 
-
-<!-- =========================
-     الحصة
-========================= -->
+<!-- الحصة -->
 
 <div class="card">
 
@@ -324,9 +297,7 @@ class="danger">
 📖 الحصة المباشرة
 </h2>
 
-
 <div class="online-box">
-
 
 <div class="online-title">
 
@@ -334,15 +305,13 @@ class="danger">
 
 </div>
 
-
 <div
 id="onlineStatus"
 class="online-status">
 
-● غير متصل
+🟡 جاري البحث عن الحصة...
 
 </div>
-
 
 <div
 id="lessonInfo"
@@ -352,34 +321,25 @@ class="lesson-info">
 
 </div>
 
+<button
+id="lessonButton"
+class="lesson-button">
 
-<div
-id="meetingBox"
-class="meeting-box">
+🎥 دخول الحصة
 
-<iframe
-id="meetingFrame"
-class="meeting-frame"
-allow="camera; microphone; fullscreen; display-capture"
-allowfullscreen>
-</iframe>
-
-</div>
-
+</button>
 
 <div
 id="noMeeting"
 class="note">
 
-لم يتم تحديد رابط الحصة من الإدارة حتى الآن.
-
-</div>
-
+لا توجد حصة مجدولة للطالب حاليًا.
 
 </div>
 
 </div>
 
+</div>
 
 </div>
 
@@ -397,9 +357,7 @@ class="note">
 </footer>
 
 
-
 <script type="module">
-
 
 /* =========================
    Firebase
@@ -408,7 +366,6 @@ class="note">
 import {
     db
 } from "./firebase.js";
-
 
 import {
     collection,
@@ -419,97 +376,59 @@ import {
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-
 /* =========================
-   عناصر الصفحة
+   العناصر
 ========================= */
 
 const loginCard =
-document.getElementById(
-    "loginCard"
-);
-
+document.getElementById("loginCard");
 
 const dashboard =
-document.getElementById(
-    "dashboard"
-);
-
+document.getElementById("dashboard");
 
 const studentCode =
-document.getElementById(
-    "studentCode"
-);
-
+document.getElementById("studentCode");
 
 const loginButton =
-document.getElementById(
-    "loginButton"
-);
-
+document.getElementById("loginButton");
 
 const loginMessage =
-document.getElementById(
-    "loginMessage"
-);
-
+document.getElementById("loginMessage");
 
 const dashboardMessage =
-document.getElementById(
-    "dashboardMessage"
-);
-
+document.getElementById("dashboardMessage");
 
 const studentInfo =
-document.getElementById(
-    "studentInfo"
-);
-
+document.getElementById("studentInfo");
 
 const lessonInfo =
-document.getElementById(
-    "lessonInfo"
-);
+document.getElementById("lessonInfo");
 
-
-const meetingBox =
-document.getElementById(
-    "meetingBox"
-);
-
-
-const meetingFrame =
-document.getElementById(
-    "meetingFrame"
-);
-
+const lessonButton =
+document.getElementById("lessonButton");
 
 const noMeeting =
-document.getElementById(
-    "noMeeting"
-);
-
+document.getElementById("noMeeting");
 
 const onlineStatus =
-document.getElementById(
-    "onlineStatus"
-);
-
+document.getElementById("onlineStatus");
 
 const logoutButton =
-document.getElementById(
-    "logoutButton"
-);
-
+document.getElementById("logoutButton");
 
 
 /* =========================
    الطالب الحالي
 ========================= */
 
-let currentStudent =
-null;
+let currentStudent = null;
 
+
+/* =========================
+   الحصة الحالية
+========================= */
+
+let currentLesson = null;
 
 
 /* =========================
@@ -586,7 +505,6 @@ loginButton.addEventListener(
             const item =
             result.docs[0];
 
-
             const student =
             item.data();
 
@@ -621,8 +539,12 @@ loginButton.addEventListener(
 
             showDashboard();
 
-
             displayStudent(
+                currentStudent
+            );
+
+
+            await loadStudentLesson(
                 currentStudent
             );
 
@@ -654,9 +576,8 @@ loginButton.addEventListener(
 );
 
 
-
 /* =========================
-   إظهار لوحة الطالب
+   عرض لوحة الطالب
 ========================= */
 
 function showDashboard(){
@@ -668,7 +589,6 @@ function showDashboard(){
     "block";
 
 }
-
 
 
 /* =========================
@@ -741,13 +661,164 @@ function displayStudent(
 
     `;
 
-
-    displayLesson(
-        student
-    );
-
 }
 
+
+/* =========================
+   تحميل حصة الطالب
+========================= */
+
+async function loadStudentLesson(
+    student
+){
+
+    lessonInfo.innerHTML =
+    "⏳ جاري البحث عن الحصة...";
+
+
+    lessonButton.style.display =
+    "none";
+
+
+    noMeeting.style.display =
+    "block";
+
+
+    onlineStatus.textContent =
+    "🟡 جاري البحث عن الحصة...";
+
+
+    try{
+
+        const studentName =
+        String(
+            student.name || ""
+        ).trim();
+
+
+        if(!studentName){
+
+            showNoLesson(
+                "❌ اسم الطالب غير موجود في الحساب."
+            );
+
+            return;
+
+        }
+
+
+        const result =
+        await getDocs(
+            query(
+                collection(
+                    db,
+                    "liveSessions"
+                ),
+
+                where(
+                    "studentName",
+                    "==",
+                    studentName
+                )
+            )
+        );
+
+
+        if(result.empty){
+
+            showNoLesson(
+                "لا توجد حصة مجدولة لك حاليًا."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================
+           اختيار الحصة المجدولة
+        ========================= */
+
+        let selectedLesson =
+        null;
+
+
+        result.forEach(
+            function(item){
+
+                const data =
+                item.data();
+
+
+                if(
+                    !selectedLesson &&
+                    (
+                        !data.status ||
+                        data.status ===
+                        "scheduled"
+                    )
+                ){
+
+                    selectedLesson = {
+
+                        id:item.id,
+
+                        ...data
+
+                    };
+
+                }
+
+            }
+        );
+
+
+        if(!selectedLesson){
+
+            showNoLesson(
+                "لا توجد حصة مجدولة حاليًا."
+            );
+
+            return;
+
+        }
+
+
+        currentLesson =
+        selectedLesson;
+
+
+        displayLesson(
+            selectedLesson
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Lesson error:",
+            error
+        );
+
+
+        lessonInfo.innerHTML = `
+
+            ❌ تعذر تحميل الحصة.
+
+            <br><br>
+
+            ${escapeHTML(
+                error.message
+            )}
+
+        `;
+
+        onlineStatus.textContent =
+        "🔴 حدث خطأ";
+
+    }
+
+}
 
 
 /* =========================
@@ -755,36 +826,40 @@ function displayStudent(
 ========================= */
 
 function displayLesson(
-    student
+    lesson
 ){
 
     const date =
-    student.lessonDate ||
-    "";
+    lesson.lessonDate ||
+    lesson.date ||
+    "غير محدد";
 
 
     const time =
-    student.lessonTime ||
-    "";
+    lesson.lessonTime ||
+    lesson.time ||
+    "غير محدد";
 
 
-    const duration =
-    student.lessonDuration ||
-    30;
+    const subject =
+    lesson.subject ||
+    "غير محدد";
 
 
-    const lesson =
-    student.lesson ||
-    "لم يتم تحديد الدرس";
+    const teacher =
+    lesson.teacherName ||
+    "غير محدد";
 
 
     lessonInfo.innerHTML = `
 
         <strong>
-        📖 الدرس:
+        👨‍🎓 الطالب:
         </strong>
 
-        ${escapeHTML(lesson)}
+        ${escapeHTML(
+            lesson.studentName || "-"
+        )}
 
         <br>
 
@@ -793,8 +868,17 @@ function displayLesson(
         </strong>
 
         ${escapeHTML(
-            student.teacher ||
-            "لم يتم تحديده"
+            teacher
+        )}
+
+        <br>
+
+        <strong>
+        📖 المادة:
+        </strong>
+
+        ${escapeHTML(
+            subject
         )}
 
         <br>
@@ -804,67 +888,79 @@ function displayLesson(
         </strong>
 
         ${escapeHTML(
-            date ||
-            "لم يتم تحديده"
+            date
         )}
 
         <br>
 
         <strong>
-        🕐 الوقت:
+        🕐 وقت الحصة:
         </strong>
 
         ${escapeHTML(
-            time ||
-            "لم يتم تحديده"
+            time
         )}
-
-        <br>
-
-        <strong>
-        ⏱️ المدة:
-        </strong>
-
-        ${escapeHTML(
-            duration
-        )}
-        دقيقة
 
     `;
 
 
-    if(student.meetingUrl){
-
-        meetingBox.style.display =
-        "block";
-
-        noMeeting.style.display =
-        "none";
+    onlineStatus.textContent =
+    "🟢 الحصة موجودة";
 
 
-        meetingFrame.src =
-        student.meetingUrl;
+    onlineStatus.style.background =
+    "#198754";
 
 
-        onlineStatus.textContent =
-        "🟢 رابط الحصة جاهز";
-
-    }else{
-
-        meetingBox.style.display =
-        "none";
-
-        noMeeting.style.display =
-        "block";
+    noMeeting.textContent =
+    "الحصة مجدولة. عند حلول وقتها سيظهر زر دخول الحصة.";
 
 
-        onlineStatus.textContent =
-        "🟡 بانتظار إعداد الحصة";
-
-    }
+    /*
+       في هذه المرحلة لا نضع رابط Google.
+       الدخول سيكون من داخل موقع جنود الهدى.
+    */
 
 }
 
+
+/* =========================
+   لا توجد حصة
+========================= */
+
+function showNoLesson(
+    text
+){
+
+    lessonInfo.innerHTML = `
+
+        <strong>
+        📖 الحصة
+        </strong>
+
+        <br><br>
+
+        ${escapeHTML(text)}
+
+    `;
+
+
+    onlineStatus.textContent =
+    "🟡 لا توجد حصة الآن";
+
+
+    onlineStatus.style.background =
+    "#c9a227";
+
+
+    lessonButton.style.display =
+    "none";
+
+
+    noMeeting.style.display =
+    "block";
+
+}
 
 
 /* =========================
@@ -876,6 +972,9 @@ logoutButton.addEventListener(
     function(){
 
         currentStudent =
+        null;
+
+        currentLesson =
         null;
 
 
@@ -902,7 +1001,6 @@ logoutButton.addEventListener(
 );
 
 
-
 /* =========================
    رسالة الدخول
 ========================= */
@@ -914,7 +1012,6 @@ function showLoginError(
     loginMessage.textContent =
     text;
 
-
     loginMessage.style.display =
     text
     ?
@@ -923,38 +1020,6 @@ function showLoginError(
     "none";
 
 }
-
-
-
-/* =========================
-   رسالة لوحة الطالب
-========================= */
-
-function showDashboardMessage(
-    text,
-    success
-){
-
-    dashboardMessage.textContent =
-    text;
-
-
-    dashboardMessage.className =
-    "message " +
-    (
-        success
-        ?
-        "good"
-        :
-        "error"
-    );
-
-
-    dashboardMessage.style.display =
-    "block";
-
-}
-
 
 
 /* =========================
@@ -997,7 +1062,6 @@ function escapeHTML(
 }
 
 
-
 /* =========================
    الدخول التلقائي
 ========================= */
@@ -1026,18 +1090,16 @@ async function autoLogin(){
 }
 
 
-
 /* =========================
    التشغيل
 ========================= */
 
 console.log(
-    "✅ صفحة الطالب تعمل."
+    "✅ صفحة الطالب الجديدة تعمل."
 );
 
 
 autoLogin();
-
 
 </script>
 
