@@ -461,3 +461,804 @@ footer{
 }
 
     </style>
+
+    </head><body><header><div class="logo">
+    🕌
+</div>
+
+<h1>
+    أكاديمية جنود الهدى
+</h1>
+
+<p>
+    لتعليم القرآن الكريم وتلاوته
+</p>
+
+</header><div class="container"><!-- =========================
+     بوابة الإدارة والمدرس
+========================= --><div class="portal-card"><div class="portal-title">
+    🕌 بوابة الأكاديمية
+</div>
+
+<div class="portal-subtitle">
+    اختر طريقة الدخول المناسبة لك
+</div>
+
+<div class="portal-buttons">
+
+    <button
+        class="portal-button admin-button"
+        onclick="window.location.href='admin.html'">
+
+        👨‍💼
+        <br>
+        دخول الإدارة
+
+    </button>
+
+
+    <button
+        class="portal-button teacher-button"
+        onclick="window.location.href='teacher-login.html'">
+
+        👨‍🏫
+        <br>
+        دخول المدرس
+
+    </button>
+
+</div>
+
+
+<div class="portal-info">
+
+    🎓 الطالب يستطيع التسجيل أو الدخول
+    من نفس الصفحة بالأسفل
+
+</div>
+
+</div><!-- =========================
+     تسجيل الطالب
+========================= --><div class="register-card"><div class="register-title">
+    🎓 التسجيل في أكاديمية جنود الهدى
+</div>
+
+<div class="register-subtitle">
+
+    سجّل بياناتك أولًا،
+    وسيتم مراجعة طلبك من الإدارة.
+    <br>
+    بعد الموافقة سيتم إرسال كود الدخول الخاص بك.
+
+</div>
+
+
+<input
+    id="studentName"
+    class="input"
+    type="text"
+    placeholder="اسم الطالب">
+
+
+<input
+    id="studentPhone"
+    class="input"
+    type="tel"
+    placeholder="رقم الجوال">
+
+
+<input
+    id="studentAge"
+    class="input"
+    type="number"
+    placeholder="العمر">
+
+
+<button
+    id="registerButton"
+    class="register-button">
+
+    إرسال طلب التسجيل
+
+</button>
+
+
+<div
+    id="registerMessage"
+    class="register-message">
+</div>
+
+</div><!-- =========================
+     دخول الطالب
+========================= --><div class="class-card"><div class="class-icon">
+    🎓
+</div>
+
+
+<h2>
+    دخول الحصة المباشرة
+</h2>
+
+
+<p>
+
+    بعد الموافقة على تسجيلك،
+    أدخل الكود الذي أرسلته لك الأكاديمية.
+
+</p>
+
+
+<input
+    id="studentCode"
+    class="code-input"
+    type="text"
+    inputmode="numeric"
+    maxlength="12"
+    placeholder="أدخل كود الطالب">
+
+
+<button
+    id="codeButton"
+    class="code-button">
+
+    🔐 دخول الحصة
+
+</button>
+
+
+<div
+    id="codeMessage"
+    class="code-message">
+</div>
+
+</div><!-- =========================
+     المصحف
+========================= --><div class="quran-card"><div class="quran-title">
+    📖 المصحف الشريف
+</div>
+
+
+<div class="quran-subtitle">
+    اقرأ كتاب الله في أي وقت
+</div>
+
+
+<select
+    id="surahSelect"
+    class="select-box">
+
+    <option value="">
+        ⏳ جاري تحميل السور...
+    </option>
+
+</select>
+
+
+<div id="quranContent">
+
+    <div class="loading">
+        ⏳ جاري تحميل القرآن الكريم...
+    </div>
+
+</div>
+
+
+<div class="navigation">
+
+    <button
+        id="previousButton"
+        disabled>
+
+        ← السورة السابقة
+
+    </button>
+
+
+    <button
+        id="nextButton"
+        disabled>
+
+        السورة التالية →
+
+    </button>
+
+</div>
+
+</div><!-- =========================
+     التفسير
+========================= --><div class="tafsir-card"><div class="tafsir-title">
+    🌿 التفسير والتدبر
+</div>
+
+
+<p>
+
+    فهم القرآن الكريم يعين على التدبر والعمل.
+    اقرأ الآيات بتأنٍ، وتعلّم معانيها من
+    مصادر التفسير الموثوقة.
+
+</p>
+
+</div></div><footer>🕌 أكاديمية جنود الهدى
+
+<br>
+
+تعليم القرآن الكريم عن بُعد
+
+<br>
+
+📖 القرآن الكريم مجاني للجميع
+
+<br>
+
+© 2026
+
+</footer><script type="module">
+
+/* =========================================
+   Firebase
+   نفس إصدار firebase.js عندك
+========================================= */
+
+import {
+    db
+} from "./firebase.js";
+
+
+import {
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    where,
+    getDocs
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   تسجيل الطالب
+========================================= */
+
+const studentName =
+document.getElementById(
+    "studentName"
+);
+
+
+const studentPhone =
+document.getElementById(
+    "studentPhone"
+);
+
+
+const studentAge =
+document.getElementById(
+    "studentAge"
+);
+
+
+const registerButton =
+document.getElementById(
+    "registerButton"
+);
+
+
+const registerMessage =
+document.getElementById(
+    "registerMessage"
+);
+
+
+registerButton.addEventListener(
+    "click",
+    async function(){
+
+        const name =
+        studentName.value.trim();
+
+
+        const phone =
+        studentPhone.value.trim();
+
+
+        const age =
+        studentAge.value.trim();
+
+
+        if(!name){
+
+            showRegisterMessage(
+                "⚠️ اكتب اسم الطالب.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        if(!phone){
+
+            showRegisterMessage(
+                "⚠️ اكتب رقم الجوال.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        registerButton.disabled =
+        true;
+
+
+        registerButton.textContent =
+        "⏳ جاري إرسال الطلب...";
+
+
+        try{
+
+            const requestRef =
+            await addDoc(
+
+                collection(
+                    db,
+                    "bookingRequests"
+                ),
+
+                {
+
+                    name:name,
+
+                    phone:phone,
+
+                    age:age,
+
+                    status:"pending",
+
+                    type:"student",
+
+                    createdAt:
+                    serverTimestamp()
+
+                }
+
+            );
+
+
+            console.log(
+                "تم إنشاء طلب التسجيل:",
+                requestRef.id
+            );
+
+
+            showRegisterMessage(
+
+                "✅ تم إرسال طلب التسجيل بنجاح. سيتم مراجعة الطلب، وبعد الموافقة سيتم إرسال كود الدخول لك.",
+
+                true
+
+            );
+
+
+            studentName.value =
+            "";
+
+            studentPhone.value =
+            "";
+
+            studentAge.value =
+            "";
+
+
+        }catch(error){
+
+            console.error(
+                "خطأ التسجيل:",
+                error
+            );
+
+
+            let message =
+            "❌ تعذر إرسال الطلب.";
+
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                message =
+                "❌ تم رفض الطلب من Firebase. تأكد من قواعد Firestore.";
+
+            }
+
+            else if(
+                error.code ===
+                "failed-precondition"
+            ){
+
+                message =
+                "❌ يوجد إعداد ناقص في Firebase.";
+
+            }
+
+            else if(
+                error.code ===
+                "unavailable"
+            ){
+
+                message =
+                "❌ تعذر الاتصال بـ Firebase. تأكد من الإنترنت.";
+
+            }
+
+            else if(
+                error.message
+            ){
+
+                message +=
+                "\n"
+                +
+                error.message;
+
+            }
+
+
+            showRegisterMessage(
+                message,
+                false
+            );
+
+        }
+
+
+        registerButton.disabled =
+        false;
+
+
+        registerButton.textContent =
+        "إرسال طلب التسجيل";
+
+    }
+);
+
+
+function showRegisterMessage(
+    text,
+    success
+){
+
+    registerMessage.textContent =
+    text;
+
+
+    registerMessage.style.display =
+    "block";
+
+
+    registerMessage.className =
+    "register-message "
+    +
+    (
+        success
+        ?
+        "success"
+        :
+        "danger"
+    );
+
+}
+
+
+/* =========================================
+   دخول الطالب بالكود
+========================================= */
+
+const studentCode =
+document.getElementById(
+    "studentCode"
+);
+
+
+const codeButton =
+document.getElementById(
+    "codeButton"
+);
+
+
+const codeMessage =
+document.getElementById(
+    "codeMessage"
+);
+
+
+codeButton.addEventListener(
+    "click",
+    async function(){
+
+        const code =
+        studentCode.value.trim();
+
+
+        if(!code){
+
+            showCodeMessage(
+                "⚠️ أدخل كود الطالب."
+            );
+
+            return;
+
+        }
+
+
+        codeButton.disabled =
+        true;
+
+
+        codeButton.textContent =
+        "⏳ جاري التحقق...";
+
+
+        try{
+
+            const studentsQuery =
+            query(
+
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "code",
+                    "==",
+                    code
+                )
+
+            );
+
+
+            const result =
+            await getDocs(
+                studentsQuery
+            );
+
+
+            if(
+                result.empty
+            ){
+
+                showCodeMessage(
+
+                    "❌ الكود غير صحيح أو لم تتم الموافقة على الطالب بعد."
+
+                );
+
+                return;
+
+            }
+
+
+            let studentData =
+            null;
+
+
+            result.forEach(
+                function(doc){
+
+                    studentData =
+                    {
+                        id:doc.id,
+                        ...doc.data()
+                    };
+
+                }
+            );
+
+
+            if(
+                studentData.status
+                &&
+                studentData.status !==
+                "active"
+            ){
+
+                showCodeMessage(
+
+                    "⚠️ هذا الكود غير مفعل حاليًا."
+
+                );
+
+                return;
+
+            }
+
+
+            localStorage.setItem(
+
+                "studentSession",
+
+                JSON.stringify({
+
+                    id:
+                    studentData.id,
+
+                    name:
+                    studentData.name || "",
+
+                    phone:
+                    studentData.phone || "",
+
+                    code:
+                    code
+
+                })
+
+            );
+
+
+            window.location.href =
+            "class.html";
+
+
+        }catch(error){
+
+            console.error(
+                "خطأ دخول الطالب:",
+                error
+            );
+
+
+            if(
+                error.code ===
+                "permission-denied"
+            ){
+
+                showCodeMessage(
+                    "❌ لا توجد صلاحية لقراءة بيانات الطلاب."
+                );
+
+            }
+
+            else{
+
+                showCodeMessage(
+                    "❌ حدث خطأ أثناء التحقق من الكود."
+                );
+
+            }
+
+        }
+
+
+        codeButton.disabled =
+        false;
+
+
+        codeButton.textContent =
+        "🔐 دخول الحصة";
+
+    }
+);
+
+
+function showCodeMessage(text){
+
+    codeMessage.textContent =
+    text;
+
+
+    codeMessage.style.display =
+    "block";
+
+}
+
+    /* =========================================
+   تحديث أزرار التنقل
+========================================= */
+
+function updateNavigation(){
+
+    previousButton.disabled =
+    currentSurahIndex <= 0;
+
+    nextButton.disabled =
+    currentSurahIndex >=
+    surahs.length - 1;
+
+}
+
+
+/* =========================================
+   فتح الحصة المباشرة
+========================================= */
+
+function openClassPage(){
+
+    const session =
+    localStorage.getItem(
+        "studentSession"
+    );
+
+    if(!session){
+
+        return;
+
+    }
+
+    window.location.href =
+    "class.html";
+
+}
+
+
+/* =========================================
+   التأكد من جلسة الطالب
+========================================= */
+
+function checkStudentSession(){
+
+    const session =
+    localStorage.getItem(
+        "studentSession"
+    );
+
+    if(!session){
+
+        return;
+
+    }
+
+    try{
+
+        const student =
+        JSON.parse(session);
+
+        if(
+            student &&
+            student.id &&
+            student.code
+        ){
+
+            console.log(
+                "جلسة الطالب موجودة:",
+                student.name
+            );
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "خطأ في جلسة الطالب:",
+            error
+        );
+
+        localStorage.removeItem(
+            "studentSession"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   تشغيل فحص الجلسة
+========================================= */
+
+checkStudentSession();
+
+
+</script>
+
+</body>
+
+</html>
+
+
+    
