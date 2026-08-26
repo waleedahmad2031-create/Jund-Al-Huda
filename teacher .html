@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>دخول المدرس | جنود الهدى</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#f3f7f5;
+    color:#222;
+    display:flex;
+    flex-direction:column;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:30px 15px 38px;
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:8px;
+}
+
+header h1{
+    font-size:28px;
+}
+
+header p{
+    margin-top:8px;
+    font-size:14px;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+    padding:20px 14px;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:25px 20px;
+    box-shadow:0 5px 22px rgba(0,0,0,.08);
+    border-top:5px solid #075e54;
+}
+
+.title{
+    text-align:center;
+    color:#075e54;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    line-height:2;
+    margin-bottom:22px;
+}
+
+.icon{
+    text-align:center;
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.code-input{
+    width:100%;
+    padding:17px 12px;
+    border:1px solid #ddd;
+    border-radius:13px;
+    outline:none;
+    text-align:center;
+    font-size:25px;
+    letter-spacing:6px;
+    margin-bottom:12px;
+}
+
+.code-input:focus{
+    border-color:#075e54;
+}
+
+.login-button{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:#075e54;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.login-button:disabled{
+    background:#aaa;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:14px;
+    padding:13px;
+    border-radius:11px;
+    text-align:center;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
+.success{
+    background:#e7f7ef;
+    color:#08733d;
+}
+
+.info{
+    margin-top:18px;
+    background:#f8faf9;
+    border-radius:13px;
+    padding:15px;
+    color:#666;
+    font-size:13px;
+    line-height:2;
+    text-align:center;
+}
+
+.back-button{
+    display:block;
+    margin-top:12px;
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    background:#eee;
+    color:#444;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+footer{
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px 15px;
+    font-size:13px;
+    line-height:2;
+    margin-top:auto;
+}
+
+@media(max-width:600px){
+
+    header h1{
+        font-size:24px;
+    }
+
+    .code-input{
+        font-size:22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        👨‍🏫
+    </div>
+
+    <h1>
+        أكاديمية جنود الهدى
+    </h1>
+
+    <p>
+        دخول المدرس إلى الحصة
+    </p>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="icon">
+            🎓
+        </div>
+
+        <div class="title">
+            دخول المدرس
+        </div>
+
+        <div class="subtitle">
+
+            أدخل كود المدرس الخاص بك
+            <br>
+            للدخول إلى الحصة المباشرة
+
+        </div>
+
+
+        <input
+            id="teacherCode"
+            class="code-input"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            autocomplete="off"
+            placeholder="••••••">
+
+
+        <button
+            id="loginButton"
+            class="login-button">
+
+            🔐 دخول الحصة
+
+        </button>
+
+
+        <div
+            id="message"
+            class="message">
+
+        </div>
+
+
+        <div class="info">
+
+            🔒 الدخول مخصص للمدرسين المعتمدين فقط.
+
+            <br>
+
+            إذا لم يكن لديك كود مدرس،
+            تواصل مع إدارة أكاديمية جنود الهدى.
+
+        </div>
+
+
+        <button
+            id="backButton"
+            class="back-button">
+
+            ← العودة
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    🕌 جنود الهدى
+
+    <br>
+
+    تعليم القرآن الكريم عن بُعد
+
+    <br>
+
+    © 2026
+
+</footer>
+
+
+<script type="module">
+
+
+/* =========================================
+   Firebase
+========================================= */
+
+import {
+    db
+}
+from "./firebase.js";
+
+
+import {
+
+    collection,
+    query,
+    where,
+    getDocs
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   العناصر
+========================================= */
+
+const teacherCode =
+document.getElementById(
+    "teacherCode"
+);
+
+const loginButton =
+document.getElementById(
+    "loginButton"
+);
+
+const message =
+document.getElementById(
+    "message"
+);
+
+const backButton =
+document.getElementById(
+    "backButton"
+);
+
+
+/* =========================================
+   دخول المدرس
+========================================= */
+
+loginButton.addEventListener(
+    "click",
+    loginTeacher
+);
+
+
+/* السماح بالضغط Enter */
+
+teacherCode.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            loginTeacher();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   التحقق
+========================================= */
+
+async function loginTeacher(){
+
+    const code =
+    teacherCode.value.trim();
+
+
+    if(!code){
+
+        showMessage(
+            "⚠️ أدخل كود المدرس.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    if(!/^\d{6}$/.test(code)){
+
+        showMessage(
+            "⚠️ كود المدرس يجب أن يكون 6 أرقام.",
+            false
+        );
+
+        return;
+
+    }
+
+
+    loginButton.disabled =
+    true;
+
+    loginButton.textContent =
+    "⏳ جاري التحقق...";
+
+
+    try{
+
+        const teachersQuery =
+        query(
+
+            collection(
+                db,
+                "teachers"
+            ),
+
+            where(
+                "code",
+                "==",
+                code
+            )
+
+        );
+
+
+        const result =
+        await getDocs(
+            teachersQuery
+        );
+
+
+        if(result.empty){
+
+            showMessage(
+                "❌ كود المدرس غير صحيح.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        let teacher =
+        null;
+
+
+        result.forEach(
+            function(item){
+
+                teacher = {
+
+                    id:item.id,
+
+                    ...item.data()
+
+                };
+
+            }
+        );
+
+
+        /*
+        التأكد من حالة المدرس
+        */
+
+        if(
+            teacher.active ===
+            false
+        ){
+
+            showMessage(
+                "⚠️ هذا الكود غير مفعل حاليًا.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        /*
+        حفظ جلسة المدرس
+        */
+
+        localStorage.setItem(
+
+            "teacherSession",
+
+            JSON.stringify({
+
+                id:
+                teacher.id,
+
+                name:
+                teacher.name ||
+                "",
+
+                code:
+                teacher.code,
+
+                subject:
+                teacher.subject ||
+                "",
+
+                active:
+                teacher.active !== false
+
+            })
+
+        );
+
+
+        showMessage(
+            "✅ تم التحقق بنجاح. جاري دخول الحصة...",
+            true
+        );
+
+
+        /*
+        الانتقال إلى الحصة
+        */
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                "class.html";
+
+            },
+            700
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        showMessage(
+
+            "❌ حدث خطأ أثناء التحقق. تأكد من اتصال الإنترنت وقواعد Firestore.",
+
+            false
+
+        );
+
+    }finally{
+
+        loginButton.disabled =
+        false;
+
+        loginButton.textContent =
+        "🔐 دخول الحصة";
+
+    }
+
+}
+
+
+/* =========================================
+   الرسالة
+========================================= */
+
+function showMessage(
+    text,
+    success
+){
+
+    message.textContent =
+    text;
+
+    message.className =
+    "message "
+    +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+    message.style.display =
+    "block";
+
+}
+
+
+/* =========================================
+   العودة
+========================================= */
+
+backButton.addEventListener(
+    "click",
+    function(){
+
+        window.history.back();
+
+    }
+);
+
+
+/* =========================================
+   تنظيف الكود
+========================================= */
+
+teacherCode.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+        this.value
+        .replace(
+            /[^0-9]/g,
+            ""
+        )
+        .slice(
+            0,
+            6
+        );
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
