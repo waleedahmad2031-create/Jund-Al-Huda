@@ -213,6 +213,21 @@ button:disabled{
     margin-top:12px;
 }
 
+.waiting{
+    text-align:center;
+    background:#fff8df;
+    color:#705b00;
+    border:1px solid #ead58a;
+    padding:12px;
+    border-radius:10px;
+    margin-top:12px;
+    line-height:1.8;
+}
+
+.active-lesson{
+    border-right-color:#198754;
+}
+
 .empty{
     text-align:center;
     color:#777;
@@ -241,6 +256,12 @@ button:disabled{
 
 .logout{
     margin-top:15px;
+}
+
+.refresh-button{
+    background:#075e54;
+    color:white;
+    margin-top:12px;
 }
 
 @media(max-width:600px){
@@ -286,8 +307,7 @@ class="card login-card">
 
 <h2>🎓 دخول الطالب</h2>
 
-<div
-class="code-note">
+<div class="code-note">
 
 🔐 أدخل كود الطالب المكوّن من 6 أرقام
 
@@ -307,6 +327,7 @@ id="studentCode"
 type="text"
 inputmode="numeric"
 maxlength="6"
+autocomplete="off"
 placeholder="أدخل كود الطالب">
 
 <button
@@ -351,6 +372,15 @@ class="student-info">
 </div>
 
 </div>
+
+
+<button
+id="refreshButton"
+class="refresh-button">
+
+🔄 تحديث الحصص
+
+</button>
 
 
 <button
@@ -466,6 +496,11 @@ document.getElementById(
     "logoutButton"
 );
 
+const refreshButton =
+document.getElementById(
+    "refreshButton"
+);
+
 const studentName =
 document.getElementById(
     "studentName"
@@ -490,12 +525,12 @@ let currentStudent = null;
 
 
 /* =========================
-   عند فتح الصفحة
+   فتح الصفحة
 ========================= */
 
 window.addEventListener(
     "DOMContentLoaded",
-    function(){
+    async function(){
 
         const savedStudent =
         localStorage.getItem(
@@ -525,9 +560,7 @@ window.addEventListener(
                 !currentStudent.code
             ){
 
-                localStorage.removeItem(
-                    "jund_student"
-                );
+                clearStudent();
 
                 showLogin();
 
@@ -536,20 +569,145 @@ window.addEventListener(
             }
 
 
+            /*
+            مهم:
+
+            لا نعتمد على البيانات
+            القديمة الموجودة في localStorage.
+
+            نعيد التحقق من الطالب
+            من Firebase باستخدام ID + code.
+            */
+
+            const studentRef =
+            query(
+
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "code",
+                    "==",
+                    String(
+                        currentStudent.code
+                    )
+                )
+
+            );
+
+
+            const result =
+            await getDocs(
+                studentRef
+            );
+
+
+            if(result.empty){
+
+                clearStudent();
+
+                showLogin();
+
+                showLoginError(
+                    "❌ لم يعد الطالب موجودًا."
+                );
+
+                return;
+
+            }
+
+
+            const studentDoc =
+            result.docs[0];
+
+
+            if(
+                studentDoc.id !==
+                currentStudent.id
+            ){
+
+                clearStudent();
+
+                showLogin();
+
+                showLoginError(
+                    "❌ بيانات الدخول غير صالحة."
+                );
+
+                return;
+
+            }
+
+
+            const data =
+            studentDoc.data();
+
+
+            if(
+                data.active === false
+            ){
+
+                clearStudent();
+
+                showLogin();
+
+                showLoginError(
+                    "🔴 هذا الطالب غير نشط حاليًا."
+                );
+
+                return;
+
+            }
+
+
+            /*
+            تحديث البيانات من Firebase
+            */
+
+            currentStudent = {
+
+                id:
+                studentDoc.id,
+
+                code:
+                data.code || "",
+
+                name:
+                data.name || "الطالب",
+
+                phone:
+                data.phone || "",
+
+                age:
+                data.age || "",
+
+                teacher:
+                data.teacher || ""
+
+            };
+
+
+            saveStudent();
+
+
             showDashboard();
 
             displayStudent();
 
-            loadMyLessons();
+            await loadMyLessons();
 
 
         }catch(error){
 
-            console.error(error);
-
-            localStorage.removeItem(
-                "jund_student"
+            console.error(
+                "Startup error:",
+                error
             );
+
+
+            clearStudent();
 
             showLogin();
 
@@ -603,7 +761,7 @@ loginButton.addEventListener(
         try{
 
             /* =========================
-               البحث عن الطالب بالكود
+               البحث بالكود فقط
             ========================= */
 
             const studentQuery =
@@ -640,9 +798,9 @@ loginButton.addEventListener(
             }
 
 
-            /* =========================
-               أخذ الطالب
-            ========================= */
+            /*
+            نأخذ الطالب المطابق
+            */
 
             const studentDoc =
             result.docs[0];
@@ -652,9 +810,9 @@ loginButton.addEventListener(
             studentDoc.data();
 
 
-            /* =========================
-               التأكد من نشاط الطالب
-            ========================= */
+            /*
+            التأكد من نشاط الطالب
+            */
 
             if(
                 data.active === false
@@ -669,9 +827,9 @@ loginButton.addEventListener(
             }
 
 
-            /* =========================
-               حفظ بيانات الطالب
-            ========================= */
+            /*
+            إنشاء بيانات الطالب
+            */
 
             currentStudent = {
 
@@ -696,12 +854,11 @@ loginButton.addEventListener(
             };
 
 
-            localStorage.setItem(
-                "jund_student",
-                JSON.stringify(
-                    currentStudent
-                )
-            );
+            /*
+            حفظ بيانات الطالب
+            */
+
+            saveStudent();
 
 
             showLoginError("");
@@ -741,7 +898,7 @@ loginButton.addEventListener(
 
 
 /* =========================
-   زر Enter
+   Enter
 ========================= */
 
 studentCode.addEventListener(
@@ -762,6 +919,46 @@ studentCode.addEventListener(
 
 
 /* =========================
+   تحديث الحصص
+========================= */
+
+refreshButton.addEventListener(
+    "click",
+    async function(){
+
+        if(!currentStudent){
+
+            return;
+
+        }
+
+
+        refreshButton.disabled =
+        true;
+
+        refreshButton.textContent =
+        "⏳ جاري التحديث...";
+
+
+        try{
+
+            await loadMyLessons();
+
+        }finally{
+
+            refreshButton.disabled =
+            false;
+
+            refreshButton.textContent =
+            "🔄 تحديث الحصص";
+
+        }
+
+    }
+);
+
+
+/* =========================
    تسجيل الخروج
 ========================= */
 
@@ -769,27 +966,50 @@ logoutButton.addEventListener(
     "click",
     function(){
 
-        localStorage.removeItem(
-            "jund_student"
-        );
-
-
-        currentStudent =
-        null;
-
+        clearStudent();
 
         lessonsList.innerHTML =
         "⏳ جاري تحميل حصصك...";
 
-
-        showLogin();
-
-
         studentCode.value =
         "";
 
+        showLogin();
+
     }
 );
+
+
+/* =========================
+   حفظ الطالب
+========================= */
+
+function saveStudent(){
+
+    localStorage.setItem(
+        "jund_student",
+        JSON.stringify(
+            currentStudent
+        )
+    );
+
+}
+
+
+/* =========================
+   حذف الطالب
+========================= */
+
+function clearStudent(){
+
+    localStorage.removeItem(
+        "jund_student"
+    );
+
+    currentStudent =
+    null;
+
+}
 
 
 /* =========================
@@ -817,7 +1037,9 @@ function displayStudent(){
 
         info +=
         "🔐 كود الطالب: " +
-        currentStudent.code;
+        safe(
+            currentStudent.code
+        );
 
     }
 
@@ -874,10 +1096,14 @@ async function loadMyLessons(){
 
     try{
 
-        /* =========================
-           مهم جدًا:
-           البحث باستخدام studentId
-        ========================= */
+        /*
+        مهم جدًا:
+
+        لا نحمل جميع الحصص.
+
+        نطلب فقط الحصص التي تحتوي
+        على studentId الخاص بالطالب.
+        */
 
         const lessonsQuery =
         query(
@@ -925,7 +1151,7 @@ async function loadMyLessons(){
 
 
         /* =========================
-           ترتيب الحصص
+           تحويل البيانات
         ========================= */
 
         const lessons =
@@ -947,6 +1173,10 @@ async function loadMyLessons(){
             }
         );
 
+
+        /* =========================
+           ترتيب الحصص
+        ========================= */
 
         lessons.sort(
             function(a,b){
@@ -984,184 +1214,8 @@ async function loadMyLessons(){
         lessons.forEach(
             function(lesson){
 
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-                div.className =
-                "lesson";
-
-
-                const status =
-                lesson.status ||
-                "scheduled";
-
-
-                let statusText =
-                "🟢 مجدولة";
-
-
-                if(
-                    status ===
-                    "cancelled"
-                ){
-
-                    statusText =
-                    "🔴 ملغاة";
-
-                }
-
-
-                if(
-                    status ===
-                    "completed"
-                ){
-
-                    statusText =
-                    "✅ انتهت";
-
-                }
-
-
-                if(
-                    status ===
-                    "scheduled"
-                ){
-
-                    statusText =
-                    "🟢 مجدولة";
-
-                }
-
-
-                const meetingUrl =
-                fixMeetingUrl(
-                    lesson.meetingUrl
-                );
-
-
-                div.innerHTML = `
-
-                    <div class="lesson-subject">
-
-                        📚 ${safe(
-                            lesson.subject ||
-                            "بدون مادة"
-                        )}
-
-                    </div>
-
-                    <br>
-
-                    👨‍🏫 المدرس:
-
-                    <strong>
-                    ${safe(
-                        lesson.teacherName ||
-                        currentStudent.teacher ||
-                        "-"
-                    )}
-                    </strong>
-
-                    <br>
-
-                    📅 التاريخ:
-
-                    <strong>
-                    ${safe(
-                        lesson.lessonDate ||
-                        "-"
-                    )}
-                    </strong>
-
-                    <br>
-
-                    🟢 وقت الدخول:
-
-                    <strong>
-                    ${safe(
-                        lesson.startTime ||
-                        "-"
-                    )}
-                    </strong>
-
-                    <br>
-
-                    🔴 وقت الانتهاء:
-
-                    <strong>
-                    ${safe(
-                        lesson.endTime ||
-                        "-"
-                    )}
-                    </strong>
-
-                    <br>
-
-                    📊 الحالة:
-
-                    <span class="lesson-status">
-
-                    ${statusText}
-
-                    </span>
-
-                    ${
-                        meetingUrl
-                        &&
-                        status !==
-                        "cancelled"
-
-                        ?
-
-                        `
-
-                        <a
-                            class="meeting-button"
-                            href="${safe(meetingUrl)}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-
-                            🎥 دخول الحصة المباشرة
-
-                        </a>
-
-                        `
-
-                        :
-
-                        `
-
-                        <div
-                            class="no-link">
-
-                            ${
-                                status ===
-                                "cancelled"
-
-                                ?
-
-                                "🔴 هذه الحصة ملغاة"
-
-                                :
-
-                                "⚠️ لم يتم إضافة رابط الحصة بعد"
-
-                            }
-
-                        </div>
-
-                        `
-
-                    }
-
-                `;
-
-
-                lessonsList.appendChild(
-                    div
+                renderLesson(
+                    lesson
                 );
 
             }
@@ -1198,10 +1252,375 @@ async function loadMyLessons(){
 
 
 /* =========================
+   عرض الحصة
+========================= */
+
+function renderLesson(
+    lesson
+){
+
+    const div =
+    document.createElement(
+        "div"
+    );
+
+
+    div.className =
+    "lesson";
+
+
+    const status =
+    lesson.status ||
+    "scheduled";
+
+
+    let statusText =
+    "🟢 مجدولة";
+
+
+    if(
+        status ===
+        "cancelled"
+    ){
+
+        statusText =
+        "🔴 ملغاة";
+
+    }
+
+
+    if(
+        status ===
+        "completed"
+    ){
+
+        statusText =
+        "✅ انتهت";
+
+    }
+
+
+    const meetingUrl =
+    fixMeetingUrl(
+        lesson.meetingUrl
+    );
+
+
+    /*
+    حساب حالة الوقت
+    */
+
+    const timeState =
+    getLessonTimeState(
+        lesson
+    );
+
+
+    /*
+    الحصة الحالية
+    */
+
+    if(
+        timeState ===
+        "active"
+    ){
+
+        div.classList.add(
+            "active-lesson"
+        );
+
+    }
+
+
+    let actionHtml =
+    "";
+
+
+    if(
+        status ===
+        "cancelled"
+    ){
+
+        actionHtml = `
+
+            <div class="no-link">
+
+                🔴 هذه الحصة ملغاة
+
+            </div>
+
+        `;
+
+    }
+
+    else if(
+        status ===
+        "completed"
+    ){
+
+        actionHtml = `
+
+            <div class="no-link">
+
+                ✅ انتهت هذه الحصة
+
+            </div>
+
+        `;
+
+    }
+
+    else if(
+        !meetingUrl
+    ){
+
+        actionHtml = `
+
+            <div class="no-link">
+
+                ⚠️ لم يتم إضافة رابط الحصة بعد
+
+            </div>
+
+        `;
+
+    }
+
+    else if(
+        timeState ===
+        "before"
+    ){
+
+        actionHtml = `
+
+            <div class="waiting">
+
+                ⏳ الحصة لم تبدأ بعد
+
+                <br>
+
+                سيفتح الدخول عند:
+
+                <strong>
+                ${safe(
+                    lesson.startTime ||
+                    "-"
+                )}
+                </strong>
+
+            </div>
+
+        `;
+
+    }
+
+    else if(
+        timeState ===
+        "after"
+    ){
+
+        actionHtml = `
+
+            <div class="no-link">
+
+                ⏰ انتهى وقت الدخول للحصة
+
+            </div>
+
+        `;
+
+    }
+
+    else{
+
+        /*
+        داخل وقت الحصة
+        */
+
+        actionHtml = `
+
+            <a
+                class="meeting-button"
+                href="${safe(meetingUrl)}"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                🎥 دخول الحصة المباشرة
+
+            </a>
+
+        `;
+
+    }
+
+
+    div.innerHTML = `
+
+        <div class="lesson-subject">
+
+            📚 ${safe(
+                lesson.subject ||
+                "بدون مادة"
+            )}
+
+        </div>
+
+        <br>
+
+        👨‍🏫 المدرس:
+
+        <strong>
+        ${safe(
+            lesson.teacherName ||
+            currentStudent.teacher ||
+            "-"
+        )}
+        </strong>
+
+        <br>
+
+        📅 التاريخ:
+
+        <strong>
+        ${safe(
+            lesson.lessonDate ||
+            "-"
+        )}
+        </strong>
+
+        <br>
+
+        🟢 وقت الدخول:
+
+        <strong>
+        ${safe(
+            lesson.startTime ||
+            "-"
+        )}
+        </strong>
+
+        <br>
+
+        🔴 وقت الانتهاء:
+
+        <strong>
+        ${safe(
+            lesson.endTime ||
+            "-"
+        )}
+        </strong>
+
+        <br>
+
+        📊 الحالة:
+
+        <span class="lesson-status">
+
+        ${statusText}
+
+        </span>
+
+        ${actionHtml}
+
+    `;
+
+
+    lessonsList.appendChild(
+        div
+    );
+
+}
+
+
+/* =========================
+   حالة وقت الحصة
+========================= */
+
+function getLessonTimeState(
+    lesson
+){
+
+    /*
+    إذا لم يوجد تاريخ أو وقت
+    نعتبرها قبل البداية.
+    */
+
+    if(
+        !lesson.lessonDate ||
+        !lesson.startTime ||
+        !lesson.endTime
+    ){
+
+        return "before";
+
+    }
+
+
+    /*
+    التاريخ والوقت المحلي
+    */
+
+    const now =
+    new Date();
+
+
+    const start =
+    new Date(
+        lesson.lessonDate +
+        "T" +
+        lesson.startTime
+    );
+
+
+    const end =
+    new Date(
+        lesson.lessonDate +
+        "T" +
+        lesson.endTime
+    );
+
+
+    if(
+        isNaN(start.getTime()) ||
+        isNaN(end.getTime())
+    ){
+
+        return "before";
+
+    }
+
+
+    if(
+        now < start
+    ){
+
+        return "before";
+
+    }
+
+
+    if(
+        now >= start &&
+        now <= end
+    ){
+
+        return "active";
+
+    }
+
+
+    return "after";
+
+}
+
+
+/* =========================
    إصلاح رابط Meet
 ========================= */
 
-function fixMeetingUrl(url){
+function fixMeetingUrl(
+    url
+){
 
     url =
     String(
@@ -1236,7 +1655,7 @@ function fixMeetingUrl(url){
 
 
 /* =========================
-   رسائل الدخول
+   رسالة الدخول
 ========================= */
 
 function showLoginError(
@@ -1293,7 +1712,9 @@ function showDashboard(){
    حماية النص
 ========================= */
 
-function safe(value){
+function safe(
+    value
+){
 
     return String(
         value ?? ""
