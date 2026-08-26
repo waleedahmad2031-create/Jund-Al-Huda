@@ -1,0 +1,1089 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>الطالب | جنود الهدى</title><style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#f4f7f5;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+.logo{
+    font-size:45px;
+}
+
+header h1{
+    font-size:27px;
+    margin-top:5px;
+}
+
+header p{
+    margin-top:7px;
+    font-size:14px;
+}
+
+.container{
+    max-width:850px;
+    margin:auto;
+    padding:20px 14px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.login-card{
+    max-width:500px;
+    margin:30px auto;
+}
+
+h2{
+    color:#075e54;
+    text-align:center;
+    margin-bottom:18px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    font-size:18px;
+    text-align:center;
+    margin-bottom:12px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#075e54;
+}
+
+button{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+}
+
+.primary{
+    background:#075e54;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    text-align:center;
+    margin-bottom:15px;
+    line-height:1.8;
+}
+
+.error{
+    background:#ffe8e8;
+    color:#a00000;
+}
+
+.success{
+    background:#e8f7f2;
+    color:#075e54;
+}
+
+.student-page{
+    display:none;
+}
+
+.student-name{
+    color:#075e54;
+    font-size:25px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.student-info{
+    text-align:center;
+    line-height:2;
+}
+
+.lesson{
+    background:#eef8f5;
+    border:1px solid #c9e5dd;
+    border-radius:14px;
+    padding:16px;
+    margin-top:14px;
+    line-height:2;
+}
+
+.lesson-title{
+    text-align:center;
+    color:#075e54;
+    font-weight:bold;
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+.lesson-status{
+    text-align:center;
+    background:#fff8df;
+    border-radius:10px;
+    padding:10px;
+    margin-top:10px;
+}
+
+.online-button{
+    display:block;
+    margin-top:12px;
+    background:#198754;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    border-radius:11px;
+    padding:13px;
+    font-weight:bold;
+}
+
+.online-button.disabled{
+    background:#777;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    background:#fafafa;
+    padding:25px;
+    border-radius:11px;
+    line-height:2;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+footer{
+    margin-top:25px;
+    background:#075e54;
+    color:white;
+    text-align:center;
+    padding:20px;
+    font-size:13px;
+    line-height:2;
+}
+
+</style></head><body><header><div class="logo">
+    🕌
+</div><h1>
+    جنود الهدى
+</h1><p>
+    صفحة الطالب
+</p></header><div class="container"><!-- =========================
+     تسجيل الدخول
+========================= --><div
+id="loginCard"
+class="card login-card"><h2>
+    🎓 دخول الطالب
+</h2><div
+id="loginMessage"
+class="message error">
+</div><input
+id="studentCodeInput"
+type="text"
+inputmode="numeric"
+maxlength="6"
+placeholder="أدخل كود الطالب">
+
+<button
+id="loginButton"
+class="primary">
+
+🔐 دخول الطالب
+
+</button></div><!-- =========================
+     صفحة الطالب
+========================= --><div
+id="studentPage"
+class="student-page"><div class="card"><h2>
+    🎓 بيانات الطالب
+</h2><div
+id="studentName"
+class="student-name">- 
+
+</div><div
+class="student-info"><br>🔐 كود الطالب:
+
+<strong id="studentCode">
+-
+</strong><br>👨‍🏫 المدرس:
+
+<strong id="studentTeacher">
+-
+</strong></div><button
+id="logoutButton"
+class="danger"
+style="margin-top:15px;">
+
+🚪 تسجيل الخروج
+
+</button></div><!-- =========================
+     الحصص
+========================= --><div class="card"><h2>
+    📅 حصصي المجدولة
+</h2><div
+id="lessonsList"
+class="loading">⏳ جاري تحميل الحصص...
+
+</div></div></div></div><footer>جنود الهدى © 2026
+
+<br>أكاديمية القرآن الكريم
+
+</footer><script type="module">
+
+
+/* =========================
+   Firebase
+========================= */
+
+import {
+    db
+}
+from "./firebase.js";
+
+
+import {
+    collection,
+    getDocs,
+    query,
+    where
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================
+   العناصر
+========================= */
+
+const loginCard =
+document.getElementById(
+    "loginCard"
+);
+
+const studentPage =
+document.getElementById(
+    "studentPage"
+);
+
+const studentCodeInput =
+document.getElementById(
+    "studentCodeInput"
+);
+
+const loginButton =
+document.getElementById(
+    "loginButton"
+);
+
+const loginMessage =
+document.getElementById(
+    "loginMessage"
+);
+
+const studentName =
+document.getElementById(
+    "studentName"
+);
+
+const studentCode =
+document.getElementById(
+    "studentCode"
+);
+
+const studentTeacher =
+document.getElementById(
+    "studentTeacher"
+);
+
+const lessonsList =
+document.getElementById(
+    "lessonsList"
+);
+
+const logoutButton =
+document.getElementById(
+    "logoutButton"
+);
+
+
+/* =========================
+   الطالب الحالي
+========================= */
+
+let currentStudent = null;
+
+
+/* =========================
+   تسجيل دخول الطالب
+========================= */
+
+loginButton.addEventListener(
+    "click",
+    async function(){
+
+        const code =
+        studentCodeInput.value.trim();
+
+
+        if(!code){
+
+            showLoginMessage(
+                "⚠️ أدخل كود الطالب."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !/^\d{6}$/.test(code)
+        ){
+
+            showLoginMessage(
+                "⚠️ كود الطالب يجب أن يكون 6 أرقام."
+            );
+
+            return;
+
+        }
+
+
+        loginButton.disabled =
+        true;
+
+        loginButton.textContent =
+        "⏳ جاري التحقق...";
+
+
+        try{
+
+            const result =
+            await getDocs(
+
+                query(
+
+                    collection(
+                        db,
+                        "students"
+                    ),
+
+                    where(
+                        "code",
+                        "==",
+                        code
+                    )
+
+                )
+
+            );
+
+
+            if(result.empty){
+
+                showLoginMessage(
+                    "❌ كود الطالب غير صحيح."
+                );
+
+                return;
+
+            }
+
+
+            const studentDoc =
+            result.docs[0];
+
+
+            const student =
+            studentDoc.data();
+
+
+            if(
+                student.active === false
+            ){
+
+                showLoginMessage(
+                    "⛔ هذا الطالب غير نشط حاليًا."
+                );
+
+                return;
+
+            }
+
+
+            currentStudent = {
+
+                id:
+                studentDoc.id,
+
+                ...student
+
+            };
+
+
+            localStorage.setItem(
+                "jundStudentId",
+                studentDoc.id
+            );
+
+
+            localStorage.setItem(
+                "jundStudentCode",
+                student.code || ""
+            );
+
+
+            localStorage.setItem(
+                "jundStudentName",
+                student.name || ""
+            );
+
+
+            openStudentPage();
+
+
+        }catch(error){
+
+            console.error(
+                "Student login error:",
+                error
+            );
+
+
+            showLoginMessage(
+                "❌ تعذر الدخول: " +
+                error.message
+            );
+
+        }finally{
+
+            loginButton.disabled =
+            false;
+
+            loginButton.textContent =
+            "🔐 دخول الطالب";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   فتح صفحة الطالب
+========================= */
+
+async function openStudentPage(){
+
+    loginCard.style.display =
+    "none";
+
+    studentPage.style.display =
+    "block";
+
+
+    studentName.textContent =
+    currentStudent.name ||
+    "الطالب";
+
+
+    studentCode.textContent =
+    currentStudent.code ||
+    "-";
+
+
+    studentTeacher.textContent =
+    currentStudent.teacher ||
+    currentStudent.teacherName ||
+    "لم يتم تحديده";
+
+
+    await loadStudentLessons();
+
+}
+
+
+/* =========================
+   تحميل حصص الطالب
+========================= */
+
+async function loadStudentLessons(){
+
+    lessonsList.innerHTML = `
+
+        <div class="loading">
+
+            ⏳ جاري تحميل الحصص...
+
+        </div>
+
+    `;
+
+
+    try{
+
+        /*
+        أولًا نحاول البحث بواسطة studentId
+        */
+
+        let result =
+        await getDocs(
+
+            query(
+
+                collection(
+                    db,
+                    "liveSessions"
+                ),
+
+                where(
+                    "studentId",
+                    "==",
+                    currentStudent.id
+                )
+
+            )
+
+        );
+
+
+        /*
+        إذا لم توجد نتائج
+        نبحث باسم الطالب.
+        */
+
+        if(result.empty){
+
+            result =
+            await getDocs(
+
+                query(
+
+                    collection(
+                        db,
+                        "liveSessions"
+                    ),
+
+                    where(
+                        "studentName",
+                        "==",
+                        currentStudent.name
+                    )
+
+                )
+
+            );
+
+        }
+
+
+        if(result.empty){
+
+            lessonsList.innerHTML = `
+
+                <div class="empty">
+
+                    📚 لا توجد حصة مجدولة لك حاليًا.
+
+                    <br>
+
+                    إذا كانت الإدارة أنشأت الحصة،
+                    تأكد أن اسم الطالب مطابق لاسمك.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        lessonsList.innerHTML =
+        "";
+
+
+        result.forEach(
+            function(item){
+
+                const lesson =
+                item.data();
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+                div.className =
+                "lesson";
+
+
+                const date =
+                lesson.lessonDate ||
+                lesson.date ||
+                "-";
+
+
+                const start =
+                lesson.startTime ||
+                lesson.lessonTime ||
+                lesson.time ||
+                "-";
+
+
+                const end =
+                lesson.endTime ||
+                "-";
+
+
+                let meetingButton =
+                "";
+
+
+                if(
+                    lesson.meetingUrl
+                ){
+
+                    meetingButton = `
+
+                        <a
+                            class="online-button"
+                            href="${safe(
+                                lesson.meetingUrl
+                            )}"
+                            target="_blank"
+                            rel="noopener">
+
+                            🎥 دخول الحصة
+
+                        </a>
+
+                    `;
+
+                }else{
+
+                    meetingButton = `
+
+                        <div
+                            class="online-button disabled">
+
+                            ⚠️ لم يتم إضافة رابط الحصة
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                let statusText =
+                "🟢 مجدولة";
+
+
+                if(
+                    lesson.status ===
+                    "cancelled"
+                ){
+
+                    statusText =
+                    "🔴 ملغاة";
+
+                }
+
+
+                if(
+                    lesson.status ===
+                    "ended"
+                ){
+
+                    statusText =
+                    "⚫ انتهت";
+
+                }
+
+
+                div.innerHTML = `
+
+                    <div class="lesson-title">
+
+                        📖 ${
+                            safe(
+                                lesson.subject ||
+                                "الحصة"
+                            )
+                        }
+
+                    </div>
+
+
+                    👨‍🏫 المدرس:
+
+                    <strong>
+
+                        ${
+                            safe(
+                                lesson.teacherName ||
+                                "-"
+                            )
+                        }
+
+                    </strong>
+
+
+                    <br>
+
+
+                    📅 التاريخ:
+
+                    ${
+                        safe(date)
+                    }
+
+
+                    <br>
+
+
+                    🕐 وقت الدخول:
+
+                    ${
+                        safe(start)
+                    }
+
+
+                    <br>
+
+
+                    ⏰ وقت الانتهاء:
+
+                    ${
+                        safe(end)
+                    }
+
+
+                    <br>
+
+
+                    <div class="lesson-status">
+
+                        📊 الحالة:
+
+                        ${
+                            statusText
+                        }
+
+                    </div>
+
+
+                    ${
+                        lesson.status ===
+                        "scheduled"
+
+                        ?
+
+                        meetingButton
+
+                        :
+
+                        ""
+
+                    }
+
+                `;
+
+
+                lessonsList.appendChild(
+                    div
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Student lessons error:",
+            error
+        );
+
+
+        lessonsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الحصص.
+
+                <br><br>
+
+                ${
+                    safe(
+                        error.message ||
+                        ""
+                    )
+                }
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   تسجيل الخروج
+========================= */
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        localStorage.removeItem(
+            "jundStudentId"
+        );
+
+
+        localStorage.removeItem(
+            "jundStudentCode"
+        );
+
+
+        localStorage.removeItem(
+            "jundStudentName"
+        );
+
+
+        currentStudent =
+        null;
+
+
+        studentPage.style.display =
+        "none";
+
+
+        loginCard.style.display =
+        "block";
+
+
+        studentCodeInput.value =
+        "";
+
+
+        showLoginMessage("");
+
+    }
+);
+
+
+/* =========================
+   استعادة الطالب
+========================= */
+
+async function restoreStudent(){
+
+    const savedId =
+    localStorage.getItem(
+        "jundStudentId"
+    );
+
+
+    if(!savedId){
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "students"
+            )
+        );
+
+
+        const studentDoc =
+        result.docs.find(
+            function(item){
+
+                return item.id ===
+                savedId;
+
+            }
+        );
+
+
+        if(!studentDoc){
+
+            localStorage.removeItem(
+                "jundStudentId"
+            );
+
+            return;
+
+        }
+
+
+        const student =
+        studentDoc.data();
+
+
+        if(
+            student.active === false
+        ){
+
+            localStorage.removeItem(
+                "jundStudentId"
+            );
+
+            return;
+
+        }
+
+
+        currentStudent = {
+
+            id:
+            studentDoc.id,
+
+            ...student
+
+        };
+
+
+        openStudentPage();
+
+
+    }catch(error){
+
+        console.error(
+            "Restore student error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   رسالة الدخول
+========================= */
+
+function showLoginMessage(
+    text
+){
+
+    loginMessage.textContent =
+    text;
+
+
+    loginMessage.className =
+    "message error";
+
+
+    loginMessage.style.display =
+    text
+    ?
+    "block"
+    :
+    "none";
+
+}
+
+
+/* =========================
+   حماية النص
+========================= */
+
+function safe(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================
+   تشغيل الصفحة
+========================= */
+
+console.log(
+    "✅ student.html - جنود الهدى يعمل"
+);
+
+
+restoreStudent();
+
+
+</script></body></html>
