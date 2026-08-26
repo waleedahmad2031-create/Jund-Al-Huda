@@ -25,54 +25,37 @@ body{
     min-height:100vh;
 }
 
-/* =========================
-   الهيدر
-========================= */
-
 header{
-    background:linear-gradient(
-        135deg,
-        #075e54,
-        #0b806f
-    );
-
-    padding:18px 15px;
+    background:linear-gradient(135deg,#075e54,#0b806f);
+    padding:22px 15px;
     text-align:center;
 }
 
-header .logo{
-    font-size:35px;
+.logo{
+    font-size:42px;
 }
 
 header h1{
-    font-size:23px;
+    font-size:25px;
     margin-top:5px;
 }
 
 header p{
-    margin-top:4px;
+    margin-top:5px;
     opacity:.9;
-    font-size:13px;
+    font-size:14px;
 }
-
-/* =========================
-   الحاوية
-========================= */
 
 .container{
-    max-width:1100px;
+    max-width:800px;
     margin:auto;
-    padding:18px 12px;
+    padding:18px 13px 30px;
 }
-
-/* =========================
-   معلومات الحصة
-========================= */
 
 .lesson-info{
     background:#182522;
-    border-radius:15px;
-    padding:15px;
+    border-radius:18px;
+    padding:20px 15px;
     margin-bottom:15px;
     text-align:center;
     border:1px solid #263a35;
@@ -80,22 +63,19 @@ header p{
 
 .lesson-info h2{
     color:#69d8c2;
-    font-size:20px;
+    font-size:22px;
 }
 
 .lesson-info p{
-    margin-top:7px;
+    margin-top:9px;
     color:#bbb;
+    line-height:2;
     font-size:14px;
 }
 
-/* =========================
-   حالة الاتصال
-========================= */
-
 .status{
     text-align:center;
-    padding:12px;
+    padding:14px;
     border-radius:12px;
     margin-bottom:15px;
     background:#2b2920;
@@ -114,51 +94,127 @@ header p{
 }
 
 /* =========================
-   الفيديوهات
+   Google Meet
 ========================= */
 
-.videos{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+.meet-card{
+    background:white;
+    color:#222;
+    border-radius:20px;
+    padding:22px 17px;
+    text-align:center;
+    margin-bottom:16px;
+    box-shadow:0 5px 22px rgba(0,0,0,.12);
 }
 
-.video-card{
+.meet-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.meet-card h2{
+    color:#075e54;
+    font-size:23px;
+    margin-bottom:10px;
+}
+
+.meet-card p{
+    color:#666;
+    font-size:14px;
+    line-height:2;
+    margin-bottom:15px;
+}
+
+.meet-link{
+    background:#f2f7f5;
+    color:#075e54;
+    padding:13px;
+    border-radius:12px;
+    margin-bottom:15px;
+    word-break:break-all;
+    font-size:14px;
+    direction:ltr;
+}
+
+.meet-button{
+    display:block;
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:16px;
+    background:#075e54;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.meet-button:hover{
+    opacity:.9;
+}
+
+.copy-button{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:13px;
+    margin-top:10px;
+    background:#c9a227;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* =========================
+   معلومات الطرف
+========================= */
+
+.role-card{
     background:#182522;
     border-radius:18px;
-    overflow:hidden;
+    padding:18px;
+    margin-bottom:15px;
     border:1px solid #263a35;
-}
-
-.video-title{
-    padding:12px;
     text-align:center;
-    color:#ddd;
+}
+
+.role-title{
+    color:#69d8c2;
+    font-size:20px;
     font-weight:bold;
+    margin-bottom:10px;
 }
 
-.video-wrapper{
-    position:relative;
-    background:#050707;
-    aspect-ratio:16/10;
+.role-data{
+    color:#ccc;
+    line-height:2;
+    font-size:14px;
 }
 
-video{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    background:#050707;
+/* =========================
+   التعليمات
+========================= */
+
+.instructions{
+    background:#182522;
+    border-radius:18px;
+    padding:18px;
+    border:1px solid #263a35;
+    line-height:2.2;
 }
 
-.video-name{
-    position:absolute;
-    bottom:10px;
-    right:10px;
-    background:rgba(0,0,0,.65);
-    padding:7px 12px;
-    border-radius:8px;
-    font-size:13px;
+.instructions h3{
+    color:#69d8c2;
+    text-align:center;
+    margin-bottom:12px;
+}
+
+.instructions div{
+    color:#bbb;
+    font-size:14px;
+    margin-bottom:7px;
 }
 
 /* =========================
@@ -184,53 +240,35 @@ video{
     cursor:pointer;
 }
 
-.control-btn:hover{
-    opacity:.9;
-}
-
 .control-btn.danger{
     background:#a52a2a;
 }
 
-.control-btn.gray{
-    background:#555;
-}
-
-.control-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
-
 /* =========================
-   رسالة الدخول
+   الفوتر
 ========================= */
 
-.waiting{
-    background:#182522;
-    border-radius:15px;
-    padding:25px 15px;
+footer{
+    background:#075e54;
+    color:white;
     text-align:center;
-    color:#bbb;
+    padding:22px 15px;
+    font-size:13px;
     line-height:2;
-    margin-top:15px;
 }
 
-/* =========================
-   الجوال
-========================= */
-
-@media(max-width:700px){
-
-    .videos{
-        grid-template-columns:1fr;
-    }
+@media(max-width:600px){
 
     header h1{
+        font-size:21px;
+    }
+
+    .meet-card h2{
         font-size:20px;
     }
 
-    .control-btn{
-        flex:1 1 40%;
+    .meet-link{
+        font-size:13px;
     }
 
 }
@@ -238,7 +276,6 @@ video{
 </style>
 
 </head>
-
 
 <body>
 
@@ -281,223 +318,249 @@ video{
 
 
 <!-- =========================
-     الحالة
+     حالة الحصة
 ========================= -->
 
 <div
     id="statusBox"
     class="status">
 
-    ⏳ جاري تجهيز الاتصال...
+    ⏳ جاري تجهيز الحصة...
 
 </div>
 
 
 <!-- =========================
-     الفيديوهات
+     Google Meet
 ========================= -->
 
-<div class="videos">
+<div class="meet-card">
+
+    <div class="meet-icon">
+        🎥
+    </div>
+
+    <h2>
+        الحصة المباشرة عبر Google Meet
+    </h2>
+
+    <p>
+        اضغط على الزر للدخول إلى الحصة.
+        <br>
+        المدرس والطالب يدخلان من نفس الرابط.
+    </p>
 
 
-    <!-- الطالب -->
+    <div
+        id="meetLink"
+        class="meet-link">
 
-    <div class="video-card">
-
-        <div class="video-title">
-            🎓 الطالب
-        </div>
-
-        <div class="video-wrapper">
-
-            <video
-                id="remoteVideo"
-                autoplay
-                playsinline>
-            </video>
-
-            <div class="video-name">
-                الطالب
-            </div>
-
-        </div>
+        جاري تحميل رابط الحصة...
 
     </div>
 
 
-    <!-- المدرس -->
+    <a
+        id="meetButton"
+        class="meet-button"
+        href="#"
+        target="_blank"
+        rel="noopener">
 
-    <div class="video-card">
+        🎥 دخول الحصة الآن
 
-        <div class="video-title">
-            👨‍🏫 المدرس
-        </div>
+    </a>
 
-        <div class="video-wrapper">
 
-            <video
-                id="localVideo"
-                autoplay
-                muted
-                playsinline>
-            </video>
+    <button
+        id="copyButton"
+        class="copy-button">
 
-            <div class="video-name">
-                أنت
-            </div>
+        📋 نسخ رابط الحصة
 
-        </div>
+    </button>
+
+
+    <div
+        id="copyMessage"
+        style="
+        display:none;
+        margin-top:10px;
+        color:#075e54;
+        font-size:14px;">
+
+        ✅ تم نسخ رابط الحصة
 
     </div>
-
 
 </div>
 
 
 <!-- =========================
-     أزرار التحكم
+     بيانات المستخدم
+========================= -->
+
+<div class="role-card">
+
+    <div class="role-title">
+        👤 بيانات الدخول
+    </div>
+
+    <div
+        id="userData"
+        class="role-data">
+
+        جاري تحميل البيانات...
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     التعليمات
+========================= -->
+
+<div class="instructions">
+
+    <h3>
+        📚 طريقة الدخول
+    </h3>
+
+    <div>
+        1️⃣ تأكد من السماح للكاميرا والميكروفون.
+    </div>
+
+    <div>
+        2️⃣ اضغط على زر «دخول الحصة الآن».
+    </div>
+
+    <div>
+        3️⃣ إذا طلب Google Meet إذن الكاميرا والميكروفون اختر السماح.
+    </div>
+
+    <div>
+        4️⃣ المدرس والطالب يدخلان من نفس رابط الحصة.
+    </div>
+
+    <div>
+        5️⃣ عند انتهاء الدرس يمكن إغلاق Google Meet.
+    </div>
+
+</div>
+
+
+<!-- =========================
+     الأزرار
 ========================= -->
 
 <div class="controls">
 
     <button
-        id="micButton"
-        class="control-btn gray">
-
-        🎤 كتم الميكروفون
-
-    </button>
-
-
-    <button
-        id="cameraButton"
-        class="control-btn gray">
-
-        📹 إيقاف الكاميرا
-
-    </button>
-
-
-    <button
-        id="startButton"
+        id="backButton"
         class="control-btn">
 
-        🔴 بدء الحصة
+        ← العودة
 
     </button>
 
 
     <button
-        id="endButton"
+        id="clearButton"
         class="control-btn danger">
 
-        ❌ إنهاء الحصة
+        🚪 خروج من الحصة
 
     </button>
 
 </div>
 
 
-<div
-    id="waitingBox"
-    class="waiting"
-    style="display:none;">
-
-    ⏳ بانتظار الطرف الآخر للدخول إلى الحصة...
-
 </div>
 
 
-</div>
+<footer>
+
+🕌 أكاديمية جنود الهدى
+
+<br>
+
+تعليم القرآن الكريم عن بُعد
+
+<br>
+
+© 2026
+
+</footer>
 
 
-<script type="module">
-
+<script>
 
 /* =========================================
-   Firebase
+   رابط Google Meet
 ========================================= */
 
-import {
-    db
-}
-from "./firebase.js";
-
-
-import {
-    doc,
-    setDoc,
-    getDoc,
-    updateDoc,
-    collection,
-    addDoc,
-    onSnapshot,
-    deleteDoc
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+const DEFAULT_MEETING_URL =
+"https://meet.google.com/qkh-bpyk-mhy";
 
 
 /* =========================================
    عناصر الصفحة
 ========================================= */
 
-const localVideo =
+const meetButton =
 document.getElementById(
-    "localVideo"
+    "meetButton"
 );
 
-
-const remoteVideo =
+const meetLink =
 document.getElementById(
-    "remoteVideo"
+    "meetLink"
 );
 
-
-const statusBox =
+const copyButton =
 document.getElementById(
-    "statusBox"
+    "copyButton"
 );
 
+const copyMessage =
+document.getElementById(
+    "copyMessage"
+);
 
 const roleText =
 document.getElementById(
     "roleText"
 );
 
-
-const startButton =
+const userData =
 document.getElementById(
-    "startButton"
+    "userData"
 );
 
-
-const endButton =
+const statusBox =
 document.getElementById(
-    "endButton"
+    "statusBox"
 );
 
-
-const micButton =
+const lessonTitle =
 document.getElementById(
-    "micButton"
+    "lessonTitle"
 );
 
-
-const cameraButton =
+const backButton =
 document.getElementById(
-    "cameraButton"
+    "backButton"
 );
 
-
-const waitingBox =
+const clearButton =
 document.getElementById(
-    "waitingBox"
+    "clearButton"
 );
 
 
 /* =========================================
-   قراءة بيانات الغرفة من الرابط
+   قراءة الدور من الرابط
 ========================================= */
 
 const params =
@@ -505,164 +568,149 @@ new URLSearchParams(
     window.location.search
 );
 
-
-let roomId =
-params.get("room");
-
-
-let role =
+const role =
 params.get("role");
 
 
-/*
-إذا لم يوجد رقم غرفة
-ننشئ غرفة تجريبية.
-*/
+/* =========================================
+   تحديد الرابط
+========================================= */
 
-if(!roomId){
-
-    roomId =
-    "demo-room";
-
-}
+let meetingUrl =
+DEFAULT_MEETING_URL;
 
 
 /*
-إذا لم يحدد الدور
-نجعله طالبًا.
+إذا كان هناك رابط حصة محفوظ
+في جلسة الطالب نستخدمه.
 */
 
-if(
-    role !== "teacher" &&
-    role !== "student"
-){
+try{
 
-    role =
-    "student";
+    const studentSession =
+    localStorage.getItem(
+        "studentSession"
+    );
+
+
+    if(studentSession){
+
+        const student =
+        JSON.parse(
+            studentSession
+        );
+
+
+        if(
+            student &&
+            student.meetingUrl
+        ){
+
+            meetingUrl =
+            student.meetingUrl;
+
+        }
+
+    }
+
+}catch(error){
+
+    console.log(
+        "لا توجد جلسة طالب."
+    );
 
 }
 
 
 /* =========================================
-   عرض الدور
+   عرض الرابط
+========================================= */
+
+meetLink.textContent =
+meetingUrl;
+
+
+meetButton.href =
+meetingUrl;
+
+
+/* =========================================
+   تحديد الدور
 ========================================= */
 
 if(role === "teacher"){
 
     roleText.textContent =
-    "👨‍🏫 أنت داخل الحصة كمدرس";
+    "👨‍🏫 أنت داخل الحصة كمدرس.";
 
-}else{
-
-    roleText.textContent =
-    "🎓 أنت داخل الحصة كطالب";
-
-}
-
-
-/* =========================================
-   WebRTC
-========================================= */
-
-let peerConnection = null;
-
-let localStream = null;
-
-let roomRef = null;
-
-let unsubscribeRoom = null;
-
-let unsubscribeCandidates = null;
-
-
-/*
-خوادم STUN
-*/
-
-const configuration = {
-
-    iceServers:[
-        {
-            urls:
-            "stun:stun.l.google.com:19302"
-        },
-        {
-            urls:
-            "stun:stun1.l.google.com:19302"
-        }
-    ]
-
-};
-
-
-/* =========================================
-   تحديث الحالة
-========================================= */
-
-function setStatus(
-    text,
-    type=""
-){
+    userData.innerHTML =
+    "👨‍🏫 الدور: المدرس<br>" +
+    "🎥 استخدم زر دخول الحصة للانضمام إلى Google Meet.";
 
     statusBox.textContent =
-    text;
+    "🟢 الحصة جاهزة للدخول.";
 
     statusBox.className =
-    "status "
-    +
-    type;
+    "status connected";
 
 }
+else{
 
+    roleText.textContent =
+    "🎓 أنت داخل الحصة كطالب.";
 
-/* =========================================
-   تشغيل الكاميرا والمايك
-========================================= */
+    statusBox.textContent =
+    "🟢 الحصة جاهزة للدخول.";
 
-async function startCamera(){
+    statusBox.className =
+    "status connected";
+
 
     try{
 
-        localStream =
-        await navigator.mediaDevices.getUserMedia({
-
-            video:true,
-
-            audio:true
-
-        });
-
-
-        localVideo.srcObject =
-        localStream;
-
-
-        setStatus(
-            "🎥 تم تشغيل الكاميرا والميكروفون.",
-            "connected"
+        const studentSession =
+        localStorage.getItem(
+            "studentSession"
         );
 
 
-        return true;
+        if(studentSession){
 
+            const student =
+            JSON.parse(
+                studentSession
+            );
+
+
+            userData.innerHTML =
+            "🎓 الطالب: " +
+            escapeHtml(
+                student.name || "-"
+            )
+            +
+            "<br>" +
+            "👨‍🏫 المدرس: " +
+            escapeHtml(
+                student.teacher || "-"
+            )
+            +
+            "<br>" +
+            "📚 الحصة: القرآن الكريم";
+
+        }
+        else{
+
+            userData.innerHTML =
+            "🎓 الدور: الطالب<br>" +
+            "📚 الحصة: القرآن الكريم";
+
+        }
 
     }catch(error){
 
-        console.error(error);
-
-
-        setStatus(
-            "❌ لم يتم السماح باستخدام الكاميرا والميكروفون.",
-            "error"
-        );
-
-
-        alert(
-            "اسمح للموقع باستخدام الكاميرا والميكروفون حتى تعمل الحصة المباشرة."
-        );
-
-
-        return false;
+        userData.innerHTML =
+        "🎓 الدور: الطالب<br>" +
+        "📚 الحصة: القرآن الكريم";
 
     }
 
@@ -670,579 +718,58 @@ async function startCamera(){
 
 
 /* =========================================
-   إنشاء الاتصال
+   فتح Google Meet
 ========================================= */
 
-function createPeerConnection(){
-
-    peerConnection =
-    new RTCPeerConnection(
-        configuration
-    );
-
-
-    /*
-    إضافة الصوت والصورة
-    */
-
-    if(localStream){
-
-        localStream
-        .getTracks()
-        .forEach(
-            function(track){
-
-                peerConnection.addTrack(
-                    track,
-                    localStream
-                );
-
-            }
-        );
-
-    }
-
-
-    /*
-    استقبال فيديو الطرف الآخر
-    */
-
-    peerConnection.ontrack =
-    function(event){
-
-        if(
-            event.streams &&
-            event.streams[0]
-        ){
-
-            remoteVideo.srcObject =
-            event.streams[0];
-
-        }
-
-    };
-
-
-    /*
-    مرشحات الاتصال
-    */
-
-    peerConnection.onicecandidate =
-    async function(event){
-
-        if(!event.candidate){
-
-            return;
-
-        }
-
-
-        const candidatesRef =
-        collection(
-            roomRef,
-            "candidates"
-        );
-
-
-        await addDoc(
-            candidatesRef,
-            {
-
-                candidate:
-                event.candidate.toJSON(),
-
-                role:
-                role,
-
-                createdAt:
-                Date.now()
-
-            }
-        );
-
-    };
-
-
-    /*
-    تغير حالة الاتصال
-    */
-
-    peerConnection.onconnectionstatechange =
+meetButton.addEventListener(
+    "click",
     function(){
 
-        if(!peerConnection){
+        statusBox.textContent =
+        "🟢 جاري فتح Google Meet...";
 
-            return;
+        statusBox.className =
+        "status connected";
 
-        }
-
-
-        const state =
-        peerConnection.connectionState;
-
-
-        if(
-            state === "connected"
-        ){
-
-            setStatus(
-                "🟢 تم الاتصال بنجاح. الحصة مباشرة الآن.",
-                "connected"
-            );
-
-            waitingBox.style.display =
-            "none";
-
-        }
-
-
-        if(
-            state === "connecting"
-        ){
-
-            setStatus(
-                "⏳ جاري الاتصال بالطرف الآخر..."
-            );
-
-        }
-
-
-        if(
-            state === "disconnected" ||
-            state === "failed"
-        ){
-
-            setStatus(
-                "⚠️ انقطع الاتصال بالطرف الآخر.",
-                "error"
-            );
-
-        }
-
-    };
-
-}
+    }
+);
 
 
 /* =========================================
-   بدء الحصة
+   نسخ الرابط
 ========================================= */
 
-async function startTeacher(){
-
-    setStatus(
-        "⏳ جاري إنشاء غرفة الحصة..."
-    );
-
-
-    const cameraReady =
-    await startCamera();
-
-
-    if(!cameraReady){
-
-        return;
-
-    }
-
-
-    roomRef =
-    doc(
-        db,
-        "liveRooms",
-        roomId
-    );
-
-
-    createPeerConnection();
-
-
-    /*
-    إنشاء العرض
-    */
-
-    const offer =
-    await peerConnection.createOffer();
-
-
-    await peerConnection.setLocalDescription(
-        offer
-    );
-
-
-    await setDoc(
-        roomRef,
-        {
-
-            roomId:
-            roomId,
-
-            status:
-            "waiting",
-
-            offer:
-            {
-
-                type:
-                offer.type,
-
-                sdp:
-                offer.sdp
-
-            },
-
-            createdAt:
-            Date.now()
-
-        }
-    );
-
-
-    setStatus(
-        "🟢 الحصة جاهزة. بانتظار الطالب.",
-        "connected"
-    );
-
-
-    waitingBox.style.display =
-    "block";
-
-
-    /*
-    مراقبة رد الطالب
-    */
-
-    unsubscribeRoom =
-    onSnapshot(
-        roomRef,
-        async function(snapshot){
-
-            if(!snapshot.exists()){
-
-                return;
-
-            }
-
-
-            const data =
-            snapshot.data();
-
-
-            if(
-                data.answer &&
-                !peerConnection.currentRemoteDescription
-            ){
-
-                const answer =
-                new RTCSessionDescription(
-                    data.answer
-                );
-
-
-                await peerConnection.setRemoteDescription(
-                    answer
-                );
-
-            }
-
-        }
-    );
-
-
-    listenCandidates();
-
-}
-
-
-/* =========================================
-   دخول الطالب
-========================================= */
-
-async function startStudent(){
-
-    setStatus(
-        "⏳ جاري الدخول إلى الحصة..."
-    );
-
-
-    const cameraReady =
-    await startCamera();
-
-
-    if(!cameraReady){
-
-        return;
-
-    }
-
-
-    roomRef =
-    doc(
-        db,
-        "liveRooms",
-        roomId
-    );
-
-
-    /*
-    انتظار إنشاء غرفة المدرس
-    */
-
-    const roomSnapshot =
-    await getDoc(
-        roomRef
-    );
-
-
-    if(!roomSnapshot.exists()){
-
-        setStatus(
-            "⏳ الحصة لم تبدأ بعد.",
-            ""
-        );
-
-
-        waitingBox.style.display =
-        "block";
-
-
-        /*
-        نراقب الغرفة حتى ينشئها المدرس
-        */
-
-        unsubscribeRoom =
-        onSnapshot(
-            roomRef,
-            async function(snapshot){
-
-                if(
-                    snapshot.exists()
-                ){
-
-                    await connectStudent(
-                        snapshot.data()
-                    );
-
-                }
-
-            }
-        );
-
-
-        return;
-
-    }
-
-
-    await connectStudent(
-        roomSnapshot.data()
-    );
-
-}
-
-
-/* =========================================
-   اتصال الطالب
-========================================= */
-
-async function connectStudent(
-    roomData
-){
-
-    if(
-        peerConnection
-    ){
-
-        return;
-
-    }
-
-
-    if(!roomData.offer){
-
-        setStatus(
-            "⏳ بانتظار بدء الحصة..."
-        );
-
-        return;
-
-    }
-
-
-    createPeerConnection();
-
-
-    const offer =
-    new RTCSessionDescription(
-        roomData.offer
-    );
-
-
-    await peerConnection.setRemoteDescription(
-        offer
-    );
-
-
-    const answer =
-    await peerConnection.createAnswer();
-
-
-    await peerConnection.setLocalDescription(
-        answer
-    );
-
-
-    await updateDoc(
-        roomRef,
-        {
-
-            answer:
-            {
-
-                type:
-                answer.type,
-
-                sdp:
-                answer.sdp
-
-            },
-
-            status:
-            "connected"
-
-        }
-    );
-
-
-    setStatus(
-        "🟢 تم الدخول إلى الحصة.",
-        "connected"
-    );
-
-
-    waitingBox.style.display =
-    "none";
-
-
-    listenCandidates();
-
-}
-
-
-/* =========================================
-   استقبال ICE Candidates
-========================================= */
-
-function listenCandidates(){
-
-    if(!roomRef){
-
-        return;
-
-    }
-
-
-    const candidatesRef =
-    collection(
-        roomRef,
-        "candidates"
-    );
-
-
-    unsubscribeCandidates =
-    onSnapshot(
-        candidatesRef,
-        function(snapshot){
-
-            snapshot.docChanges()
-            .forEach(
-                async function(change){
-
-                    if(
-                        change.type !== "added"
-                    ){
-
-                        return;
-
-                    }
-
-
-                    const data =
-                    change.doc.data();
-
-
-                    /*
-                    لا نضيف مرشحنا نحن
-                    */
-
-                    if(
-                        data.role === role
-                    ){
-
-                        return;
-
-                    }
-
-
-                    if(
-                        !peerConnection
-                    ){
-
-                        return;
-
-                    }
-
-
-                    try{
-
-                        const candidate =
-                        new RTCIceCandidate(
-                            data.candidate
-                        );
-
-
-                        await peerConnection.addIceCandidate(
-                            candidate
-                        );
-
-                    }catch(error){
-
-                        console.error(
-                            error
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   زر بدء الحصة
-========================================= */
-
-startButton.addEventListener(
+copyButton.addEventListener(
     "click",
     async function(){
 
-        startButton.disabled =
-        true;
+        try{
+
+            await navigator.clipboard.writeText(
+                meetingUrl
+            );
 
 
-        if(
-            role === "teacher"
-        ){
+            copyMessage.style.display =
+            "block";
 
-            await startTeacher();
 
-        }else{
+            setTimeout(
+                function(){
 
-            await startStudent();
+                    copyMessage.style.display =
+                    "none";
+
+                },
+                2500
+            );
+
+        }catch(error){
+
+            alert(
+                "رابط الحصة:\n\n" +
+                meetingUrl
+            );
 
         }
 
@@ -1251,138 +778,34 @@ startButton.addEventListener(
 
 
 /* =========================================
-   الطالب يدخل تلقائيًا
+   العودة
 ========================================= */
 
-if(
-    role === "student"
-){
-
-    startButton.style.display =
-    "none";
-
-
-    setTimeout(
-        function(){
-
-            startStudent();
-
-        },
-        500
-    );
-
-}
-
-
-/* =========================================
-   المدرس
-========================================= */
-
-if(
-    role === "teacher"
-){
-
-    startButton.style.display =
-    "block";
-
-}
-
-
-/* =========================================
-   الميكروفون
-========================================= */
-
-micButton.addEventListener(
+backButton.addEventListener(
     "click",
     function(){
 
-        if(!localStream){
-
-            return;
-
-        }
-
-
-        const tracks =
-        localStream.getAudioTracks();
-
-
-        tracks.forEach(
-            function(track){
-
-                track.enabled =
-                !track.enabled;
-
-
-                micButton.textContent =
-                track.enabled
-                ?
-                "🎤 كتم الميكروفون"
-                :
-                "🔇 تشغيل الميكروفون";
-
-            }
-        );
+        window.history.back();
 
     }
 );
 
 
 /* =========================================
-   الكاميرا
+   الخروج
 ========================================= */
 
-cameraButton.addEventListener(
+clearButton.addEventListener(
     "click",
     function(){
 
-        if(!localStream){
-
-            return;
-
-        }
-
-
-        const tracks =
-        localStream.getVideoTracks();
-
-
-        tracks.forEach(
-            function(track){
-
-                track.enabled =
-                !track.enabled;
-
-
-                cameraButton.textContent =
-                track.enabled
-                ?
-                "📹 إيقاف الكاميرا"
-                :
-                "📹 تشغيل الكاميرا";
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================
-   إنهاء الحصة
-========================================= */
-
-endButton.addEventListener(
-    "click",
-    async function(){
-
-        const confirmEnd =
+        const confirmExit =
         confirm(
-            "هل تريد إنهاء الحصة؟"
+            "هل تريد الخروج من الحصة؟"
         );
 
 
-        if(!confirmEnd){
+        if(!confirmExit){
 
             return;
 
@@ -1390,115 +813,67 @@ endButton.addEventListener(
 
 
         /*
-        إيقاف الكاميرا والمايك
+        لا نحذف جلسة الطالب.
+        فقط نعود للصفحة الرئيسية.
         */
 
-        if(localStream){
-
-            localStream
-            .getTracks()
-            .forEach(
-                function(track){
-
-                    track.stop();
-
-                }
-            );
-
-        }
-
-
-        /*
-        إغلاق الاتصال
-        */
-
-        if(peerConnection){
-
-            peerConnection.close();
-
-        }
-
-
-        /*
-        إلغاء الاستماع
-        */
-
-        if(unsubscribeRoom){
-
-            unsubscribeRoom();
-
-        }
-
-
-        if(unsubscribeCandidates){
-
-            unsubscribeCandidates();
-
-        }
-
-
-        /*
-        المدرس ينهي الغرفة
-        */
-
-        if(
-            role === "teacher" &&
-            roomRef
-        ){
-
-            try{
-
-                await updateDoc(
-                    roomRef,
-                    {
-
-                        status:
-                        "ended",
-
-                        endedAt:
-                        Date.now()
-
-                    }
-                );
-
-            }catch(error){
-
-                console.error(
-                    error
-                );
-
-            }
-
-        }
-
-
-        localVideo.srcObject =
-        null;
-
-
-        remoteVideo.srcObject =
-        null;
-
-
-        setStatus(
-            "✅ انتهت الحصة."
-        );
-
-
-        waitingBox.style.display =
-        "none";
-
-
-        startButton.disabled =
-        false;
+        window.location.href =
+        "index.html";
 
     }
 );
 
+
+/* =========================================
+   حماية النص
+========================================= */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+console.log(
+    "✅ class.html يعمل"
+);
+
+console.log(
+    "رابط الحصة:",
+    meetingUrl
+);
 
 </script>
 
 
 </body>
 
-</html>
+    </html>
