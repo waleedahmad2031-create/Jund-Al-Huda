@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>دخول المدرس | جنود الهدى</title>
+<title>المدرس | جنود الهدى</title>
 
 <style>
 
@@ -20,112 +20,107 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-    min-height:100vh;
-    background:#f3f7f5;
+    background:#f4f7f5;
     color:#222;
-    display:flex;
-    flex-direction:column;
 }
 
 header{
     background:linear-gradient(135deg,#075e54,#0b806f);
     color:white;
     text-align:center;
-    padding:30px 15px 38px;
+    padding:25px 15px;
 }
 
 .logo{
-    font-size:55px;
-    margin-bottom:8px;
+    font-size:45px;
 }
 
 header h1{
-    font-size:28px;
+    font-size:27px;
+    margin-top:5px;
 }
 
 header p{
-    margin-top:8px;
+    margin-top:7px;
     font-size:14px;
 }
 
 .container{
-    width:100%;
-    max-width:500px;
+    max-width:850px;
     margin:auto;
     padding:20px 14px;
 }
 
 .card{
     background:white;
-    border-radius:22px;
-    padding:25px 20px;
-    box-shadow:0 5px 22px rgba(0,0,0,.08);
-    border-top:5px solid #075e54;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
-.title{
-    text-align:center;
+.login-card{
+    max-width:500px;
+    margin:30px auto;
+}
+
+h2{
     color:#075e54;
-    font-size:24px;
-    font-weight:bold;
-    margin-bottom:8px;
-}
-
-.subtitle{
     text-align:center;
-    color:#777;
-    font-size:14px;
-    line-height:2;
-    margin-bottom:22px;
+    margin-bottom:18px;
 }
 
-.icon{
-    text-align:center;
-    font-size:50px;
-    margin-bottom:10px;
-}
-
-.code-input{
+input{
     width:100%;
-    padding:17px 12px;
+    padding:15px;
     border:1px solid #ddd;
-    border-radius:13px;
-    outline:none;
+    border-radius:11px;
+    font-size:18px;
     text-align:center;
-    font-size:25px;
-    letter-spacing:6px;
     margin-bottom:12px;
+    outline:none;
 }
 
-.code-input:focus{
+input:focus{
     border-color:#075e54;
 }
 
-.login-button{
+button{
     width:100%;
-    padding:15px;
     border:0;
-    border-radius:13px;
-    background:#075e54;
-    color:white;
-    font-size:17px;
+    border-radius:11px;
+    padding:14px;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.login-button:disabled{
-    background:#aaa;
-    cursor:not-allowed;
+button:disabled{
+    opacity:.6;
+}
+
+.primary{
+    background:#075e54;
+    color:white;
+}
+
+.danger{
+    background:#dc3545;
+    color:white;
+}
+
+.whatsapp{
+    background:#25D366;
+    color:white;
 }
 
 .message{
     display:none;
-    margin-top:14px;
     padding:13px;
-    border-radius:11px;
+    border-radius:10px;
     text-align:center;
+    margin-bottom:15px;
     line-height:1.8;
-    font-size:14px;
 }
 
 .error{
@@ -134,55 +129,113 @@ header p{
 }
 
 .success{
-    background:#e7f7ef;
-    color:#08733d;
+    background:#e8f7f2;
+    color:#075e54;
 }
 
-.info{
-    margin-top:18px;
-    background:#f8faf9;
-    border-radius:13px;
-    padding:15px;
-    color:#666;
-    font-size:13px;
-    line-height:2;
+.teacher-page{
+    display:none;
+}
+
+.teacher-info{
     text-align:center;
+    line-height:2;
 }
 
-.back-button{
+.teacher-name{
+    color:#075e54;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.teacher-code{
+    margin-top:12px;
+    background:#fff8df;
+    border:2px dashed #c9a227;
+    border-radius:12px;
+    padding:12px;
+}
+
+.teacher-code strong{
+    display:block;
+    color:#075e54;
+    font-size:28px;
+    letter-spacing:4px;
+    margin-top:5px;
+}
+
+.section-title{
+    color:#075e54;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.student-item{
+    background:#fafcfa;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:12px;
+    border-right:4px solid #0b806f;
+    line-height:2;
+}
+
+.student-item strong{
+    color:#075e54;
+}
+
+.lesson{
+    margin-top:12px;
+    background:#eef8f5;
+    border:1px solid #c9e5dd;
+    border-radius:12px;
+    padding:14px;
+    line-height:2;
+}
+
+.lesson-title{
+    text-align:center;
+    color:#075e54;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.online-button{
     display:block;
     margin-top:12px;
-    width:100%;
+    background:#198754;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+    border-radius:11px;
     padding:13px;
-    border:0;
-    border-radius:12px;
-    background:#eee;
-    color:#444;
-    font-size:15px;
     font-weight:bold;
-    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    background:#fafafa;
+    padding:25px;
+    border-radius:11px;
+    line-height:2;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#777;
 }
 
 footer{
+    margin-top:25px;
     background:#075e54;
     color:white;
     text-align:center;
-    padding:20px 15px;
+    padding:20px;
     font-size:13px;
     line-height:2;
-    margin-top:auto;
-}
-
-@media(max-width:600px){
-
-    header h1{
-        font-size:24px;
-    }
-
-    .code-input{
-        font-size:22px;
-    }
-
 }
 
 </style>
@@ -191,143 +244,197 @@ footer{
 
 <body>
 
-
 <header>
 
-    <div class="logo">
-        👨‍🏫
-    </div>
+<div class="logo">🕌</div>
 
-    <h1>
-        أكاديمية جنود الهدى
-    </h1>
+<h1>جنود الهدى</h1>
 
-    <p>
-        دخول المدرس إلى الحصة
-    </p>
+<p>صفحة المدرس</p>
 
 </header>
 
 
 <div class="container">
 
-    <div class="card">
 
-        <div class="icon">
-            🎓
-        </div>
+<!-- =========================
+     تسجيل دخول المدرس
+========================= -->
 
-        <div class="title">
-            دخول المدرس
-        </div>
+<div
+id="loginCard"
+class="card login-card">
 
-        <div class="subtitle">
-
-            أدخل كود المدرس الخاص بك
-            <br>
-            للدخول إلى الحصة المباشرة
-
-        </div>
+<h2>👨‍🏫 دخول المدرس</h2>
 
 
-        <input
-            id="teacherCode"
-            class="code-input"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            autocomplete="off"
-            placeholder="••••••">
+<div
+id="loginMessage"
+class="message error">
+</div>
 
 
-        <button
-            id="loginButton"
-            class="login-button">
-
-            🔐 دخول الحصة
-
-        </button>
-
-
-        <div
-            id="message"
-            class="message">
-
-        </div>
+<input
+id="teacherCodeInput"
+type="text"
+inputmode="numeric"
+maxlength="6"
+placeholder="أدخل كود المدرس">
 
 
-        <div class="info">
+<button
+id="loginButton"
+class="primary">
 
-            🔒 الدخول مخصص للمدرسين المعتمدين فقط.
+🔐 دخول المدرس
 
-            <br>
-
-            إذا لم يكن لديك كود مدرس،
-            تواصل مع إدارة أكاديمية جنود الهدى.
-
-        </div>
-
-
-        <button
-            id="backButton"
-            class="back-button">
-
-            ← العودة
-
-        </button>
-
-    </div>
+</button>
 
 </div>
 
 
+
+<!-- =========================
+     صفحة المدرس
+========================= -->
+
+<div
+id="teacherPage"
+class="teacher-page">
+
+
+<div
+id="pageMessage"
+class="message">
+</div>
+
+
+
+<!-- بيانات المدرس -->
+
+<div class="card">
+
+<h2>👨‍🏫 بيانات المدرس</h2>
+
+<div class="teacher-info">
+
+<div
+id="teacherName"
+class="teacher-name">
+
+-
+
+</div>
+
+
+<div class="teacher-code">
+
+🔐 كود المدرس
+
+<strong
+id="teacherCode">
+
+-
+
+</strong>
+
+</div>
+
+</div>
+
+
+<button
+id="logoutButton"
+class="danger"
+style="margin-top:15px;">
+
+🚪 تسجيل الخروج
+
+</button>
+
+</div>
+
+
+
+<!-- الطلاب -->
+
+<div class="card">
+
+<div class="section-title">
+
+🎓 طلابي
+
+</div>
+
+
+<div
+id="studentsList"
+class="loading">
+
+⏳ جاري تحميل الطلاب...
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
 <footer>
 
-    🕌 جنود الهدى
+جنود الهدى © 2026
 
-    <br>
+<br>
 
-    تعليم القرآن الكريم عن بُعد
-
-    <br>
-
-    © 2026
+أكاديمية القرآن الكريم
 
 </footer>
 
 
+
 <script type="module">
 
-
-/* =========================================
+/* =========================
    Firebase
-========================================= */
+========================= */
 
 import {
     db
-}
-from "./firebase.js";
+} from "./firebase.js";
 
 
 import {
-
     collection,
+    getDocs,
     query,
-    where,
-    getDocs
-
-}
-from
+    where
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* =========================================
-   العناصر
-========================================= */
 
-const teacherCode =
+/* =========================
+   عناصر الصفحة
+========================= */
+
+const loginCard =
 document.getElementById(
-    "teacherCode"
+    "loginCard"
+);
+
+const teacherPage =
+document.getElementById(
+    "teacherPage"
+);
+
+const teacherCodeInput =
+document.getElementById(
+    "teacherCodeInput"
 );
 
 const loginButton =
@@ -335,39 +442,194 @@ document.getElementById(
     "loginButton"
 );
 
-const message =
+const loginMessage =
 document.getElementById(
-    "message"
+    "loginMessage"
 );
 
-const backButton =
+const pageMessage =
 document.getElementById(
-    "backButton"
+    "pageMessage"
+);
+
+const teacherName =
+document.getElementById(
+    "teacherName"
+);
+
+const teacherCode =
+document.getElementById(
+    "teacherCode"
+);
+
+const studentsList =
+document.getElementById(
+    "studentsList"
+);
+
+const logoutButton =
+document.getElementById(
+    "logoutButton"
 );
 
 
-/* =========================================
-   دخول المدرس
-========================================= */
+
+/* =========================
+   بيانات المدرس الحالي
+========================= */
+
+let currentTeacher = null;
+
+
+
+/* =========================
+   تسجيل الدخول
+========================= */
 
 loginButton.addEventListener(
     "click",
-    loginTeacher
-);
+    async function(){
+
+        const code =
+        teacherCodeInput.value.trim();
 
 
-/* السماح بالضغط Enter */
+        if(!code){
 
-teacherCode.addEventListener(
-    "keydown",
-    function(event){
+            showLoginMessage(
+                "⚠️ أدخل كود المدرس.",
+                false
+            );
+
+            return;
+        }
+
 
         if(
-            event.key ===
-            "Enter"
+            !/^\d{6}$/.test(code)
         ){
 
-            loginTeacher();
+            showLoginMessage(
+                "⚠️ كود المدرس يجب أن يكون 6 أرقام.",
+                false
+            );
+
+            return;
+        }
+
+
+        loginButton.disabled =
+        true;
+
+        loginButton.textContent =
+        "⏳ جاري التحقق...";
+
+
+        try{
+
+            const result =
+            await getDocs(
+                query(
+                    collection(
+                        db,
+                        "teachers"
+                    ),
+
+                    where(
+                        "code",
+                        "==",
+                        code
+                    )
+                )
+            );
+
+
+            if(result.empty){
+
+                showLoginMessage(
+                    "❌ كود المدرس غير صحيح.",
+                    false
+                );
+
+                return;
+
+            }
+
+
+            const teacherDoc =
+            result.docs[0];
+
+
+            const teacher =
+            teacherDoc.data();
+
+
+            if(
+                teacher.active === false
+            ){
+
+                showLoginMessage(
+                    "⛔ هذا المدرس غير نشط حاليًا.",
+                    false
+                );
+
+                return;
+
+            }
+
+
+            currentTeacher = {
+
+                id:
+                teacherDoc.id,
+
+                ...teacher
+
+            };
+
+
+            localStorage.setItem(
+                "jundTeacherId",
+                teacherDoc.id
+            );
+
+
+            localStorage.setItem(
+                "jundTeacherCode",
+                teacher.code
+            );
+
+
+            localStorage.setItem(
+                "jundTeacherName",
+                teacher.name || ""
+            );
+
+
+            openTeacherPage();
+
+
+        }catch(error){
+
+            console.error(
+                "Teacher login error:",
+                error
+            );
+
+
+            showLoginMessage(
+                "❌ تعذر الدخول: " +
+                error.message,
+                false
+            );
+
+        }finally{
+
+            loginButton.disabled =
+            false;
+
+            loginButton.textContent =
+            "🔐 دخول المدرس";
 
         }
 
@@ -375,216 +637,450 @@ teacherCode.addEventListener(
 );
 
 
-/* =========================================
-   التحقق
-========================================= */
 
-async function loginTeacher(){
+/* =========================
+   فتح صفحة المدرس
+========================= */
 
-    const code =
-    teacherCode.value.trim();
+async function openTeacherPage(){
 
+    loginCard.style.display =
+    "none";
 
-    if(!code){
-
-        showMessage(
-            "⚠️ أدخل كود المدرس.",
-            false
-        );
-
-        return;
-
-    }
+    teacherPage.style.display =
+    "block";
 
 
-    if(!/^\d{6}$/.test(code)){
-
-        showMessage(
-            "⚠️ كود المدرس يجب أن يكون 6 أرقام.",
-            false
-        );
-
-        return;
-
-    }
+    teacherName.textContent =
+    currentTeacher.name ||
+    "المدرس";
 
 
-    loginButton.disabled =
-    true;
+    teacherCode.textContent =
+    currentTeacher.code ||
+    "-";
 
-    loginButton.textContent =
-    "⏳ جاري التحقق...";
+
+    await loadTeacherStudents();
+
+}
+
+
+
+/* =========================
+   تحميل طلاب المدرس
+========================= */
+
+async function loadTeacherStudents(){
+
+    studentsList.innerHTML = `
+
+        <div class="loading">
+
+            ⏳ جاري تحميل الطلاب...
+
+        </div>
+
+    `;
 
 
     try{
 
-        const teachersQuery =
-        query(
-
-            collection(
-                db,
-                "teachers"
-            ),
-
-            where(
-                "code",
-                "==",
-                code
-            )
-
-        );
-
-
         const result =
         await getDocs(
-            teachersQuery
+            query(
+                collection(
+                    db,
+                    "students"
+                ),
+
+                where(
+                    "teacherId",
+                    "==",
+                    currentTeacher.id
+                )
+            )
         );
 
 
         if(result.empty){
 
-            showMessage(
-                "❌ كود المدرس غير صحيح.",
-                false
-            );
+            studentsList.innerHTML = `
+
+                <div class="empty">
+
+                    📚 لا يوجد طلاب مرتبطون بك حاليًا.
+
+                    <br>
+
+                    سيظهر الطالب هنا بعد أن تقوم الإدارة
+                    بتحديدك مدرسًا له.
+
+                </div>
+
+            `;
 
             return;
 
         }
 
 
-        let teacher =
-        null;
+        studentsList.innerHTML =
+        "";
 
 
         result.forEach(
             function(item){
 
-                teacher = {
+                const student =
+                item.data();
 
-                    id:item.id,
 
-                    ...item.data()
+                const div =
+                document.createElement(
+                    "div"
+                );
 
-                };
+
+                div.className =
+                "student-item";
+
+
+                let meetingButton =
+                "";
+
+
+                if(
+                    student.meetingUrl
+                ){
+
+                    meetingButton = `
+
+                        <a
+                            class="online-button"
+                            href="${
+                                escapeHTML(
+                                    student.meetingUrl
+                                )
+                            }"
+                            target="_blank"
+                            rel="noopener">
+
+                            🎥 دخول الحصة المباشرة
+
+                        </a>
+
+                    `;
+
+                }
+
+
+                div.innerHTML = `
+
+                    <strong>
+
+                        👤 ${
+                            escapeHTML(
+                                student.name ||
+                                "بدون اسم"
+                            )
+                        }
+
+                    </strong>
+
+                    <br>
+
+                    📱 الهاتف:
+
+                    ${
+                        escapeHTML(
+                            student.phone ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    🔐 كود الطالب:
+
+                    ${
+                        escapeHTML(
+                            student.code ||
+                            "-"
+                        )
+                    }
+
+                    <br>
+
+                    📚 المستوى:
+
+                    ${
+                        escapeHTML(
+                            student.level ||
+                            "-"
+                        )
+                    }
+
+
+                    <div class="lesson">
+
+                        <div class="lesson-title">
+
+                            📖 الحصة
+
+                        </div>
+
+                        📚 الدرس:
+
+                        ${
+                            escapeHTML(
+                                student.lesson ||
+                                "لم يتم تحديد الدرس"
+                            )
+                        }
+
+                        <br>
+
+                        📅 التاريخ:
+
+                        ${
+                            escapeHTML(
+                                student.lessonDate ||
+                                "لم يتم تحديده"
+                            )
+                        }
+
+                        <br>
+
+                        🕐 الوقت:
+
+                        ${
+                            escapeHTML(
+                                student.lessonTime ||
+                                "لم يتم تحديده"
+                            )
+                        }
+
+                        <br>
+
+                        ⏱️ المدة:
+
+                        ${
+                            escapeHTML(
+                                student.lessonDuration ||
+                                "30"
+                            )
+                        }
+
+                        دقيقة
+
+                        ${
+                            meetingButton
+                        }
+
+                    </div>
+
+                `;
+
+
+                studentsList.appendChild(
+                    div
+                );
 
             }
         );
 
 
-        /*
-        التأكد من حالة المدرس
-        */
-
-        if(
-            teacher.active ===
-            false
-        ){
-
-            showMessage(
-                "⚠️ هذا الكود غير مفعل حاليًا.",
-                false
-            );
-
-            return;
-
-        }
-
-
-        /*
-        حفظ جلسة المدرس
-        */
-
-        localStorage.setItem(
-
-            "teacherSession",
-
-            JSON.stringify({
-
-                id:
-                teacher.id,
-
-                name:
-                teacher.name ||
-                "",
-
-                code:
-                teacher.code,
-
-                subject:
-                teacher.subject ||
-                "",
-
-                active:
-                teacher.active !== false
-
-            })
-
-        );
-
-
-        showMessage(
-            "✅ تم التحقق بنجاح. جاري دخول الحصة...",
-            true
-        );
-
-
-        /*
-        الانتقال إلى الحصة
-        */
-
-        setTimeout(
-            function(){
-
-                window.location.href =
-                "class.html";
-
-            },
-            700
-        );
-
-
     }catch(error){
 
-        console.error(error);
-
-
-        showMessage(
-
-            "❌ حدث خطأ أثناء التحقق. تأكد من اتصال الإنترنت وقواعد Firestore.",
-
-            false
-
+        console.error(
+            "Load teacher students error:",
+            error
         );
 
-    }finally{
 
-        loginButton.disabled =
-        false;
+        studentsList.innerHTML = `
 
-        loginButton.textContent =
-        "🔐 دخول الحصة";
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلاب.
+
+                <br><br>
+
+                ${
+                    escapeHTML(
+                        error.message ||
+                        ""
+                    )
+                }
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-/* =========================================
-   الرسالة
-========================================= */
 
-function showMessage(
+/* =========================
+   تسجيل الخروج
+========================= */
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        localStorage.removeItem(
+            "jundTeacherId"
+        );
+
+        localStorage.removeItem(
+            "jundTeacherCode"
+        );
+
+        localStorage.removeItem(
+            "jundTeacherName"
+        );
+
+
+        currentTeacher =
+        null;
+
+
+        teacherPage.style.display =
+        "none";
+
+
+        loginCard.style.display =
+        "block";
+
+
+        teacherCodeInput.value =
+        "";
+
+
+        showLoginMessage(
+            "",
+            false
+        );
+
+    }
+);
+
+
+
+/* =========================
+   محاولة فتح الجلسة السابقة
+========================= */
+
+async function restoreTeacher(){
+
+    const savedId =
+    localStorage.getItem(
+        "jundTeacherId"
+    );
+
+
+    if(!savedId){
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+        await getDocs(
+            collection(
+                db,
+                "teachers"
+            )
+        );
+
+
+        const teacherDoc =
+        result.docs.find(
+            function(item){
+
+                return item.id ===
+                savedId;
+
+            }
+        );
+
+
+        if(!teacherDoc){
+
+            localStorage.removeItem(
+                "jundTeacherId"
+            );
+
+            return;
+
+        }
+
+
+        const teacher =
+        teacherDoc.data();
+
+
+        if(
+            teacher.active === false
+        ){
+
+            localStorage.removeItem(
+                "jundTeacherId"
+            );
+
+            return;
+
+        }
+
+
+        currentTeacher = {
+
+            id:
+            teacherDoc.id,
+
+            ...teacher
+
+        };
+
+
+        openTeacherPage();
+
+
+    }catch(error){
+
+        console.error(
+            "Restore teacher error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   رسالة الدخول
+========================= */
+
+function showLoginMessage(
     text,
     success
 ){
 
-    message.textContent =
+    loginMessage.textContent =
     text;
 
-    message.className =
-    "message "
-    +
+
+    loginMessage.className =
+    "message " +
     (
         success
         ?
@@ -593,50 +1089,105 @@ function showMessage(
         "error"
     );
 
-    message.style.display =
-    "block";
+
+    loginMessage.style.display =
+    text
+    ?
+    "block"
+    :
+    "none";
 
 }
 
 
-/* =========================================
-   العودة
-========================================= */
 
-backButton.addEventListener(
-    "click",
-    function(){
+/* =========================
+   رسالة الصفحة
+========================= */
 
-        window.history.back();
+function showPageMessage(
+    text,
+    success
+){
 
-    }
+    pageMessage.textContent =
+    text;
+
+
+    pageMessage.className =
+    "message " +
+    (
+        success
+        ?
+        "success"
+        :
+        "error"
+    );
+
+
+    pageMessage.style.display =
+    text
+    ?
+    "block"
+    :
+    "none";
+
+}
+
+
+
+/* =========================
+   حماية النص
+========================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================
+   تشغيل الصفحة
+========================= */
+
+console.log(
+    "✅ صفحة مدرس جنود الهدى تعمل."
 );
 
 
-/* =========================================
-   تنظيف الكود
-========================================= */
-
-teacherCode.addEventListener(
-    "input",
-    function(){
-
-        this.value =
-        this.value
-        .replace(
-            /[^0-9]/g,
-            ""
-        )
-        .slice(
-            0,
-            6
-        );
-
-    }
-);
+restoreTeacher();
 
 </script>
 
 </body>
 
-</html>
+    </html>
