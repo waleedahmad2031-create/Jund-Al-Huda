@@ -1080,25 +1080,40 @@ codeButton.addEventListener(
 
             localStorage.setItem(
 
-                "studentSession",
+    "studentSession",
 
-                JSON.stringify({
+    JSON.stringify({
 
-                    id:
-                    studentData.id,
+        id:
+        studentData.id,
 
-                    name:
-                    studentData.name || "",
+        name:
+        studentData.name || "",
 
-                    phone:
-                    studentData.phone || "",
+        phone:
+        studentData.phone || "",
 
-                    code:
-                    code
+        code:
+        code,
 
-                })
+        teacher:
+        studentData.teacher || "",
 
-            );
+        lessonTime:
+        studentData.lessonTime || "",
+
+        lessonDuration:
+        studentData.lessonDuration || 30,
+
+        lesson:
+        studentData.lesson || "",
+
+        meetingUrl:
+        studentData.meetingUrl || ""
+
+    })
+
+);
 
 
             window.location.href =
