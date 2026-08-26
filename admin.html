@@ -2589,13 +2589,11 @@ async function loadLessons(){
 
 /* =========================
    طلبات التسجيل
-========================= */
-
+============================
 async function loadRequests(){
 
     requestsList.innerHTML =
     "⏳ جاري تحميل الطلبات...";
-
 
     try{
 
@@ -2607,10 +2605,8 @@ async function loadRequests(){
             )
         );
 
-
         requestsCount.textContent =
         result.size;
-
 
         if(result.empty){
 
@@ -2628,10 +2624,8 @@ async function loadRequests(){
 
         }
 
-
         requestsList.innerHTML =
         "";
-
 
         result.forEach(
             function(item){
@@ -2639,16 +2633,17 @@ async function loadRequests(){
                 const request =
                 item.data();
 
-
                 const div =
                 document.createElement(
                     "div"
                 );
 
-
                 div.className =
                 "item";
 
+                const status =
+                request.status ||
+                "pending";
 
                 div.innerHTML = `
 
@@ -2677,22 +2672,344 @@ async function loadRequests(){
 
                     <br>
 
+                    👨‍🏫 المدرس المطلوب:
+                    ${safe(
+                        request.teacher ||
+                        "لم يتم تحديده"
+                    )}
+
+                    <br>
+
                     📊 الحالة:
 
                     ${
-                        request.status ===
-                        "approved"
-
+                        status === "approved"
                         ?
-
                         "✅ تمت الموافقة"
 
                         :
 
+                        status === "rejected"
+                        ?
+                        "❌ مرفوض"
+
+                        :
                         "🟡 بانتظار المراجعة"
                     }
 
+                    ${
+                        status === "pending"
+                        ?
+                        `
+
+                        <div style="
+                            margin-top:15px;
+                            display:grid;
+                            grid-template-columns:1fr 1fr;
+                            gap:10px;
+                        ">
+
+                            <button
+                                class="approve-button"
+                                style="
+                                    background:#198754;
+                                    color:white;
+                                    border:0;
+                                    border-radius:10px;
+                                    padding:13px;
+                                    font-size:15px;
+                                    font-weight:bold;
+                                    cursor:pointer;
+                                ">
+
+                                ✅ موافقة
+
+                            </button>
+
+                            <button
+                                class="reject-button"
+                                style="
+                                    background:#dc3545;
+                                    color:white;
+                                    border:0;
+                                    border-radius:10px;
+                                    padding:13px;
+                                    font-size:15px;
+                                    font-weight:bold;
+                                    cursor:pointer;
+                                ">
+
+                                ❌ رفض
+
+                            </button>
+
+                        </div>
+
+                        `
+                        :
+                        ""
+                    }
+
                 `;
+
+
+                const approveButton =
+                div.querySelector(
+                    ".approve-button"
+                );
+
+
+                const rejectButton =
+                div.querySelector(
+                    ".reject-button"
+                );
+
+
+                /* =========================
+                   الموافقة على الطالب
+                ========================= */
+
+                if(approveButton){
+
+                    approveButton.addEventListener(
+                        "click",
+                        async function(){
+
+                            const confirmed =
+                            confirm(
+                                "هل تريد الموافقة على تسجيل هذا الطالب؟"
+                            );
+
+                            if(!confirmed){
+
+                                return;
+
+                            }
+
+                            approveButton.disabled =
+                            true;
+
+                            rejectButton.disabled =
+                            true;
+
+                            approveButton.textContent =
+                            "⏳ جاري الموافقة...";
+
+                            try{
+
+                                /*
+                                توليد كود طالب جديد
+                                */
+
+                                const code =
+                                await generateUniqueCode(
+                                    "students"
+                                );
+
+
+                                /*
+                                إنشاء الطالب
+                                */
+
+                                await addDoc(
+
+                                    collection(
+                                        db,
+                                        "students"
+                                    ),
+
+                                    {
+
+                                        name:
+                                        request.name ||
+                                        "",
+
+                                        phone:
+                                        request.phone ||
+                                        "",
+
+                                        age:
+                                        request.age ||
+                                        "",
+
+                                        teacher:
+                                        request.teacher ||
+                                        "",
+
+                                        code:
+                                        code,
+
+                                        active:
+                                        true,
+
+                                        createdAt:
+                                        serverTimestamp()
+
+                                    }
+
+                                );
+
+
+                                /*
+                                تحديث حالة الطلب
+                                */
+
+                                await updateDoc(
+
+                                    doc(
+                                        db,
+                                        "bookingRequests",
+                                        item.id
+                                    ),
+
+                                    {
+
+                                        status:
+                                        "approved",
+
+                                        approvedAt:
+                                        serverTimestamp()
+
+                                    }
+
+                                );
+
+
+                                alert(
+                                    "✅ تمت الموافقة على الطالب.\n\n" +
+                                    "كود الطالب:\n" +
+                                    code
+                                );
+
+
+                                /*
+                                إعادة تحميل الطلبات
+                                */
+
+                                await loadRequests();
+
+
+                                /*
+                                إعادة تحميل الطلاب
+                                */
+
+                                await loadStudents();
+
+                                fillLessonStudents();
+
+
+                            }catch(error){
+
+                                console.error(
+                                    "Approve request:",
+                                    error
+                                );
+
+                                alert(
+                                    "❌ تعذر الموافقة على الطلب:\n\n" +
+                                    error.message
+                                );
+
+                                approveButton.disabled =
+                                false;
+
+                                rejectButton.disabled =
+                                false;
+
+                                approveButton.textContent =
+                                "✅ موافقة";
+
+                            }
+
+                        }
+                    );
+
+                }
+
+
+                /* =========================
+                   رفض الطلب
+                ========================= */
+
+                if(rejectButton){
+
+                    rejectButton.addEventListener(
+                        "click",
+                        async function(){
+
+                            const confirmed =
+                            confirm(
+                                "هل تريد رفض طلب تسجيل هذا الطالب؟"
+                            );
+
+                            if(!confirmed){
+
+                                return;
+
+                            }
+
+                            rejectButton.disabled =
+                            true;
+
+                            approveButton.disabled =
+                            true;
+
+                            rejectButton.textContent =
+                            "⏳ جاري الرفض...";
+
+                            try{
+
+                                await updateDoc(
+
+                                    doc(
+                                        db,
+                                        "bookingRequests",
+                                        item.id
+                                    ),
+
+                                    {
+
+                                        status:
+                                        "rejected",
+
+                                        rejectedAt:
+                                        serverTimestamp()
+
+                                    }
+
+                                );
+
+
+                                await loadRequests();
+
+
+                            }catch(error){
+
+                                console.error(
+                                    "Reject request:",
+                                    error
+                                );
+
+                                alert(
+                                    "❌ تعذر رفض الطلب:\n\n" +
+                                    error.message
+                                );
+
+                                rejectButton.disabled =
+                                false;
+
+                                approveButton.disabled =
+                                false;
+
+                                rejectButton.textContent =
+                                "❌ رفض";
+
+                            }
+
+                        }
+                    );
+
+                }
 
 
                 requestsList.appendChild(
@@ -2709,7 +3026,6 @@ async function loadRequests(){
             error
         );
 
-
         requestsList.innerHTML = `
 
             <div class="empty">
@@ -2718,7 +3034,9 @@ async function loadRequests(){
 
                 <br><br>
 
-                ${safe(error.message)}
+                ${safe(
+                    error.message
+                )}
 
             </div>
 
@@ -2726,8 +3044,7 @@ async function loadRequests(){
 
     }
 
-}
-
+    }
 
 /* =========================
    رسائل الطلاب
