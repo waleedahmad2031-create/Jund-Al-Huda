@@ -1,23 +1,24 @@
-// ==========================================
-// Firebase - جنود الهدى
-// ==========================================
+// =========================
+// Firebase
+// جنود الهدى
+// =========================
 
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-    getFirestore
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-import {
     getAuth
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+import {
+    getFirestore
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ==========================================
+
+// =========================
 // إعداد Firebase
-// ==========================================
+// =========================
 
 const firebaseConfig = {
 
@@ -45,36 +46,47 @@ const firebaseConfig = {
 };
 
 
-// ==========================================
+// =========================
 // تشغيل Firebase
-// ==========================================
+// =========================
 
 const app =
-    initializeApp(firebaseConfig);
+    initializeApp(
+        firebaseConfig
+    );
 
 
-// ==========================================
-// قاعدة البيانات
-// ==========================================
-
-const db =
-    getFirestore(app);
-
-
-// ==========================================
-// تسجيل الدخول
-// ==========================================
+// =========================
+// Authentication
+// =========================
 
 const auth =
-    getAuth(app);
+    getAuth(
+        app
+    );
 
 
-// ==========================================
-// التصدير للملفات الأخرى
-// ==========================================
+// =========================
+// Firestore
+// =========================
+
+const db =
+    getFirestore(
+        app
+    );
+
+
+// =========================
+// التصدير
+// =========================
 
 export {
     app,
-    db,
-    auth
+    auth,
+    db
 };
+
+
+console.log(
+    "✅ Firebase جنود الهدى يعمل."
+);
