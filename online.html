@@ -414,6 +414,10 @@ footer{
             id="meetingBox"
             class="meeting-box"
             style="display:none;">
+
+            🎥
+            https://meet.google.com/usr-jfhn-hxs
+
         </div>
 
 
@@ -469,6 +473,14 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================
+   رابط Google Meet
+========================================= */
+
+const MEETING_URL =
+"https://meet.google.com/usr-jfhn-hxs";
 
 
 /* =========================================
@@ -575,42 +587,6 @@ let currentStudent = null;
 let currentLesson = null;
 
 let timer = null;
-
-
-/* =========================================
-   إصلاح رابط Google Meet
-========================================= */
-
-function fixMeetingUrl(url){
-
-    let fixedUrl =
-    String(
-        url || ""
-    ).trim();
-
-
-    if(!fixedUrl){
-
-        return "";
-
-    }
-
-
-    if(
-        !fixedUrl.startsWith("https://") &&
-        !fixedUrl.startsWith("http://")
-    ){
-
-        fixedUrl =
-        "https://" +
-        fixedUrl;
-
-    }
-
-
-    return fixedUrl;
-
-}
 
 
 /* =========================================
@@ -721,7 +697,6 @@ loginButton.addEventListener(
         }catch(error){
 
             console.error(
-                "Student login error:",
                 error
             );
 
@@ -745,7 +720,7 @@ loginButton.addEventListener(
 
 
 /* =========================================
-   تحميل حصة الطالب
+   تحميل الحصة
 ========================================= */
 
 async function loadStudentLesson(){
@@ -754,11 +729,7 @@ async function loadStudentLesson(){
     null;
 
 
-    /*
-    البحث أولًا بواسطة studentId
-    */
-
-    let result =
+    const result =
     await getDocs(
         query(
             collection(
@@ -772,31 +743,6 @@ async function loadStudentLesson(){
             )
         )
     );
-
-
-    /*
-    إذا لم نجد الحصة بواسطة studentId
-    نبحث باسم الطالب
-    */
-
-    if(result.empty){
-
-        result =
-        await getDocs(
-            query(
-                collection(
-                    db,
-                    "liveSessions"
-                ),
-                where(
-                    "studentName",
-                    "==",
-                    currentStudent.name
-                )
-            )
-        );
-
-    }
 
 
     if(result.empty){
@@ -823,10 +769,6 @@ async function loadStudentLesson(){
     );
 
 
-    /*
-    ترتيب الحصص
-    */
-
     lessons.sort(
         function(a,b){
 
@@ -852,70 +794,16 @@ async function loadStudentLesson(){
             );
 
 
-            return dateA.localeCompare(
-                dateB
+            return dateB.localeCompare(
+                dateA
             );
 
         }
     );
 
 
-    /*
-    اختيار أقرب حصة مستقبلية
-    أو آخر حصة إذا لم توجد مستقبلية
-    */
-
-    const now =
-    new Date();
-
-
-    let selectedLesson =
-    null;
-
-
-    for(
-        const lesson
-        of lessons
-    ){
-
-        const start =
-        getLessonDate(
-            lesson.lessonDate,
-            lesson.startTime
-        );
-
-
-        if(
-            start &&
-            start >= now &&
-            lesson.status !== "cancelled"
-        ){
-
-            selectedLesson =
-            lesson;
-
-            break;
-
-        }
-
-    }
-
-
-    /*
-    إذا لم توجد حصة مستقبلية
-    نأخذ آخر حصة
-    */
-
-    if(!selectedLesson){
-
-        selectedLesson =
-        lessons[lessons.length - 1];
-
-    }
-
-
     currentLesson =
-    selectedLesson;
+    lessons[0];
 
 }
 
@@ -967,40 +855,6 @@ function showStudentDashboard(){
         currentLesson.subject ||
         "الحصة القرآنية";
 
-
-        /*
-        =====================================
-        رابط الحصة من Firebase
-        =====================================
-        */
-
-        const meetingUrl =
-        fixMeetingUrl(
-            currentLesson.meetingUrl
-        );
-
-
-        if(meetingUrl){
-
-            meetingBox.textContent =
-            "🎥 رابط الحصة: " +
-            meetingUrl;
-
-
-            meetingBox.style.display =
-            "block";
-
-        }else{
-
-            meetingBox.textContent =
-            "⚠️ لم يتم إضافة رابط الحصة من الإدارة";
-
-
-            meetingBox.style.display =
-            "block";
-
-        }
-
     }else{
 
         teacherName.textContent =
@@ -1019,15 +873,16 @@ function showStudentDashboard(){
         lessonName.textContent =
         "الحصة القرآنية";
 
-
-        meetingBox.textContent =
-        "⚠️ لا توجد حصة مرتبطة بهذا الطالب";
-
-
-        meetingBox.style.display =
-        "block";
-
     }
+
+
+    meetingBox.textContent =
+    "🎥 رابط الحصة: " +
+    MEETING_URL;
+
+
+    meetingBox.style.display =
+    "block";
 
 
     startLessonTimer();
@@ -1139,21 +994,6 @@ function updateLessonStatus(){
 
         setWaitingStatus(
             "⏳ لا توجد حصة مجدولة",
-            "يرجى مراجعة الإدارة."
-        );
-
-        return;
-
-    }
-
-
-    if(
-        currentLesson.status ===
-        "cancelled"
-    ){
-
-        setWaitingStatus(
-            "🔴 الحصة ملغاة",
             "يرجى مراجعة الإدارة."
         );
 
@@ -1329,31 +1169,8 @@ function setReadyStatus(
     );
 
 
-    /*
-    إظهار زر الدخول فقط إذا
-    كان هناك رابط محفوظ في Firebase
-    */
-
-    const meetingUrl =
-    fixMeetingUrl(
-        currentLesson.meetingUrl
-    );
-
-
-    if(meetingUrl){
-
-        joinButton.style.display =
-        "block";
-
-    }else{
-
-        joinButton.style.display =
-        "none";
-
-        countdown.textContent =
-        "⚠️ لم يتم إضافة رابط الحصة من الإدارة";
-
-    }
+    joinButton.style.display =
+    "block";
 
 }
 
@@ -1388,40 +1205,16 @@ function setFinishedStatus(){
 
 /* =========================================
    دخول Google Meet
+   تم تعديلها لفتح الرابط مباشرة
+   في المتصفح الحالي
 ========================================= */
 
 joinButton.addEventListener(
     "click",
     function(){
 
-        if(!currentLesson){
-
-            return;
-
-        }
-
-
-        const meetingUrl =
-        fixMeetingUrl(
-            currentLesson.meetingUrl
-        );
-
-
-        if(!meetingUrl){
-
-            alert(
-                "⚠️ لم يتم إضافة رابط الحصة."
-            );
-
-            return;
-
-        }
-
-
-        window.open(
-            meetingUrl,
-            "_blank"
-        );
+        window.location.href =
+        MEETING_URL;
 
     }
 );
@@ -1807,11 +1600,12 @@ console.log(
 );
 
 console.log(
-    "🎥 رابط الحصة يتم تحميله من Firebase"
+    "🎥 Google Meet:",
+    MEETING_URL
 );
 
 </script>
 
 </body>
 
-                </html>
+    </html>
