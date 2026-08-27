@@ -241,9 +241,8 @@ footer{
 
 }
 
-</style>
-
-</head>
+    </style>
+    </head>
 
 <body>
 
@@ -264,6 +263,10 @@ footer{
 </header>
 
 <div class="container">
+
+<!-- =========================
+     تسجيل دخول المدرس
+========================= -->
 
 <div
 id="loginCard"
@@ -295,6 +298,11 @@ class="primary">
 
 </div>
 
+
+<!-- =========================
+     صفحة المدرس
+========================= -->
+
 <div
 id="teacherPage"
 class="teacher-page">
@@ -303,6 +311,11 @@ class="teacher-page">
 id="pageMessage"
 class="message">
 </div>
+
+
+<!-- =========================
+     بيانات المدرس
+========================= -->
 
 <div class="card">
 
@@ -346,6 +359,11 @@ style="margin-top:15px;">
 
 </div>
 
+
+<!-- =========================
+     الطلاب والحصص
+========================= -->
+
 <div class="card">
 
 <div class="section-title">
@@ -368,6 +386,7 @@ class="loading">
 
 </div>
 
+
 <footer>
 
 جنود الهدى © 2026
@@ -377,7 +396,9 @@ class="loading">
 أكاديمية القرآن الكريم
 
 </footer>
-  <script type="module">
+
+
+<script type="module">
 
 /* =========================
    Firebase
@@ -387,7 +408,6 @@ import {
     db
 }
 from "./firebase.js";
-
 
 import {
     collection,
@@ -544,7 +564,6 @@ loginButton.addEventListener(
             const teacherDoc =
             result.docs[0];
 
-
             const teacher =
             teacherDoc.data();
 
@@ -578,12 +597,10 @@ loginButton.addEventListener(
                 teacherDoc.id
             );
 
-
             localStorage.setItem(
                 "jundTeacherCode",
                 teacher.code || ""
             );
-
 
             localStorage.setItem(
                 "jundTeacherName",
@@ -648,9 +665,7 @@ async function openTeacherPage(){
     await loadTeacherStudents();
 
 }
-
-
-/* =========================
+    /* =========================
    تحميل طلاب وحصص المدرس
 ========================= */
 
@@ -659,9 +674,7 @@ async function loadTeacherStudents(){
     studentsList.innerHTML = `
 
         <div class="loading">
-
             ⏳ جاري تحميل الطلاب والحصص...
-
         </div>
 
     `;
@@ -695,17 +708,15 @@ async function loadTeacherStudents(){
 
 
         /* =========================
-           تحميل الحصص
+           تحميل حصص المدرس
         ========================= */
 
         const lessonsResult =
         await getDocs(
-
             collection(
                 db,
                 "liveSessions"
             )
-
         );
 
 
@@ -744,11 +755,7 @@ async function loadTeacherStudents(){
 
 
                 /*
-                الربط الأساسي:
-                teacherId
-
-                الربط الاحتياطي:
-                teacherName
+                ربط الحصة بالمدرس
                 */
 
                 const isSameTeacher =
@@ -766,10 +773,8 @@ async function loadTeacherStudents(){
 
 
                 if(
-                    isSameTeacher
-                    &&
-                    lesson.status !==
-                    "cancelled"
+                    isSameTeacher &&
+                    lesson.status !== "cancelled"
                 ){
 
                     lessons.push({
@@ -788,7 +793,7 @@ async function loadTeacherStudents(){
 
 
         /* =========================
-           إذا لا يوجد طلاب ولا حصص
+           لا توجد بيانات
         ========================= */
 
         if(
@@ -836,10 +841,9 @@ async function loadTeacherStudents(){
                 "student-item";
 
 
-                /*
-                   البحث عن حصص الطالب
-                   باستخدام studentId أولًا
-                */
+                /* =========================
+                   حصص هذا الطالب
+                ========================= */
 
                 const studentLessons =
                 lessons.filter(
@@ -851,7 +855,7 @@ async function loadTeacherStudents(){
                         ).trim();
 
 
-                        const currentStudentId =
+                        const studentId =
                         String(
                             item.id || ""
                         ).trim();
@@ -859,12 +863,12 @@ async function loadTeacherStudents(){
 
                         if(
                             lessonStudentId &&
-                            currentStudentId
+                            studentId
                         ){
 
                             return (
                                 lessonStudentId ===
-                                currentStudentId
+                                studentId
                             );
 
                         }
@@ -885,6 +889,10 @@ async function loadTeacherStudents(){
                 let lessonsHTML =
                 "";
 
+
+                /* =========================
+                   لا توجد حصة
+                ========================= */
 
                 if(
                     studentLessons.length === 0
@@ -910,578 +918,27 @@ async function loadTeacherStudents(){
 
                 else{
 
+                    /* =========================
+                       عرض الحصص
+                    ========================= */
+
                     studentLessons.forEach(
                         function(lesson){
 
-                            let meetingButton =
-                            "";
-
-
-                            if(
-                                lesson.meetingUrl
-                            ){
-
-                                meetingButton = `
-
-                                    <a
-                                        class="online-button"
-                                        href="${
-                                            escapeHTML(
-                                                lesson.meetingUrl
-                                            )
-                                        }"
-                                        target="_blank"
-                                        rel="noopener">
-
-                                        🎥 دخول الحصة المباشرة
-
-                                    </a>
-
-                                `;
-
-                            }
-
-
-                            /* =========================
-                               الوقت الصحيح للحصة
-                               يدعم:
-                               startTime + endTime
-                               أو lessonTime القديم
-                            ========================= */
-
-                            let lessonTimeText =
-                            "";
-
-
-                            if(
-                                lesson.startTime &&
-                                lesson.endTime
-                            ){
-
-                                lessonTimeText =
-                                lesson.startTime +
-                                " - " +
-                                lesson.endTime;
-
-                            }
-
-                            else if(
-                                lesson.lessonTime
-                            ){
-
-                                lessonTimeText =
-                                lesson.lessonTime;
-
-                            }
-
-                            else{
-
-                                lessonTimeText =
-                                "-";
-
-                            }
-
-
-                            lessonsHTML += `
-
-                                <div class="lesson">
-
-                                    <div class="lesson-title">
-
-                                        📖 الحصة المجدولة
-
-                                    </div>
-
-                                    📚 المادة:
-
-                                    ${
-                                        escapeHTML(
-                                            lesson.subject ||
-                                            "بدون مادة"
-                                        )
-                                    }
-
-                                    <br>
-
-                                    📅 التاريخ:
-
-                                    ${
-                                        escapeHTML(
-                                            lesson.lessonDate ||
-                                            "-"
-                                        )
-                                    }
-
-                                    <br>
-
-                                    🕐 وقت الحصة:
-
-                                    ${
-                                        escapeHTML(
-                                            lessonTimeText
-                                        )
-                                    }
-
-                                    <br>
-
-                                    📊 الحالة:
-
-                                    ${
-                                        lesson.status ===
-                                        "scheduled"
-
-                                        ?
-
-                                        "🟢 مجدولة"
-
-                                        :
-
-                                        escapeHTML(
-                                            lesson.status ||
-                                            "-"
-                                        )
-                                    }
-
-                                    ${
-                                        meetingButton
-                                    }
-
-                                </div>
-
-                            `;
-
-                        }
-                    );
-
-                }
-
-
-                div.innerHTML = `
-
-                    <strong>
-
-                        👤 ${
-                            escapeHTML(
-                                student.name ||
-                                "بدون اسم"
-                            )
-                        }
-
-                    </strong>
-
-                    <br>
-
-                    📱 الهاتف:
-
-                    ${
-                        escapeHTML(
-                            student.phone ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    🔐 كود الطالب:
-
-                    ${
-                        escapeHTML(
-                            student.code ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    📚 المستوى:
-
-                    ${
-                        escapeHTML(
-                            student.level ||
-                            "-"
-                        )
-                    }
-
-                    ${lessonsHTML}
-
-                `;
-
-
-                studentsList.appendChild(
-                    div
-                );
-
-            }
-        );
-        /* =========================
-   تحميل طلاب وحصص المدرس
-========================= */
-
-async function loadTeacherStudents(){
-
-    studentsList.innerHTML = `
-
-        <div class="loading">
-
-            ⏳ جاري تحميل الطلاب والحصص...
-
-        </div>
-
-    `;
-
-
-    try{
-
-        /* =========================
-           تحميل طلاب المدرس
-        ========================= */
-
-        const studentsResult =
-        await getDocs(
-
-            query(
-
-                collection(
-                    db,
-                    "students"
-                ),
-
-                where(
-                    "teacherId",
-                    "==",
-                    currentTeacher.id
-                )
-
-            )
-
-        );
-
-
-        /* =========================
-           تحميل الحصص
-        ========================= */
-
-        const lessonsResult =
-        await getDocs(
-
-            collection(
-                db,
-                "liveSessions"
-            )
-
-        );
-
-
-        const lessons = [];
-
-
-        lessonsResult.forEach(
-            function(item){
-
-                const lesson =
-                item.data();
-
-
-                const lessonTeacherId =
-                String(
-                    lesson.teacherId || ""
-                ).trim();
-
-
-                const lessonTeacherName =
-                String(
-                    lesson.teacherName || ""
-                ).trim();
-
-
-                const currentTeacherId =
-                String(
-                    currentTeacher.id || ""
-                ).trim();
-
-
-                const currentTeacherName =
-                String(
-                    currentTeacher.name || ""
-                ).trim();
-
-
-                /*
-                الربط الأساسي:
-                teacherId
-
-                الربط الاحتياطي:
-                teacherName
-                */
-
-                const isSameTeacher =
-                    (
-                        lessonTeacherId &&
-                        lessonTeacherId ===
-                        currentTeacherId
-                    )
-                    ||
-                    (
-                        !lessonTeacherId &&
-                        lessonTeacherName ===
-                        currentTeacherName
-                    );
-
-
-                if(
-                    isSameTeacher
-                    &&
-                    lesson.status !==
-                    "cancelled"
-                ){
-
-                    lessons.push({
-
-                        id:
-                        item.id,
-
-                        ...lesson
-
-                    });
-
-                }
-
-            }
-        );
-
-
-        /* =========================
-           إذا لا يوجد طلاب ولا حصص
-        ========================= */
-
-        if(
-            studentsResult.empty &&
-            lessons.length === 0
-        ){
-
-            studentsList.innerHTML = `
-
-                <div class="empty">
-
-                    📚 لا يوجد طلاب أو حصص مجدولة لك حاليًا.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        studentsList.innerHTML =
-        "";
-
-
-        /* =========================
-           عرض الطلاب
-        ========================= */
-
-        studentsResult.forEach(
-            function(item){
-
-                const student =
-                item.data();
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-                div.className =
-                "student-item";
-
-
-                /*
-                البحث عن حصص الطالب
-                */
-
-                const studentLessons =
-                lessons.filter(
-                    function(lesson){
-
-                        const lessonStudentId =
-                        String(
-                            lesson.studentId || ""
-                        ).trim();
-
-
-                        const currentStudentId =
-                        String(
-                            item.id || ""
-                        ).trim();
-
-
-                        if(
-                            lessonStudentId &&
-                            currentStudentId
-                        ){
-
-                            return (
-                                lessonStudentId ===
-                                currentStudentId
+                            lessonsHTML +=
+                            createLessonHTML(
+                                lesson
                             );
 
                         }
-
-
-                        /*
-                        احتياط للحصص القديمة
-                        */
-
-                        return String(
-                            lesson.studentName || ""
-                        ).trim()
-                        ===
-                        String(
-                            student.name || ""
-                        ).trim();
-
-                    }
-                );
-
-
-                let lessonsHTML =
-                "";
-
-
-                if(
-                    studentLessons.length === 0
-                ){
-
-                    lessonsHTML = `
-
-                        <div class="lesson">
-
-                            <div class="lesson-title">
-
-                                📖 الحصة
-
-                            </div>
-
-                            ⚠️ لا توجد حصة مجدولة لهذا الطالب حاليًا.
-
-                        </div>
-
-                    `;
-
-                }
-
-                else{
-
-                    studentLessons.forEach(
-                        function(lesson){
-
-                            let meetingButton =
-                            "";
-
-
-                            if(
-                                lesson.meetingUrl
-                            ){
-
-                                meetingButton = `
-
-                                    <a
-                                        class="online-button"
-                                        href="${
-                                            escapeHTML(
-                                                lesson.meetingUrl
-                                            )
-                                        }"
-                                        target="_blank"
-                                        rel="noopener">
-
-                                        🎥 دخول الحصة المباشرة
-
-                                    </a>
-
-                                `;
-
-                            }
-
-
-                            lessonsHTML += `
-
-                                <div class="lesson">
-
-                                    <div class="lesson-title">
-
-                                        📖 الحصة المجدولة
-
-                                    </div>
-
-                                    📚 المادة:
-
-                                    ${
-                                        escapeHTML(
-                                            lesson.subject ||
-                                            "بدون مادة"
-                                        )
-                                    }
-
-                                    <br>
-
-                                    📅 التاريخ:
-
-                                    ${
-                                        escapeHTML(
-                                            lesson.lessonDate ||
-                                            "-"
-                                        )
-                                    }
-
-                                    <br>
-
-                                    🕐 الوقت:
-
-                                    ${
-                                        escapeHTML(
-                                            lesson.lessonTime ||
-                                            "-"
-                                        )
-                                    }
-
-                                    <br>
-
-                                    📊 الحالة:
-
-                                    ${
-                                        lesson.status ===
-                                        "scheduled"
-
-                                        ?
-
-                                        "🟢 مجدولة"
-
-                                        :
-
-                                        escapeHTML(
-                                            lesson.status ||
-                                            "-"
-                                        )
-                                    }
-
-                                    ${
-                                        meetingButton
-                                    }
-
-                                </div>
-
-                            `;
-
-                        }
                     );
 
                 }
 
+
+                /* =========================
+                   بيانات الطالب
+                ========================= */
 
                 div.innerHTML = `
 
@@ -1541,132 +998,284 @@ async function loadTeacherStudents(){
             }
         );
 
+
         /* =========================
-   الحصص التي لا ترتبط
-   بطالب موجود
-========================= */
+           حصص غير مرتبطة بطالب ظاهر
+        ========================= */
 
-const displayedLessonIds =
-new Set();
-
-
-studentsResult.forEach(
-    function(item){
-
-        const student =
-        item.data();
+        const displayedLessonIds =
+        new Set();
 
 
-        lessons.forEach(
-            function(lesson){
+        studentsResult.forEach(
+            function(item){
 
-                const lessonStudentId =
-                String(
-                    lesson.studentId || ""
-                ).trim();
+                const student =
+                item.data();
 
 
-                const studentId =
-                String(
-                    item.id || ""
-                ).trim();
+                lessons.forEach(
+                    function(lesson){
 
-
-                const sameStudent =
-                    (
-                        lessonStudentId &&
-                        lessonStudentId ===
-                        studentId
-                    )
-                    ||
-                    (
-                        !lessonStudentId &&
+                        const lessonStudentId =
                         String(
-                            lesson.studentName || ""
-                        ).trim()
-                        ===
+                            lesson.studentId || ""
+                        ).trim();
+
+
+                        const studentId =
                         String(
-                            student.name || ""
-                        ).trim()
-                    );
+                            item.id || ""
+                        ).trim();
 
 
-                if(
-                    sameStudent
-                ){
+                        const sameStudent =
+                            (
+                                lessonStudentId &&
+                                lessonStudentId ===
+                                studentId
+                            )
+                            ||
+                            (
+                                !lessonStudentId &&
+                                String(
+                                    lesson.studentName || ""
+                                ).trim()
+                                ===
+                                String(
+                                    student.name || ""
+                                ).trim()
+                            );
 
-                    displayedLessonIds.add(
-                        lesson.id
-                    );
 
-                }
+                        if(
+                            sameStudent
+                        ){
+
+                            displayedLessonIds.add(
+                                lesson.id
+                            );
+
+                        }
+
+                    }
+                );
 
             }
         );
 
-    }
-);
 
+        const unlinkedLessons =
+        lessons.filter(
+            function(lesson){
 
-const unlinkedLessons =
-lessons.filter(
-    function(lesson){
+                return !
+                displayedLessonIds.has(
+                    lesson.id
+                );
 
-        return !
-        displayedLessonIds.has(
-            lesson.id
+            }
         );
 
-    }
-);
 
+        if(
+            unlinkedLessons.length > 0
+        ){
 
-if(
-    unlinkedLessons.length > 0
-){
-
-    const title =
-    document.createElement(
-        "div"
-    );
-
-
-    title.style.cssText = `
-
-        margin-top:18px;
-        margin-bottom:12px;
-        color:#075e54;
-        font-size:18px;
-        font-weight:bold;
-
-    `;
-
-
-    title.textContent =
-    "📅 حصص مجدولة";
-
-
-    studentsList.appendChild(
-        title
-    );
-
-
-    unlinkedLessons.forEach(
-        function(lesson){
-
-            const div =
+            const title =
             document.createElement(
                 "div"
             );
 
 
-            div.className =
-            "student-item";
+            title.style.cssText = `
+
+                margin-top:18px;
+                margin-bottom:12px;
+                color:#075e54;
+                font-size:18px;
+                font-weight:bold;
+
+            `;
 
 
-            let meetingButton =
-            "";
+            title.textContent =
+            "📅 حصص مجدولة";
 
+
+            studentsList.appendChild(
+                title
+            );
+
+
+            unlinkedLessons.forEach(
+                function(lesson){
+
+                    const div =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                    div.className =
+                    "student-item";
+
+
+                    div.innerHTML = `
+
+                        👨‍🎓 <strong>
+
+                            الطالب:
+
+                            ${
+                                escapeHTML(
+                                    lesson.studentName ||
+                                    "-"
+                                )
+                            }
+
+                        </strong>
+
+                        ${
+                            createLessonHTML(
+                                lesson
+                            )
+                        }
+
+                    `;
+
+
+                    studentsList.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            "Load teacher students error:",
+            error
+        );
+
+
+        studentsList.innerHTML = `
+
+            <div class="empty">
+
+                ❌ تعذر تحميل الطلاب والحصص.
+
+                <br><br>
+
+                ${
+                    escapeHTML(
+                        error.message ||
+                        ""
+                    )
+                }
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   عرض الحصة حسب الوقت
+========================= */
+
+function createLessonHTML(lesson){
+
+    const lessonDate =
+    String(
+        lesson.lessonDate || ""
+    ).trim();
+
+
+    const startTime =
+    String(
+        lesson.startTime ||
+        lesson.lessonTime ||
+        ""
+    ).trim();
+
+
+    const endTime =
+    String(
+        lesson.endTime || ""
+    ).trim();
+
+
+    let meetingButton = "";
+
+
+    /*
+    إذا لا يوجد تاريخ أو وقت
+    لا نظهر الرابط.
+    */
+
+    if(
+        !lessonDate ||
+        !startTime ||
+        !endTime
+    ){
+
+        meetingButton = `
+
+            <div
+            style="
+            margin-top:12px;
+            background:#fff3cd;
+            color:#856404;
+            border-radius:10px;
+            padding:11px;
+            text-align:center;">
+
+                ⏳ لم يتم تحديد وقت الحصة كاملًا.
+
+            </div>
+
+        `;
+
+    }
+
+    else{
+
+        const now =
+        new Date();
+
+
+        const start =
+        new Date(
+            lessonDate +
+            "T" +
+            startTime
+        );
+
+
+        const end =
+        new Date(
+            lessonDate +
+            "T" +
+            endTime
+        );
+
+
+        /*
+        الحصة بدأت الآن
+        */
+
+        if(
+            now >= start &&
+            now <= end
+        ){
 
             if(
                 lesson.meetingUrl
@@ -1684,7 +1293,7 @@ if(
                         target="_blank"
                         rel="noopener">
 
-                        🎥 دخول الحصة المباشرة
+                        🎥 دخول الحصة المباشرة الآن
 
                     </a>
 
@@ -1692,406 +1301,163 @@ if(
 
             }
 
-
-            div.innerHTML = `
-
-                👨‍🎓 <strong>
-
-                    الطالب:
-
-                    ${
-                        escapeHTML(
-                            lesson.studentName ||
-                            "-"
-                        )
-                    }
-
-                </strong>
-
-                <div class="lesson">
-
-                    <div class="lesson-title">
-
-                        📖 الحصة المجدولة
-
-                    </div>
-
-                    📚 المادة:
-
-                    ${
-                        escapeHTML(
-                            lesson.subject ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    📅 التاريخ:
-
-                    ${
-                        escapeHTML(
-                            lesson.lessonDate ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    🕐 الوقت:
-
-                    ${
-                        escapeHTML(
-                            lesson.lessonTime ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    📊 الحالة:
-
-                    ${
-                        lesson.status ===
-                        "scheduled"
-
-                        ?
-
-                        "🟢 مجدولة"
-
-                        :
-
-                        escapeHTML(
-                            lesson.status ||
-                            "-"
-                        )
-                    }
-
-                    ${
-                        meetingButton
-                    }
-
-                </div>
-
-            `;
-
-
-            studentsList.appendChild(
-                div
-            );
-
-        }
-    );
-
-}
-
-
-}catch(error){
-
-    console.error(
-        "Load teacher students error:",
-        error
-    );
-
-
-    studentsList.innerHTML = `
-
-        <div class="empty">
-
-            ❌ تعذر تحميل الطلاب والحصص.
-
-            <br><br>
-
-            ${
-                escapeHTML(
-                    error.message ||
-                    ""
-                )
-            }
-
-        </div>
-
-    `;
-
-}
-
-      }
-/* =========================
-   الحصص التي لا ترتبط
-   بطالب موجود
-========================= */
-
-const displayedLessonIds =
-new Set();
-
-
-studentsResult.forEach(
-    function(item){
-
-        const student =
-        item.data();
-
-
-        lessons.forEach(
-            function(lesson){
-
-                const lessonStudentId =
-                String(
-                    lesson.studentId || ""
-                ).trim();
-
-
-                const studentId =
-                String(
-                    item.id || ""
-                ).trim();
-
-
-                const sameStudent =
-                    (
-                        lessonStudentId &&
-                        lessonStudentId ===
-                        studentId
-                    )
-                    ||
-                    (
-                        !lessonStudentId &&
-                        String(
-                            lesson.studentName || ""
-                        ).trim()
-                        ===
-                        String(
-                            student.name || ""
-                        ).trim()
-                    );
-
-
-                if(
-                    sameStudent
-                ){
-
-                    displayedLessonIds.add(
-                        lesson.id
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-const unlinkedLessons =
-lessons.filter(
-    function(lesson){
-
-        return !
-        displayedLessonIds.has(
-            lesson.id
-        );
-
-    }
-);
-
-
-if(
-    unlinkedLessons.length > 0
-){
-
-    const title =
-    document.createElement(
-        "div"
-    );
-
-
-    title.style.cssText = `
-
-        margin-top:18px;
-        margin-bottom:12px;
-        color:#075e54;
-        font-size:18px;
-        font-weight:bold;
-
-    `;
-
-
-    title.textContent =
-    "📅 حصص مجدولة";
-
-
-    studentsList.appendChild(
-        title
-    );
-
-
-    unlinkedLessons.forEach(
-        function(lesson){
-
-            const div =
-            document.createElement(
-                "div"
-            );
-
-
-            div.className =
-            "student-item";
-
-
-            let meetingButton =
-            "";
-
-
-            if(
-                lesson.meetingUrl
-            ){
+            else{
 
                 meetingButton = `
 
-                    <a
-                        class="online-button"
-                        href="${
-                            escapeHTML(
-                                lesson.meetingUrl
-                            )
-                        }"
-                        target="_blank"
-                        rel="noopener">
+                    <div
+                    style="
+                    margin-top:12px;
+                    background:#ffe8e8;
+                    color:#a00000;
+                    border-radius:10px;
+                    padding:11px;
+                    text-align:center;">
 
-                        🎥 دخول الحصة المباشرة
+                        ⚠️ الحصة بدأت ولكن لم يتم إضافة رابط Meet.
 
-                    </a>
+                    </div>
 
                 `;
 
             }
 
+        }
 
-            div.innerHTML = `
+        /*
+        الحصة لم تبدأ
+        */
 
-                👨‍🎓 <strong>
+        else if(
+            now < start
+        ){
 
-                    الطالب:
+            meetingButton = `
 
-                    ${
-                        escapeHTML(
-                            lesson.studentName ||
-                            "-"
-                        )
-                    }
+                <div
+                style="
+                margin-top:12px;
+                background:#fff8df;
+                color:#856404;
+                border-radius:10px;
+                padding:11px;
+                text-align:center;">
 
-                </strong>
-
-                <div class="lesson">
-
-                    <div class="lesson-title">
-
-                        📖 الحصة المجدولة
-
-                    </div>
-
-                    📚 المادة:
-
-                    ${
-                        escapeHTML(
-                            lesson.subject ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    📅 التاريخ:
-
-                    ${
-                        escapeHTML(
-                            lesson.lessonDate ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    🕐 الوقت:
-
-                    ${
-                        escapeHTML(
-                            lesson.lessonTime ||
-                            "-"
-                        )
-                    }
-
-                    <br>
-
-                    📊 الحالة:
-
-                    ${
-                        lesson.status ===
-                        "scheduled"
-
-                        ?
-
-                        "🟢 مجدولة"
-
-                        :
-
-                        escapeHTML(
-                            lesson.status ||
-                            "-"
-                        )
-                    }
-
-                    ${
-                        meetingButton
-                    }
+                    🔒 رابط الحصة سيظهر عند بدء الوقت المحدد.
 
                 </div>
 
             `;
 
+        }
 
-            studentsList.appendChild(
-                div
-            );
+        /*
+        الحصة انتهت
+        */
+
+        else{
+
+            meetingButton = `
+
+                <div
+                style="
+                margin-top:12px;
+                background:#f1f1f1;
+                color:#777;
+                border-radius:10px;
+                padding:11px;
+                text-align:center;">
+
+                    ⏰ انتهت الحصة.
+
+                </div>
+
+            `;
 
         }
-    );
 
-}
-
-
-}catch(error){
-
-    console.error(
-        "Load teacher students error:",
-        error
-    );
+    }
 
 
-    studentsList.innerHTML = `
+    return `
 
-        <div class="empty">
+        <div class="lesson">
 
-            ❌ تعذر تحميل الطلاب والحصص.
+            <div class="lesson-title">
 
-            <br><br>
+                📖 الحصة المجدولة
+
+            </div>
+
+            📚 المادة:
 
             ${
                 escapeHTML(
-                    error.message ||
-                    ""
+                    lesson.subject ||
+                    "بدون مادة"
                 )
             }
+
+            <br>
+
+            📅 التاريخ:
+
+            ${
+                escapeHTML(
+                    lessonDate ||
+                    "-"
+                )
+            }
+
+            <br>
+
+            🕐 وقت الحصة:
+
+            ${
+                escapeHTML(
+                    startTime ||
+                    "-"
+                )
+            }
+
+            ${
+                endTime
+                ?
+                " - " +
+                escapeHTML(endTime)
+                :
+                ""
+            }
+
+            <br>
+
+            📊 الحالة:
+
+            ${
+                lesson.status ===
+                "scheduled"
+
+                ?
+
+                "🟢 مجدولة"
+
+                :
+
+                escapeHTML(
+                    lesson.status ||
+                    "-"
+                )
+            }
+
+            ${meetingButton}
 
         </div>
 
     `;
 
-}
+            }
 
-}
-/* =========================
+    /* =========================
    تسجيل الخروج
 ========================= */
 
@@ -2111,7 +1477,9 @@ logoutButton.addEventListener(
             "jundTeacherName"
         );
 
+
         currentTeacher = null;
+
 
         teacherPage.style.display =
         "none";
@@ -2119,7 +1487,10 @@ logoutButton.addEventListener(
         loginCard.style.display =
         "block";
 
-        teacherCodeInput.value = "";
+
+        teacherCodeInput.value =
+        "";
+
 
         showLoginMessage(
             "",
@@ -2209,10 +1580,11 @@ async function restoreTeacher(){
         };
 
 
-        openTeacherPage();
+        await openTeacherPage();
 
 
-    }catch(error){
+    }
+    catch(error){
 
         console.error(
             "Restore teacher error:",
@@ -2331,16 +1703,40 @@ function escapeHTML(value){
 
 
 /* =========================
+   تحديث الحصص تلقائيًا
+   كل دقيقة
+========================= */
+
+setInterval(
+    function(){
+
+        if(
+            currentTeacher
+        ){
+
+            loadTeacherStudents();
+
+        }
+
+    },
+    60000
+);
+
+
+/* =========================
    تشغيل الصفحة
 ========================= */
 
 console.log(
-    "✅ teacher.html - جنود الهدى يعمل"
+    "✅ teacher.html يعمل"
+);
+
+console.log(
+    "🔒 رابط Meet يظهر فقط أثناء وقت الحصة"
 );
 
 
 restoreTeacher();
-
 
 </script>
 
