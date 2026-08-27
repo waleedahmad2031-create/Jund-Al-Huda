@@ -1,0 +1,2979 @@
+<!DOCTYPE html>  <html lang="ar" dir="rtl">  <head>  <meta charset="UTF-8">  <meta name="viewport"  
+content="width=device-width, initial-scale=1.0">
+
+<title>الإدارة | جنود الهدى</title>  <style>  
+  
+*{  
+    box-sizing:border-box;  
+    margin:0;  
+    padding:0;  
+    font-family:Tahoma,Arial,sans-serif;  
+}  
+  
+body{  
+    background:#f4f7f5;  
+    color:#222;  
+}  
+  
+header{  
+    background:linear-gradient(135deg,#075e54,#0b806f);  
+    color:white;  
+    text-align:center;  
+    padding:25px 15px;  
+}  
+  
+.logo{  
+    font-size:45px;  
+}  
+  
+header h1{  
+    font-size:27px;  
+    margin-top:5px;  
+}  
+  
+header p{  
+    margin-top:6px;  
+    font-size:14px;  
+}  
+  
+.container{  
+    max-width:900px;  
+    margin:auto;  
+    padding:20px 14px;  
+}  
+  
+.card,  
+.section{  
+    background:white;  
+    border-radius:18px;  
+    padding:20px;  
+    margin-bottom:18px;  
+    box-shadow:0 4px 15px rgba(0,0,0,.07);  
+}  
+  
+h2{  
+    color:#075e54;  
+    margin-bottom:18px;  
+    text-align:center;  
+}  
+  
+.login-card{  
+    max-width:500px;  
+    margin:30px auto;  
+}  
+  
+input,  
+select{  
+    width:100%;  
+    padding:14px;  
+    border:1px solid #ddd;  
+    border-radius:11px;  
+    font-size:16px;  
+    margin-bottom:12px;  
+    outline:none;  
+    background:white;  
+}  
+  
+input:focus,  
+select:focus{  
+    border-color:#075e54;  
+}  
+  
+button{  
+    width:100%;  
+    border:0;  
+    border-radius:11px;  
+    padding:14px;  
+    font-size:16px;  
+    font-weight:bold;  
+    cursor:pointer;  
+}  
+  
+button:disabled{  
+    opacity:.6;  
+}  
+  
+.primary{  
+    background:#075e54;  
+    color:white;  
+}  
+  
+.success-button{  
+    background:#198754;  
+    color:white;  
+}  
+  
+.danger{  
+    background:#dc3545;  
+    color:white;  
+}  
+  
+.secondary{  
+    background:#6c757d;  
+    color:white;  
+}  
+  
+.message{  
+    display:none;  
+    padding:13px;  
+    border-radius:10px;  
+    text-align:center;  
+    margin-bottom:15px;  
+    line-height:1.8;  
+}  
+  
+.error{  
+    background:#ffe8e8;  
+    color:#a00000;  
+}  
+  
+.success{  
+    background:#e8f7f2;  
+    color:#075e54;  
+}  
+  
+.dashboard{  
+    display:none;  
+}  
+  
+.stats{  
+    display:grid;  
+    grid-template-columns:repeat(3,1fr);  
+    gap:12px;  
+    margin-bottom:18px;  
+}  
+  
+.stat{  
+    background:white;  
+    border-radius:14px;  
+    padding:18px 10px;  
+    text-align:center;  
+    box-shadow:0 4px 15px rgba(0,0,0,.05);  
+}  
+  
+.stat-number{  
+    display:block;  
+    color:#075e54;  
+    font-size:28px;  
+    font-weight:bold;  
+    margin-bottom:7px;  
+}  
+  
+.stat-title{  
+    color:#666;  
+    font-size:13px;  
+}  
+  
+.section-title{  
+    color:#075e54;  
+    font-size:20px;  
+    font-weight:bold;  
+    margin-bottom:15px;  
+}  
+  
+.item{  
+    background:#f8faf9;  
+    border-radius:12px;  
+    padding:15px;  
+    margin-bottom:10px;  
+    border-right:4px solid #0b806f;  
+    line-height:2;  
+}  
+  
+.empty{  
+    text-align:center;  
+    color:#777;  
+    background:#fafafa;  
+    padding:25px;  
+    border-radius:11px;  
+    line-height:2;  
+}  
+  
+.loading{  
+    text-align:center;  
+    padding:25px;  
+    color:#777;  
+}  
+  
+.form-box{  
+    background:#eef8f5;  
+    border:1px solid #c9e5dd;  
+    border-radius:14px;  
+    padding:15px;  
+}  
+  
+.form-title{  
+    color:#075e54;  
+    font-weight:bold;  
+    text-align:center;  
+    margin-bottom:15px;  
+    font-size:18px;  
+}  
+  
+.form-grid{  
+    display:grid;  
+    grid-template-columns:1fr 1fr;  
+    gap:10px;  
+}  
+  
+.form-grid input,  
+.form-grid select{  
+    margin-bottom:0;  
+}  
+  
+.save-button{  
+    background:#198754;  
+    color:white;  
+    margin-top:12px;  
+}  
+  
+.code-box{  
+    background:#fff8df;  
+    border:2px solid #ead58a;  
+    border-radius:12px;  
+    padding:15px;  
+    text-align:center;  
+    margin-top:12px;  
+}  
+  
+.code-number{  
+    display:block;  
+    font-size:30px;  
+    font-weight:bold;  
+    color:#075e54;  
+    letter-spacing:5px;  
+    direction:ltr;  
+    margin-top:5px;  
+}  
+  
+.time-note{  
+    background:#fff8df;  
+    border:1px solid #ead58a;  
+    color:#705b00;  
+    padding:10px;  
+    border-radius:10px;  
+    text-align:center;  
+    margin-top:10px;  
+    line-height:1.8;  
+}  
+  
+.lesson-status{  
+    display:inline-block;  
+    padding:4px 9px;  
+    border-radius:7px;  
+    background:#e8f7f2;  
+    color:#075e54;  
+    font-weight:bold;  
+}  
+  
+.copy-button{  
+    background:#075e54;  
+    color:white;  
+    margin-top:10px;  
+}  
+  
+.small-button{  
+    padding:9px;  
+    font-size:14px;  
+    margin-top:8px;  
+}  
+  
+.delete-button{  
+    background:#dc3545;  
+    color:white;  
+}  
+  
+@media(max-width:600px){  
+  
+    .stats{  
+        grid-template-columns:1fr;  
+    }  
+  
+    .form-grid{  
+        grid-template-columns:1fr;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <header>  <div class="logo">🕌</div>  <h1>جنود الهدى</h1>  <p>لوحة الإدارة</p>  </header>  <div class="container">  <!-- =========================  
+     تسجيل الدخول  
+========================= -->  <div id="loginCard"  
+class="card login-card">  <h2>🔐 دخول الإدارة</h2>  <div id="loginMessage"  
+class="message error">  
+</div>  <input  
+id="email"  
+type="email"  
+placeholder="البريد الإلكتروني">
+
+<input  
+id="password"  
+type="password"  
+placeholder="كلمة المرور">
+
+<button  
+id="loginButton"  
+class="primary">
+
+🔐 دخول الإدارة
+
+</button>  </div>  <!-- =========================  
+     لوحة الإدارة  
+========================= -->  <div id="dashboard"  
+class="dashboard">  <div class="card">  <h2>👨‍💼 لوحة الإدارة</h2>  <p style="text-align:center;color:#666;line-height:2">  مرحبًا بك في إدارة أكاديمية جنود الهدى
+
+</p>  <button  
+id="logoutButton"  
+class="danger"  
+style="margin-top:15px;">
+
+🚪 تسجيل الخروج
+
+</button>  </div>  <!-- =========================  
+     الإحصائيات  
+========================= -->  <div class="stats">  <div class="stat">  <span id="studentsCount"  
+class="stat-number">0</span>
+
+<span class="stat-title">  
+👨‍🎓 الطلاب  
+</span>  </div>  <div class="stat">  <span id="requestsCount"  
+class="stat-number">0</span>
+
+<span class="stat-title">  
+📝 طلبات التسجيل  
+</span>  </div>  <div class="stat">  <span id="teachersCount"  
+class="stat-number">0</span>
+
+<span class="stat-title">  
+👨‍🏫 المدرسون  
+</span>  </div>  </div>  <!-- =========================  
+     إنشاء طالب  
+========================= -->  <div class="section">  <div class="section-title">  
+👨‍🎓 إنشاء طالب جديد  
+</div>  <div id="studentMessage"  
+class="message">  
+</div>  <div class="form-box">  <div class="form-title">  
+بيانات الطالب  
+</div>  <div class="form-grid">  <input  
+id="newStudentName"  
+type="text"  
+placeholder="اسم الطالب">
+
+<input  
+id="newStudentPhone"  
+type="tel"  
+placeholder="رقم الهاتف">
+
+<input  
+id="newStudentAge"  
+type="number"  
+placeholder="العمر">
+
+<input  
+id="newStudentTeacher"  
+type="text"  
+placeholder="اسم المدرس">
+
+</div>  <button  
+id="createStudentButton"  
+class="save-button">
+
+➕ إنشاء الطالب وتوليد الكود
+
+</button>  <div  
+id="studentCodeBox"  
+class="code-box"  
+style="display:none;">  تم إنشاء الطالب بنجاح
+
+<span  
+id="studentCodeResult"  
+class="code-number">
+
+
+---
+
+</span>  <button  
+id="copyStudentCodeButton"  
+class="copy-button">
+
+📋 نسخ كود الطالب
+
+</button>  </div>  </div>  </div>  <!-- =========================  
+     إنشاء مدرس  
+========================= -->  <div class="section">  <div class="section-title">  
+👨‍🏫 إنشاء مدرس جديد  
+</div>  <div id="teacherMessage"  
+class="message">  
+</div>  <div class="form-box">  <div class="form-title">  
+بيانات المدرس  
+</div>  <div class="form-grid">  <input  
+id="newTeacherName"  
+type="text"  
+placeholder="اسم المدرس">
+
+<input  
+id="newTeacherPhone"  
+type="tel"  
+placeholder="رقم الهاتف">
+
+</div>  <button  
+id="createTeacherButton"  
+class="save-button">
+
+➕ إنشاء المدرس وتوليد الكود
+
+</button>  <div  
+id="teacherCodeBox"  
+class="code-box"  
+style="display:none;">  تم إنشاء المدرس بنجاح
+
+<span  
+id="teacherCodeResult"  
+class="code-number">
+
+
+---
+
+</span>  <button  
+id="copyTeacherCodeButton"  
+class="copy-button">
+
+📋 نسخ كود المدرس
+
+</button>  </div>  </div>  </div>  <!-- =========================  
+     إنشاء حصة  
+========================= -->  <div class="section">  <div class="section-title">  
+📚 إنشاء حصة جديدة  
+</div>  <div id="lessonMessage"  
+class="message">  
+</div>  <div class="lesson-box">  <div class="form-box">  <div class="form-title">  
+🕌 بيانات الحصة  
+</div>  <div class="form-grid">  <select id="lessonStudentSelect">  <option value="">  
+اختر الطالب  
+</option>  </select>  <select id="lessonTeacherSelect">  <option value="">  
+اختر المدرس  
+</option>  </select>  <input  
+id="lessonSubject"  
+type="text"  
+placeholder="المادة">
+
+<input  
+id="lessonDate"  
+type="date">
+
+<input  
+id="lessonStartTime"  
+type="time">
+
+<input  
+id="lessonEndTime"  
+type="time">
+
+<input  
+id="lessonMeetingUrl"  
+type="url"  
+placeholder="🎥 رابط الحصة المباشرة">
+
+</div>  <div class="time-note">  🕐 حدد وقت دخول الحصة ووقت انتهائها
+
+<br>  مثال: دخول 08:00 — انتهاء 08:30
+
+</div>  <button  
+id="createLessonButton"  
+class="save-button">
+
+➕ إنشاء الحصة
+
+</button>  </div>  </div>  </div>  <!-- =========================  
+     الحصص  
+========================= -->  <div class="section">  <div class="section-title">  
+📅 الحصص المجدولة  
+</div>  <div  
+id="lessonsList"  
+class="loading">  ⏳ جاري تحميل الحصص...
+
+</div>  </div>  <!-- =========================  
+     الطلاب  
+========================= -->  <div class="section">  <div class="section-title">  
+👨‍🎓 الطلاب  </div>  <div  
+id="studentsList"  
+class="loading">  ⏳ جاري تحميل الطلاب...
+
+</div>  </div>  <!-- =========================  
+     الطلبات  
+========================= -->  <div class="section">  <div class="section-title">  
+📝 طلبات التسجيل  
+</div>  <div  
+id="requestsList"  
+class="loading">  ⏳ جاري تحميل الطلبات...
+
+</div>  </div>  <!-- =========================  
+     المدرسون  
+========================= -->  <div class="section">  <div class="section-title">  
+👨‍🏫 المدرسون  
+</div>  <div  
+id="teachersList"  
+class="loading">  ⏳ جاري تحميل المدرسين...
+
+</div>  </div>  </div>  </div>  <footer style="  
+margin-top:25px;  
+background:#075e54;  
+color:white;  
+text-align:center;  
+padding:20px;  
+font-size:13px;  
+line-height:2;  
+">  جنود الهدى © 2026
+
+<br>  أكاديمية القرآن الكريم
+
+</footer>  <script type="module">  
+  
+  
+/* =========================  
+   Firebase  
+========================= */  
+  
+import {  
+    auth,  
+    db  
+} from "./firebase.js";  
+  
+  
+import {  
+    signInWithEmailAndPassword,  
+    onAuthStateChanged,  
+    signOut  
+} from  
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";  
+  
+  
+import {  
+    collection,  
+    getDocs,  
+    addDoc,  
+    deleteDoc,  
+    doc,  
+    updateDoc,  
+    serverTimestamp,  
+    query,  
+    where  
+} from  
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";  
+  
+  
+/* =========================  
+   حساب الإدارة  
+========================= */  
+  
+const ADMIN_EMAIL =  
+"yuo123@gmail.com";  
+  
+  
+/* =========================  
+   العناصر  
+========================= */  
+  
+const loginCard =  
+document.getElementById("loginCard");  
+  
+const dashboard =  
+document.getElementById("dashboard");  
+  
+const emailInput =  
+document.getElementById("email");  
+  
+const passwordInput =  
+document.getElementById("password");  
+  
+const loginButton =  
+document.getElementById("loginButton");  
+  
+const loginMessage =  
+document.getElementById("loginMessage");  
+  
+const logoutButton =  
+document.getElementById("logoutButton");  
+  
+  
+const studentsList =  
+document.getElementById("studentsList");  
+  
+const requestsList =  
+document.getElementById("requestsList");  
+  
+const teachersList =  
+document.getElementById("teachersList");  
+  
+const lessonsList =  
+document.getElementById("lessonsList");  
+  
+  
+const studentsCount =  
+document.getElementById("studentsCount");  
+  
+const requestsCount =  
+document.getElementById("requestsCount");  
+  
+const teachersCount =  
+document.getElementById("teachersCount");  
+  
+  
+const newStudentName =  
+document.getElementById("newStudentName");  
+  
+const newStudentPhone =  
+document.getElementById("newStudentPhone");  
+  
+const newStudentAge =  
+document.getElementById("newStudentAge");  
+  
+const newStudentTeacher =  
+document.getElementById("newStudentTeacher");  
+  
+const createStudentButton =  
+document.getElementById("createStudentButton");  
+  
+const studentMessage =  
+document.getElementById("studentMessage");  
+  
+const studentCodeBox =  
+document.getElementById("studentCodeBox");  
+  
+const studentCodeResult =  
+document.getElementById("studentCodeResult");  
+  
+const copyStudentCodeButton =  
+document.getElementById("copyStudentCodeButton");  
+  
+  
+const newTeacherName =  
+document.getElementById("newTeacherName");  
+  
+const newTeacherPhone =  
+document.getElementById("newTeacherPhone");  
+  
+const createTeacherButton =  
+document.getElementById("createTeacherButton");  
+  
+const teacherMessage =  
+document.getElementById("teacherMessage");  
+  
+const teacherCodeBox =  
+document.getElementById("teacherCodeBox");  
+  
+const teacherCodeResult =  
+document.getElementById("teacherCodeResult");  
+  
+const copyTeacherCodeButton =  
+document.getElementById("copyTeacherCodeButton");  
+  
+  
+const lessonStudentSelect =  
+document.getElementById("lessonStudentSelect");  
+  
+const lessonTeacherSelect =  
+document.getElementById("lessonTeacherSelect");  
+  
+const lessonSubject =  
+document.getElementById("lessonSubject");  
+  
+const lessonDate =  
+document.getElementById("lessonDate");  
+  
+const lessonStartTime =  
+document.getElementById("lessonStartTime");  
+  
+const lessonEndTime =  
+document.getElementById("lessonEndTime");  
+  
+const lessonMeetingUrl =  
+document.getElementById("lessonMeetingUrl");  
+  
+const createLessonButton =  
+document.getElementById("createLessonButton");  
+  
+const lessonMessage =  
+document.getElementById("lessonMessage");  
+  
+  
+/* =========================  
+   البيانات  
+========================= */  
+  
+let studentsCache = [];  
+  
+let teachersCache = [];  
+  
+  
+/* =========================  
+   رابط Meet  
+========================= */  
+  
+function fixMeetingUrl(url){  
+  
+    url =  
+    String(url || "").trim();  
+  
+  
+    if(!url){  
+  
+        return "";  
+  
+    }  
+  
+  
+    if(  
+        url.startsWith("https://") ||  
+        url.startsWith("http://")  
+    ){  
+  
+        return url;  
+  
+    }  
+  
+  
+    return "https://" + url;  
+  
+}  
+  
+  
+/* =========================  
+   توليد كود 6 أرقام  
+========================= */  
+  
+function generateCode(){  
+  
+    return String(  
+        Math.floor(  
+            100000 +  
+            Math.random() * 900000  
+        )  
+    );  
+  
+}  
+  
+  
+/* =========================  
+   التأكد أن الكود غير مستخدم  
+========================= */  
+  
+async function generateUniqueCode(  
+    collectionName  
+){  
+  
+    for(let i = 0; i < 20; i++){  
+  
+        const code =  
+        generateCode();  
+  
+  
+        const result =  
+        await getDocs(  
+  
+            query(  
+  
+                collection(  
+                    db,  
+                    collectionName  
+                ),  
+  
+                where(  
+                    "code",  
+                    "==",  
+                    code  
+                )  
+  
+            )  
+  
+        );  
+  
+  
+        if(result.empty){  
+  
+            return code;  
+  
+        }  
+  
+    }  
+  
+  
+    throw new Error(  
+        "تعذر إنشاء كود جديد. حاول مرة أخرى."  
+    );  
+  
+}  
+  
+  
+/* =========================  
+   حالة الدخول  
+========================= */  
+  
+onAuthStateChanged(  
+    auth,  
+    async function(user){  
+  
+        if(!user){  
+  
+            showLogin();  
+  
+            return;  
+  
+        }  
+  
+  
+        if(  
+            user.email !==  
+            ADMIN_EMAIL  
+        ){  
+  
+            await signOut(auth);  
+  
+            showLogin();  
+  
+            showLoginError(  
+                "⛔ هذا الحساب ليس حساب الإدارة."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        showDashboard();  
+  
+        await loadDashboard();  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   دخول الإدارة  
+========================= */  
+  
+loginButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const email =  
+        emailInput.value.trim();  
+  
+        const password =  
+        passwordInput.value;  
+  
+  
+        if(!email){  
+  
+            showLoginError(  
+                "⚠️ اكتب البريد الإلكتروني."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!password){  
+  
+            showLoginError(  
+                "⚠️ اكتب كلمة المرور."  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        loginButton.disabled =  
+        true;  
+  
+        loginButton.textContent =  
+        "⏳ جاري الدخول...";  
+  
+  
+        try{  
+  
+            const result =  
+            await signInWithEmailAndPassword(  
+                auth,  
+                email,  
+                password  
+            );  
+  
+  
+            if(  
+                result.user.email !==  
+                ADMIN_EMAIL  
+            ){  
+  
+                await signOut(auth);  
+  
+                showLoginError(  
+                    "⛔ هذا الحساب ليس حساب الإدارة."  
+                );  
+  
+                return;  
+  
+            }  
+  
+  
+            showLoginError("");  
+  
+        }catch(error){  
+  
+            console.error(  
+                error  
+            );  
+  
+            showLoginError(  
+                "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة."  
+            );  
+  
+        }finally{  
+  
+            loginButton.disabled =  
+            false;  
+  
+            loginButton.textContent =  
+            "🔐 دخول الإدارة";  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   تسجيل الخروج  
+========================= */  
+  
+logoutButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        await signOut(auth);  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   تحميل اللوحة  
+========================= */  
+  
+async function loadDashboard(){  
+  
+    await loadStudents();  
+  
+    await loadRequests();  
+  
+    await loadTeachers();  
+  
+    await loadLessons();  
+  
+    fillLessonStudents();  
+  
+    fillLessonTeachers();  
+  
+}  
+  
+  
+/* =========================  
+   إنشاء طالب  
+========================= */  
+  
+createStudentButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const name =  
+        newStudentName.value.trim();  
+  
+        const phone =  
+        newStudentPhone.value.trim();  
+  
+        const age =  
+        newStudentAge.value.trim();  
+  
+        const teacher =  
+        newStudentTeacher.value.trim();  
+  
+  
+        if(!name){  
+  
+            showStudentMessage(  
+                "⚠️ اكتب اسم الطالب.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        createStudentButton.disabled =  
+        true;  
+  
+        createStudentButton.textContent =  
+        "⏳ جاري إنشاء الطالب...";  
+  
+  
+        try{  
+  
+            const code =  
+            await generateUniqueCode(  
+                "students"  
+            );  
+  
+  
+            await addDoc(  
+  
+                collection(  
+                    db,  
+                    "students"  
+                ),  
+  
+                {  
+  
+                    name:  
+                    name,  
+  
+                    phone:  
+                    phone,  
+  
+                    age:  
+                    age,  
+  
+                    teacher:  
+                    teacher,  
+  
+                    code:  
+                    code,  
+  
+                    active:  
+                    true,  
+  
+                    createdAt:  
+                    serverTimestamp()  
+  
+                }  
+  
+            );  
+  
+  
+            studentCodeResult.textContent =  
+            code;  
+  
+  
+            studentCodeBox.style.display =  
+            "block";  
+  
+  
+            showStudentMessage(  
+                "✅ تم إنشاء الطالب بنجاح.",  
+                "success"  
+            );  
+  
+  
+            newStudentName.value =  
+            "";  
+  
+            newStudentPhone.value =  
+            "";  
+  
+            newStudentAge.value =  
+            "";  
+  
+            newStudentTeacher.value =  
+            "";  
+  
+  
+            await loadStudents();  
+  
+            fillLessonStudents();  
+  
+  
+        }catch(error){  
+  
+            console.error(  
+                "Create student:",  
+                error  
+            );  
+  
+  
+            showStudentMessage(  
+                "❌ تعذر إنشاء الطالب: " +  
+                error.message,  
+                "error"  
+            );  
+  
+        }finally{  
+  
+            createStudentButton.disabled =  
+            false;  
+  
+            createStudentButton.textContent =  
+            "➕ إنشاء الطالب وتوليد الكود";  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   إنشاء مدرس  
+========================= */  
+  
+createTeacherButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const name =  
+        newTeacherName.value.trim();  
+  
+        const phone =  
+        newTeacherPhone.value.trim();  
+  
+  
+        if(!name){  
+  
+            showTeacherMessage(  
+                "⚠️ اكتب اسم المدرس.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        createTeacherButton.disabled =  
+        true;  
+  
+        createTeacherButton.textContent =  
+        "⏳ جاري إنشاء المدرس...";  
+  
+  
+        try{  
+  
+            const code =  
+            await generateUniqueCode(  
+                "teachers"  
+            );  
+  
+  
+            await addDoc(  
+  
+                collection(  
+                    db,  
+                    "teachers"  
+                ),  
+  
+                {  
+  
+                    name:  
+                    name,  
+  
+                    phone:  
+                    phone,  
+  
+                    code:  
+                    code,  
+  
+                    active:  
+                    true,  
+  
+                    createdAt:  
+                    serverTimestamp()  
+  
+                }  
+  
+            );  
+  
+  
+            teacherCodeResult.textContent =  
+            code;  
+  
+  
+            teacherCodeBox.style.display =  
+            "block";  
+  
+  
+            showTeacherMessage(  
+                "✅ تم إنشاء المدرس بنجاح.",  
+                "success"  
+            );  
+  
+  
+            newTeacherName.value =  
+            "";  
+  
+            newTeacherPhone.value =  
+            "";  
+  
+  
+            await loadTeachers();  
+  
+            fillLessonTeachers();  
+  
+  
+        }catch(error){  
+  
+            console.error(  
+                "Create teacher:",  
+                error  
+            );  
+  
+  
+            showTeacherMessage(  
+                "❌ تعذر إنشاء المدرس: " +  
+                error.message,  
+                "error"  
+            );  
+  
+        }finally{  
+  
+            createTeacherButton.disabled =  
+            false;  
+  
+            createTeacherButton.textContent =  
+            "➕ إنشاء المدرس وتوليد الكود";  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   نسخ كود الطالب  
+========================= */  
+  
+copyStudentCodeButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const code =  
+        studentCodeResult.textContent;  
+  
+  
+        try{  
+  
+            await navigator.clipboard.writeText(  
+                code  
+            );  
+  
+            copyStudentCodeButton.textContent =  
+            "✅ تم نسخ الكود";  
+  
+  
+            setTimeout(  
+                function(){  
+  
+                    copyStudentCodeButton.textContent =  
+                    "📋 نسخ كود الطالب";  
+  
+                },  
+                2000  
+            );  
+  
+        }catch(error){  
+  
+            alert(  
+                "كود الطالب: " +  
+                code  
+            );  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   نسخ كود المدرس  
+========================= */  
+  
+copyTeacherCodeButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const code =  
+        teacherCodeResult.textContent;  
+  
+  
+        try{  
+  
+            await navigator.clipboard.writeText(  
+                code  
+            );  
+  
+            copyTeacherCodeButton.textContent =  
+            "✅ تم نسخ الكود";  
+  
+  
+            setTimeout(  
+                function(){  
+  
+                    copyTeacherCodeButton.textContent =  
+                    "📋 نسخ كود المدرس";  
+  
+                },  
+                2000  
+            );  
+  
+        }catch(error){  
+  
+            alert(  
+                "كود المدرس: " +  
+                code  
+            );  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   تحميل الطلاب  
+========================= */  
+  
+async function loadStudents(){  
+  
+    studentsList.innerHTML =  
+    "⏳ جاري تحميل الطلاب...";  
+  
+  
+    try{  
+  
+        const result =  
+        await getDocs(  
+            collection(  
+                db,  
+                "students"  
+            )  
+        );  
+  
+  
+        studentsCache =  
+        [];  
+  
+  
+        result.forEach(  
+            function(item){  
+  
+                studentsCache.push({  
+  
+                    id:  
+                    item.id,  
+  
+                    ...item.data()  
+  
+                });  
+  
+            }  
+        );  
+  
+  
+        studentsCount.textContent =  
+        result.size;  
+  
+  
+        if(result.empty){  
+  
+            studentsList.innerHTML = `  
+  
+                <div class="empty">  
+  
+                    لا يوجد طلاب حاليًا.  
+  
+                </div>  
+  
+            `;  
+  
+            return;  
+  
+        }  
+  
+  
+        studentsList.innerHTML =  
+        "";  
+  
+  
+        studentsCache.forEach(  
+            function(student){  
+  
+                const div =  
+                document.createElement(  
+                    "div"  
+                );  
+  
+  
+                div.className =  
+                "item";  
+  
+  
+                div.innerHTML = `  
+  
+                    👤 <strong>  
+                    ${safe(student.name || "بدون اسم")}  
+                    </strong>  
+  
+                    <br>  
+  
+                    📱 الهاتف:  
+                    ${safe(student.phone || "-")}  
+  
+                    <br>  
+  
+                    🎂 العمر:  
+                    ${safe(student.age || "-")}  
+  
+                    <br>  
+  
+                    🔐 كود الطالب:  
+  
+                    <strong>  
+                    ${safe(student.code || "-")}  
+                    </strong>  
+  
+                    <br>  
+  
+                    👨‍🏫 المدرس:  
+                    ${safe(  
+                        student.teacher ||  
+                        "لم يتم تحديده"  
+                    )}  
+  
+                    <br>  
+  
+                    الحالة:  
+  
+                    ${  
+                        student.active === false  
+                        ?  
+                        "🔴 غير نشط"  
+                        :  
+                        "🟢 نشط"  
+                    }  
+  
+                `;  
+  
+  
+                studentsList.appendChild(  
+                    div  
+                );  
+  
+            }  
+        );  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            error  
+        );  
+  
+  
+        studentsList.innerHTML = `  
+  
+            <div class="empty">  
+  
+                ❌ تعذر تحميل الطلاب.  
+  
+                <br><br>  
+  
+                ${safe(error.message)}  
+  
+            </div>  
+  
+        `;  
+  
+    }  
+  
+}  
+  
+  
+/* =========================  
+   تحميل المدرسين  
+========================= */  
+  
+async function loadTeachers(){  
+  
+    teachersList.innerHTML =  
+    "⏳ جاري تحميل المدرسين...";  
+  
+  
+    try{  
+  
+        const result =  
+        await getDocs(  
+            collection(  
+                db,  
+                "teachers"  
+            )  
+        );  
+  
+  
+        teachersCache =  
+        [];  
+  
+  
+        result.forEach(  
+            function(item){  
+  
+                teachersCache.push({  
+  
+                    id:  
+                    item.id,  
+  
+                    ...item.data()  
+  
+                });  
+  
+            }  
+        );  
+  
+  
+        teachersCount.textContent =  
+        result.size;  
+  
+  
+        if(result.empty){  
+  
+            teachersList.innerHTML = `  
+  
+                <div class="empty">  
+  
+                    لا يوجد مدرسون حاليًا.  
+  
+                </div>  
+  
+            `;  
+  
+            return;  
+  
+        }  
+  
+  
+        teachersList.innerHTML =  
+        "";  
+  
+  
+        teachersCache.forEach(  
+            function(teacher){  
+  
+                const div =  
+                document.createElement(  
+                    "div"  
+                );  
+  
+  
+                div.className =  
+                "item";  
+  
+  
+                div.innerHTML = `  
+  
+                    👨‍🏫 <strong>  
+                    ${safe(teacher.name || "بدون اسم")}  
+                    </strong>  
+  
+                    <br>  
+  
+                    📱 الهاتف:  
+                    ${safe(teacher.phone || "-")}  
+  
+                    <br>  
+  
+                    🔐 كود المدرس:  
+  
+                    <strong>  
+                    ${safe(teacher.code || "-")}  
+                    </strong>  
+  
+                    <br>  
+  
+                    الحالة:  
+  
+                    ${  
+                        teacher.active === false  
+                        ?  
+                        "🔴 غير نشط"  
+                        :  
+                        "🟢 نشط"  
+                    }  
+  
+                `;  
+  
+  
+                teachersList.appendChild(  
+                    div  
+                );  
+  
+            }  
+        );  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            error  
+        );  
+  
+  
+        teachersList.innerHTML = `  
+  
+            <div class="empty">  
+  
+                ❌ تعذر تحميل المدرسين.  
+  
+                <br><br>  
+  
+                ${safe(error.message)}  
+  
+            </div>  
+  
+        `;  
+  
+    }  
+  
+}  
+  
+  
+/* =========================  
+   اختيار الطلاب للحصة  
+========================= */  
+  
+function fillLessonStudents(){  
+  
+    lessonStudentSelect.innerHTML = `  
+  
+        <option value="">  
+            اختر الطالب  
+        </option>  
+  
+    `;  
+  
+  
+    studentsCache.forEach(  
+        function(student){  
+  
+            if(  
+                student.active === false  
+            ){  
+  
+                return;  
+  
+            }  
+  
+  
+            const option =  
+            document.createElement(  
+                "option"  
+            );  
+  
+  
+            option.value =  
+            student.id;  
+  
+  
+            option.textContent =  
+            student.name +  
+            (  
+                student.code  
+                ?  
+                " — " +  
+                student.code  
+                :  
+                ""  
+            );  
+  
+  
+            lessonStudentSelect.appendChild(  
+                option  
+            );  
+  
+        }  
+    );  
+  
+}  
+  
+  
+/* =========================  
+   اختيار المدرسين للحصة  
+========================= */  
+  
+function fillLessonTeachers(){  
+  
+    lessonTeacherSelect.innerHTML = `  
+  
+        <option value="">  
+            اختر المدرس  
+        </option>  
+  
+    `;  
+  
+  
+    teachersCache.forEach(  
+        function(teacher){  
+  
+            if(  
+                teacher.active === false  
+            ){  
+  
+                return;  
+  
+            }  
+  
+  
+            const option =  
+            document.createElement(  
+                "option"  
+            );  
+  
+  
+            option.value =  
+            teacher.id;  
+  
+  
+            option.textContent =  
+            teacher.name +  
+            (  
+                teacher.code  
+                ?  
+                " — " +  
+                teacher.code  
+                :  
+                ""  
+            );  
+  
+  
+            lessonTeacherSelect.appendChild(  
+                option  
+            );  
+  
+        }  
+    );  
+  
+}  
+  
+  
+/* =========================  
+   إنشاء الحصة  
+========================= */  
+  
+createLessonButton.addEventListener(  
+    "click",  
+    async function(){  
+  
+        const studentId =  
+        lessonStudentSelect.value;  
+  
+        const teacherId =  
+        lessonTeacherSelect.value;  
+  
+        const subject =  
+        lessonSubject.value.trim();  
+  
+        const date =  
+        lessonDate.value;  
+  
+        const startTime =  
+        lessonStartTime.value;  
+  
+        const endTime =  
+        lessonEndTime.value;  
+  
+        const meetingUrl =  
+        fixMeetingUrl(  
+            lessonMeetingUrl.value  
+        );  
+  
+  
+        if(!studentId){  
+  
+            showLessonMessage(  
+                "⚠️ اختر الطالب.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!teacherId){  
+  
+            showLessonMessage(  
+                "⚠️ اختر المدرس.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!subject){  
+  
+            showLessonMessage(  
+                "⚠️ اكتب المادة.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!date){  
+  
+            showLessonMessage(  
+                "⚠️ اختر تاريخ الحصة.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!startTime){  
+  
+            showLessonMessage(  
+                "⚠️ اختر وقت بداية الحصة.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!endTime){  
+  
+            showLessonMessage(  
+                "⚠️ اختر وقت انتهاء الحصة.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(startTime >= endTime){  
+  
+            showLessonMessage(  
+                "⚠️ وقت النهاية يجب أن يكون بعد وقت البداية.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        const student =  
+        studentsCache.find(  
+            function(item){  
+  
+                return item.id ===  
+                studentId;  
+  
+            }  
+        );  
+  
+  
+        const teacher =  
+        teachersCache.find(  
+            function(item){  
+  
+                return item.id ===  
+                teacherId;  
+  
+            }  
+        );  
+  
+  
+        if(!student){  
+  
+            showLessonMessage(  
+                "❌ الطالب غير موجود.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        if(!teacher){  
+  
+            showLessonMessage(  
+                "❌ المدرس غير موجود.",  
+                "error"  
+            );  
+  
+            return;  
+  
+        }  
+  
+  
+        createLessonButton.disabled =  
+        true;  
+  
+        createLessonButton.textContent =  
+        "⏳ جاري إنشاء الحصة...";  
+  
+  
+        try{  
+  
+            await addDoc(  
+  
+                collection(  
+                    db,  
+                    "liveSessions"  
+                ),  
+  
+                {  
+  
+                    studentId:  
+                    student.id,  
+  
+                    studentName:  
+                    student.name,  
+  
+                    teacherId:  
+                    teacher.id,  
+  
+                    teacherName:  
+                    teacher.name,  
+  
+                    subject:  
+                    subject,  
+  
+                    lessonDate:  
+                    date,  
+  
+                    startTime:  
+                    startTime,  
+  
+                    endTime:  
+                    endTime,  
+  
+                    meetingUrl:  
+                    meetingUrl,  
+  
+                    status:  
+                    "scheduled",  
+  
+                    createdAt:  
+                    serverTimestamp()  
+  
+                }  
+  
+            );  
+  
+  
+            showLessonMessage(  
+                "✅ تم إنشاء الحصة بنجاح.",  
+                "success"  
+            );  
+  
+  
+            lessonStudentSelect.value =  
+            "";  
+  
+            lessonTeacherSelect.value =  
+            "";  
+  
+            lessonSubject.value =  
+            "";  
+  
+            lessonDate.value =  
+            "";  
+  
+            lessonStartTime.value =  
+            "";  
+  
+            lessonEndTime.value =  
+            "";  
+  
+            lessonMeetingUrl.value =  
+            "";  
+  
+  
+            await loadLessons();  
+  
+  
+        }catch(error){  
+  
+            console.error(  
+                error  
+            );  
+  
+  
+            showLessonMessage(  
+                "❌ تعذر إنشاء الحصة: " +  
+                error.message,  
+                "error"  
+            );  
+  
+        }finally{  
+  
+            createLessonButton.disabled =  
+            false;  
+  
+            createLessonButton.textContent =  
+            "➕ إنشاء الحصة";  
+  
+        }  
+  
+    }  
+);  
+  
+  
+/* =========================  
+   تحميل الحصص  
+========================= */  
+  
+async function loadLessons(){  
+  
+    lessonsList.innerHTML =  
+    "⏳ جاري تحميل الحصص...";  
+  
+  
+    try{  
+  
+        const result =  
+        await getDocs(  
+            collection(  
+                db,  
+                "liveSessions"  
+            )  
+        );  
+  
+  
+        if(result.empty){  
+  
+            lessonsList.innerHTML = `  
+  
+                <div class="empty">  
+  
+                    لا توجد حصص مجدولة حاليًا.  
+  
+                </div>  
+  
+            `;  
+  
+            return;  
+  
+        }  
+  
+  
+        lessonsList.innerHTML =  
+        "";  
+  
+  
+        result.forEach(  
+            function(item){  
+  
+                const lesson =  
+                item.data();  
+  
+  
+                const div =  
+                document.createElement(  
+                    "div"  
+                );  
+  
+  
+                div.className =  
+                "item";  
+  
+  
+                const statusText =  
+                lesson.status ===  
+                "scheduled"  
+  
+                ?  
+  
+                "🟢 مجدولة"  
+  
+                :  
+  
+                lesson.status ===  
+                "cancelled"  
+  
+                ?  
+  
+                "🔴 ملغاة"  
+  
+                :  
+  
+                safe(  
+                    lesson.status ||  
+                    "-"  
+                );  
+  
+  
+                const fixedMeetingUrl =  
+                fixMeetingUrl(  
+                    lesson.meetingUrl  
+                );  
+  
+  
+                div.innerHTML = `  
+  
+                    📚 <strong>  
+                    ${safe(  
+                        lesson.subject ||  
+                        "بدون مادة"  
+                    )}  
+                    </strong>  
+  
+                    <br>  
+  
+                    👨‍🎓 الطالب:  
+                    ${safe(  
+                        lesson.studentName ||  
+                        "-"  
+                    )}  
+  
+                    <br>  
+  
+                    👨‍🏫 المدرس:  
+                    ${safe(  
+                        lesson.teacherName ||  
+                        "-"  
+                    )}  
+  
+                    <br>  
+  
+                    📅 التاريخ:  
+                    ${safe(  
+                        lesson.lessonDate ||  
+                        "-"  
+                    )}  
+  
+                    <br>  
+  
+                    🟢 وقت الدخول:  
+                    <strong>  
+                    ${safe(  
+                        lesson.startTime ||  
+                        "-"  
+                    )}  
+                    </strong>  
+  
+                    <br>  
+  
+                    🔴 وقت الانتهاء:  
+                    <strong>  
+                    ${safe(  
+                        lesson.endTime ||  
+                        "-"  
+                    )}  
+                    </strong>  
+  
+                    <br>  
+  
+                    📊 الحالة:  
+  
+                    <span class="lesson-status">  
+  
+                    ${statusText}  
+  
+                    </span>  
+  
+                    <br><br>  
+  
+                    ${  
+                        fixedMeetingUrl  
+                        ?  
+                        `  
+                        <a  
+                            href="${safe(fixedMeetingUrl)}"  
+                            target="_blank"  
+                            rel="noopener noreferrer"  
+                            style="  
+                                display:block;  
+                                text-align:center;  
+                                background:#198754;  
+                                color:white;  
+                                text-decoration:none;  
+                                padding:12px;  
+                                border-radius:10px;  
+                                margin-bottom:10px;  
+                                font-weight:bold;  
+                            ">  
+  
+                            🎥 فتح رابط الحصة  
+  
+                        </a>  
+                        `  
+                        :  
+                        `  
+                        <div  
+                            style="  
+                                text-align:center;  
+                                background:#eee;  
+                                color:#777;  
+                                padding:10px;  
+                                border-radius:10px;  
+                                margin-bottom:10px;  
+                            ">  
+  
+                            ⚠️ لا يوجد رابط للحصة  
+  
+                        </div>  
+                        `  
+                    }  
+  
+                    <button  
+                    class="delete-button">  
+  
+                    🗑️ حذف الحصة  
+  
+                    </button>  
+  
+                `;  
+  
+  
+                const deleteButton =  
+                div.querySelector(  
+                    ".delete-button"  
+                );  
+  
+  
+                deleteButton.addEventListener(  
+                    "click",  
+                    async function(){  
+  
+                        const confirmed =  
+                        confirm(  
+                            "هل تريد حذف هذه الحصة؟"  
+                        );  
+  
+  
+                        if(!confirmed){  
+  
+                            return;  
+  
+                        }  
+  
+  
+                        try{  
+  
+                            await deleteDoc(  
+  
+                                doc(  
+                                    db,  
+                                    "liveSessions",  
+                                    item.id  
+                                )  
+  
+                            );  
+  
+  
+                            await loadLessons();  
+  
+  
+                        }catch(error){  
+  
+                            alert(  
+                                "❌ تعذر حذف الحصة: " +  
+                                error.message  
+                            );  
+  
+                        }  
+  
+                    }  
+                );  
+  
+  
+                lessonsList.appendChild(  
+                    div  
+                );  
+  
+            }  
+        );  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            error  
+        );  
+  
+  
+        lessonsList.innerHTML = `  
+  
+            <div class="empty">  
+  
+                ❌ تعذر تحميل الحصص المجدولة.  
+  
+                <br><br>  
+  
+                ${safe(error.message)}  
+  
+            </div>  
+  
+        `;  
+  
+    }  
+  
+}  
+  
+  
+/* =========================  
+   طلبات التسجيل  
+========================= */  
+  
+async function loadRequests(){  
+  
+    requestsList.innerHTML =  
+    "⏳ جاري تحميل الطلبات...";  
+  
+    try{  
+  
+        const result =  
+        await getDocs(  
+            collection(  
+                db,  
+                "bookingRequests"  
+            )  
+        );  
+  
+        requestsCount.textContent =  
+        result.size;  
+  
+        if(result.empty){  
+  
+            requestsList.innerHTML = `  
+  
+                <div class="empty">  
+  
+                    لا توجد طلبات تسجيل.  
+  
+                </div>  
+  
+            `;  
+  
+            return;  
+  
+        }  
+  
+        requestsList.innerHTML =  
+        "";  
+  
+        result.forEach(  
+            function(item){  
+  
+                const request =  
+                item.data();  
+  
+                const div =  
+                document.createElement(  
+                    "div"  
+                );  
+  
+                div.className =  
+                "item";  
+  
+                const status =  
+                request.status ||  
+                "pending";  
+  
+                div.innerHTML = `  
+  
+                    👤 <strong>  
+                    ${safe(  
+                        request.name ||  
+                        "بدون اسم"  
+                    )}  
+                    </strong>  
+  
+                    <br>  
+  
+                    📱 الهاتف:  
+                    ${safe(  
+                        request.phone ||  
+                        "-"  
+                    )}  
+  
+                    <br>  
+  
+                    🎂 العمر:  
+                    ${safe(  
+                        request.age ||  
+                        "-"  
+                    )}  
+  
+                    <br>  
+  
+                    👨‍🏫 المدرس المطلوب:  
+                    ${safe(  
+                        request.teacher ||  
+                        "لم يتم تحديده"  
+                    )}  
+  
+                    <br>  
+  
+                    📊 الحالة:  
+  
+                    ${  
+                        status === "approved"  
+                        ?  
+                        "✅ تمت الموافقة"  
+  
+                        :  
+  
+                        status === "rejected"  
+                        ?  
+                        "❌ مرفوض"  
+  
+                        :  
+                        "🟡 بانتظار المراجعة"  
+                    }  
+  
+                    ${  
+                        status === "pending"  
+                        ?  
+                        `  
+  
+                        <div style="  
+                            margin-top:15px;  
+                            display:grid;  
+                            grid-template-columns:1fr 1fr;  
+                            gap:10px;  
+                        ">  
+  
+                            <button  
+                                class="approve-button"  
+                                style="  
+                                    background:#198754;  
+                                    color:white;  
+                                    border:0;  
+                                    border-radius:10px;  
+                                    padding:13px;  
+                                    font-size:15px;  
+                                    font-weight:bold;  
+                                    cursor:pointer;  
+                                ">  
+  
+                                ✅ موافقة  
+  
+                            </button>  
+  
+                            <button  
+                                class="reject-button"  
+                                style="  
+                                    background:#dc3545;  
+                                    color:white;  
+                                    border:0;  
+                                    border-radius:10px;  
+                                    padding:13px;  
+                                    font-size:15px;  
+                                    font-weight:bold;  
+                                    cursor:pointer;  
+                                ">  
+  
+                                ❌ رفض  
+  
+                            </button>  
+  
+                        </div>  
+  
+                        `  
+                        :  
+                        ""  
+                    }  
+  
+                `;  
+  
+  
+                const approveButton =  
+                div.querySelector(  
+                    ".approve-button"  
+                );  
+  
+  
+                const rejectButton =  
+                div.querySelector(  
+                    ".reject-button"  
+                );  
+  
+  
+                /* =========================  
+                   الموافقة على الطالب  
+                ========================= */  
+  
+                if(approveButton){  
+  
+                    approveButton.addEventListener(  
+                        "click",  
+                        async function(){  
+  
+                            const confirmed =  
+                            confirm(  
+                                "هل تريد الموافقة على تسجيل هذا الطالب؟"  
+                            );  
+  
+                            if(!confirmed){  
+  
+                                return;  
+  
+                            }  
+  
+                            approveButton.disabled =  
+                            true;  
+  
+                            rejectButton.disabled =  
+                            true;  
+  
+                            approveButton.textContent =  
+                            "⏳ جاري الموافقة...";  
+  
+                            try{  
+  
+                                /*  
+                                توليد كود طالب جديد  
+                                */  
+  
+                                const code =  
+                                await generateUniqueCode(  
+                                    "students"  
+                                );  
+  
+  
+                                /*  
+                                إنشاء الطالب  
+                                */  
+  
+                                await addDoc(  
+  
+                                    collection(  
+                                        db,  
+                                        "students"  
+                                    ),  
+  
+                                    {  
+  
+                                        name:  
+                                        request.name ||  
+                                        "",  
+  
+                                        phone:  
+                                        request.phone ||  
+                                        "",  
+  
+                                        age:  
+                                        request.age ||  
+                                        "",  
+  
+                                        teacher:  
+                                        request.teacher ||  
+                                        "",  
+  
+                                        code:  
+                                        code,  
+  
+                                        active:  
+                                        true,  
+  
+                                        createdAt:  
+                                        serverTimestamp()  
+  
+                                    }  
+  
+                                );  
+  
+  
+                                /*  
+                                تحديث حالة الطلب  
+                                */  
+  
+                                await updateDoc(  
+  
+                                    doc(  
+                                        db,  
+                                        "bookingRequests",  
+                                        item.id  
+                                    ),  
+  
+                                    {  
+  
+                                        status:  
+                                        "approved",  
+  
+                                        approvedAt:  
+                                        serverTimestamp()  
+  
+                                    }  
+  
+                                );  
+  
+  
+                                alert(  
+                                    "✅ تمت الموافقة على الطالب.\n\n" +  
+                                    "كود الطالب:\n" +  
+                                    code  
+                                );  
+  
+  
+                                /*  
+                                إعادة تحميل الطلبات  
+                                */  
+  
+                                await loadRequests();  
+  
+  
+                                /*  
+                                إعادة تحميل الطلاب  
+                                */  
+  
+                                await loadStudents();  
+  
+                                fillLessonStudents();  
+  
+  
+                            }catch(error){  
+  
+                                console.error(  
+                                    "Approve request:",  
+                                    error  
+                                );  
+  
+                                alert(  
+                                    "❌ تعذر الموافقة على الطلب:\n\n" +  
+                                    error.message  
+                                );  
+  
+                                approveButton.disabled =  
+                                false;  
+  
+                                rejectButton.disabled =  
+                                false;  
+  
+                                approveButton.textContent =  
+                                "✅ موافقة";  
+  
+                            }  
+  
+                        }  
+                    );  
+  
+                }  
+  
+  
+                /* =========================  
+                   رفض الطلب  
+                ========================= */  
+  
+                if(rejectButton){  
+  
+                    rejectButton.addEventListener(  
+                        "click",  
+                        async function(){  
+  
+                            const confirmed =  
+                            confirm(  
+                                "هل تريد رفض طلب تسجيل هذا الطالب؟"  
+                            );  
+  
+                            if(!confirmed){  
+  
+                                return;  
+  
+                            }  
+  
+                            rejectButton.disabled =  
+                            true;  
+  
+                            approveButton.disabled =  
+                            true;  
+  
+                            rejectButton.textContent =  
+                            "⏳ جاري الرفض...";  
+  
+                            try{  
+  
+                                await updateDoc(  
+  
+                                    doc(  
+                                        db,  
+                                        "bookingRequests",  
+                                        item.id  
+                                    ),  
+  
+                                    {  
+  
+                                        status:  
+                                        "rejected",  
+  
+                                        rejectedAt:  
+                                        serverTimestamp()  
+  
+                                    }  
+  
+                                );  
+  
+  
+                                await loadRequests();  
+  
+  
+                            }catch(error){  
+  
+                                console.error(  
+                                    "Reject request:",  
+                                    error  
+                                );  
+  
+                                alert(  
+                                    "❌ تعذر رفض الطلب:\n\n" +  
+                                    error.message  
+                                );  
+  
+                                rejectButton.disabled =  
+                                false;  
+  
+                                approveButton.disabled =  
+                                false;  
+  
+                                rejectButton.textContent =  
+                                "❌ رفض";  
+  
+                            }  
+  
+                        }  
+                    );  
+  
+                }  
+  
+  
+                requestsList.appendChild(  
+                    div  
+                );  
+  
+            }  
+        );  
+  
+  
+    }catch(error){  
+  
+        console.error(  
+            error  
+        );  
+  
+        requestsList.innerHTML = `  
+  
+            <div class="empty">  
+  
+                ❌ تعذر تحميل الطلبات.  
+  
+                <br><br>  
+  
+                ${safe(  
+                    error.message  
+                )}  
+  
+            </div>  
+  
+        `;  
+  
+    }  
+  
+    }  
+  
+/* =========================  
+   رسائل الطلاب  
+========================= */  
+  
+function showStudentMessage(  
+    text,  
+    type  
+){  
+  
+    studentMessage.textContent =  
+    text;  
+  
+  
+    studentMessage.className =  
+    "message " +  
+    (  
+        type === "success"  
+        ?  
+        "success"  
+        :  
+        "error"  
+    );  
+  
+  
+    studentMessage.style.display =  
+    "block";  
+  
+}  
+  
+  
+/* =========================  
+   رسائل المدرسين  
+========================= */  
+  
+function showTeacherMessage(  
+    text,  
+    type  
+){  
+  
+    teacherMessage.textContent =  
+    text;  
+  
+  
+    teacherMessage.className =  
+    "message " +  
+    (  
+        type === "success"  
+        ?  
+        "success"  
+        :  
+        "error"  
+    );  
+  
+  
+    teacherMessage.style.display =  
+    "block";  
+  
+}  
+  
+  
+/* =========================  
+   رسالة الحصة  
+========================= */  
+  
+function showLessonMessage(  
+    text,  
+    type  
+){  
+  
+    lessonMessage.textContent =  
+    text;  
+  
+  
+    lessonMessage.className =  
+    "message " +  
+    (  
+        type === "success"  
+        ?  
+        "success"  
+        :  
+        "error"  
+    );  
+  
+  
+    lessonMessage.style.display =  
+    "block";  
+  
+}  
+  
+  
+/* =========================  
+   رسالة الدخول  
+========================= */  
+  
+function showLoginError(  
+    text  
+){  
+  
+    loginMessage.textContent =  
+    text;  
+  
+  
+    loginMessage.style.display =  
+    text  
+    ?  
+    "block"  
+    :  
+    "none";  
+  
+}  
+  
+  
+/* =========================  
+   إظهار تسجيل الدخول  
+========================= */  
+  
+function showLogin(){  
+  
+    loginCard.style.display =  
+    "block";  
+  
+  
+    dashboard.style.display =  
+    "none";  
+  
+}  
+  
+  
+/* =========================  
+   إظهار الإدارة  
+========================= */  
+  
+function showDashboard(){  
+  
+    loginCard.style.display =  
+    "none";  
+  
+  
+    dashboard.style.display =  
+    "block";  
+  
+}  
+  
+  
+/* =========================  
+   حماية النص  
+========================= */  
+  
+function safe(value){  
+  
+    return String(  
+        value ?? ""  
+    )  
+  
+    .replace(  
+        /&/g,  
+        "&amp;"  
+    )  
+  
+    .replace(  
+        /</g,  
+        "&lt;"  
+    )  
+  
+    .replace(  
+        />/g,  
+        "&gt;"  
+    )  
+  
+    .replace(  
+        /"/g,  
+        "&quot;"  
+    )  
+  
+    .replace(  
+        /'/g,  
+        "&#039;"  
+    );  
+  
+}  
+  
+  
+console.log(  
+    "✅ admin.html - جنود الهدى يعمل"  
+);  
+  
+</script>  </body>  </html>
