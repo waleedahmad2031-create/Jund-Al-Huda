@@ -446,6 +446,8 @@ import {
 import {
     collection,
     getDocs,
+    getDoc,
+    doc,
     query,
     where
 } from
@@ -457,58 +459,38 @@ import {
 ========================================= */
 
 const meetButton =
-document.getElementById(
-    "meetButton"
-);
+document.getElementById("meetButton");
 
 const meetLink =
-document.getElementById(
-    "meetLink"
-);
+document.getElementById("meetLink");
 
 const copyButton =
-document.getElementById(
-    "copyButton"
-);
+document.getElementById("copyButton");
 
 const copyMessage =
-document.getElementById(
-    "copyMessage"
-);
+document.getElementById("copyMessage");
 
 const roleText =
-document.getElementById(
-    "roleText"
-);
+document.getElementById("roleText");
 
 const userData =
-document.getElementById(
-    "userData"
-);
+document.getElementById("userData");
 
 const statusBox =
-document.getElementById(
-    "statusBox"
-);
+document.getElementById("statusBox");
 
 const lessonTitle =
-document.getElementById(
-    "lessonTitle"
-);
+document.getElementById("lessonTitle");
 
 const backButton =
-document.getElementById(
-    "backButton"
-);
+document.getElementById("backButton");
 
 const clearButton =
-document.getElementById(
-    "clearButton"
-);
+document.getElementById("clearButton");
 
 
 /* =========================================
-   قراءة الدور
+   قراءة الرابط
 ========================================= */
 
 const params =
@@ -541,30 +523,11 @@ function escapeHtml(value){
         value ?? ""
     )
 
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -580,13 +543,11 @@ function fixMeetingUrl(url){
         url || ""
     ).trim();
 
-
     if(!url){
 
         return "";
 
     }
-
 
     if(
         url.startsWith("https://") ||
@@ -597,14 +558,13 @@ function fixMeetingUrl(url){
 
     }
 
-
     return "https://" + url;
 
 }
 
 
 /* =========================================
-   تغيير حالة الصفحة
+   حالة الصفحة
 ========================================= */
 
 function setStatus(
@@ -615,10 +575,8 @@ function setStatus(
     statusBox.textContent =
     text;
 
-
     statusBox.className =
     "status";
-
 
     if(type){
 
@@ -632,7 +590,7 @@ function setStatus(
 
 
 /* =========================================
-   إخفاء رابط Meet
+   إخفاء الرابط
 ========================================= */
 
 function hideMeeting(){
@@ -652,16 +610,13 @@ function hideMeeting(){
 
 
 /* =========================================
-   عرض رابط Meet بعد التحقق
+   عرض الرابط
 ========================================= */
 
 function showMeeting(url){
 
     meetingUrl =
-    fixMeetingUrl(
-        url
-    );
-
+    fixMeetingUrl(url);
 
     if(!meetingUrl){
 
@@ -671,18 +626,14 @@ function showMeeting(url){
 
     }
 
-
     meetLink.textContent =
     meetingUrl;
-
 
     meetButton.href =
     meetingUrl;
 
-
     meetButton.style.display =
     "block";
-
 
     copyButton.style.display =
     "block";
@@ -691,27 +642,17 @@ function showMeeting(url){
 
 
 /* =========================================
-   الحصول على الطالب المحفوظ
+   الطالب المحفوظ
 ========================================= */
 
 function getSavedStudent(){
 
     try{
 
-        /*
-        online.html الحالي يستخدم
-        jund_alhuda_student
-        */
-
         let saved =
         localStorage.getItem(
             "jund_alhuda_student"
         );
-
-
-        /*
-        دعم الاسم القديم أيضًا
-        */
 
         if(!saved){
 
@@ -722,19 +663,14 @@ function getSavedStudent(){
 
         }
 
-
         if(!saved){
 
             return null;
 
         }
 
-
         const student =
-        JSON.parse(
-            saved
-        );
-
+        JSON.parse(saved);
 
         if(
             !student ||
@@ -744,7 +680,6 @@ function getSavedStudent(){
             return null;
 
         }
-
 
         return student;
 
@@ -763,7 +698,7 @@ function getSavedStudent(){
 
 
 /* =========================================
-   التحقق من الطالب في Firebase
+   التحقق من الطالب
 ========================================= */
 
 async function verifyStudent(){
@@ -771,105 +706,72 @@ async function verifyStudent(){
     const savedStudent =
     getSavedStudent();
 
-
     if(!savedStudent){
 
         return null;
 
     }
 
+    const code =
+    String(
+        savedStudent.code || ""
+    );
 
-    try{
+    if(!code){
 
-        /*
-        نتحقق بالكود الموجود
-        في الجلسة المحفوظة.
-        */
-
-        const code =
-        String(
-            savedStudent.code || ""
-        );
-
-
-        if(!code){
-
-            return null;
-
-        }
-
-
-        const studentsQuery =
-        query(
-
-            collection(
-                db,
-                "students"
-            ),
-
-            where(
-                "code",
-                "==",
-                code
-            )
-
-        );
-
-
-        const result =
-        await getDocs(
-            studentsQuery
-        );
-
-
-        if(result.empty){
-
-            return null;
-
-        }
-
-
-        const studentDoc =
-        result.docs[0];
-
-
-        const student =
-        studentDoc.data();
-
-
-        if(
-            student.active === false
-        ){
-
-            return null;
-
-        }
-
-
-        /*
-        نعيد الطالب من Firebase
-        وليس من localStorage.
-        */
-
-        return {
-
-            id:
-            studentDoc.id,
-
-            ...student
-
-        };
-
-    }catch(error){
-
-        console.error(
-            "Verify student error:",
-            error
-        );
-
-        throw error;
+        return null;
 
     }
+
+    const studentsQuery =
+    query(
+
+        collection(
+            db,
+            "students"
+        ),
+
+        where(
+            "code",
+            "==",
+            code
+        )
+
+    );
+
+    const result =
+    await getDocs(
+        studentsQuery
+    );
+
+    if(result.empty){
+
+        return null;
+
+    }
+
+    const studentDoc =
+    result.docs[0];
+
+    const student =
+    studentDoc.data();
+
+    if(
+        student.active === false
+    ){
+
+        return null;
+
+    }
+
+    return {
+
+        id:
+        studentDoc.id,
+
+        ...student
+
+    };
 
 }
 
@@ -882,15 +784,76 @@ async function findStudentLesson(
     studentId
 ){
 
-    /*
-    إذا كان الرابط يحتوي lessonId
-    نستخدمه كأولوية.
-    */
+    const sessionId =
+    params.get("sessionId");
 
     const lessonId =
-    params.get(
-        "lessonId"
-    );
+    params.get("lessonId");
+
+    /*
+    إذا كان الرابط يحتوي sessionId
+    نحاول جلب الحصة مباشرة.
+    */
+
+    const directId =
+    sessionId ||
+    lessonId;
+
+    if(directId){
+
+        try{
+
+            const directDoc =
+            await getDoc(
+
+                doc(
+                    db,
+                    "liveSessions",
+                    directId
+                )
+
+            );
+
+            if(
+                directDoc.exists()
+            ){
+
+                const data =
+                directDoc.data();
+
+                if(
+                    String(
+                        data.studentId || ""
+                    )
+                    ===
+                    String(
+                        studentId
+                    )
+                ){
+
+                    return {
+
+                        id:
+                        directDoc.id,
+
+                        ...data
+
+                    };
+
+                }
+
+            }
+
+        }catch(error){
+
+            console.error(
+                "Direct lesson error:",
+                error
+            );
+
+        }
+
+    }
 
 
     const result =
@@ -911,27 +874,19 @@ async function findStudentLesson(
         )
     );
 
-
     if(result.empty){
 
         return null;
 
     }
 
-
     const lessons = [];
 
-
     result.forEach(
-        function(doc){
+        function(item){
 
             const data =
-            doc.data();
-
-
-            /*
-            حماية إضافية مهمة جدًا
-            */
+            item.data();
 
             if(
                 String(
@@ -947,11 +902,10 @@ async function findStudentLesson(
 
             }
 
-
             lessons.push({
 
                 id:
-                doc.id,
+                item.id,
 
                 ...data
 
@@ -960,91 +914,14 @@ async function findStudentLesson(
         }
     );
 
-
     if(!lessons.length){
 
         return null;
 
     }
 
-
-    /*
-    إذا تم تحديد حصة معينة
-    نبحث عنها فقط.
-    */
-
-    if(lessonId){
-
-        const selected =
-        lessons.find(
-            function(item){
-
-                return String(
-                    item.id
-                )
-                ===
-                String(
-                    lessonId
-                );
-
-            }
-        );
-
-
-        if(selected){
-
-            return selected;
-
-        }
-
-
-        return null;
-
-    }
-
-
-    /*
-    ترتيب الحصص
-    */
-
-    lessons.sort(
-        function(a,b){
-
-            const aDate =
-            String(
-                a.lessonDate || ""
-            ) +
-            " " +
-            String(
-                a.startTime || ""
-            );
-
-
-            const bDate =
-            String(
-                b.lessonDate || ""
-            ) +
-            " " +
-            String(
-                b.startTime || ""
-            );
-
-
-            return aDate.localeCompare(
-                bDate
-            );
-
-        }
-    );
-
-
-    /*
-    نختار الحصة الحالية
-    */
-
     const now =
     new Date();
-
 
     const current =
     lessons.find(
@@ -1060,14 +937,12 @@ async function findStudentLesson(
 
             }
 
-
             const start =
             new Date(
                 lesson.lessonDate +
                 "T" +
                 lesson.startTime
             );
-
 
             const end =
             new Date(
@@ -1076,13 +951,11 @@ async function findStudentLesson(
                 lesson.endTime
             );
 
-
             return now >= start &&
                    now <= end;
 
         }
     );
-
 
     if(current){
 
@@ -1090,14 +963,35 @@ async function findStudentLesson(
 
     }
 
+    lessons.sort(
+        function(a,b){
 
-    /*
-    إذا لا توجد حصة حالية
-    نأخذ أقرب حصة قادمة.
-    */
+            const aDate =
+            String(
+                a.lessonDate || ""
+            ) +
+            " " +
+            String(
+                a.startTime || ""
+            );
 
-    const upcoming =
-    lessons.find(
+            const bDate =
+            String(
+                b.lessonDate || ""
+            ) +
+            " " +
+            String(
+                b.startTime || ""
+            );
+
+            return aDate.localeCompare(
+                bDate
+            );
+
+        }
+    );
+
+    return lessons.find(
         function(lesson){
 
             if(
@@ -1109,7 +1003,6 @@ async function findStudentLesson(
 
             }
 
-
             const start =
             new Date(
                 lesson.lessonDate +
@@ -1117,14 +1010,10 @@ async function findStudentLesson(
                 lesson.startTime
             );
 
-
             return start >= now;
 
         }
-    );
-
-
-    return upcoming || lessons[0];
+    ) || lessons[0];
 
 }
 
@@ -1139,39 +1028,28 @@ async function loadStudent(){
         "⏳ جاري التحقق من بيانات الطالب..."
     );
 
-
     currentStudent =
     await verifyStudent();
-
 
     if(!currentStudent){
 
         hideMeeting();
 
-
         roleText.textContent =
         "⚠️ لم يتم التحقق من الطالب.";
-
 
         userData.innerHTML =
         "❌ لا توجد جلسة طالب صحيحة.<br>" +
         "ارجع إلى صفحة دخول الطالب وسجل الدخول من جديد.";
-
 
         setStatus(
             "❌ لا يمكن فتح الحصة بدون تسجيل دخول صحيح.",
             "error"
         );
 
-
         return;
 
     }
-
-
-    /*
-    عرض بيانات الطالب
-    */
 
     userData.innerHTML =
 
@@ -1186,60 +1064,42 @@ async function loadStudent(){
     "👨‍🏫 المدرس: " +
     escapeHtml(
         currentStudent.teacher ||
-        "لم يتم تحديده"
+        "-"
     )
     +
     "<br>" +
 
     "📚 الحصة: القرآن الكريم";
 
-
     roleText.textContent =
     "🎓 أنت داخل الحصة كطالب.";
-
-
-    /*
-    البحث عن حصته فقط
-    */
 
     const lesson =
     await findStudentLesson(
         currentStudent.id
     );
 
-
     if(!lesson){
 
         hideMeeting();
 
-
         lessonTitle.textContent =
         "📚 لا توجد حصة";
 
-
         roleText.textContent =
         "لا توجد حصة مخصصة لك حاليًا.";
-
 
         setStatus(
             "📚 ليس لديك حصة حاليًا.",
             "error"
         );
 
-
         meetLink.textContent =
         "❌ لا توجد حصة مخصصة لك.";
-
 
         return;
 
     }
-
-
-    /*
-    حماية نهائية:
-    الحصة يجب أن تكون للطالب نفسه
-    */
 
     if(
         String(
@@ -1253,25 +1113,17 @@ async function loadStudent(){
 
         hideMeeting();
 
-
         setStatus(
             "❌ هذه الحصة ليست مخصصة لك.",
             "error"
         );
 
-
-        meetLink.textContent =
-        "🔒 لا يمكنك الدخول إلى هذه الحصة.";
-
-
         return;
 
     }
 
-
     currentLesson =
     lesson;
-
 
     lessonTitle.textContent =
     "📖 " +
@@ -1279,11 +1131,6 @@ async function loadStudent(){
         lesson.subject ||
         "حصة القرآن الكريم"
     );
-
-
-    /*
-    عرض اسم الطالب الحقيقي
-    */
 
     userData.innerHTML =
 
@@ -1324,36 +1171,23 @@ async function loadStudent(){
         "-"
     );
 
-
-    /*
-    التحقق من رابط الحصة
-    */
-
     const url =
     fixMeetingUrl(
         lesson.meetingUrl
     );
 
-
     if(!url){
 
         hideMeeting();
-
 
         setStatus(
             "⚠️ الحصة موجودة ولكن لم يتم إضافة رابط Google Meet.",
             "error"
         );
 
-
         return;
 
     }
-
-
-    /*
-    الحصة ملغاة
-    */
 
     if(
         lesson.status ===
@@ -1362,32 +1196,23 @@ async function loadStudent(){
 
         hideMeeting();
 
-
         setStatus(
             "🔴 هذه الحصة ملغاة.",
             "error"
         );
 
-
         return;
 
     }
 
-
-    /*
-    التحقق من الوقت
-    */
-
     const now =
     new Date();
-
 
     let lessonStart =
     null;
 
     let lessonEnd =
     null;
-
 
     if(
         lesson.lessonDate &&
@@ -1403,7 +1228,6 @@ async function loadStudent(){
 
     }
 
-
     if(
         lesson.lessonDate &&
         lesson.endTime
@@ -1418,42 +1242,28 @@ async function loadStudent(){
 
     }
 
-
     const isNow =
     lessonStart &&
     lessonEnd &&
     now >= lessonStart &&
     now <= lessonEnd;
 
-
     const finished =
     lessonEnd &&
     now > lessonEnd;
 
-
-    /*
-    الحصة انتهت
-    */
-
     if(finished){
 
         hideMeeting();
-
 
         setStatus(
             "⏰ انتهت هذه الحصة.",
             "error"
         );
 
-
         return;
 
     }
-
-
-    /*
-    الحصة لم تبدأ
-    */
 
     if(
         lessonStart &&
@@ -1462,53 +1272,32 @@ async function loadStudent(){
 
         hideMeeting();
 
-
         setStatus(
             "⏳ الحصة لم تبدأ بعد.",
             ""
         );
 
-
         meetLink.textContent =
         "🔒 سيظهر رابط الحصة عند بدء الحصة.";
-
 
         return;
 
     }
 
-
-    /*
-    الحصة الحالية
-    */
-
     if(isNow){
 
-        showMeeting(
-            url
-        );
-
+        showMeeting(url);
 
         setStatus(
             "🟢 الحصة بدأت ويمكنك الدخول الآن.",
             "connected"
         );
 
-
         return;
 
     }
 
-
-    /*
-    إذا لم نستطع تحديد الوقت
-    ولكن الحصة موجودة والرابط صحيح
-    */
-
-    showMeeting(
-        url
-    );
-
+    showMeeting(url);
 
     setStatus(
         "🟢 الحصة جاهزة للدخول.",
@@ -1519,47 +1308,576 @@ async function loadStudent(){
 
 
 /* =========================================
-   المدرس
+   البحث عن حصة المدرس
 ========================================= */
 
-async function loadTeacher(){
+async function findTeacherLesson(){
 
-    roleText.textContent =
-    "👨‍🏫 أنت داخل الحصة كمدرس.";
+    /*
+    إذا كان رابط المدرس يحتوي
+    sessionId أو lessonId
+    نستخدم الحصة مباشرة.
+    */
 
+    const sessionId =
+    params.get("sessionId");
 
-    userData.innerHTML =
-    "👨‍🏫 الدور: المدرس<br>" +
-    "🎥 سيتم استخدام رابط الحصة المخصص للمدرس.";
+    const lessonId =
+    params.get("lessonId");
+
+    const directId =
+    sessionId ||
+    lessonId;
+
+    if(directId){
+
+        try{
+
+            const lessonDoc =
+            await getDoc(
+
+                doc(
+                    db,
+                    "liveSessions",
+                    directId
+                )
+
+            );
+
+            if(
+                lessonDoc.exists()
+            ){
+
+                return {
+
+                    id:
+                    lessonDoc.id,
+
+                    ...lessonDoc.data()
+
+                };
+
+            }
+
+        }catch(error){
+
+            console.error(
+                "Teacher direct lesson error:",
+                error
+            );
+
+        }
+
+    }
 
 
     /*
-    المدرس فقط يمكنه استخدام
-    الرابط الافتراضي القديم.
-    الطالب لا يحصل عليه أبدًا.
+    إذا لم يوجد ID للحصة،
+    نقرأ الحصص ونختار الحالية،
+    ثم القادمة.
     */
 
-    const teacherMeetingUrl =
-    "https://meet.google.com/usr-jfhn-hxs";
-
-
-    showMeeting(
-        teacherMeetingUrl
+    const result =
+    await getDocs(
+        collection(
+            db,
+            "liveSessions"
+        )
     );
 
+    if(result.empty){
 
-    statusBox.textContent =
-    "🟢 الحصة جاهزة للدخول.";
+        return null;
 
+    }
 
-    statusBox.className =
-    "status connected";
+    const lessons = [];
+
+    result.forEach(
+        function(item){
+
+            lessons.push({
+
+                id:
+                item.id,
+
+                ...item.data()
+
+            });
+
+        }
+    );
+
+    const now =
+    new Date();
+
+    /*
+    الحصة الجارية
+    */
+
+    const current =
+    lessons.find(
+        function(lesson){
+
+            if(
+                !lesson.lessonDate ||
+                !lesson.startTime ||
+                !lesson.endTime
+            ){
+
+                return false;
+
+            }
+
+            const start =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.startTime
+            );
+
+            const end =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.endTime
+            );
+
+            return now >= start &&
+                   now <= end;
+
+        }
+    );
+
+    if(current){
+
+        return current;
+
+    }
+
+    /*
+    أقرب حصة قادمة
+    */
+
+    const upcoming =
+    lessons
+    .filter(
+        function(lesson){
+
+            if(
+                !lesson.lessonDate ||
+                !lesson.startTime
+            ){
+
+                return false;
+
+            }
+
+            const start =
+            new Date(
+                lesson.lessonDate +
+                "T" +
+                lesson.startTime
+            );
+
+            return start >= now;
+
+        }
+    )
+    .sort(
+        function(a,b){
+
+            const aDate =
+            String(
+                a.lessonDate || ""
+            ) +
+            " " +
+            String(
+                a.startTime || ""
+            );
+
+            const bDate =
+            String(
+                b.lessonDate || ""
+            ) +
+            " " +
+            String(
+                b.startTime || ""
+            );
+
+            return aDate.localeCompare(
+                bDate
+            );
+
+        }
+    );
+
+    if(upcoming.length){
+
+        return upcoming[0];
+
+    }
+
+    /*
+    إذا انتهت كل الحصص،
+    نعرض آخر حصة حتى يظهر وقتها.
+    */
+
+    lessons.sort(
+        function(a,b){
+
+            const aDate =
+            String(
+                a.lessonDate || ""
+            ) +
+            " " +
+            String(
+                a.startTime || ""
+            );
+
+            const bDate =
+            String(
+                b.lessonDate || ""
+            ) +
+            " " +
+            String(
+                b.startTime || ""
+            );
+
+            return bDate.localeCompare(
+                aDate
+            );
+
+        }
+    );
+
+    return lessons[0] || null;
 
 }
 
 
 /* =========================================
-   فتح Google Meet
+   حساب حالة حصة المدرس
+========================================= */
+
+function getTeacherLessonState(
+    lesson
+){
+
+    if(
+        !lesson ||
+        !lesson.lessonDate
+    ){
+
+        return {
+            state:"unknown",
+            text:"⚠️ تاريخ الحصة غير موجود."
+        };
+
+    }
+
+    if(
+        !lesson.startTime ||
+        !lesson.endTime
+    ){
+
+        return {
+            state:"unknown",
+            text:"⚠️ وقت الحصة غير مكتمل."
+        };
+
+    }
+
+    const now =
+    new Date();
+
+    const start =
+    new Date(
+        lesson.lessonDate +
+        "T" +
+        lesson.startTime
+    );
+
+    const end =
+    new Date(
+        lesson.lessonDate +
+        "T" +
+        lesson.endTime
+    );
+
+    if(now < start){
+
+        return {
+            state:"upcoming",
+            text:"⏳ الحصة لم تبدأ بعد."
+        };
+
+    }
+
+    if(
+        now >= start &&
+        now <= end
+    ){
+
+        return {
+            state:"current",
+            text:"🟢 الحصة جارية الآن."
+        };
+
+    }
+
+    if(now > end){
+
+        return {
+            state:"finished",
+            text:"⏰ انتهت الحصة."
+        };
+
+    }
+
+    return {
+        state:"unknown",
+        text:"⚠️ تعذر تحديد حالة الحصة."
+    };
+
+}
+
+
+/* =========================================
+   المدرس
+========================================= */
+
+async function loadTeacher(){
+
+    setStatus(
+        "⏳ جاري تحميل بيانات الحصة..."
+    );
+
+    roleText.textContent =
+    "👨‍🏫 أنت داخل الحصة كمدرس.";
+
+    userData.innerHTML =
+    "⏳ جاري تحميل بيانات الحصة...";
+
+    /*
+    البحث عن الحصة من Firebase
+    */
+
+    const lesson =
+    await findTeacherLesson();
+
+    if(!lesson){
+
+        hideMeeting();
+
+        lessonTitle.textContent =
+        "📚 لا توجد حصة";
+
+        roleText.textContent =
+        "⚠️ لم يتم العثور على حصة مجدولة.";
+
+        userData.innerHTML =
+        "❌ لا توجد حصة في النظام حاليًا.";
+
+        setStatus(
+            "❌ لم يتم العثور على الحصة.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    currentLesson =
+    lesson;
+
+    /*
+    عرض بيانات الحصة للمدرس
+    */
+
+    lessonTitle.textContent =
+    "📖 " +
+    escapeHtml(
+        lesson.subject ||
+        "حصة القرآن الكريم"
+    );
+
+    userData.innerHTML =
+
+    "👨‍🏫 المدرس: " +
+    escapeHtml(
+        lesson.teacherName ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "👨‍🎓 الطالب: " +
+    escapeHtml(
+        lesson.studentName ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "📅 التاريخ: " +
+    escapeHtml(
+        lesson.lessonDate ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "🟢 بداية الحصة: " +
+    escapeHtml(
+        lesson.startTime ||
+        "-"
+    )
+    +
+    "<br>" +
+
+    "🔴 نهاية الحصة: " +
+    escapeHtml(
+        lesson.endTime ||
+        "-"
+    );
+
+    /*
+    إذا كانت الحصة ملغاة
+    */
+
+    if(
+        lesson.status ===
+        "cancelled"
+    ){
+
+        hideMeeting();
+
+        setStatus(
+            "🔴 هذه الحصة ملغاة.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    /*
+    حالة الوقت
+    */
+
+    const timeState =
+    getTeacherLessonState(
+        lesson
+    );
+
+    /*
+    رابط المدرس
+    */
+
+    const teacherMeetingUrl =
+    fixMeetingUrl(
+        lesson.meetingUrl
+    );
+
+    /*
+    إذا لم يوجد رابط
+    */
+
+    if(!teacherMeetingUrl){
+
+        hideMeeting();
+
+        setStatus(
+            "⚠️ لم يتم إضافة رابط Google Meet لهذه الحصة.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    /*
+    الحصة انتهت
+    */
+
+    if(
+        timeState.state ===
+        "finished"
+    ){
+
+        hideMeeting();
+
+        setStatus(
+            "⏰ انتهت الحصة.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    /*
+    الحصة لم تبدأ
+    */
+
+    if(
+        timeState.state ===
+        "upcoming"
+    ){
+
+        hideMeeting();
+
+        setStatus(
+            "⏳ الحصة لم تبدأ بعد.",
+            ""
+        );
+
+        meetLink.textContent =
+        "🔒 سيظهر رابط الحصة عند بدء الحصة.";
+
+        return;
+
+    }
+
+    /*
+    الحصة جارية
+    */
+
+    if(
+        timeState.state ===
+        "current"
+    ){
+
+        showMeeting(
+            teacherMeetingUrl
+        );
+
+        setStatus(
+            "🟢 الحصة جارية الآن ويمكنك الدخول.",
+            "connected"
+        );
+
+        return;
+
+    }
+
+    /*
+    حالة غير معروفة
+    */
+
+    hideMeeting();
+
+    setStatus(
+        timeState.text,
+        "error"
+    );
+
+}
+
+
+/* =========================================
+   زر فتح Google Meet
 ========================================= */
 
 meetButton.addEventListener(
@@ -1574,10 +1892,8 @@ meetButton.addEventListener(
 
         }
 
-
         statusBox.textContent =
         "🟢 جاري فتح Google Meet...";
-
 
         statusBox.className =
         "status connected";
@@ -1600,17 +1916,14 @@ copyButton.addEventListener(
 
         }
 
-
         try{
 
             await navigator.clipboard.writeText(
                 meetingUrl
             );
 
-
             copyMessage.style.display =
             "block";
-
 
             setTimeout(
                 function(){
@@ -1662,13 +1975,11 @@ clearButton.addEventListener(
             "هل تريد الخروج من الحصة؟"
         );
 
-
         if(!confirmExit){
 
             return;
 
         }
-
 
         localStorage.removeItem(
             "jund_alhuda_student"
@@ -1677,7 +1988,6 @@ clearButton.addEventListener(
         localStorage.removeItem(
             "studentSession"
         );
-
 
         window.location.href =
         "index.html";
@@ -1692,49 +2002,72 @@ clearButton.addEventListener(
 
 async function startPage(){
 
-    /*
-    مهم جدًا:
-
-    لا يوجد رابط Meet افتراضي للطالب.
-    */
-
     hideMeeting();
 
+    /*
+    الطالب
+    */
 
-    if(role === "teacher"){
+    if(role !== "teacher"){
 
-        await loadTeacher();
+        try{
+
+            await loadStudent();
+
+        }catch(error){
+
+            console.error(
+                "Student class error:",
+                error
+            );
+
+            hideMeeting();
+
+            roleText.textContent =
+            "❌ حدث خطأ أثناء التحقق.";
+
+            userData.innerHTML =
+            "❌ تعذر التحقق من بيانات الطالب.";
+
+            setStatus(
+                "❌ تعذر تحميل الحصة. حاول مرة أخرى.",
+                "error"
+            );
+
+        }
 
         return;
 
     }
 
+    /*
+    المدرس
+    */
 
     try{
 
-        await loadStudent();
+        await loadTeacher();
 
     }catch(error){
 
         console.error(
-            "Class page error:",
+            "Teacher class error:",
             error
         );
 
-
         hideMeeting();
 
-
         roleText.textContent =
-        "❌ حدث خطأ أثناء التحقق.";
-
+        "❌ حدث خطأ أثناء تحميل الحصة.";
 
         userData.innerHTML =
-        "❌ تعذر التحقق من بيانات الطالب.";
-
+        "❌ تعذر تحميل بيانات الحصة.<br>" +
+        escapeHtml(
+            error.message
+        );
 
         setStatus(
-            "❌ تعذر تحميل الحصة. حاول مرة أخرى.",
+            "❌ تعذر تحميل بيانات الحصة.",
             "error"
         );
 
@@ -1745,13 +2078,12 @@ async function startPage(){
 
 startPage();
 
-
 console.log(
     "✅ class.html يعمل"
 );
 
 console.log(
-    "🔒 حماية رابط الحصة مفعلة للطلاب"
+    "🔒 حماية رابط الحصة مفعلة"
 );
 
 </script>
